@@ -1,7 +1,5 @@
 import { path } from '@/constants/path'
-import Home from '@/pages/home/Home'
-import Login from '@/pages/login/Login'
-import Register from '@/pages/register/Register'
+import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour } from '@/pages'
 import { useRoutes } from 'react-router-dom'
 
 export default function useRoutesElements() {
@@ -9,7 +7,10 @@ export default function useRoutesElements() {
     { path: path.home, element: <Home /> },
     { path: path.login, element: <Login /> },
     { path: path.register, element: <Register /> },
-    { path: '*', element: <h1>404</h1> }
+    { path: path.tour, element: <Tour /> },
+    { path: path.hotel, element: <Hotel /> },
+    { path: path.flight, element: <Flight /> },
+    { path: '*', element: <PageNotFound /> }
   ])
 
   return routeElements

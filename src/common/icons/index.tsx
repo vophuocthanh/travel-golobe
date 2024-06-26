@@ -1,1 +1,5 @@
-export { default as IconHamberger } from './IconHamberger';
+export { default as IconBed } from './IconBed'
+export { default as IconFlight } from './IconFlight'
+export { default as IconGoogle } from './IconGoogle'
+export { default as IconHamberger } from './IconHamberger'
+export { default as IconPlane } from './IconPlane'

@@ -1,0 +1,6 @@
+export { default as Banner } from './banner/banner'
+export { default as Footer } from './footer/footer'
+export { default as Header } from './header/header'
+export { default as Perfect } from './perfect/perfect'
+export { default as Review } from './review/review'
+export { default as ThemeToogle } from './theme/theme-toogle'
