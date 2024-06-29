@@ -9,7 +9,7 @@ import axios, { AxiosResponse } from 'axios'
 export interface LoginResponse {
   access_token: string
   refresh_token: string
-  [key: string]: string
+  // [key: string]: string
 }
 
 const updateLocalAccessToken = (res: LoginResponse) => {

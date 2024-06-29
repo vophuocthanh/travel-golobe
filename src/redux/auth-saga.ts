@@ -9,6 +9,9 @@ import { call, fork, put, takeLatest } from 'redux-saga/effects'
 export interface Account {
   email: string
   password: string
+  confirmPassword?: string
+  name?: string
+  phone?: string
 }
 
 function* handleLogin(action: PayloadAction<Account>) {
