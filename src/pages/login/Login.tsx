@@ -13,11 +13,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function Login() {
+  const navigate = useNavigate()
   const images = [banner_login, banner_login2, banner_login3]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
@@ -41,6 +42,7 @@ export default function Login() {
       onSuccess: (data) => {
         setAccessTokenToLS(data.access_token)
         setRefreshTokenToLS(data.refresh_token)
+        navigate('/')
         toast.success('Login success 🚀🚀⚡⚡!')
       },
       onError: () => {

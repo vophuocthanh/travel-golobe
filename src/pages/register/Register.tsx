@@ -19,11 +19,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function Register() {
+  const navigate = useNavigate()
   const images = [banner_register, banner_register1, banner_register2, banner_register3, banner_register4]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
@@ -48,6 +49,7 @@ export default function Register() {
     setIsLoading(true)
     mutationRegister.mutate(form.getValues(), {
       onSuccess: () => {
+        navigate('/login')
         toast.success('Register success 🚀🚀⚡⚡')
       },
       onError: () => {
