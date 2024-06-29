@@ -113,7 +113,7 @@ export default function Login() {
                     Remember me
                   </Label>
                 </div>
-                <Link to='/forgot-password' className='text-red-400 hover:underline'>
+                <Link to='/forgot-password' className='text-redCustom hover:underline'>
                   Forgot Password
                 </Link>
               </div>
@@ -122,7 +122,7 @@ export default function Login() {
               </Button>
               <p className='flex items-center justify-center'>
                 Don’t have an account?&nbsp;{' '}
-                <Link to='/register' className='text-red-400 cursor-pointer hover:underline'>
+                <Link to='/register' className='cursor-pointer text-redCustom hover:underline'>
                   Sign up
                 </Link>
               </p>

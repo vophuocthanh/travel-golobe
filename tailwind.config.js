@@ -18,7 +18,8 @@ module.exports = {
         secondary: '#CDEAE1',
         grayDarkest: '#131316',
         grayDarker: '#212126',
-        grayDark: '#9394A1'
+        grayDark: '#9394A1',
+        redCustom: '#FF8682'
       },
       keyframes: {
         'accordion-down': {

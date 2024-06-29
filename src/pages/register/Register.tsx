@@ -162,8 +162,8 @@ export default function Register() {
                 <div className='flex items-center justify-center space-x-2'>
                   <Checkbox id='terms' className='w-4 h-4' />
                   <Label htmlFor='terms' className='text-base font-normal text-gray-500 cursor-pointer'>
-                    I agree to all the <span className='text-red-400'>Terms</span> and{' '}
-                    <span className='text-red-400'>Privacy Policies</span>
+                    I agree to all the <span className='text-redCustom'>Terms</span> and{' '}
+                    <span className='text-redCustom'>Privacy Policies</span>
                   </Label>
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function Register() {
               </Button>
               <p className='flex items-center justify-center'>
                 Already have an account?&nbsp;{' '}
-                <Link to='/login' className='text-red-400 underline cursor-pointer'>
+                <Link to='/login' className='cursor-pointer hover:underline text-redCustom'>
                   Login
                 </Link>
               </p>
