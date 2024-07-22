@@ -7,7 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { setAccessTokenToLS, setRefreshTokenToLS } from '@/utils/storage'
+import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/utils/storage'
 import { LoginSchema } from '@/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -42,7 +42,14 @@ export default function Login() {
       onSuccess: (data) => {
         setAccessTokenToLS(data.access_token)
         setRefreshTokenToLS(data.refresh_token)
-        navigate('/')
+        setUserToLS(data.user)
+
+        if (data?.user?.role === 'ADMIN') {
+          navigate('/admin')
+        } else {
+          navigate('/')
+        }
+
         toast.success('Login success 🚀🚀⚡⚡!')
       },
       onError: () => {

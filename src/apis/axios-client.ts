@@ -7,9 +7,9 @@ import { getRefreshTokenFromLS } from '@/utils/storage'
 import axios, { AxiosResponse } from 'axios'
 
 export interface LoginResponse {
+  user: { id: string; name: string; email: string; role: string }
   access_token: string
   refresh_token: string
-  // [key: string]: string
 }
 
 const updateLocalAccessToken = (res: LoginResponse) => {

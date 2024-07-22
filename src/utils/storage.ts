@@ -24,3 +24,7 @@ export const getProfileFromLS = () => {
   const result = localStorage.getItem('profile')
   return result ? JSON.parse(result) : null
 }
+
+export const setUserToLS = (user: { id: string; name: string; email: string; role: string }) => {
+  localStorage.setItem('user', JSON.stringify(user))
+}
