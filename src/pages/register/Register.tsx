@@ -28,6 +28,7 @@ export default function Register() {
   const images = [banner_register, banner_register1, banner_register2, banner_register3, banner_register4]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -63,6 +64,10 @@ export default function Register() {
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible)
+  }
+
+  const toggleConfirmPasswordVisibility = () => {
+    setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
   }
 
   return (
@@ -127,7 +132,12 @@ export default function Register() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder='Nhập password' className='w-full' type='password' {...field} />
+                      <Input
+                        placeholder='Nhập password'
+                        className='w-full'
+                        type={isPasswordVisible ? 'text' : 'password'}
+                        {...field}
+                      />
                     </FormControl>
                     <span
                       onClick={togglePasswordVisibility}
@@ -146,13 +156,18 @@ export default function Register() {
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
-                      <Input placeholder='Nhập confirm password' className='w-full' type='password' {...field} />
+                      <Input
+                        placeholder='Nhập confirm password'
+                        className='w-full'
+                        type={isConfirmPasswordVisible ? 'text' : 'password'}
+                        {...field}
+                      />
                     </FormControl>
                     <span
-                      onClick={togglePasswordVisibility}
+                      onClick={toggleConfirmPasswordVisibility}
                       className='absolute cursor-pointer right-[26rem] bottom-[15rem]   transform -translate-y-1/2'
                     >
-                      {isPasswordVisible ? <IconNonEye /> : <IconEye />}
+                      {isConfirmPasswordVisible ? <IconNonEye /> : <IconEye />}
                     </span>
                     <FormMessage />
                   </FormItem>
