@@ -1,18 +1,42 @@
 import { logo_footer, mailbox } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { dataActivities, dataDestinations, dataTravel } from '@/lib/data-type'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
+
+const dataIcon = [
+  {
+    id: 1,
+    icon: <Facebook />,
+    link: 'https://www.facebook.com/'
+  },
+  {
+    id: 2,
+    icon: <Instagram />,
+    link: 'https://www.instagram.com/'
+  },
+  {
+    id: 3,
+    icon: <Twitter />,
+    link: 'https://x.com/home'
+  },
+  {
+    id: 4,
+    icon: <Youtube />,
+    link: 'https://www.youtube.com/'
+  }
+]
 
 export default function Footer() {
   return (
     <div className='w-full h-96 bg-primary'>
-      <div className='max-w-7xl mx-auto'>
+      <div className='mx-auto max-w-7xl'>
         {/* Absolute */}
         <div className='relative'>
-          <div className='absolute inset-0 flex justify-center items-center'>
+          <div className='absolute inset-0 flex items-center justify-center'>
             <div className='w-[1000px] flex justify-center h-64 rounded-xl bg-[#CDEAE1]'>
-              <div className='p-0 w-full flex justify-between'>
+              <div className='flex justify-between w-full p-0'>
                 <div className='p-6 space-y-4'>
                   <h1 className='text-3xl font-bold'>
                     Subscribe <br /> Newsletter
@@ -23,7 +47,7 @@ export default function Footer() {
                   </div>
                   <div className='flex gap-4'>
                     <Input placeholder='Your email address' />
-                    <Button className='bg-black text-white hover:bg-white hover:text-black hover:transition-all hover:shadow-md'>
+                    <Button className='text-white bg-black hover:bg-white hover:text-black hover:transition-all hover:shadow-md'>
                       Subscribe
                     </Button>
                   </div>
@@ -39,50 +63,40 @@ export default function Footer() {
         {/* Absolute */}
 
         <div className='flex pt-44'>
-          <div className='grid grid-cols-6 gap-4 w-full'>
-            <div className='flex flex-col gap-4 w-full'>
-              <img src={logo_footer} alt='logo' className='w-28 h-10 ml-4' />
+          <div className='grid w-full grid-cols-6 gap-4 pl-16'>
+            <div className='flex flex-col w-full gap-4'>
+              <img src={logo_footer} alt='logo' className='h-10 ml-4 w-28' />
               <div className='flex gap-4'>
-                <Link to='https://www.facebook.com' target='_blank'>
-                  <Facebook className='w-6 h-6' />
-                </Link>
-                <Link to='https://www.instagram.com' target='_blank'>
-                  <Instagram className='w-6 h-6' />
-                </Link>
-                <Link to='https://x.com/home' target='_blank'>
-                  <Twitter className='w-6 h-6' />
-                </Link>
-                <Link to='https://www.youtube.com' target='_blank'>
-                  <Youtube className='w-6 h-6' />
-                </Link>
+                {dataIcon.map((icon) => (
+                  <Link key={icon.id} to={icon.link} target='_blank' className='hover:scale-105 hover:transition-all'>
+                    {icon.icon}
+                  </Link>
+                ))}
               </div>
             </div>
             <div>
               <h1 className='text-xl font-medium'>Our Destinations</h1>
-              <div className='flex flex-col gap-2 text-[#112211]'>
-                <p>Canada</p>
-                <p>Alaska</p>
-                <p>France</p>
-                <p>Iceland</p>
-              </div>
+              {dataDestinations.map((destination) => (
+                <div key={destination.id} className='flex flex-col gap-2 text-[#112211]'>
+                  <p className='cursor-pointer hover:underline'>{destination.name}</p>
+                </div>
+              ))}
             </div>
             <div>
               <h1 className='text-xl font-medium'>Our Activities</h1>
-              <div className='flex flex-col gap-2 text-[#112211]'>
-                <p>Northern Lights</p>
-                <p>Cruising & sailing</p>
-                <p>Multi-activities</p>
-                <p>Kayaing</p>
-              </div>
+              {dataActivities.map((activity) => (
+                <div key={activity.id} className='flex flex-col gap-2 text-[#112211]'>
+                  <p className='cursor-pointer hover:underline'>{activity.name}</p>
+                </div>
+              ))}
             </div>
             <div>
               <h1 className='text-xl font-medium'>Travel Blogs</h1>
-              <div className='flex flex-col gap-2 text-[#112211]'>
-                <p>Bali Travel Guide</p>
-                <p>Sri Lanks Travel Guide</p>
-                <p>Peru Travel Guide</p>
-                <p>Bali Travel Guide</p>
-              </div>
+              {dataTravel.map((travel) => (
+                <div key={travel.id} className='flex flex-col gap-2 text-[#112211]'>
+                  <p className='cursor-pointer hover:underline'>{travel.name}</p>
+                </div>
+              ))}
             </div>
             <div>
               <h1 className='text-xl font-medium'>About Us</h1>
@@ -100,6 +114,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
+      </div>
+      <div className='bg-[#a1f4d9] w-full h-20'>
+        <p className='text-center pt-7'>Bản quyền © 2024 Travel Globe.</p>
       </div>
     </div>
   )
