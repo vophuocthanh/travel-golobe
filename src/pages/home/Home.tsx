@@ -4,12 +4,14 @@ export default function Home() {
   return (
     <div className='w-full'>
       <Header />
-      <Banner />
-      <div className='items-center justify-center mx-auto max-w-7xl'>
-        <Perfect />
-        <Review />
-      </div>
-      <Footer />
+      <main className='pt-20'>
+        <Banner />
+        <div className='items-center justify-center mx-auto max-w-7xl'>
+          <Perfect />
+          <Review />
+        </div>
+        <Footer />
+      </main>
     </div>
   )
 }

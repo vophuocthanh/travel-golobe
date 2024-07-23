@@ -10,6 +10,8 @@ import banner from './banner.avif'
 import flight from './flight.avif'
 import logo_white from './logo-white.png'
 import logo from './logo.png'
+import logo_footer from './logo_footer.png'
+import mailbox from './mailbox.png'
 
 export {
   banner,
@@ -23,5 +25,7 @@ export {
   banner_register4,
   flight,
   logo,
-  logo_white
+  logo_footer,
+  logo_white,
+  mailbox
 }
