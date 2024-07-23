@@ -105,7 +105,7 @@ export default function Login() {
                     </FormControl>
                     <span
                       onClick={togglePasswordVisibility}
-                      className='absolute cursor-pointer left-[37.5rem] bottom-[21rem]   transform -translate-y-1/2'
+                      className='absolute cursor-pointer left-[37.5rem] bottom-[20.2rem] transform -translate-y-1/2'
                     >
                       {isPasswordVisible ? <IconNonEye /> : <IconEye />}
                     </span>
