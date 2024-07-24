@@ -8,10 +8,12 @@ import banner_register4 from './banner-register-4.avif'
 import banner_register from './banner-register.avif'
 import banner from './banner.avif'
 import flight from './flight.avif'
+import hotel from './hotel.avif'
 import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
+import tour from './tour.avif'
 
 export {
   banner,
@@ -24,8 +26,10 @@ export {
   banner_register3,
   banner_register4,
   flight,
+  hotel,
   logo,
   logo_footer,
   logo_white,
-  mailbox
+  mailbox,
+  tour
 }

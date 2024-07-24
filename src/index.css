@@ -24,3 +24,13 @@ body {
 motion.div {
   width: 100%;
 }
+
+.textContainer {
+  height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
