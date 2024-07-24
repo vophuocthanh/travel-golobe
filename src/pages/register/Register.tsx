@@ -137,14 +137,10 @@ export default function Register() {
                         className='w-full'
                         type={isPasswordVisible ? 'text' : 'password'}
                         {...field}
+                        icon={isPasswordVisible ? <IconNonEye /> : <IconEye />}
+                        iconOnClick={togglePasswordVisibility}
                       />
                     </FormControl>
-                    <span
-                      onClick={togglePasswordVisibility}
-                      className='absolute cursor-pointer right-[26rem] bottom-[21rem]   transform -translate-y-1/2'
-                    >
-                      {isPasswordVisible ? <IconNonEye /> : <IconEye />}
-                    </span>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -161,14 +157,10 @@ export default function Register() {
                         className='w-full'
                         type={isConfirmPasswordVisible ? 'text' : 'password'}
                         {...field}
+                        icon={isConfirmPasswordVisible ? <IconNonEye /> : <IconEye />}
+                        iconOnClick={toggleConfirmPasswordVisibility}
                       />
                     </FormControl>
-                    <span
-                      onClick={toggleConfirmPasswordVisibility}
-                      className='absolute cursor-pointer right-[26rem] bottom-[15rem]   transform -translate-y-1/2'
-                    >
-                      {isConfirmPasswordVisible ? <IconNonEye /> : <IconEye />}
-                    </span>
                     <FormMessage />
                   </FormItem>
                 )}

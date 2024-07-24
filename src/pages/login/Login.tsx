@@ -101,14 +101,10 @@ export default function Login() {
                         className='w-full'
                         type={isPasswordVisible ? 'text' : 'password'}
                         {...field}
+                        icon={isPasswordVisible ? <IconNonEye /> : <IconEye />}
+                        iconOnClick={togglePasswordVisibility}
                       />
                     </FormControl>
-                    <span
-                      onClick={togglePasswordVisibility}
-                      className='absolute cursor-pointer left-[37.5rem] bottom-[20.2rem] transform -translate-y-1/2'
-                    >
-                      {isPasswordVisible ? <IconNonEye /> : <IconEye />}
-                    </span>
                     <FormMessage />
                   </FormItem>
                 )}
