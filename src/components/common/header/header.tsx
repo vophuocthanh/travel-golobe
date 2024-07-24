@@ -90,9 +90,11 @@ export default function Header({ className }: HeaderProps) {
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <User className='w-4 h-4 mr-2' />
-                  <span>Profile</span>
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  <Link to='/profile' className='flex items-center justify-between w-full'>
+                    <User className='w-4 h-4 mr-2' />
+                    <span>Profile</span>
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <CreditCard className='w-4 h-4 mr-2' />
