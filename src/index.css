@@ -34,3 +34,7 @@ motion.div {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
