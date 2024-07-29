@@ -1,4 +1,5 @@
 import { logo_footer, mailbox } from '@/assets/images'
+import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { dataActivities, dataDestinations, dataTravel } from '@/lib/data-type'
@@ -30,7 +31,7 @@ const dataIcon = [
 
 export default function Footer() {
   return (
-    <>
+    <SectionInViewUp>
       <div className='w-full h-96 bg-primary'>
         <div className='mx-auto max-w-7xl'>
           {/* Absolute */}
@@ -120,6 +121,6 @@ export default function Footer() {
       <div className='bg-[#a1f4d9] w-full h-20'>
         <p className='text-center pt-7'>Bản quyền © 2024 Travel Globe.</p>
       </div>
-    </>
+    </SectionInViewUp>
   )
 }
