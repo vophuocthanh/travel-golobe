@@ -9,6 +9,7 @@ import banner_register from './banner-register.avif'
 import banner_tour from './banner-tour.avif'
 import banner from './banner.avif'
 import flight from './flight.avif'
+import hotel from './hotel.avif'
 import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
@@ -29,6 +30,7 @@ export {
   banner_register4,
   banner_tour,
   flight,
+  hotel,
   logo,
   logo_footer,
   logo_white,
