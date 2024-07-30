@@ -41,7 +41,7 @@ export default function IntoTour()  {
                         <h2 className="mb-3 text-2xl font-medium">Fall into travel</h2>
                         <p className="w-[70%]">Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the travel tools to get you to your destination.</p>
                     </div>
-                    <Button className="">See All</Button>
+                    <Button className="bg-white border border-primary hover:bg-slate-100">See All</Button>
                 </div>
                 <div className="flex justify-between">
                     {
