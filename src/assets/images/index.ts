@@ -12,6 +12,14 @@ import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
+import banner_flight from './banner-flight.png'
+import places_together from './places-together.png'
+import flightreview1 from './flightreview1.png'
+import flightreview2 from './flightreview2.png'
+import flightreview3 from './flightreview3.png'
+import flightreview4 from './flightreview4.png'
+import flightreview5 from './flightreview5.png'
+import flightreview6 from './flightreview6.png'
 
 export {
   banner,
@@ -27,5 +35,13 @@ export {
   logo,
   logo_footer,
   logo_white,
-  mailbox
+  mailbox,
+  banner_flight,
+  places_together,
+  flightreview1,
+  flightreview2,
+  flightreview3,
+  flightreview4,
+  flightreview5,
+  flightreview6
 }

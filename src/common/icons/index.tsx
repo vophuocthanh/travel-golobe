@@ -6,3 +6,7 @@ export { default as IconHotel } from './IconHotel'
 export { default as IconNonEye } from './IconNonEye'
 export { default as IconPlane } from './IconPlane'
 export { default as IconEye } from './IocnEye'
+export { default as IconVector} from './IconVector'
+export { default as IconVectorDown} from './IconVectorDown'
+export {default as IconVectorFlight} from "./IconVectorFlight"
+
