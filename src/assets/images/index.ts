@@ -1,3 +1,4 @@
+
 import banner_login from './banner-login-1.avif'
 import banner_login3 from './banner-login-3.avif'
 import banner_login2 from './banner-login.avif'
@@ -12,6 +13,11 @@ import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
+import banner_hotel from './banner-hotel.avif'
+import istanbul_turkey from './istanbul-turkey.webp'
+import baku_azerbaijan from './baku- Azerbaijan.jpg'
+import male_madvies from './male-madives.jpg'
+import sydney_australia from './sydney-australia.webp'
 
 export {
   banner,
@@ -27,5 +33,11 @@ export {
   logo,
   logo_footer,
   logo_white,
-  mailbox
+  mailbox,
+  banner_hotel,
+  istanbul_turkey,
+  baku_azerbaijan,
+  male_madvies,
+  sydney_australia
+
 }
