@@ -12,6 +12,7 @@ import flight from './flight.avif'
 import hotel from './hotel.avif'
 import logo_white from './logo-white.png'
 import logo from './logo.png'
+import tour from './tour.avif'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
 import tour_search1 from './tour-search-1.png'
@@ -31,6 +32,7 @@ export {
   banner_tour,
   flight,
   hotel,
+  tour,
   logo,
   logo_footer,
   logo_white,
