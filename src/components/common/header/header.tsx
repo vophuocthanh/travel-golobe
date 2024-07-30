@@ -1,3 +1,4 @@
+import { meApi } from '@/apis/me'
 import { logo } from '@/assets/images'
 import { IconFlight, IconHotel } from '@/common/icons'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -16,6 +17,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { clearLS, getAccessTokenFromLS } from '@/utils/storage'
+import { useQuery } from '@tanstack/react-query'
 import {
   Cloud,
   CreditCard,
@@ -41,6 +43,11 @@ interface HeaderProps {
 
 export default function Header({ className }: HeaderProps) {
   const token = getAccessTokenFromLS()
+
+  const { data: getMe } = useQuery({
+    queryKey: ['getMe'],
+    queryFn: () => meApi.getMe()
+  })
 
   const handleLogout = () => {
     clearLS()
@@ -80,8 +87,8 @@ export default function Header({ className }: HeaderProps) {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className='flex flex-col'>
-                  <h1 className='text-sm'>Example@gmail.com</h1>
-                  <span className='text-xs text-gray-400'>Bin</span>
+                  <h1 className='text-sm'>{getMe?.email}</h1>
+                  <span className='text-xs text-gray-400'>{getMe?.name || 'Guest'}</span>
                 </div>
               </div>
             </DropdownMenuTrigger>
