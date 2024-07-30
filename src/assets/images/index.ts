@@ -1,3 +1,8 @@
+import banner_forgot_1 from './banner-forgot-1.avif'
+import banner_forgot_2 from './banner-forgot-2.avif'
+import banner_forgot_3 from './banner-forgot-3.avif'
+import banner_forgot_4 from './banner-forgot-4.avif'
+import banner_forgot from './banner-forgot.avif'
 import banner_login from './banner-login-1.avif'
 import banner_login3 from './banner-login-3.avif'
 import banner_login2 from './banner-login.avif'
@@ -14,12 +19,18 @@ import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
-import tour_search1 from './tour-search-1.png'
 import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
+import tour_search1 from './tour-search-1.png'
+import tour from './tour.avif'
 
 export {
   banner,
+  banner_forgot,
+  banner_forgot_1,
+  banner_forgot_2,
+  banner_forgot_3,
+  banner_forgot_4,
   banner_login,
   banner_login2,
   banner_login3,
@@ -35,7 +46,8 @@ export {
   logo_footer,
   logo_white,
   mailbox,
-  tour_search1,
+  tour,
   tour_into1,
-  tour_location1
+  tour_location1,
+  tour_search1
 }
