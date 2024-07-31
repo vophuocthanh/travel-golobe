@@ -1,6 +1,7 @@
 import avatar_account from './avatar.avif'
 import baku_azerbaijan from './baku- Azerbaijan.jpg'
 import banner_account from './banner-account.avif'
+import banner_flight from './banner-flight.png'
 import banner_forgot_1 from './banner-forgot-1.avif'
 import banner_forgot_2 from './banner-forgot-2.avif'
 import banner_forgot_3 from './banner-forgot-3.avif'
@@ -18,6 +19,12 @@ import banner_register from './banner-register.avif'
 import banner_tour from './banner-tour.avif'
 import banner from './banner.avif'
 import flight from './flight.avif'
+import flightreview1 from './flightreview1.png'
+import flightreview2 from './flightreview2.png'
+import flightreview3 from './flightreview3.png'
+import flightreview4 from './flightreview4.png'
+import flightreview5 from './flightreview5.png'
+import flightreview6 from './flightreview6.png'
 import hotel from './hotel.avif'
 import istanbul_turkey from './istanbul-turkey.webp'
 import logo_hotel from './logo-hotel.avif'
@@ -27,6 +34,7 @@ import logo_flight from './logo_flight.jpg'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
 import male_madvies from './male-madives.jpg'
+import places_together from './places-together.png'
 import sydney_australia from './sydney-australia.webp'
 import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
@@ -38,6 +46,7 @@ export {
   baku_azerbaijan,
   banner,
   banner_account,
+  banner_flight,
   banner_forgot,
   banner_forgot_1,
   banner_forgot_2,
@@ -54,6 +63,12 @@ export {
   banner_register4,
   banner_tour,
   flight,
+  flightreview1,
+  flightreview2,
+  flightreview3,
+  flightreview4,
+  flightreview5,
+  flightreview6,
   hotel,
   istanbul_turkey,
   logo,
@@ -63,6 +78,7 @@ export {
   logo_white,
   mailbox,
   male_madvies,
+  places_together,
   sydney_australia,
   tour,
   tour_into1,
