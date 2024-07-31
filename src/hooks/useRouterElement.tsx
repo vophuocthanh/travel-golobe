@@ -1,6 +1,9 @@
 import { path } from '@/constants/path'
 import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour } from '@/pages'
 import Dashboard from '@/pages/admin/Dashboard'
+import ForgotPassword from '@/pages/forgot-password/ForgotPassword'
+import Profile from '@/pages/profile/Profile'
+import ResetPassword from '@/pages/reset-password/ResetPassword'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
@@ -16,12 +19,19 @@ export default function useRoutesElements() {
       { path: path.hotel, element: <Hotel /> },
       { path: path.flight, element: <Flight /> },
       { path: path.admin, element: <Dashboard /> },
+      { path: path.forgot_password, element: <ForgotPassword /> },
+      { path: path.reset_password, element: <ResetPassword /> },
+      { path: path.profile, element: <Profile /> },
       { path: '*', element: <PageNotFound /> }
     ],
     location
   )
 
-  const isAuthPath = location.pathname === path.login || location.pathname === path.register
+  const isAuthPath =
+    location.pathname === path.login ||
+    location.pathname === path.register ||
+    location.pathname === path.forgot_password ||
+    location.pathname === path.reset_password
 
   return (
     <AnimatePresence mode='wait'>

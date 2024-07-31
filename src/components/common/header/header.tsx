@@ -1,3 +1,4 @@
+import { meApi } from '@/apis/me'
 import { logo } from '@/assets/images'
 import { IconFlight, IconHotel } from '@/common/icons'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -16,6 +17,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { clearLS, getAccessTokenFromLS } from '@/utils/storage'
+import { useQuery } from '@tanstack/react-query'
 import {
   Cloud,
   CreditCard,
@@ -41,6 +43,11 @@ interface HeaderProps {
 
 export default function Header({ className }: HeaderProps) {
   const token = getAccessTokenFromLS()
+
+  const { data: getMe } = useQuery({
+    queryKey: ['getMe'],
+    queryFn: () => meApi.getMe()
+  })
 
   const handleLogout = () => {
     clearLS()
@@ -80,8 +87,8 @@ export default function Header({ className }: HeaderProps) {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className='flex flex-col'>
-                  <h1 className='text-sm'>Example@gmail.com</h1>
-                  <span className='text-xs text-gray-400'>Bin</span>
+                  <h1 className='text-sm'>{getMe?.email}</h1>
+                  <span className='text-xs text-gray-400'>{getMe?.name || 'Guest'}</span>
                 </div>
               </div>
             </DropdownMenuTrigger>
@@ -90,22 +97,24 @@ export default function Header({ className }: HeaderProps) {
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <User className='mr-2 h-4 w-4' />
-                  <span>Profile</span>
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  <Link to='/profile' className='flex items-center justify-between w-full'>
+                    <User className='w-4 h-4 mr-2' />
+                    <span>Profile</span>
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <CreditCard className='mr-2 h-4 w-4' />
+                  <CreditCard className='w-4 h-4 mr-2' />
                   <span>Billing</span>
                   <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Settings className='mr-2 h-4 w-4' />
+                  <Settings className='w-4 h-4 mr-2' />
                   <span>Settings</span>
                   <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Keyboard className='mr-2 h-4 w-4' />
+                  <Keyboard className='w-4 h-4 mr-2' />
                   <span>Keyboard shortcuts</span>
                   <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
                 </DropdownMenuItem>
@@ -113,54 +122,54 @@ export default function Header({ className }: HeaderProps) {
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <Users className='mr-2 h-4 w-4' />
+                  <Users className='w-4 h-4 mr-2' />
                   <span>Team</span>
                 </DropdownMenuItem>
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger>
-                    <UserPlus className='mr-2 h-4 w-4' />
+                    <UserPlus className='w-4 h-4 mr-2' />
                     <span>Invite users</span>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent>
                       <DropdownMenuItem>
-                        <Mail className='mr-2 h-4 w-4' />
+                        <Mail className='w-4 h-4 mr-2' />
                         <span>Email</span>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <MessageSquare className='mr-2 h-4 w-4' />
+                        <MessageSquare className='w-4 h-4 mr-2' />
                         <span>Message</span>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem>
-                        <PlusCircle className='mr-2 h-4 w-4' />
+                        <PlusCircle className='w-4 h-4 mr-2' />
                         <span>More...</span>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
                 <DropdownMenuItem>
-                  <Plus className='mr-2 h-4 w-4' />
+                  <Plus className='w-4 h-4 mr-2' />
                   <span>New Team</span>
                   <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Github className='mr-2 h-4 w-4' />
+                <Github className='w-4 h-4 mr-2' />
                 <span>GitHub</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <LifeBuoy className='mr-2 h-4 w-4' />
+                <LifeBuoy className='w-4 h-4 mr-2' />
                 <span>Support</span>
               </DropdownMenuItem>
               <DropdownMenuItem disabled>
-                <Cloud className='mr-2 h-4 w-4' />
+                <Cloud className='w-4 h-4 mr-2' />
                 <span>API</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>
-                <LogOut className='mr-2 h-4 w-4' />
+                <LogOut className='w-4 h-4 mr-2' />
                 <span>Log out</span>
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
               </DropdownMenuItem>

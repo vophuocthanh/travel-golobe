@@ -10,3 +10,9 @@ export { default as IconVector} from './IconVector'
 export { default as IconVectorDown} from './IconVectorDown'
 export {default as IconVectorFlight} from "./IconVectorFlight"
 
+export { default as IconAdd } from './IconAdd'
+export { default as IconPlaces } from './IconPlaces'
+export { default as IconCheckin } from './IconCheckin'
+export { default as IconCheckout } from './IconCheckout'
+export { default as IconTour } from './IconTour'
+export { default as IconRoom } from './IconRoom'

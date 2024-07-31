@@ -27,7 +27,7 @@ export default function FlightReview1() {
           {review.map((travel) => (
             <div
               key={travel.id}
-              className='relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[21rem] rounded-lg'
+              className='relative flex flex-col justify-end h-[35rem] p-4 bg-center bg-cover w-[24rem] rounded-lg'
               style={{ backgroundImage: `url(${travel.image})` }}
             >
               <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent'></div>
