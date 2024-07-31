@@ -1,3 +1,4 @@
+
 import banner_forgot_1 from './banner-forgot-1.avif'
 import banner_forgot_2 from './banner-forgot-2.avif'
 import banner_forgot_3 from './banner-forgot-3.avif'
@@ -27,6 +28,11 @@ import flightreview3 from './flightreview3.png'
 import flightreview4 from './flightreview4.png'
 import flightreview5 from './flightreview5.png'
 import flightreview6 from './flightreview6.png'
+import banner_hotel from './banner-hotel.avif'
+import istanbul_turkey from './istanbul-turkey.webp'
+import baku_azerbaijan from './baku- Azerbaijan.jpg'
+import male_madvies from './male-madives.jpg'
+import sydney_australia from './sydney-australia.webp'
 import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
@@ -62,6 +68,11 @@ export {
   flightreview4,
   flightreview5,
   flightreview6,
+  banner_hotel,
+  istanbul_turkey,
+  baku_azerbaijan,
+  male_madvies,
+  sydney_australia,
   tour,
   tour_into1,
   tour_location1,
