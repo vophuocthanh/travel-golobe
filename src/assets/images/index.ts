@@ -1,3 +1,4 @@
+
 import banner_forgot_1 from './banner-forgot-1.avif'
 import banner_forgot_2 from './banner-forgot-2.avif'
 import banner_forgot_3 from './banner-forgot-3.avif'
@@ -19,6 +20,11 @@ import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
+import banner_hotel from './banner-hotel.avif'
+import istanbul_turkey from './istanbul-turkey.webp'
+import baku_azerbaijan from './baku- Azerbaijan.jpg'
+import male_madvies from './male-madives.jpg'
+import sydney_australia from './sydney-australia.webp'
 import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
@@ -46,6 +52,11 @@ export {
   logo_footer,
   logo_white,
   mailbox,
+  banner_hotel,
+  istanbul_turkey,
+  baku_azerbaijan,
+  male_madvies,
+  sydney_australia,
   tour,
   tour_into1,
   tour_location1,
