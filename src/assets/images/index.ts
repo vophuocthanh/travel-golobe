@@ -12,6 +12,10 @@ import logo_white from './logo-white.png'
 import logo from './logo.png'
 import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
+import banner_account from './banner-account.avif'
+import avatar_account from './avatar.avif'
+import logo_flight from './logo_flight.jpg'
+import logo_hotel from'./logo-hotel.avif'
 
 export {
   banner,
@@ -27,5 +31,9 @@ export {
   logo,
   logo_footer,
   logo_white,
-  mailbox
+  mailbox,
+  banner_account,
+  avatar_account,
+  logo_flight,
+  logo_hotel
 }

@@ -1,5 +1,5 @@
 import { path } from '@/constants/path'
-import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour } from '@/pages'
+import { Account, Flight, Home, Hotel, Login, PageNotFound, Register, Tour } from '@/pages'
 import Dashboard from '@/pages/admin/Dashboard'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
@@ -16,6 +16,7 @@ export default function useRoutesElements() {
       { path: path.hotel, element: <Hotel /> },
       { path: path.flight, element: <Flight /> },
       { path: path.admin, element: <Dashboard /> },
+      { path: path.account, element: <Account /> },
       { path: '*', element: <PageNotFound /> }
     ],
     location

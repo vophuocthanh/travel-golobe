@@ -5,5 +5,6 @@ export const path = {
   hotel: '/hotel',
   flight: '/flight',
   tour: '/tour',
-  admin: '/admin'
+  admin: '/admin',
+  account: '/account'
 } as const
