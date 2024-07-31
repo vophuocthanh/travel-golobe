@@ -23,11 +23,11 @@ export default function FlightReview1() {
           </p>
           <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
         </div>
-        <div className='flex flex-wrap justify-between'>
+        <div className='flex flex-wrap justify-between '>
           {review.map((travel) => (
             <div
               key={travel.id}
-              className='relative flex flex-col justify-end h-[35rem] p-4 bg-center bg-cover w-[24rem] rounded-lg'
+              className='relative flex flex-col justify-end h-[35rem] p-5 bg-center bg-cover w-[22rem] rounded-lg my-3'
               style={{ backgroundImage: `url(${travel.image})` }}
             >
               <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent'></div>
