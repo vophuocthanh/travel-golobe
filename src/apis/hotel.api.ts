@@ -2,23 +2,23 @@ import axiosClient from '@/apis/axios-client'
 import { HotelResponseType } from '@/ts/interface/data.interface'
 
 export const hotelApi = {
-  getAll: () => {
+  getAll() {
     const url = '/hotel'
     return axiosClient.get(url)
   },
-  getById: (id: string) => {
+  getById(id: string) {
     const url = `/hotel/${id}`
     return axiosClient.get(url)
   },
-  addHotel: (data: HotelResponseType) => {
+  addHotel(data: HotelResponseType) {
     const url = '/hotel'
     return axiosClient.post(url, data)
   },
-  updateHotel: (id: string, data: HotelResponseType) => {
+  updateHotel(id: string, data: HotelResponseType) {
     const url = `/hotel/${id}`
     return axiosClient.put(url, data)
   },
-  deleteHotel: (id: string) => {
+  deleteHotel(id: string) {
     const url = `/hotel/${id}`
     return axiosClient.delete(url)
   }

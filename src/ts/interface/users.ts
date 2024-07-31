@@ -9,3 +9,9 @@ export interface IUser {
   created_at?: string
   updated_at?: string
 }
+
+export interface MeResponse {
+  email?: string
+  name?: string
+  role?: string
+}

@@ -27,7 +27,11 @@ export default function useRoutesElements() {
     location
   )
 
-  const isAuthPath = location.pathname === path.login || location.pathname === path.register
+  const isAuthPath =
+    location.pathname === path.login ||
+    location.pathname === path.register ||
+    location.pathname === path.forgot_password ||
+    location.pathname === path.reset_password
 
   return (
     <AnimatePresence mode='wait'>
