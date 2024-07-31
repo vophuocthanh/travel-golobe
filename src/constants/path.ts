@@ -11,5 +11,6 @@ export const path = {
   admin: '/admin',
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',
-  profile: '/profile'
+  profile: '/profile',
+  account: '/account'
 } as const
