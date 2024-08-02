@@ -1,7 +1,7 @@
 import { flight, hotel, tour } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
-import { dataPerfect } from '@/lib/data-type'
+import { dataPerfect } from '@/shared/lib/data-type'
 import { Link } from 'react-router-dom'
 
 export default function Perfect() {

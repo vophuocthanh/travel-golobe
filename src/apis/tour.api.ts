@@ -1,5 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { TourResponse } from '@/utils/data-response'
+import { TourResponse } from '@/shared/utils/data-response'
 
 export const tourApi = {
   getAll() {

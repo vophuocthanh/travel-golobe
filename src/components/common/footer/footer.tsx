@@ -2,7 +2,7 @@ import { logo_footer, mailbox } from '@/assets/images'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { dataActivities, dataDestinations, dataTravel } from '@/lib/data-type'
+import { dataActivities, dataDestinations, dataTravel } from '@/shared/lib/data-type'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
 

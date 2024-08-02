@@ -1,6 +1,6 @@
 import authReducer from '@/redux/auth-slice'
 import rootSaga from '@/redux/root-saga'
-import { history } from '@/utils/history'
+import { history } from '@/shared/utils/history'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { routerMiddleware } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 import { useInView } from 'react-intersection-observer'
 interface Props {
   children: React.ReactNode

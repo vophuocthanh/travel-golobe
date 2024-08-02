@@ -1,4 +1,4 @@
-import { validator } from '@/lib/validator'
+import { validator } from '@/shared/lib/validator'
 import { z } from 'zod'
 
 export const FormSchemaLogin = z.object({

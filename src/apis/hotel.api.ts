@@ -1,5 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { HotelResponseType } from '@/ts/interface/data.interface'
+import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
   getAll() {

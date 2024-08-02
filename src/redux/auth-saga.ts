@@ -1,8 +1,8 @@
 import { authApi } from '@/apis/auth.api'
 import { LoginResponse } from '@/apis/axios-client'
 import { authActions } from '@/redux/auth-slice'
-import { history } from '@/utils/history'
-import { setAccessTokenToLS, setRefreshTokenToLS } from '@/utils/storage'
+import { history } from '@/shared/utils/history'
+import { setAccessTokenToLS, setRefreshTokenToLS } from '@/shared/utils/storage'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { call, fork, put, takeLatest } from 'redux-saga/effects'
 

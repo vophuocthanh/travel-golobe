@@ -1,5 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { MeResponse } from '@/ts/interface'
+import { MeResponse } from '@/shared/ts/interface'
 
 export const meApi = {
   getMe(): Promise<MeResponse> {
