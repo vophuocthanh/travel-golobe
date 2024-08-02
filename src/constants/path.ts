@@ -12,5 +12,4 @@ export const path = {
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',
   profile: '/profile',
-  account: '/account'
 } as const
