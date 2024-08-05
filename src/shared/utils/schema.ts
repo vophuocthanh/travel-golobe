@@ -13,7 +13,7 @@ export const FormSchemaLogin = z.object({
     .min(1, {
       message: 'Password is required'
     })
-    .regex(validator.password, 'Password must contain at least 8 characters')
+    .regex(validator.password, 'Password must contain at least 6 characters')
 })
 
 export const FormSchemaRegister = z.object({
@@ -28,7 +28,7 @@ export const FormSchemaRegister = z.object({
     .min(1, {
       message: 'Password is required'
     })
-    .regex(validator.password, 'Password must contain at least 8 characters'),
+    .regex(validator.password, 'Password must contain at least 6 characters'),
   name: z.string().min(1, { message: 'Name is required' }),
   role: z.number().min(1, { message: 'Role is required' })
 })
@@ -48,9 +48,9 @@ export const ResetPasswordSchema = z.object({
     .min(1, {
       message: 'Password is required'
     })
-    .regex(validator.password, 'Password must contain at least 6 characters'),
+    .regex(validator.password, 'Password must contain at least 8 characters, 1 letter, and 1 number'),
   confirm_password: z
     .string()
     .min(1, { message: 'Confirm password is required' })
-    .regex(validator.password, 'Password must contain at least 6 characters')
+    .regex(validator.password, 'Password must contain at least 8 characters, 1 letter, and 1 number')
 })

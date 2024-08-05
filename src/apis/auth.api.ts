@@ -17,6 +17,6 @@ export const authApi = {
   },
   reset_password(password: string, confirm_password: string, token: string) {
     const url = '/auth/reset-password'
-    return axiosClient.post(url, { password, token, confirm_password })
+    return axiosClient.put(url, { password, token, confirm_password })
   }
 }
