@@ -20,7 +20,7 @@ export default function Hotel() {
         <div className='absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px]'>
           <div className='relative w-full '>
             <p className='p-4 text-3xl'>Where are you flying ?</p>
-            <BookingForm/>
+            <BookingForm />
             <div className='flex justify-end p-4'>
               <div className='flex gap-4'>
                 <Button className='px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
@@ -39,6 +39,7 @@ export default function Hotel() {
       <RecentSearch />
       <FallIntroTravel />
       <FallIntroTravel2 />
+
       <main className='mt-80'>
         <Footer />
       </main>

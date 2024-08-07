@@ -12,5 +12,5 @@ export const path = {
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',
   profile: '/profile',
-  home_stay:'/home-stay',
+  home_stay: '/hotel/home-stay',
 } as const

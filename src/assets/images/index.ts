@@ -41,6 +41,8 @@ import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
 import tour from './tour.avif'
 import hotel_istanbul from './hotel-istanbul.jpg'
+import hotel_istanbul_1 from './hotel_istanbul_1.webp'
+
 
 export {
   avatar_account,
@@ -85,5 +87,6 @@ export {
   tour_into1,
   tour_location1,
   tour_search1,
-  hotel_istanbul
+  hotel_istanbul,
+  hotel_istanbul_1
 }
