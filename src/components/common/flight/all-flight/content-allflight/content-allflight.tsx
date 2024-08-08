@@ -410,7 +410,7 @@ export default function Content_allFlight() {
                           >
                             <Heart />
                           </Button>
-                          <Button className='w-full mx-4'>View Place</Button>
+                          <Button className='w-full mx-4'>View Deals</Button>
                         </div>
                       </div>
                     </div>
@@ -497,7 +497,7 @@ export default function Content_allFlight() {
                           >
                             <Heart />
                           </Button>
-                          <Button className='w-full mx-4'>View Place</Button>
+                          <Button className='w-full mx-4'>View Deals</Button>
                         </div>
                       </div>
                     </div>
@@ -585,7 +585,7 @@ export default function Content_allFlight() {
                       >
                         <Heart />
                       </Button>
-                      <Button className='w-full mx-4'>View Place</Button>
+                      <Button className='w-full mx-4'>View Deals</Button>
                     </div>
                   </div>
                 </div>
@@ -670,7 +670,7 @@ export default function Content_allFlight() {
                       >
                         <Heart />
                       </Button>
-                      <Button className='w-full mx-4'>View Place</Button>
+                      <Button className='w-full mx-4'>View Deals</Button>
                     </div>
                   </div>
                 </div>
