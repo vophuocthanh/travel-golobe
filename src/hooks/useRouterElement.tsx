@@ -1,5 +1,5 @@
 import { path } from '@/constants/path'
-import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour } from '@/pages'
+import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } from '@/pages'
 import Dashboard from '@/pages/admin/Dashboard'
 import ForgotPassword from '@/pages/forgot-password/ForgotPassword'
 import Profile from '@/pages/profile/Profile'
@@ -16,6 +16,7 @@ export default function useRoutesElements() {
       { path: path.login, element: <Login /> },
       { path: path.register, element: <Register /> },
       { path: path.tour, element: <Tour /> },
+      { path: path.tourId, element: <TourDetail /> }, //detail
       { path: path.hotel, element: <Hotel /> },
       { path: path.flight, element: <Flight /> },
       { path: path.admin, element: <Dashboard /> },

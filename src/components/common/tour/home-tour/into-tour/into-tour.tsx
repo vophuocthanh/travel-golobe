@@ -46,7 +46,7 @@ export default function IntoTour()  {
                 <div className="flex justify-between">
                     {
                         dataTourInto.map((item)=> (
-                            <div className="relative w-72 ">
+                            <div key={item.id} className="relative w-72 ">
                                 <img src={item.image} className="" alt="" />
                                 <div className="absolute w-full px-4 top-72">
                                     <div className="flex items-center justify-between mb-3">

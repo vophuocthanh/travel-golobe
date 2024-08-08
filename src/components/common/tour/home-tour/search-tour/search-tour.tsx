@@ -34,7 +34,7 @@ export default function SearchTour()  {
                 <div className="flex justify-between">
                     {
                         dataTourSearch.map((item) => (
-                            <div className="flex">
+                            <div key={item.id} className="flex">
                                 <img src={item.image} className="mr-4" alt="" />
                                 <div className="flex items-center">
                                     <div>

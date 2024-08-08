@@ -17,6 +17,7 @@ import logo_footer from './logo_footer.png'
 import mailbox from './mailbox.png'
 import tour_search1 from './tour-search-1.png'
 import tour_into1 from './tour-into-1.png'
+import tour_1 from './tour-1.png'
 import tour_location1 from './tour-location-1.png'
 
 export {
@@ -39,5 +40,6 @@ export {
   mailbox,
   tour_search1,
   tour_into1,
-  tour_location1
+  tour_location1,
+  tour_1
 }
