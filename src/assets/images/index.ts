@@ -45,6 +45,8 @@ import flight_Dubai from './flight_Dubai.png'
 import flight_Qatar from './flight_Qatar.png'
 import flight_Etihad from './flight_Etihad.png'
 
+import hotel_istanbul from './hotel-istanbul.jpg'
+import hotel_istanbul_1 from './hotel_istanbul_1.webp'
 
 
 export {
@@ -93,5 +95,7 @@ export {
   flight_Emirates,
   flight_Qatar,
   flight_Etihad,
-  flight_Dubai
+  flight_Dubai,
+  hotel_istanbul,
+  hotel_istanbul_1
 }

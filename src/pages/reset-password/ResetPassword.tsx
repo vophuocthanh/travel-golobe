@@ -47,13 +47,13 @@ export default function ResetPassword() {
 
   const onSubmit: SubmitHandler<z.infer<typeof ResetPasswordSchema>> = async ({ password, confirm_password }) => {
     try {
-      const token = searchParams.get('token')
+      const token = searchParams.get('access_token')
       if (!token) {
         toast.error('Unable to reset password. Please try again later')
         return
       }
       setIsLoading(true)
-      await authApi.reset_password(token, password, confirm_password)
+      await authApi.reset_password(password, confirm_password, token)
       navigate('/login')
       toast.success('Your password has been reset. Please login with your new password.')
     } catch (error) {
