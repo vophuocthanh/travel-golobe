@@ -1,7 +1,0 @@
-export { default as PageNotFound } from './404/404'
-export { default as Flight } from './flight/Flight'
-export { default as Home } from './home/Home'
-export { default as Hotel } from './hotel/Hotel'
-export { default as Login } from './login/Login'
-export { default as Register } from './register/Register'
-export { default as Tour } from './tour/Tour'
