@@ -40,6 +40,11 @@ import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
 import tour from './tour.avif'
+import flight_Emirates from './flight_Emirates.png'
+import flight_Dubai from './flight_Dubai.png'
+import flight_Qatar from './flight_Qatar.png'
+import flight_Etihad from './flight_Etihad.png'
+
 import hotel_istanbul from './hotel-istanbul.jpg'
 import hotel_istanbul_1 from './hotel_istanbul_1.webp'
 
@@ -87,6 +92,10 @@ export {
   tour_into1,
   tour_location1,
   tour_search1,
+  flight_Emirates,
+  flight_Qatar,
+  flight_Etihad,
+  flight_Dubai,
   hotel_istanbul,
   hotel_istanbul_1
 }
