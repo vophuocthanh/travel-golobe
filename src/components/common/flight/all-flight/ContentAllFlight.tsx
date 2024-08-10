@@ -1,5 +1,6 @@
 import { flight_Dubai, flight_Emirates, flight_Etihad, flight_Qatar } from '@/assets/images';
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input';
 import { Checkbox } from '@radix-ui/react-checkbox';
 import { ChevronDown, ChevronUp, Heart} from 'lucide-react'
 import React, { useState } from 'react'
@@ -12,7 +13,7 @@ interface TabProps {
   onClick: () => void
 }
 
-export default function Content_allFlight() {
+export default function ContentAllFlight() {
   const [value, setValue] = useState<number[]>([50, 1200]);
   const [isRatingVisible, setIsRatingVisible] = useState<boolean>(true);
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true);
@@ -349,7 +350,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -372,7 +373,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -436,7 +437,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -459,7 +460,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -525,7 +526,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -548,7 +549,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -610,7 +611,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
@@ -633,7 +634,7 @@ export default function Content_allFlight() {
                         </div>
                         <div className='mb-4'>
                           <div className="flex items-center mb-2">
-                            <input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
+                            <Input type="checkbox" className="w-5 h-5 mr-2 border-2 border-black rounded-sm" />
                             <div className="flex-grow">
                               <div className="flex justify-between text-black">
                               <div className="text-2xl ">
