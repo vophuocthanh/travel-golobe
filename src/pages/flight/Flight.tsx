@@ -5,6 +5,7 @@ import FlightReview1 from '@/components/common/flight/flight-review-1/flight-rev
 import FlightReview2 from '@/components/common/flight/flight-review-2/flight-review-2'
 import PlacesTogether from '@/components/common/flight/places-together/places-together'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 
 export default function Flight() {
@@ -27,12 +28,12 @@ export default function Flight() {
               <p className='mt-4 ml-5 text-lg font-semibold'>Where are you flying?</p>
               <div className='grid grid-cols-7 gap-4 mt-[2rem] mr-[2.8rem]'>
                 <div className='relative w-full col-span-2 ml-5 '>
-                  <label className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     From - To
                   </label>
-                  <input
+                  <Input
                     type='text'
-                    className='block w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block w-full text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='Lahore - Karachi'
                   />
                   <div className='absolute right-3 top-4'>
@@ -40,12 +41,12 @@ export default function Flight() {
                   </div>
                 </div>
                 <div className='relative w-full col-span-1 ml-5 '>
-                  <label className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Trip
                   </label>
-                  <input
+                  <Input
                     type='text'
-                    className='block w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='Return'
                   />
                   <div className='absolute right-3 top-6'>
@@ -53,22 +54,22 @@ export default function Flight() {
                   </div>
                 </div>
                 <div className='relative w-full col-span-2 ml-5 '>
-                  <label className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label className='absolute p-1.5 z-10 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Depart - Return
                   </label>
-                  <input
+                  <Input
                     type='text'
-                    className='block w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='13 Nov 24 - 16 Nov 24'
                   />
                 </div>
                 <div className='relative w-full col-span-2 ml-5'>
-                  <label className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label className='absolute p-1.5 z-10 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Passenger - Class
                   </label>
-                  <input
+                  <Input
                     type='text'
-                    className='block w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block w-full text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='1 Passenger, Economy'
                   />
                 </div>
