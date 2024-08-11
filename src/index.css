@@ -38,3 +38,42 @@ motion.div {
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+.clip-path-star {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.heart-shape {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  transform: rotate(45deg);
+}
+
+.heart-shape::before,
+.heart-shape::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid black;
+}
+
+.heart-shape::before {
+  top: -17px;
+  left: 0;
+}
+
+.heart-shape::after {
+  top: 0;
+  left: -10px;
+}
+
+.heart-button:active .heart-shape,
+.heart-button:active .heart-shape::before,
+.heart-button:active .heart-shape::after {
+  background-color: black;
+  border-color: black;
+}
