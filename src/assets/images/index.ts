@@ -40,6 +40,9 @@ import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
 import tour from './tour.avif'
+import flightdetail1 from './flightdetail1.jpg'
+import flightdetail2 from './flightdetai2l.jpg'
+import flightdetail3 from './flightdetai3l.jpg'
 
 export {
   avatar_account,
@@ -83,5 +86,8 @@ export {
   tour,
   tour_into1,
   tour_location1,
-  tour_search1
+  tour_search1,
+  flightdetail1,
+  flightdetail2,
+  flightdetail3
 }
