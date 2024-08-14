@@ -43,6 +43,14 @@ import tour from './tour.avif'
 import flightdetail1 from './flightdetail1.jpg'
 import flightdetail2 from './flightdetai2l.jpg'
 import flightdetail3 from './flightdetai3l.jpg'
+import flight_Emirates from './flight_Emirates.png'
+import flight_Dubai from './flight_Dubai.png'
+import flight_Qatar from './flight_Qatar.png'
+import flight_Etihad from './flight_Etihad.png'
+
+import hotel_istanbul from './hotel-istanbul.jpg'
+import hotel_istanbul_1 from './hotel_istanbul_1.webp'
+
 
 export {
   avatar_account,
@@ -89,5 +97,11 @@ export {
   tour_search1,
   flightdetail1,
   flightdetail2,
-  flightdetail3
+  flightdetail3,
+  flight_Emirates,
+  flight_Qatar,
+  flight_Etihad,
+  flight_Dubai,
+  hotel_istanbul,
+  hotel_istanbul_1
 }

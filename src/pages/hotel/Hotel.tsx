@@ -1,9 +1,8 @@
 import { banner_hotel } from '@/assets/images'
-
 import { FallIntroTravel, Footer, Header, RecentSearch } from '@/components/common'
+import BookingForm from '@/components/common/hotel/booking-form/booking-form'
 import FallIntroTravel2 from '@/components/common/hotel/fall-intro-travel-2/fall-intro-travel2'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { HotelIcon } from 'lucide-react'
 
 export default function Hotel() {
@@ -21,12 +20,7 @@ export default function Hotel() {
         <div className='absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px]'>
           <div className='relative w-full '>
             <p className='p-4 text-3xl'>Where are you flying ?</p>
-            <div className='flex justify-between p-4 space-x-4'>
-              <Input className='max-w-md w-[24rem] border border-black p-2 h-[3rem]' placeholder='Istanbul, Turkey' />
-              <Input className='max-w-md p-2 border border-black w-[14rem]  h-[3rem]' placeholder='Fri 12/2' />
-              <Input className='max-w-md p-2 border border-black w-[14rem] h-[3rem]' placeholder='Sun 12/4' />
-              <Input className='w-[14rem] max-w-md p-2 border border-black h-[3rem]' placeholder='1 room , 2 guest' />
-            </div>
+            <BookingForm />
             <div className='flex justify-end p-4'>
               <div className='flex gap-4'>
                 <Button className='px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
@@ -45,6 +39,7 @@ export default function Hotel() {
       <RecentSearch />
       <FallIntroTravel />
       <FallIntroTravel2 />
+
       <main className='mt-80'>
         <Footer />
       </main>

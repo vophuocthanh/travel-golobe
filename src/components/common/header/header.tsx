@@ -16,7 +16,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { clearLS, getAccessTokenFromLS } from '@/utils/storage'
+import { clearLS, getAccessTokenFromLS } from '@/shared/utils/storage'
 import { useQuery } from '@tanstack/react-query'
 import {
   Cloud,

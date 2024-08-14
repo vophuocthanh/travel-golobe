@@ -2,8 +2,8 @@ import config from '@/configs'
 import HttpStatusCode from '@/constants/http'
 import { useAppDispatch } from '@/redux/hooks'
 import { appAction } from '@/redux/store/app-slice'
-import { history } from '@/utils/history'
-import { getRefreshTokenFromLS } from '@/utils/storage'
+import { history } from '@/shared/utils/history'
+import { getRefreshTokenFromLS } from '@/shared/utils/storage'
 import axios, { AxiosResponse } from 'axios'
 
 export interface LoginResponse {

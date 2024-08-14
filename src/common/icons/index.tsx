@@ -16,3 +16,5 @@ export { default as IconCheckin } from './IconCheckin'
 export { default as IconCheckout } from './IconCheckout'
 export { default as IconTour } from './IconTour'
 export { default as IconRoom } from './IconRoom'
+export { default as IconSreach } from './IconSreach'
+

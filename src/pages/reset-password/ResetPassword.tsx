@@ -11,8 +11,8 @@ import CarouselPlugin from '@/components/common/carousel/CarouselPlugin'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ResetPasswordSchema } from '@/utils/schema'
-import { getAccessTokenFromLS } from '@/utils/storage'
+import { ResetPasswordSchema } from '@/shared/utils/schema'
+import { getAccessTokenFromLS } from '@/shared/utils/storage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { ChevronLeft } from 'lucide-react'
@@ -47,13 +47,13 @@ export default function ResetPassword() {
 
   const onSubmit: SubmitHandler<z.infer<typeof ResetPasswordSchema>> = async ({ password, confirm_password }) => {
     try {
-      const token = searchParams.get('token')
+      const token = searchParams.get('access_token')
       if (!token) {
         toast.error('Unable to reset password. Please try again later')
         return
       }
       setIsLoading(true)
-      await authApi.reset_password(token, password, confirm_password)
+      await authApi.reset_password(password, confirm_password, token)
       navigate('/login')
       toast.success('Your password has been reset. Please login with your new password.')
     } catch (error) {

@@ -1,5 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { FlightResponseType } from '@/ts/interface/data.interface'
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 
 export const flightApi = {
   getAll() {
