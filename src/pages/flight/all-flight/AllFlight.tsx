@@ -1,4 +1,5 @@
-import { IconSreach, IconVector, IconVectorDown,} from "@/common/icons";
+import {  IconVector, IconVectorDown,} from "@/common/icons";
+import IconSreach from "@/common/icons/IconSreach";
 import { Footer, Header } from "@/components/common";
 import ContentAllFlight from "@/components/common/flight/all-flight/ContentAllFlight";
 import { Button } from "@/components/ui/button";

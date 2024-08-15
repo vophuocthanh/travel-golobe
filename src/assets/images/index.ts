@@ -37,6 +37,7 @@ import male_madvies from './male-madives.jpg'
 import places_together from './places-together.png'
 import sydney_australia from './sydney-australia.webp'
 import tour_into1 from './tour-into-1.png'
+import tour_1 from './tour-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
 import tour from './tour.avif'
@@ -97,5 +98,6 @@ export {
   flight_Etihad,
   flight_Dubai,
   hotel_istanbul,
-  hotel_istanbul_1
+  hotel_istanbul_1,
+  tour_1
 }
