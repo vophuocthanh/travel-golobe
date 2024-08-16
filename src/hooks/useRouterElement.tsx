@@ -1,8 +1,8 @@
 import { path } from '@/constants/path'
 import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } from '@/pages'
 import Dashboard from '@/pages/admin/Dashboard'
-import FlightDetail from '@/pages/flight/Flight-detail'
 import AllFlight from '@/pages/flight/all-flight/AllFlight'
+import FlightDetail from '@/pages/flight/FlightDetail'
 import ForgotPassword from '@/pages/forgot-password/ForgotPassword'
 import HomeStay from '@/pages/home-stay/HomeStay'
 import Profile from '@/pages/profile/Profile'
@@ -29,7 +29,6 @@ export default function useRoutesElements() {
       { path: path.reset_password, element: <ResetPassword /> },
       { path: path.profile, element: <Profile /> },
       { path: path.all_flight, element: <AllFlight /> },
-
 
       { path: '*', element: <PageNotFound /> }
     ],
