@@ -41,6 +41,9 @@ import tour_1 from './tour-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
 import tour from './tour.avif'
+import flightdetail1 from './flightdetail1.jpg'
+import flightdetail2 from './flightdetai2l.jpg'
+import flightdetail3 from './flightdetai3l.jpg'
 import flight_Emirates from './flight_Emirates.png'
 import flight_Dubai from './flight_Dubai.png'
 import flight_Qatar from './flight_Qatar.png'
@@ -93,6 +96,9 @@ export {
   tour_into1,
   tour_location1,
   tour_search1,
+  flightdetail1,
+  flightdetail2,
+  flightdetail3,
   flight_Emirates,
   flight_Qatar,
   flight_Etihad,
