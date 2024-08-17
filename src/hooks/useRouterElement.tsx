@@ -1,3 +1,4 @@
+import ClientProvider from '@/components/common/loading-screen/client-provider'
 import { path } from '@/constants/path'
 import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } from '@/pages'
 import Dashboard from '@/pages/admin/Dashboard'
@@ -55,7 +56,9 @@ export default function useRoutesElements() {
           {routeElements}
         </motion.div>
       ) : (
-        <div style={{ width: '100%' }}>{routeElements}</div>
+        <ClientProvider>
+          <div className='w-full'>{routeElements}</div>
+        </ClientProvider>
       )}
     </AnimatePresence>
   )

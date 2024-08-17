@@ -43,13 +43,11 @@ export default function Login() {
         setAccessTokenToLS(data.access_token)
         setRefreshTokenToLS(data.refresh_token)
         setUserToLS(data.user)
-
         if (data?.user?.role === 'ADMIN') {
           navigate('/admin')
         } else {
           navigate('/')
         }
-
         toast.success('Login success 🚀🚀⚡⚡!')
       },
       onError: () => {
