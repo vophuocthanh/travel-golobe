@@ -6,6 +6,7 @@ import AllFlight from '@/pages/flight/all-flight/AllFlight'
 import FlightDetail from '@/pages/flight/FlightDetail'
 import ForgotPassword from '@/pages/forgot-password/ForgotPassword'
 import HomeStay from '@/pages/home-stay/HomeStay'
+import HotelDetail from '@/pages/hotel/hotel-detail/HotelDetail'
 import Profile from '@/pages/profile/Profile'
 import ResetPassword from '@/pages/reset-password/ResetPassword'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -30,6 +31,7 @@ export default function useRoutesElements() {
       { path: path.reset_password, element: <ResetPassword /> },
       { path: path.profile, element: <Profile /> },
       { path: path.all_flight, element: <AllFlight /> },
+      { path: path.hotel_detail, element: <HotelDetail /> },
       { path: '*', element: <PageNotFound /> }
     ],
     location
