@@ -20,7 +20,7 @@ export default function useRoutesElements() {
       { path: path.login, element: <Login /> },
       { path: path.register, element: <Register /> },
       { path: path.tour, element: <Tour /> },
-      { path: path.tourId, element: <TourDetail /> }, //detail
+      { path: path.tourId, element: <TourDetail /> },
       { path: path.hotel, element: <Hotel /> },
       { path: path.home_stay, element: <HomeStay /> },
       { path: path.flight, element: <Flight /> },
@@ -30,7 +30,6 @@ export default function useRoutesElements() {
       { path: path.reset_password, element: <ResetPassword /> },
       { path: path.profile, element: <Profile /> },
       { path: path.all_flight, element: <AllFlight /> },
-
       { path: '*', element: <PageNotFound /> }
     ],
     location
@@ -43,23 +42,23 @@ export default function useRoutesElements() {
     location.pathname === path.reset_password
 
   return (
-    <AnimatePresence mode='wait'>
-      {isAuthPath ? (
-        <motion.div
-          key={location.key}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
-          style={{ position: 'absolute', width: '100%' }}
-        >
-          {routeElements}
-        </motion.div>
-      ) : (
-        <ClientProvider>
+    <ClientProvider>
+      <AnimatePresence mode='wait'>
+        {isAuthPath ? (
+          <motion.div
+            key={location.key}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            style={{ position: 'absolute', width: '100%' }}
+          >
+            {routeElements}
+          </motion.div>
+        ) : (
           <div className='w-full'>{routeElements}</div>
-        </ClientProvider>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </ClientProvider>
   )
 }
