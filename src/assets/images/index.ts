@@ -52,6 +52,23 @@ import flight_Etihad from './flight_Etihad.png'
 import hotel_istanbul from './hotel-istanbul.jpg'
 import hotel_istanbul_1 from './hotel_istanbul_1.webp'
 
+import hoteldetail1 from './hoteldetail1.png'
+import hoteldetail2 from './hoteldetail2.png'
+import hoteldetail3 from './hoteldetail3.png'
+import hoteldetail4 from './hoteldetail4.png'
+import hoteldetail5 from './hoteldetail5.png'
+import room1 from './room1.png'
+import room2 from './room2.png'
+import room3 from './room3.png'
+import room4 from './room4.png'
+import hoteldetailmap from './hoteldetailmap.png'
+import avatar1 from './avatar1.png'
+import avatar2 from './avatar2.png'
+import avatar3 from './avatar3.png'
+import avatar4 from './avatar4.png'
+import avatar5 from './avatar5.png'
+
+
 
 export {
   avatar_account,
@@ -105,5 +122,20 @@ export {
   flight_Dubai,
   hotel_istanbul,
   hotel_istanbul_1,
-  tour_1
+  tour_1,
+  hoteldetail1,
+  hoteldetail2,
+  hoteldetail3,
+  hoteldetail4,
+  hoteldetail5,
+  room1,
+  room2,
+  room3,
+  room4,
+  hoteldetailmap,
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
 }

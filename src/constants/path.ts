@@ -15,4 +15,5 @@ export const path = {
   flight_detail:'/flight-detail',
   all_flight: '/flight/all-flight',
   home_stay: '/hotel/home-stay',
+  hotel_detail:'/hotel/home-stay/hotel-detail',
 } as const
