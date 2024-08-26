@@ -5,11 +5,18 @@ export default function ClientProvider({ children }: { children: React.ReactNode
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 3000)
+    const hasLoadedBefore = sessionStorage.getItem('hasLoadedBefore')
 
-    return () => clearTimeout(timer)
+    if (!hasLoadedBefore) {
+      const timer = setTimeout(() => {
+        setLoading(false)
+        sessionStorage.setItem('hasLoadedBefore', 'true')
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   return loading ? <LoadingScreen setLoading={setLoading} /> : <>{children}</>
