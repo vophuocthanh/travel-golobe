@@ -14,4 +14,6 @@ export interface MeResponse {
   email?: string
   name?: string
   role?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  avatar?: any
 }
