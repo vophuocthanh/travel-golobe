@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import { ChevronRight, HeartIcon, Link, MapPin, MoveLeft, MoveRight, Plane, RockingChair, Timer, UtensilsCrossed, Wifi } from 'lucide-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IconFlight } from '@/common/icons';
 
 export default function FlightDetail() {

@@ -9,6 +9,7 @@ import HomeStay from '@/pages/home-stay/HomeStay'
 import HotelDetail from '@/pages/hotel/hotel-detail/HotelDetail'
 import Profile from '@/pages/profile/Profile'
 import ResetPassword from '@/pages/reset-password/ResetPassword'
+import TourDetailView from '@/pages/tour/TourDetailView'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
@@ -22,6 +23,7 @@ export default function useRoutesElements() {
       { path: path.register, element: <Register /> },
       { path: path.tour, element: <Tour /> },
       { path: path.tourId, element: <TourDetail /> },
+      { path: path.tourDetailView, element: <TourDetailView /> },
       { path: path.hotel, element: <Hotel /> },
       { path: path.home_stay, element: <HomeStay /> },
       { path: path.flight, element: <Flight /> },
