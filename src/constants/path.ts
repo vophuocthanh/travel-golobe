@@ -9,12 +9,17 @@ export const path = {
   tour: '/tour',
   tourDetailView: '/tour/all-tour/detail-view',
   tourId: '/tour/all-tour',
-  admin: '/admin',
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',
   profile: '/profile',
   flight_detail: '/flight/all-flight/flight-detail',
   all_flight: '/flight/all-flight',
   home_stay: '/hotel/home-stay',
-  hotel_detail: '/hotel/home-stay/hotel-detail'
+  hotel_detail: '/hotel/home-stay/hotel-detail',
+  admin: '/admin',
+  users: '/admin/users',
+  order: '/admin/order',
+  admin_tour: '/admin/tours',
+  admin_flight: '/admin/flights',
+  admin_hotel: '/admin/hotels'
 } as const
