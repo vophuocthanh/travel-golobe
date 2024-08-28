@@ -6,8 +6,8 @@ import { Search } from 'lucide-react'
 
 // import ReactSlider from 'react-slider'
 
-import FilterSidebar from './components/FilterSidebar'
 import { useState } from 'react'
+import FilterSidebar from './components/FilterSidebar'
 import HotelListings from './components/HotelListings'
 
 export default function HomeStay() {
@@ -20,7 +20,6 @@ export default function HomeStay() {
 
       <div className='flex '>
         <div className='flex flex-row items-center justify-center gap-10 mt-32 bg-[#FFFFFF] p-2 border mx-[6rem] rounded-xl border-b border-gray-400 '>
-          {' '}
           <BookingForm />
           <Button className='mr-8'>
             <Search />

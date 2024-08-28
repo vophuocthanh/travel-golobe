@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { Coffee, Heart, MapPin } from 'lucide-react'
-import BasicRating from './StarRating'
-import { Button } from '@/components/ui/button'
 import { hotel_istanbul } from '@/assets/images'
+import { Button } from '@/components/ui/button'
+import { Coffee, Heart, MapPin } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import BasicRating from './StarRating'
 
 interface HotelCardProps {
   isFavorite: boolean
@@ -58,7 +59,9 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
               >
                 <Heart />
               </Button>
-              <Button className='w-full mx-4'>View Place</Button>
+              <Link to='/hotel/home-stay/hotel-detail' className='w-full'>
+                <Button className='w-full mx-4'>View Place</Button>
+              </Link>
             </div>
           </div>
         </div>

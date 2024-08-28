@@ -1,6 +1,7 @@
 import { tour_into1 } from '@/assets/images'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 const dataTourInto = [
   {
@@ -46,7 +47,9 @@ export default function IntoTour() {
                 travel tools to get you to your destination.
               </p>
             </div>
-            <Button className='bg-white border border-primary hover:bg-slate-100'>See All</Button>
+            <Link to='/tour/all-tour'>
+              <Button className='bg-white border border-primary hover:bg-slate-100'>See All</Button>
+            </Link>
           </div>
           <div className='flex justify-between'>
             {dataTourInto.map((item) => (

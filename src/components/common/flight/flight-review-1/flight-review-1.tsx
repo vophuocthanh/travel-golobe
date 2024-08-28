@@ -1,6 +1,7 @@
 import { flightreview1, flightreview2 } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 const review = [
   { id: 1, city: 'Melbourne', title: 'An amazing journey', image: flightreview1, price: '700 $' },
@@ -20,7 +21,9 @@ export default function FlightReview1() {
               Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
-            <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
+            <Link to='/flight/all-flight' className=''>
+              <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
+            </Link>
           </div>
           <div className='flex flex-wrap justify-between '>
             {review.map((travel) => (

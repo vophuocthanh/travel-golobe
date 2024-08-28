@@ -7,14 +7,14 @@ export const path = {
   flight: '/flight',
   flightId: '/flight/:id',
   tour: '/tour',
-  tourDetailView: '/tour/detail-view',
-  tourId: '/tour/:id',
+  tourDetailView: '/tour/all-tour/detail-view',
+  tourId: '/tour/all-tour',
   admin: '/admin',
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',
   profile: '/profile',
-  flight_detail:'/flight-detail',
+  flight_detail: '/flight/all-flight/flight-detail',
   all_flight: '/flight/all-flight',
   home_stay: '/hotel/home-stay',
-  hotel_detail:'/hotel/home-stay/hotel-detail',
+  hotel_detail: '/hotel/home-stay/hotel-detail'
 } as const

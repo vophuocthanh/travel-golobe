@@ -1,5 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { baku_azerbaijan } from '@/assets/images'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 import SectionInViewUp from '../../animation/SectionInViewUp'
 
 const fallIntroTravel = [
@@ -20,7 +21,9 @@ export default function FallIntroTravel() {
               Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
-            <Button className='text-black bg-white border border-primary'>See All</Button>
+            <Link to='/hotel/home-stay'>
+              <Button className='text-black bg-white border border-primary'>See All</Button>
+            </Link>
           </div>
           <div className='flex flex-wrap justify-between'>
             {fallIntroTravel.map((travel) => (
