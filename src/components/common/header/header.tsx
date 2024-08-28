@@ -79,24 +79,22 @@ export default function Header({ className }: HeaderProps) {
         <Link to='/' className='mr-40'>
           <img src={logo} alt='logo' className='w-24 h-10' />
         </Link>
-
         {token ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className='flex items-center gap-2'>
                 <Avatar>
                   <AvatarImage src={avatarUrl} alt={getMe?.name || 'Avatar'} />
-
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <div className='flex flex-col'>
-                  <h1 className='text-sm'>{getMe?.email}</h1>
-                  <span className='text-xs text-gray-400'>{getMe?.name || 'Guest'}</span>
-                </div>
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56 mr-10'>
+            <DropdownMenuContent className='w-56 mr-6'>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <div className='flex flex-col ml-4'>
+                <h1 className='text-sm'>{getMe?.email}</h1>
+                <span className='text-xs text-gray-400'>{getMe?.name || 'Guest'}</span>
+              </div>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
