@@ -48,9 +48,9 @@ export default function Header({ className }: HeaderProps) {
     queryKey: ['getMe'],
     queryFn: () => meApi.getMe()
   })
-  const avatarFileName = getMe?.avatar?.replace('uploads/avatar/', '')
+  const avatarFileName = getMe?.avatar?.replace('avatar/', '')
   const avatarUrl = `${import.meta.env.VITE_AVATAR}/${avatarFileName}`
-
+  console.log(avatarUrl)
   const handleLogout = () => {
     clearLS()
     window.location.reload()
