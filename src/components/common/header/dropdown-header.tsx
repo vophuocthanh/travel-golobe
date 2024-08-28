@@ -53,7 +53,7 @@ export default function DropdownHeader() {
         <div className='flex items-center gap-2'>
           <Avatar>
             <AvatarImage src={avatarUrl} alt={getMe?.name || 'Avatar'} />
-            <AvatarFallback>GUEST</AvatarFallback>
+            <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
       </DropdownMenuTrigger>
