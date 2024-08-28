@@ -59,7 +59,7 @@ export default function Header({ className }: HeaderProps) {
   return (
     <>
       <header
-        className={`${className} w-full flex justify-between fixed bg-white z-50 py-4 px-10 shadow-lg`}
+        className={`${className} items-center w-full flex justify-between fixed bg-white z-50 py-4 px-10 shadow-lg`}
         style={{ height: '80px' }}
       >
         <div className='flex items-center gap-6 '>
