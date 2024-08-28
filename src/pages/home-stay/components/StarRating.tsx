@@ -1,7 +1,7 @@
-import * as React from 'react'
-import Rating from '@mui/material/Rating'
-import Box from '@mui/material/Box'
 import StarIcon from '@mui/icons-material/Star'
+import Box from '@mui/material/Box'
+import Rating from '@mui/material/Rating'
+import * as React from 'react'
 
 const labels: { [index: string]: string } = {
   0.5: '0.5 Star Hotel',
@@ -32,10 +32,10 @@ export default function BasicRating() {
           value={value}
           precision={0.5}
           getLabelText={getLabelText}
-          onChange={(event, newValue) => {
+          onChange={(_event, newValue) => {
             setValue(newValue)
           }}
-          onChangeActive={(event, newHover) => {
+          onChangeActive={(_event, newHover) => {
             setHover(newHover)
           }}
           emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />}
