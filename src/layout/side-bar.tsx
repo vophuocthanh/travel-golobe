@@ -1,3 +1,4 @@
+import { logo } from '@/assets/images'
 import { sidebarLinks } from '@/constants/general.const'
 import { TSidebarLinks } from '@/shared/ts/types'
 import { Link, useLocation } from 'react-router-dom'
@@ -6,7 +7,10 @@ const Sidebar = () => {
   const router = useLocation()
   const { pathname } = router
   return (
-    <div className='px-4 py-6 bg-[#FCFCFC]'>
+    <div className='px-4 py-4 bg-[#FCFCFC]'>
+      <Link to='/' className='flex items-center gap-4 ml-10'>
+        <img src={logo} alt='logo' className='w-24 h-10 mb-5' />
+      </Link>
       {sidebarLinks.map((link) => (
         <SidebarLink isActive={pathname === link.path} key={link.title} link={link}></SidebarLink>
       ))}
@@ -21,8 +25,8 @@ function SidebarLink({ link, isActive }: ISidebarLinkProps) {
   return (
     <Link
       to={link.path}
-      className={`px-6 py-4 flex items-center gap-4 font-medium text-base rounded-xl  ${
-        isActive ? 'bg-primary text-white' : 'hover:text-blue-400'
+      className={`px-10 py-4 flex items-center gap-4 font-medium text-base rounded-xl  ${
+        isActive ? 'bg-primary text-white' : 'hover:text-primary'
       }`}
     >
       <span>{link.icon}</span>

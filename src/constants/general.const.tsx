@@ -1,10 +1,7 @@
 import IconDashboard from '@/assets/icons/icon-dashboard'
-import IconFlight from '@/assets/icons/icon-flight'
-import IconHotel from '@/assets/icons/icon-hotel'
 import IconPerson from '@/assets/icons/icon-person'
-import IconTour from '@/assets/icons/icon-tour'
 import { TSidebarLinks } from '@/shared/ts/types'
-import { CreditCard } from 'lucide-react'
+import { ContactRound, CreditCard, Hotel, TicketsPlane, TramFront } from 'lucide-react'
 
 export const sidebarLinks: TSidebarLinks[] = [
   {
@@ -14,23 +11,28 @@ export const sidebarLinks: TSidebarLinks[] = [
   },
   {
     title: 'Hotel',
-    icon: <IconHotel />,
+    icon: <Hotel />,
     path: '/admin/hotels'
   },
   {
     title: 'Flight',
-    icon: <IconFlight />,
+    icon: <TicketsPlane />,
     path: '/admin/flights'
   },
   {
     title: 'Tour',
-    icon: <IconTour />,
+    icon: <TramFront />,
     path: '/admin/tours'
   },
   {
     title: 'Order',
     icon: <CreditCard />,
     path: '/admin/order'
+  },
+  {
+    title: 'Employee',
+    icon: <ContactRound />,
+    path: '/admin/employee'
   },
   {
     title: 'Users',

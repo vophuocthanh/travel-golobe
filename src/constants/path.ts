@@ -21,5 +21,6 @@ export const path = {
   order: '/admin/order',
   admin_tour: '/admin/tours',
   admin_flight: '/admin/flights',
-  admin_hotel: '/admin/hotels'
+  admin_hotel: '/admin/hotels',
+  admin_employee: '/admin/employee'
 } as const
