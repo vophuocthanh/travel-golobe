@@ -1,3 +1,4 @@
+
 export { default as IconBed } from './IconBed'
 export { default as IconFlight } from './IconFlight'
 export { default as IconGoogle } from './IconGoogle'
@@ -33,4 +34,12 @@ export { default as IconWifi } from './IconWifi'
 export { default as IconTea } from './IconTea'
 export { default as IconEat } from './IconEat'
 export { default as IconFlag } from './IconFlag'
-
+export { default as IconDot } from './IconDot'
+export { default as IconGermany } from './IconGermany'
+export { default as IconChina } from './IconChina'
+export { default as IconUc } from './IconUc'
+export { default as IconUs } from './IconUs'
+export { default as IconNl } from './IconNl'
+export { default as IconJp } from './IconJp'
+export { default as IconRo } from './IconRo'
+export { default as IconMap } from './IconMap'
