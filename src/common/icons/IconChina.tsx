@@ -2,7 +2,7 @@
 function IconChina() {
   return (
     <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_814_5358)">
+    <g clipPath="url(#clip0_814_5358)">
     <path d="M0 0H24V18H0V0Z" fill="#EE1C25"/>
     <path d="M2.88077 6.6598L4.50075 1.7998L6.12073 6.6598L1.80078 3.6898H7.20071L2.88077 6.6598Z" fill="#FFFF00"/>
     <path d="M9.90575 1.89271L8.23859 2.26216L9.35065 0.966289L9.24158 2.71037L8.3164 1.16633L9.90575 1.89271Z" fill="#FFFF00"/>

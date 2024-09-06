@@ -3,7 +3,7 @@
 function IconUc() {
   return (
     <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_814_11911)">
+    <g clipPath="url(#clip0_814_11911)">
     <path d="M0 0H24V18H0V0Z" fill="#00008B"/>
     <path d="M1.40625 0L5.98125 3.39375L10.5375 0H12V1.1625L7.5 4.51875L12 7.85625V9H10.5L6 5.64375L1.51875 9H0V7.875L4.48125 4.5375L0 1.2V0H1.40625Z" fill="white"/>
     <path d="M7.95 5.26875L12 8.25V9L6.91875 5.26875H7.95ZM4.5 5.64375L4.6125 6.3L1.0125 9H0L4.5 5.64375ZM12 0V0.05625L7.33125 3.58125L7.36875 2.75625L11.0625 0H12ZM0 0L4.48125 3.3H3.35625L0 0.7875V0Z" fill="#FF0000"/>

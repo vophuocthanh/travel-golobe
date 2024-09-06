@@ -1,7 +1,7 @@
 import {  Card, CardContent, CardDescription, CardHeader, CardTitle, } from '@/components/ui/card';
-import { IconDot, IconMap } from '@/common/icons';
+import { IconDot } from '@/common/icons';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Label, PolarRadiusAxis, RadialBar, RadialBarChart, XAxis } from 'recharts';
 
 const chartDataTarget = [
   { month: "january", achieve: 67, remains: 33 },
@@ -13,6 +13,16 @@ const chartData = [
   { browser: "firefox", visitors: 187, fill: "#f6b93b" },
   { browser: "edge", visitors: 173, fill: "#f8c291" },
   { browser: "other", visitors: 90, fill: "#f5d7a3" },
+]
+const chartDataMultiple = [
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+  { month: "Aug", desktop: 120, mobile: 200 },
+  { month: "Sep", desktop: 304, mobile: 140 },
 ]
 const chartConfig = {
   achieve: {
@@ -44,6 +54,14 @@ const chartConfig = {
     label: "Other",
     color: "hsl(var(--chart-5))",
   },
+  desktop: {
+    label: "Desktop",
+    color: "#e65c00",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "#ffb380",
+  },
 } satisfies ChartConfig
 
 export default function ContentDashboard1() {
@@ -67,7 +85,7 @@ export default function ContentDashboard1() {
       <CardContent className="flex items-center flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[250px]"
+          className="mx-auto aspect-square w-full max-w-[400px] h-full"
         >
           <RadialBarChart
             data={chartDataTarget}
@@ -123,7 +141,7 @@ export default function ContentDashboard1() {
         </ChartContainer>
       </CardContent>       
       </Card>
-      <Card className="flex flex-col col-span-1">
+      <Card className="flex flex-col col-span-1 ">
         <CardHeader className="pb-0 gap-y-3">
         <CardTitle>Most Active Account Types</CardTitle>
         <CardDescription>
@@ -135,24 +153,24 @@ export default function ContentDashboard1() {
           </div>
         </CardDescription>
         </CardHeader>
-        <CardContent className="flex-1 pb-0">
-          <ChartContainer
-            config={chartConfig}
-            className="mx-auto aspect-square max-h-[250px]"
-          >
-            <RadialBarChart data={chartData} innerRadius={30} outerRadius={110}>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel nameKey="browser" />}
-              />
-              <RadialBar dataKey="visitors" background />
-            </RadialBarChart>
-          </ChartContainer> 
-        </CardContent>
+        <CardContent className="flex-1 mt-10">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[250px]"
+        >
+          <RadialBarChart data={chartData} innerRadius={30} outerRadius={110}>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel nameKey="browser" />}
+            />
+            <RadialBar dataKey="visitors" background />
+          </RadialBarChart>
+        </ChartContainer>
+      </CardContent>
       </Card>
       <Card className="flex flex-col col-span-2">
-      <CardHeader className="pb-0 gap-y-3">
-        <CardTitle>Active Countries</CardTitle>
+      <CardHeader className="mb-5 gap-y-3">
+        <CardTitle>Monthly increase chart</CardTitle>
         <CardDescription>
           <div className="flex items-center gap-x-[3rem]">
             <div className="flex items-center gap-3 text-sm text-gray-600"><IconDot/>Very Active</div>
@@ -160,9 +178,26 @@ export default function ContentDashboard1() {
           </div>
         </CardDescription>
         </CardHeader>
-        <CardContent className='flex items-center justify-center'>
-          <IconMap/>
-        </CardContent>
+      <CardContent className='max-h-[300px] w-full'>
+        <ChartContainer config={chartConfig} className='flex w-full h-full mx-auto'>
+          <BarChart accessibilityLayer data={chartDataMultiple}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dashed" />}
+            />
+            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
       </Card>
     </div>
   )
