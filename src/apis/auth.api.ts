@@ -15,8 +15,16 @@ export const authApi = {
     const url = '/auth/forgot-password'
     return axiosClient.post(url, { email })
   },
-  reset_password(password: string, confirm_password: string, token: string) {
+  reset_password(newPassword: string, confirm_password: string, token: string) {
     const url = '/auth/reset-password'
-    return axiosClient.put(url, { password, token, confirm_password })
+    return axiosClient.put(
+      url,
+      { newPassword, token, confirm_password },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
   }
 }

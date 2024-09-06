@@ -42,15 +42,15 @@ export const ForgotPasswordSchema = z.object({
     .email('Email must be valid')
 })
 
-export const ResetPasswordSchema = z.object({
-  password: z
-    .string()
-    .min(1, {
-      message: 'Password is required'
-    })
-    .regex(validator.password, 'Password must contain at least 8 characters, 1 letter, and 1 number'),
-  confirm_password: z
-    .string()
-    .min(1, { message: 'Confirm password is required' })
-    .regex(validator.password, 'Password must contain at least 8 characters, 1 letter, and 1 number')
-})
+export const ResetPasswordSchema = z
+  .object({
+    newPassword: z.string().min(6, 'Password must be at least 6 characters').nonempty('Password cannot be blank'),
+    confirm_password: z
+      .string()
+      .min(6, 'Password must be at least 6 characters')
+      .nonempty('Confirmation password cannot be blank')
+  })
+  .refine((data) => data.newPassword === data.confirm_password, {
+    message: 'Confirmation password does not match',
+    path: ['confirm_password']
+  })

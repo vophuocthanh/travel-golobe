@@ -7,6 +7,7 @@ import {
   banner_forgot_4,
   logo
 } from '@/assets/images'
+import { IconEye, IconNonEye } from '@/common/icons'
 import CarouselPlugin from '@/components/common/carousel/CarouselPlugin'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -20,7 +21,6 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, redirect, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
 export function Loader() {
   const isAuth = getAccessTokenFromLS()
@@ -33,19 +33,24 @@ export function Loader() {
 export default function ResetPassword() {
   const images = [banner_forgot, banner_forgot_1, banner_forgot_2, banner_forgot_3, banner_forgot_4]
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [isPasswordConfirmVisible, setIsPasswordConfirmVisible] = useState<boolean>(false)
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
 
-  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+  const form = useForm({
     mode: 'onBlur',
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
-      password: '',
+      newPassword: '',
       confirm_password: ''
     }
   })
 
-  const onSubmit: SubmitHandler<z.infer<typeof ResetPasswordSchema>> = async ({ password, confirm_password }) => {
+  const onSubmit: SubmitHandler<{ newPassword: string; confirm_password: string }> = async ({
+    newPassword,
+    confirm_password
+  }) => {
     try {
       const token = searchParams.get('access_token')
       if (!token) {
@@ -53,7 +58,7 @@ export default function ResetPassword() {
         return
       }
       setIsLoading(true)
-      await authApi.reset_password(password, confirm_password, token)
+      await authApi.reset_password(newPassword, confirm_password, token)
       navigate('/login')
       toast.success('Your password has been reset. Please login with your new password.')
     } catch (error) {
@@ -63,6 +68,14 @@ export default function ResetPassword() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible)
+  }
+
+  const togglePasswordConfirmVisibility = () => {
+    setIsPasswordConfirmVisible(!isPasswordConfirmVisible)
   }
 
   return (
@@ -86,12 +99,18 @@ export default function ResetPassword() {
             <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
               <FormField
                 control={form.control}
-                name='password'
+                name='newPassword'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>New Password</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter new password' type='password' {...field} />
+                      <Input
+                        placeholder='Enter new password'
+                        type={isPasswordVisible ? 'text' : 'password'}
+                        {...field}
+                        icon={isPasswordVisible ? <IconNonEye /> : <IconEye />}
+                        iconOnClick={togglePasswordVisibility}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,7 +123,13 @@ export default function ResetPassword() {
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
-                      <Input placeholder='Confirm new password' type='password' {...field} />
+                      <Input
+                        placeholder='Confirm new password'
+                        type={isPasswordConfirmVisible ? 'text' : 'password'}
+                        {...field}
+                        icon={isPasswordConfirmVisible ? <IconNonEye /> : <IconEye />}
+                        iconOnClick={togglePasswordConfirmVisibility}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
