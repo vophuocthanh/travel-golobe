@@ -1,4 +1,4 @@
-import { avatar_account, banner_account, logo_flight, logo_hotel } from '@/assets/images'
+import { banner_account, logo_flight, logo_hotel } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
@@ -13,14 +13,21 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import Input from './components/input-profile'
-
+import { useQuery } from '@tanstack/react-query'
+import { meApi } from '@/apis/me'
 
 
 export default function Profile() {
+    const { data: getMe } = useQuery({
+        queryKey: ['getMe'],
+        queryFn: () => meApi.getMe()
+    })
+
 
 
     return (
         <div>
+
             <Header />
             <section className='container mx-auto pt-28 pb-72'>
                 <div className='banner relative'>
@@ -30,9 +37,9 @@ export default function Profile() {
                         <p>Upload new cover</p>
                     </Button>
                     <div className='absolute -bottom-24 left-1/2 transform -translate-x-1/2 flex flex-col items-center'>
-                        <img src={avatar_account} alt="" className='rounded-full w-36 h-36 border-4 border-white shadow-lg' />
-                        <p className='mt-2 font-semibold text-lg'>john.doe</p>
-                        <p className='text-gray-500'>john.doe@gmail.com</p>
+                        <img src={getMe?.avatar} alt="" className='rounded-full w-36 h-36 border-4 border-white shadow-lg' />
+                        <p className='mt-2 font-semibold text-lg'>{getMe?.name}</p>
+                        <p className='text-gray-500'>{getMe?.email}</p>
                     </div>
                 </div>
 
@@ -55,7 +62,7 @@ export default function Profile() {
                                 <div className="relative p-2">
                                     <label htmlFor="" className="text-base font-semibold">Email</label>
                                     <div className="flex items-center justify-between mt-2">
-                                        <p className="text-xl font-semibold">john.doe@gmail.com</p>
+                                        <p className="text-xl font-semibold">{getMe?.email}</p>
                                         <div className="flex space-x-2">
                                             <Button className="text-sm flex items-center space-x-2 p-2 border border-primary bg-white rounded-md shadow-md">
                                                 <Plus className="w-4 h-4" />
