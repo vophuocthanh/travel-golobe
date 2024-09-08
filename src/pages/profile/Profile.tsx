@@ -2,7 +2,7 @@ import { banner_account, logo_flight, logo_hotel } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
-import { Armchair, Calendar, ChevronRight, CirclePlus, Clock4, CloudUploadIcon, Cpu, CreditCard, DoorOpen, Minus, Plus, SquarePen } from 'lucide-react'
+import { Armchair, Calendar, ChevronRight, CirclePlus, Clock4, CloudUploadIcon, Cpu, CreditCard, DoorOpen, Minus } from 'lucide-react'
 import Div from './components/div-profile'
 import {
     Dialog,
@@ -15,35 +15,49 @@ import {
 import Input from './components/input-profile'
 import { useQuery } from '@tanstack/react-query'
 import { meApi } from '@/apis/me'
+import ContentAccount from './components/content-account'
 
 
 export default function Profile() {
-    const { data: getMe } = useQuery({
-        queryKey: ['getMe'],
-        queryFn: () => meApi.getMe()
+    const { data: getMeProfile } = useQuery({
+        queryKey: ['getMeProfile'],
+        queryFn: () => meApi.getMeProfile()
     })
-
-
 
     return (
         <div>
 
             <Header />
-            <section className='container mx-auto pt-28 pb-72'>
+            <section className='container mx-auto pt-28'>
                 <div className='banner relative'>
                     <img src={banner_account} alt="" className='w-full h-80 object-cover rounded-xl' />
-                    <Button className='text-lg flex items-center space-x-2 absolute right-3 bottom-4 p-2 rounded-md shadow-md'>
-                        <CloudUploadIcon />
-                        <p>Upload new cover</p>
-                    </Button>
+                    <Dialog>
+                        <DialogTrigger>
+                            <Button className='text-lg flex items-center space-x-2 absolute right-3 bottom-4 p-2 rounded-md shadow-md'>
+                                <CloudUploadIcon />
+                                <p>Upload new cover</p>
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle className="text-xl font-semibold mb-4 text-center">Upload Avartar</DialogTitle>
+                                <DialogDescription>
+                                    <form>
+                                        <input type="file" name="" id="" />
+                                    </form>
+                                </DialogDescription>
+                            </DialogHeader>
+                        </DialogContent>
+                    </Dialog>
+
                     <div className='absolute -bottom-24 left-1/2 transform -translate-x-1/2 flex flex-col items-center'>
-                        <img src={getMe?.avatar} alt="" className='rounded-full w-36 h-36 border-4 border-white shadow-lg' />
-                        <p className='mt-2 font-semibold text-lg'>{getMe?.name}</p>
-                        <p className='text-gray-500'>{getMe?.email}</p>
+                        <img src={getMeProfile?.avatar} alt="" className='rounded-full w-36 h-36 border-4 border-white shadow-lg' />
+                        <p className='mt-2 font-semibold text-lg'>{getMeProfile?.name}</p>
+                        <p className='text-gray-500'>{getMeProfile?.email}</p>
                     </div>
                 </div>
 
-                <div className="container mx-auto pt-28 pb-72">
+                <div className="container mx-auto pt-28 pb-64">
                     <Tabs defaultValue="account" className="mt-5">
                         <TabsList className="flex space-x-40 py-5 mb-6 justify-center rounded-md shadow-md ">
                             <TabsTrigger value="account" className="px-4 py-2 font-semibold text-gray-700 border-b-2 border-transparent hover:border-primary">
@@ -58,24 +72,14 @@ export default function Profile() {
                         </TabsList>
                         <TabsContent value="account">
                             <p className="text-2xl font-bold mb-6">Account</p>
-                            <div className="form-account bg-white p-6 rounded-md shadow-md">
-                                <div className="relative p-2">
-                                    <label htmlFor="" className="text-base font-semibold">Email</label>
-                                    <div className="flex items-center justify-between mt-2">
-                                        <p className="text-xl font-semibold">{getMe?.email}</p>
-                                        <div className="flex space-x-2">
-                                            <Button className="text-sm flex items-center space-x-2 p-2 border border-primary bg-white rounded-md shadow-md">
-                                                <Plus className="w-4 h-4" />
-                                                <p>Add another email</p>
-                                            </Button>
-                                            <Button className="text-sm flex items-center space-x-2 p-2 border border-primary bg-white rounded-md shadow-md">
-                                                <SquarePen className="w-4 h-4" />
-                                                <p>Change</p>
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className='space-y-3'>
+                                <ContentAccount title='Name' content={getMeProfile?.name} />
+                                <ContentAccount title='Email' content={getMeProfile?.email} boolean="hhh" />
+                                <ContentAccount title='Phone Number' content={getMeProfile?.phone} />
+                                <ContentAccount title='Date of Birth' content={getMeProfile?.date_of_birth} />
+                                <ContentAccount title='Country' content={getMeProfile?.country} />
                             </div>
+
                         </TabsContent>
                         <TabsContent value="Tickets-Booking">
                             <p className="text-xl font-semibold mb-4">Tickets/Booking</p>
@@ -169,11 +173,12 @@ export default function Profile() {
                                 </div>
 
                                 <Dialog>
-                                    <DialogTrigger><div className="bg-white text-primary border border-primary border-dashed rounded-2xl shadow-lg w-80 h-44" >
-                                        <div className="flex justify-center items-center h-44">
-                                            <CirclePlus className='w-8 h-8 text-primary' />
+                                    <DialogTrigger>
+                                        <div className="bg-white text-primary border border-primary border-dashed rounded-2xl shadow-lg w-80 h-44" >
+                                            <div className="flex justify-center items-center h-44">
+                                                <CirclePlus className='w-8 h-8 text-primary' />
+                                            </div>
                                         </div>
-                                    </div>
                                     </DialogTrigger>
                                     <DialogContent>
                                         <DialogHeader>
