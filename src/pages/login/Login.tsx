@@ -9,9 +9,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/utils/storage'
 import { LoginSchema } from '@/zod'
+import HCaptcha from '@hcaptcha/react-hcaptcha'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -22,6 +23,8 @@ export default function Login() {
   const images = [banner_login, banner_login2, banner_login3]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const captchaRef = useRef<HCaptcha>(null)
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -37,8 +40,13 @@ export default function Login() {
   })
 
   function onSubmit() {
+    if (!captchaToken) {
+      toast.error('Please complete the CAPTCHA!')
+      return
+    }
+
     setIsLoading(true)
-    mutationLogin.mutate(form.getValues(), {
+    mutationLogin.mutate({ ...form.getValues(), captchaToken } as z.infer<typeof LoginSchema>, {
       onSuccess: (data) => {
         setAccessTokenToLS(data.access_token)
         setRefreshTokenToLS(data.refresh_token)
@@ -117,6 +125,13 @@ export default function Login() {
                 <Link to='/forgot-password' className='text-redCustom hover:underline'>
                   Forgot Password
                 </Link>
+              </div>
+              <div className='flex items-center justify-center'>
+                <HCaptcha
+                  sitekey='10000000-ffff-ffff-ffff-000000000001'
+                  onVerify={(token) => setCaptchaToken(token)}
+                  ref={captchaRef}
+                />
               </div>
               <Button loading={isLoading} className='w-full text-white' type='submit'>
                 Login
