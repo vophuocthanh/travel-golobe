@@ -2,6 +2,7 @@ export const path = {
   home: '/',
   login: '/login',
   register: '/register',
+  verify_code: '/verify-code',
   hotel: '/hotel',
   hotelId: '/hotel/:id',
   flight: '/flight',

@@ -54,3 +54,8 @@ export const ResetPasswordSchema = z
     message: 'Confirmation password does not match',
     path: ['confirm_password']
   })
+
+export const VerifyCodeSchema = z.object({
+  email: z.string().email('Email must be valid'),
+  verificationCode: z.string()
+})

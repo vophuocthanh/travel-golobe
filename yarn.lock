@@ -2230,7 +2230,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@tanstack/react-table" "^8.17.3"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
-    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-18efd3d3-0025-4ab6-9d24-8b623509f047-1725871743842/node_modules/app"
+    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-690bd7db-ab85-49f4-a736-b540bfc36ed5-1725873817932/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
@@ -3560,6 +3560,11 @@ inherits@2, inherits@^2.0.3, inherits@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
+
+input-otp@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/input-otp/-/input-otp-1.2.4.tgz#9834af8675ac72c7f1b7c010f181b3b4ffdd0f72"
+  integrity sha512-md6rhmD+zmMnUh5crQNSQxq3keBRYvE3odbr4Qb9g2NWzQv9azi+t1a3X4TBTbh98fsGHgEEJlzbe1q860uGCA==
 
 "internmap@1 - 2":
   version "2.0.3"

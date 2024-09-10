@@ -26,5 +26,9 @@ export const authApi = {
         }
       }
     )
+  },
+  verify_email(email: string, verificationCode: string) {
+    const url = '/auth/verify-email'
+    return axiosClient.post(url, { email, verificationCode })
   }
 }

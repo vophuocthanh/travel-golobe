@@ -44,7 +44,6 @@ export default function Login() {
       toast.error('Please complete the CAPTCHA!')
       return
     }
-
     setIsLoading(true)
     mutationLogin.mutate({ ...form.getValues(), captchaToken } as z.infer<typeof LoginSchema>, {
       onSuccess: (data) => {

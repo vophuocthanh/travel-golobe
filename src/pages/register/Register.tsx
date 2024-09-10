@@ -50,7 +50,7 @@ export default function Register() {
     setIsLoading(true)
     mutationRegister.mutate(form.getValues(), {
       onSuccess: () => {
-        navigate('/login')
+        navigate('/verify-code')
         toast.success('Register success 🚀🚀⚡⚡')
       },
       onError: () => {

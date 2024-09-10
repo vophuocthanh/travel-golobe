@@ -51,7 +51,7 @@ export default function ForgotPassword() {
       toast.success('Your password has been sent to your email! Please check your email')
     } catch (error) {
       if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message)
+        toast.error('Forgot password failed!')
       }
     } finally {
       setIsLoading(false)

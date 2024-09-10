@@ -17,6 +17,7 @@ import HotelDetail from '@/pages/hotel/hotel-detail/HotelDetail'
 import Profile from '@/pages/profile/Profile'
 import ResetPassword from '@/pages/reset-password/ResetPassword'
 import TourDetailView from '@/pages/tour/TourDetailView'
+import VerifyCode from '@/pages/verify-code/VerifyCode'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
@@ -28,6 +29,7 @@ export default function useRoutesElements() {
       { path: path.home, element: <Home /> },
       { path: path.login, element: <Login /> },
       { path: path.register, element: <Register /> },
+      { path: path.verify_code, element: <VerifyCode /> },
       { path: path.tour, element: <Tour /> },
       { path: path.tourId, element: <TourDetail /> },
       { path: path.tourDetailView, element: <TourDetailView /> },
