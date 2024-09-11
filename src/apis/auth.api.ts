@@ -30,5 +30,9 @@ export const authApi = {
   verify_email(email: string, verificationCode: string) {
     const url = '/auth/verify-email'
     return axiosClient.post(url, { email, verificationCode })
+  },
+  changePassword(current_password: string, password: string, confirm_password: string) {
+    const url = '/auth/change-password'
+    return axiosClient.put(url, { current_password, password, confirm_password })
   }
 }

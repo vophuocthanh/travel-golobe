@@ -59,3 +59,9 @@ export const VerifyCodeSchema = z.object({
   email: z.string().email('Email must be valid'),
   verificationCode: z.string()
 })
+
+export const ChangePasswordSchema = z.object({
+  current_password: z.string().min(1, { message: 'Current password is required' }),
+  password: z.string().min(1, { message: 'New password is required' }),
+  confirm_password: z.string().min(1, { message: 'Confirm password is required' })
+})

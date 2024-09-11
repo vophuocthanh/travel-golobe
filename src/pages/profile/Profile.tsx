@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
+import ContentPassword from '@/pages/profile/components/content-password'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
@@ -134,6 +135,7 @@ export default function Profile() {
                 <ContentAccount title='Phone Number' content={getMeProfile?.phone} />
                 <ContentAccount title='Date of Birth' content={getMeProfile?.date_of_birth} />
                 <ContentAccount title='Country' content={getMeProfile?.country} />
+                <ContentPassword title='Password' />
               </div>
             </TabsContent>
             <TabsContent value='Tickets-Booking'>
