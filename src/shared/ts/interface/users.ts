@@ -14,12 +14,9 @@ export interface MeResponse {
   email?: string
   name?: string
   role?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  avatar?: any
+  avatar?: string
   phone?: string
   address: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  date_of_birth?: any
+  date_of_birth?: string
   country?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }
