@@ -1,6 +1,7 @@
 import { logo } from '@/assets/images'
 import { IconFlight, IconHotel } from '@/common/icons'
 import DropdownHeader from '@/components/common/header/dropdown-header'
+import { ThemeToggle } from '@/components/common/theme/theme-toogle'
 import { getAccessTokenFromLS } from '@/shared/utils/storage'
 import { TramFront } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -35,18 +36,21 @@ export default function Header({ className }: HeaderProps) {
         <Link to='/' className='mr-40'>
           <img src={logo} alt='logo' className='w-24 h-10' />
         </Link>
-        {token ? (
-          <DropdownHeader />
-        ) : (
-          <div className='flex items-center gap-4'>
-            <Link to='/login' className='flex items-center gap-2'>
-              Login
-            </Link>
-            <Link to='/register' className='flex items-center gap-2 px-4 py-2 bg-black rounded-md hover:shadow-xl'>
-              <span className='text-white'>Sign up</span>
-            </Link>
-          </div>
-        )}
+        <div className='flex items-center gap-6'>
+          <ThemeToggle />
+          {token ? (
+            <DropdownHeader />
+          ) : (
+            <div className='flex items-center gap-4'>
+              <Link to='/login' className='flex items-center gap-2'>
+                Login
+              </Link>
+              <Link to='/register' className='flex items-center gap-2 px-4 py-2 bg-black rounded-md hover:shadow-xl'>
+                <span className='text-white'>Sign up</span>
+              </Link>
+            </div>
+          )}
+        </div>
       </header>
     </>
   )
