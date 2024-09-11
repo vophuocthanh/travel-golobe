@@ -1,3 +1,4 @@
+import ContentDashboard1 from '@/components/common/admin/dashboard/ContentDashboard1'
 import ContentDashboard2 from '@/components/common/admin/dashboard/ContentDashboard2'
 import { DatePicker, Space } from 'antd'
 import { RangePickerProps } from 'antd/es/date-picker'
@@ -86,6 +87,7 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+      <ContentDashboard1 />
       <ContentDashboard2 />
     </div>
   )
