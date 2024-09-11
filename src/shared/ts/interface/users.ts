@@ -16,17 +16,10 @@ export interface MeResponse {
   role?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   avatar?: any
-}
-
-export interface MeResponseProfile{
-  email?: string
-  name?: string
   phone?: string
   address: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  date_of_birth?: any
-  country?:string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  avatar?: any
-
+  date_of_birth?: any
+  country?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }
