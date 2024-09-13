@@ -1,5 +1,5 @@
 import { meApi } from '@/apis/me'
-import { banner_account, logo_flight, logo_hotel } from '@/assets/images'
+import { logo_flight, logo_hotel } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,7 +19,6 @@ import {
   ChevronRight,
   CirclePlus,
   Clock4,
-  CloudUploadIcon,
   Cpu,
   CreditCard,
   DoorOpen,
@@ -30,6 +29,20 @@ import { toast } from 'sonner'
 import ContentAccount from './components/content-account'
 import Div from './components/div-profile'
 import Input from './components/input-profile'
+
+const colors = [
+  '#D1E9F7',
+  '#E9F7D1',
+  '#F7D1E9',
+  '#F7E9D1',
+  '#D1F7E9',
+  '#E9D1F7',
+]
+
+const getRandomColor = () => {
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+}
 
 export default function Profile() {
   const inputFileRef = useRef<HTMLInputElement | null>(null)
@@ -66,31 +79,18 @@ export default function Profile() {
   const avatarFileName = getMeProfile?.avatar?.replace('avatar/', '')
   const avatarUrl = `${import.meta.env.VITE_AVATAR}/${avatarFileName}`
 
+  const randomColor = getRandomColor()
+
   return (
     <div>
       <Header />
       <section className='container mx-auto pt-28'>
         <div className='relative banner'>
-          <img src={banner_account} alt='' className='object-cover w-full h-80 rounded-xl' />
-          <Dialog>
-            <DialogTrigger>
-              <Button className='absolute flex items-center p-2 space-x-2 text-lg rounded-md shadow-md right-3 bottom-4'>
-                <CloudUploadIcon />
-                <p>Upload new cover</p>
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle className='mb-4 text-xl font-semibold text-center'>Upload Avartar</DialogTitle>
-                <DialogDescription>
-                  <form>
-                    <input type='file' name='' id='' />
-                  </form>
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-
+          <div
+            className='object-cover w-full h-80 rounded-xl'
+            style={{ backgroundColor: randomColor }}
+          >
+          </div>
           <div className='absolute flex flex-col items-center transform -translate-x-1/2 -bottom-24 left-1/2'>
             <img
               src={avatarUrl}

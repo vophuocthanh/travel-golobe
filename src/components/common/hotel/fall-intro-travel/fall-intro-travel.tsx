@@ -1,16 +1,25 @@
-import { baku_azerbaijan } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
 import SectionInViewUp from '../../animation/SectionInViewUp'
+import { useQuery } from '@tanstack/react-query'
+import { hotelApi } from '@/apis/hotel.api'
 
-const fallIntroTravel = [
-  { id: 1, city: 'Melbourne', title: 'An amazing journey', image: baku_azerbaijan, price: '700 $' },
-  { id: 2, city: 'Paris', title: 'A Paris Adventure', image: baku_azerbaijan, price: '600 $' },
-  { id: 3, city: 'London', title: 'London eye adventure', image: baku_azerbaijan, price: '380 $' },
-  { id: 4, city: 'Columbia', title: 'Amazing streets', image: baku_azerbaijan, price: '200 $' }
-]
+
+interface Travel {
+  id?: string
+  name: string
+  address: string
+  price: string
+  images: string
+}
 
 export default function FallIntroTravel() {
+
+  const { data: getAll } = useQuery({
+    queryKey: ['getAllHotel'],
+    queryFn: () => hotelApi.getAll(2, 4)
+  })
+
   return (
     <SectionInViewUp>
       <div className='mt-32'>
@@ -26,18 +35,18 @@ export default function FallIntroTravel() {
             </Link>
           </div>
           <div className='flex flex-wrap justify-between'>
-            {fallIntroTravel.map((travel) => (
+            {getAll?.data.map((travel: Travel) => (
               <div
                 key={travel.id}
                 className='relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'
-                style={{ backgroundImage: `url(${travel.image})` }}
+                style={{ backgroundImage: `url(${travel.images})` }}
               >
                 <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent'></div>
 
                 <div className='relative flex justify-between w-full gap-4 mb-4'>
                   <div className='flex flex-col items-end'>
-                    <p className='w-full text-3xl font-semibold text-white'>{travel.city}</p>
-                    <p className='w-full text-gray-300'>{travel.title}</p>
+                    <p className='w-full text-3xl font-semibold text-white'>{travel.address}</p>
+                    <p className='w-full text-gray-300'>{travel.name}</p>
                   </div>
                   <p className='flex items-center justify-center text-3xl text-white'>{travel.price}</p>
                 </div>

@@ -2,9 +2,14 @@ import axiosClient from '@/apis/axios-client'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
-  getAll() {
-    const url = '/hotel'
-    return axiosClient.get(url)
+  getAll(page: number | string, limit: number | string) {
+    const url = '/hotel';
+    return axiosClient.get(url, {
+      params: {
+        _page: page,
+        _limit: limit
+      }
+    });
   },
   getById(id: string) {
     const url = `/hotel/${id}`
