@@ -1,25 +1,35 @@
-import { baku_azerbaijan, istanbul_turkey, male_madvies, sydney_australia } from '@/assets/images'
 import SectionInViewRight from '../../animation/SectionInViewRight'
+import { useQuery } from '@tanstack/react-query'
+import { hotelApi } from '@/apis/hotel.api'
 
-const rencentSearches = [
-  { id: 1, city: 'Istanbul, Turkey', places: 325, image: istanbul_turkey },
-  { id: 2, city: 'Sydney, Austrlia', places: 325, image: sydney_australia },
-  { id: 3, city: 'Baku, Azerbaijan', places: 325, image: baku_azerbaijan },
-  { id: 4, city: 'Malé, Madives', places: 325, image: male_madvies }
-]
+interface Search {
+  id?: string
+  name: string
+  address: string
+  price: string
+  images: string
+}
 
 export default function RecentSearch() {
+  const { data: getAll } = useQuery({
+    queryKey: ['getAllHotel'],
+    queryFn: () => hotelApi.getAll(1, 4)
+  })
+
+  //const recentSearches = getAll?.data.slice(0, 4);
+
+
   return (
     <SectionInViewRight>
       <div className='mx-36'>
         <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl'>Your Recent Searches</h1>
         <div className='flex flex-wrap justify-between gap-4'>
-          {rencentSearches.map((search) => (
+          {getAll?.data.map((search: Search) => (
             <div key={search.id} className='flex items-center w-full gap-4 mb-4 md:w-auto'>
-              <img src={search.image} alt={search.city} className='object-cover w-24 h-24 rounded-lg' />
+              <img src={search.images} alt={search.address} className='object-cover w-24 h-24 rounded-lg' />
               <div>
-                <h2 className='font-bold'>{search.city}</h2>
-                <span className='text-gray-400'>{search.places} places</span>
+                <h2 className='font-bold'>{search.address}</h2>
+                <span className='text-gray-400'>{search.name}</span>
               </div>
             </div>
           ))}

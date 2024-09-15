@@ -25,9 +25,8 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort, setIsOpenSort
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
     <div
       onClick={onClick}
-      className={`flex flex-col justify-center flex-1 px-4 ${
-        isActive ? 'border-b-4 border-primary ' : 'border-r-2 border-transparent'
-      } transition-colors duration-300`}
+      className={`flex flex-col justify-center flex-1 px-4 ${isActive ? 'border-b-4 border-primary ' : 'border-r-2 border-transparent'
+        } transition-colors duration-300`}
     >
       <p className='text-2xl text-left'>{label}</p>
       <p className='text-left text-gray-400'>{description}</p>
@@ -94,9 +93,6 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort, setIsOpenSort
       <div className='container flex flex-col gap-8'>
         {isOpenSort && <SortBy isOpenSort />}
         <HotelCard isFavorite={favoriteStates.card1} onFavoriteToggle={() => handleFavoriteToggle('card1')} />
-        <HotelCard isFavorite={favoriteStates.card2} onFavoriteToggle={() => handleFavoriteToggle('card2')} />
-        <HotelCard isFavorite={favoriteStates.card3} onFavoriteToggle={() => handleFavoriteToggle('card3')} />
-        <HotelCard isFavorite={favoriteStates.card4} onFavoriteToggle={() => handleFavoriteToggle('card4')} />
         <div>
           <Button className='w-full bg-[#112211] text-white hover:text-black'>Show more results</Button>
         </div>
