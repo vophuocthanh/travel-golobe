@@ -2230,7 +2230,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@tanstack/react-table" "^8.17.3"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
-    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-690bd7db-ab85-49f4-a736-b540bfc36ed5-1725873817932/node_modules/app"
+    app "file:C:/Users/Admin/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-d861372f-cc28-48e2-ae9b-ee68c485e191-1726324960927/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
@@ -2240,6 +2240,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     embla-carousel-react "^8.1.5"
     framer-motion "^11.2.12"
     history "^5.3.0"
+    input-otp "^1.2.4"
     lucide-react "^0.438.0"
     react "^18.3.1"
     react-calendar "^5.0.0"
@@ -2719,6 +2720,11 @@ create-jest@^29.7.0:
     jest-config "^29.7.0"
     jest-util "^29.7.0"
     prompts "^2.0.1"
+
+crisp-sdk-web@^1.0.25:
+  version "1.0.25"
+  resolved "https://registry.npmjs.org/crisp-sdk-web/-/crisp-sdk-web-1.0.25.tgz#5566227dfcc018435b228db2f998d66581e5fdef"
+  integrity sha512-CWTHFFeHRV0oqiXoPh/aIAKhFs6xcIM4NenGPnClAMCZUDQgQsF1OWmZWmnVNjJriXUmWRgDfeUxcxygS0dCRA==
 
 cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
