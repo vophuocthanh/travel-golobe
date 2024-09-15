@@ -11,7 +11,7 @@ export const hotelApi = {
       }
     });
   },
-  getById(id: string) {
+  getById(id: string |undefined) :Promise<HotelResponseType> {
     const url = `/hotel/${id}`
     return axiosClient.get(url)
   },

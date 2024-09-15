@@ -41,7 +41,7 @@ export default function useRoutesElements() {
       { path: path.reset_password, element: <ResetPassword /> },
       { path: path.profile, element: <Profile /> },
       { path: path.all_flight, element: <AllFlight /> },
-      { path: path.hotel_detail, element: <HotelDetail /> },
+      { path: path.hotelId, element: <HotelDetail /> },
       { path: '*', element: <PageNotFound /> },
       { path: path.admin, element: <LayoutMain children={<Dashboard />} /> },
       { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },

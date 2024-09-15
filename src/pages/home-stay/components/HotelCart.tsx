@@ -30,10 +30,8 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
 
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(1, 2)
+    queryFn: () => hotelApi.getAll(1, 4)
   })
-
-  console.log(getAll?.data)
 
   return (
     <>
@@ -84,7 +82,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
                   >
                     <Heart />
                   </Button>
-                  <Link to='/hotel/home-stay/hotel-detail' className='w-full'>
+                  <Link to={`/hotel/${item.id}`} className='w-full'>
                     <Button className='w-full mx-4'>View Place</Button>
                   </Link>
                 </div>
