@@ -19,7 +19,7 @@ export const path = {
   hotel_detail: '/hotel/home-stay/hotel-detail',
   admin: '/admin',
   users: '/admin/users',
-  order: '/admin/order',
+  billing: '/admin/billing',
   admin_tour: '/admin/tours',
   admin_flight: '/admin/flights',
   admin_hotel: '/admin/hotels',

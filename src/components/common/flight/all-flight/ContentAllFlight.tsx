@@ -34,7 +34,7 @@ export default function ContentAllFlight() {
   })
 
   const containerHeight = isOpenSort ? 'h-[160rem]' : 'h-[120rem]'
-  
+
   const handleClick = (buttonKey: keyof ButtonStates) => {
     setButtonStates((prevState) => ({
       ...prevState,
@@ -64,62 +64,82 @@ export default function ContentAllFlight() {
   ]
   const flights = [
     {
-      image: flight_Emirates,price: '$104',rating: '4.2',reviews: '54',
+      image: flight_Emirates,
+      price: '$104',
+      rating: '4.2',
+      reviews: '54',
       flightTimes: [
         { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
-        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
+        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' }
       ],
       isFavorite: buttonStates.button1,
-      onToggleFavorite: () => handleClick('button1'),
+      onToggleFavorite: () => handleClick('button1')
     },
     {
-      image: flight_Dubai,price: '$104',rating: '4.2',reviews: '54',flightTimes: [
+      image: flight_Dubai,
+      price: '$104',
+      rating: '4.2',
+      reviews: '54',
+      flightTimes: [
         { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
-        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
+        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' }
       ],
       isFavorite: buttonStates.button2,
-      onToggleFavorite: () => handleClick('button2'),
+      onToggleFavorite: () => handleClick('button2')
     },
     {
-      image: flight_Qatar,price: '$104',rating: '4.2',reviews: '54',flightTimes: [
+      image: flight_Qatar,
+      price: '$104',
+      rating: '4.2',
+      reviews: '54',
+      flightTimes: [
         { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
-        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
+        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' }
       ],
       isFavorite: buttonStates.button3,
-      onToggleFavorite: () => handleClick('button3'),
+      onToggleFavorite: () => handleClick('button3')
     },
     {
-      image: flight_Etihad,price: '$104',rating: '4.2',reviews: '54',
+      image: flight_Etihad,
+      price: '$104',
+      rating: '4.2',
+      reviews: '54',
       flightTimes: [
         { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
-        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
+        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' }
       ],
       isFavorite: buttonStates.button4,
-      onToggleFavorite: () => handleClick('button4'),
+      onToggleFavorite: () => handleClick('button4')
     },
     {
-      image: flight_Etihad,price: '$104',rating: '4.2',reviews: '54',
+      image: flight_Etihad,
+      price: '$104',
+      rating: '4.2',
+      reviews: '54',
       flightTimes: [
         { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
-        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
+        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' }
       ],
       isFavorite: buttonStates.button4,
-      onToggleFavorite: () => handleClick('button4'),
+      onToggleFavorite: () => handleClick('button4')
     },
     {
-      image: flight_Etihad,price: '$104',rating: '4.2',reviews: '54',
+      image: flight_Etihad,
+      price: '$104',
+      rating: '4.2',
+      reviews: '54',
       flightTimes: [
         { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
-        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' },
+        { time: '12:00 pm - 01:28 pm', duration: 'non stop', airline: 'Emirates', route: 'EWR-BNA' }
       ],
       isFavorite: buttonStates.button4,
-      onToggleFavorite: () => handleClick('button4'),
-    },
-  ];
+      onToggleFavorite: () => handleClick('button4')
+    }
+  ]
 
   return (
     <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2${containerHeight}`}>
-      <FilterSection/>
+      <FilterSection />
       <div className='flex-none w-[70%] ml-2 mt-14 mr-12 '>
         <div className='bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer'>
           <div className='bg-white flex flex-row w-full h-[6rem] rounded-md border-b border-gray-300 mx-4 '>
@@ -157,7 +177,7 @@ export default function ContentAllFlight() {
         </div>
         <div className='flex flex-col gap-8 '>
           <div className='flex flex-col gap-8'>
-              {(isOpenSort ? flights : flights.slice(0, 4)).map((flight, index) => (
+            {(isOpenSort ? flights : flights.slice(0, 4)).map((flight, index) => (
               <FlightCard key={index} {...flight} />
             ))}
           </div>

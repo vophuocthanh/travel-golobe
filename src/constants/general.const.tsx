@@ -25,9 +25,9 @@ export const sidebarLinks: TSidebarLinks[] = [
     path: '/admin/tours'
   },
   {
-    title: 'Order',
+    title: 'Billing',
     icon: <CreditCard />,
-    path: '/admin/order'
+    path: '/admin/billing'
   },
   {
     title: 'Employee',
