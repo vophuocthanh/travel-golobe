@@ -1,4 +1,4 @@
-import { banner_flight, flightdetail1, flightdetail2, flightdetail3, logo_flight } from '@/assets/images';
+import { flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images';
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@radix-ui/react-checkbox';
@@ -8,6 +8,9 @@ import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
 import { ChevronRight, HeartIcon, Link, MapPin, MoveLeft, MoveRight, Plane, RockingChair, Timer, UtensilsCrossed, Wifi } from 'lucide-react';
 import { useState } from 'react';
 import { IconFlight } from '@/common/icons';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { flightApi } from '@/apis/flight.api';
 
 export default function FlightDetail() {
     const [liked, setLiked] = useState(false);
@@ -37,6 +40,13 @@ export default function FlightDetail() {
         { content: flightdetail3 },
     ];
 
+    const { id } = useParams<{ id: string }>()
+
+    const { data: getbyId } = useQuery({
+        queryKey: ['getById', id],
+        queryFn: () => flightApi.getById(id),
+    })
+
     return (
         <>
             <Header />
@@ -47,14 +57,14 @@ export default function FlightDetail() {
                         <ChevronRight className='w-4 h-4' />
                         <p>Istanbul</p>
                         <ChevronRight className='w-4 h-4' />
-                        <p>CVK Park Bosphorus Hotel Istanbul</p>
+                        <p>{getbyId?.name}</p>
                     </div>
                     <div className='flex justify-between p-4'>
                         <div>
-                            <p className='text-2xl font-bold'>Emirates A380 Airbus</p>
+                            <p className='text-2xl font-bold'>{getbyId?.name}</p>
                             <div className='flex text-sm items-center space-x-2 mt-1'>
                                 <MapPin className='w-4 h-4' />
-                                <p>Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437</p>
+                                <p></p>
                             </div>
                             <div className='flex items-center space-x-2 mt-2'>
                                 <p className='border border-primary rounded w-10 h-8 flex justify-center items-center text-xs font-medium'>
@@ -89,7 +99,7 @@ export default function FlightDetail() {
                 </section>
 
                 <section className='mb-8'>
-                    <img src={banner_flight} alt="Flight Banner" className='w-full h-80 object-cover rounded-xl' />
+                    <img src={getbyId?.images} alt="Flight Banner" className='w-full h-80 object-cover rounded-xl' />
                 </section>
 
                 <section className='mb-8'>
@@ -158,13 +168,13 @@ export default function FlightDetail() {
                     <div className='border rounded-xl p-6 bg-white shadow-md mb-10'>
                         <div className='flex justify-between'>
                             <p className='text-xl font-bold'>Return Wed, Dec 8</p>
-                            <p className='text-lg font-medium'>2h 28m</p>
+                            <p className='text-lg font-medium'>{getbyId?.perios}</p>
                         </div>
 
                         <div className='pt-6'>
                             <div className='flex justify-between'>
                                 <div className='flex items-center space-x-6 px-8 py-4 border rounded-lg'>
-                                    <img src={logo_flight} alt="" className='w-16' />
+                                    <img src={getbyId?.images} alt="" className='w-16' />
                                     <div>
                                         <p className='text-2xl font-bold'>Emirates</p>
                                         <p className='text-sm font-medium'>Airbus A320</p>
@@ -187,7 +197,7 @@ export default function FlightDetail() {
                             </div>
                             <div className='flex justify-center items-center space-x-20'>
                                 <div className='flex space-x-4 items-center'>
-                                    <p className='text-2xl font-semibold'>12:00 pm</p>
+                                    <p className='text-2xl font-semibold'>{getbyId?.startDate}</p>
                                     <p className='text-base font-medium'>Newark(EWR)</p>
                                 </div>
 
@@ -198,7 +208,7 @@ export default function FlightDetail() {
                                 </div>
 
                                 <div className='flex space-x-4 items-center'>
-                                    <p className='text-2xl font-semibold'>12:00 pm</p>
+                                    <p className='text-2xl font-semibold'>{getbyId?.endDate}</p>
                                     <p className='text-base font-medium'>Newark(EWR)</p>
                                 </div>
                             </div>

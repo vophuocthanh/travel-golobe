@@ -28,7 +28,6 @@ export default function HotelDetail() {
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id),
   })
-  console.log(getbyId)
   return (
     <div className="w-full">
       <Header />
