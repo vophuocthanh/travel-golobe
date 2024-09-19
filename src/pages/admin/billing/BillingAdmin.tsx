@@ -15,10 +15,10 @@ export default function BillingAdmin() {
       <div>
       <Tabs defaultValue="all" className="w-full">
       <TabsList className="grid w-[35rem] h-[3rem] grid-cols-4 text-black border border-primary">
-        <TabsTrigger className="text-lg" value="all">All</TabsTrigger>
-        <TabsTrigger className="text-lg" value="tour">Tour</TabsTrigger>
-        <TabsTrigger className="text-lg" value="hotel">Hotel</TabsTrigger>
-        <TabsTrigger className="text-lg" value="flight">Flight</TabsTrigger>
+        <TabsTrigger className="text-md" value="all">All</TabsTrigger>
+        <TabsTrigger className="text-md" value="tour">Tour</TabsTrigger>
+        <TabsTrigger className="text-md" value="hotel">Hotel</TabsTrigger>
+        <TabsTrigger className="text-md" value="flight">Flight</TabsTrigger>
       </TabsList>
       <TabsContent value="all">
         <Card>

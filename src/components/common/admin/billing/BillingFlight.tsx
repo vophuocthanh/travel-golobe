@@ -114,14 +114,21 @@ const columns: ColumnDef<Payment>[] = [
     id: "actions",
     header: () => <div className="flex justify-center">Actions</div>,
     cell: ({ row }) => (
-      <div className="flex justify-center space-x-4">
-        <Button onClick={() => (row.original.id)}><IconEdit/></Button>
-        <Button onClick={() => (row.original.id)}><IconDelete/></Button>
-      </div>
+      <div className="flex justify-center space-x-6">
+      <div  className="cursor-pointer" onClick={() => handleEdit(row.original)}> <IconEdit/></div>
+      <div className="cursor-pointer" onClick={() => handleDelete(row.original)}> <IconDelete/></div>
+    </div>
     ),
   },
 ];
 
+function handleEdit(payment: Payment) {
+  console.log("Editing payment:", payment);
+}
+
+function handleDelete(payment: Payment) {
+  console.log("Deleting payment:", payment);
+}
 
 
 export function BillingFlight() {
@@ -156,10 +163,10 @@ export function BillingFlight() {
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter id..."
+          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("id")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
