@@ -5,6 +5,7 @@ import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { flightApi } from '@/apis/flight.api';
+import { FlightResponseType } from '@/shared/ts/interface/data.interface';
 
 interface FlightCardProps {
   image: string;
@@ -14,18 +15,6 @@ interface FlightCardProps {
   flightTimes: Array<{ time: string; duration: string; airline: string; route: string }>;
   isFavorite: boolean;
   onToggleFavorite: () => void;
-}
-interface FlightResponseType {
-  id?: string
-  name: string
-  description: string
-  images: string
-  price: string
-  startDate: string
-  endDate: string
-  perios: string
-  create_at?: string
-  update_at?: string
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({ flightTimes, isFavorite, onToggleFavorite }) => {
@@ -53,7 +42,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ flightTimes, isFavorite, onTogg
                     <div className='flex items-center gap-2 mt-8'>
                       <Button className='bg-white border border-primary'>4.2</Button>
                       <p className='font-bold'>Very good</p>
-                      <p>{flight.description} reviews</p>
+                      <p>54 reviews</p>
                     </div>
                     {flightTimes.map((flight, index) => (
                       <div className='mb-4' key={index}>
