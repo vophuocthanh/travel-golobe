@@ -14,11 +14,11 @@ export default function BillingAdmin() {
       <h1 className='mb-4 text-2xl font-bold '>BILLING</h1>
       <div>
       <Tabs defaultValue="all" className="w-full">
-      <TabsList className="grid w-[25rem] grid-cols-4 text-black border border-primary">
-        <TabsTrigger value="all">All</TabsTrigger>
-        <TabsTrigger value="tour">Tour</TabsTrigger>
-        <TabsTrigger value="hotel">Hotel</TabsTrigger>
-        <TabsTrigger value="flight">Flight</TabsTrigger>
+      <TabsList className="grid w-[35rem] h-[3rem] grid-cols-4 text-black border border-primary">
+        <TabsTrigger className="text-lg" value="all">All</TabsTrigger>
+        <TabsTrigger className="text-lg" value="tour">Tour</TabsTrigger>
+        <TabsTrigger className="text-lg" value="hotel">Hotel</TabsTrigger>
+        <TabsTrigger className="text-lg" value="flight">Flight</TabsTrigger>
       </TabsList>
       <TabsContent value="all">
         <Card>

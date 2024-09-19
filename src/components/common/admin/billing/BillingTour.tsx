@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
+import { IconDelete, IconEdit } from "@/common/icons";
 const data: Payment[] = [
   { id: "m5gr84i9", billingTime: "2003-05-21", plan: "Basic", amount: 316, status: "success"},
   { id: "3u1reuv4", billingTime: "2024-09-20T12:00:00Z", plan: "Premium", amount: 242, status: "success"},
@@ -111,8 +112,8 @@ const columns: ColumnDef<Payment>[] = [
     header: () => <div className="flex justify-center">Actions</div>,
     cell: ({ row }) => (
       <div className="flex justify-center space-x-4">
-        <Button onClick={() => (row.original.id)}>Edit</Button>
-        <Button onClick={() => (row.original.id)}>Delete</Button>
+        <Button onClick={() => (row.original.id)}><IconEdit/></Button>
+        <Button onClick={() => (row.original.id)}><IconDelete/></Button>
       </div>
     ),
   },
