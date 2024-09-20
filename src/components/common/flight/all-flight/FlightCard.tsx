@@ -7,7 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 import { flightApi } from '@/apis/flight.api';
 import { FlightResponseType } from '@/shared/ts/interface/data.interface';
 
-
 interface FlightCardProps {
   image: string;
   price: string;
