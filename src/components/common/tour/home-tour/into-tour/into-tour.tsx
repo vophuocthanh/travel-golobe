@@ -1,40 +1,25 @@
-import { tour_into1 } from '@/assets/images'
+
+import { tourApi } from '@/apis/tour.api'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
+import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 
-const dataTourInto = [
-  {
-    id: 1,
-    image: tour_into1,
-    title: 'Istanbul, Turkey',
-    text: '325 places',
-    price: '$ 700'
-  },
-  {
-    id: 2,
-    image: tour_into1,
-    title: 'Istanbul, Turkey',
-    text: '325 places',
-    price: '$ 700'
-  },
-  {
-    id: 3,
-    image: tour_into1,
-    title: 'Istanbul, Turkey',
-    text: '325 places',
-    price: '$ 700'
-  },
-  {
-    id: 4,
-    image: tour_into1,
-    title: 'Istanbul, Turkey',
-    text: '325 places',
-    price: '$ 700'
-  }
-]
+interface Search {
+  id?: string
+  name: string
+  description: string
+  price: string
+  images: string
+}
+
 
 export default function IntoTour() {
+  const { data: getAll } = useQuery({
+    queryKey: ['getAllTour'],
+    queryFn: () => tourApi.getAll()
+  })
+  console.log(getAll?.data, "datatour");
   return (
     <SectionInViewUp>
       <div className='px-32 py-3 mb-20 rounded-2xl'>
@@ -52,16 +37,16 @@ export default function IntoTour() {
             </Link>
           </div>
           <div className='flex justify-between'>
-            {dataTourInto.map((item) => (
-              <div className='relative w-72 '>
-                <img src={item.image} className='' alt='' />
+            {getAll?.data.map((item: Search) => (
+              <div className='relative w-[300px] ' key={item.id}>
+                <img src={item.images} className='h-[420px]' alt='' />
                 <div className='absolute w-full px-4 top-72'>
                   <div className='flex items-center justify-between mb-3'>
                     <div className='text-white'>
-                      <h3 className='text-xl font-normal'>{item.title}</h3>
-                      <p className='text-slate-200'>{item.text}</p>
+                      <h3 className='overflow-hidden text-xl font-normal whitespace-pre-line text-ellipsis line-clamp-1'>{item.description}</h3>
+                      <p className='overflow-hidden whitespace-pre-line text-slate-200 text-ellipsis line-clamp-1'>{item.name}</p>
                     </div>
-                    <h3 className='text-xl font-normal text-white'>{item.price}</h3>
+                    <h3 className='text-xl font-normal text-white '>${item.price}</h3>
                   </div>
                   <Button className='w-full '>Book a Hotel</Button>
                 </div>

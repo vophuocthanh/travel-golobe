@@ -16,25 +16,25 @@ export default function FilterTour()  {
         <div className='w-[25%]'>
             <h1 className="mb-8">Filters</h1>
             <div>
-                <Accordion type="single"  collapsible>
+                <Accordion type="single" defaultValue="item-1"   collapsible>
                     <AccordionItem value="item-1">
                         <AccordionTrigger  >Price</AccordionTrigger>
-                        <AccordionContent className="mb-6">
-                        <Slider className="w-full mt-3" defaultValue={[33]} max={100} step={1} />
-                        <div className="flex justify-between mb-6">
-                            <p>$50</p>
-                            <p>$1200</p>
-                        </div>
+                        <AccordionContent   className="mb-6">
+                            <Slider  className="w-full mt-3" defaultValue={[33]} max={100} step={1} />
+                            <div className="flex justify-between mb-6">
+                                <p>$50</p>
+                                <p>$1200</p>
+                            </div>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
             </div>
 
-            <div className="mt-6">
-                <Accordion type="single" collapsible>
+            <div className="mt-6" >
+                <Accordion type="single" defaultValue="item-1" collapsible>
                     <AccordionItem value="item-1">
                         <AccordionTrigger  >Rating</AccordionTrigger>
-                        <AccordionContent className="mb-6">
+                        <AccordionContent   className="mb-6">
                         <div className="flex gap-5">
                         {
                             [0,1,2,3,4].map((item) =>(
@@ -48,9 +48,9 @@ export default function FilterTour()  {
             </div>
 
             <div className="mt-6">
-                <Accordion type="single" collapsible>
+                <Accordion type="single" defaultValue="item-1" collapsible>
                     <AccordionItem value="item-1">
-                        <AccordionTrigger  >Freebies</AccordionTrigger>
+                        <AccordionTrigger  >Freebie</AccordionTrigger>
                         <AccordionContent>
                         <div>
                             <div className="flex items-center mb-4 text-xl ">
@@ -80,7 +80,7 @@ export default function FilterTour()  {
             </div>
 
             <div className="mt-6">
-                <Accordion type="single" collapsible>
+                <Accordion type="single" defaultValue="item-1" collapsible>
                     <AccordionItem value="item-1">
                         <AccordionTrigger  >Amenities</AccordionTrigger>
                         <AccordionContent className="mb-6">

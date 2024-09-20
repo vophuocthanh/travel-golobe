@@ -1,46 +1,36 @@
-import { tour_search1 } from '@/assets/images'
+import { tourApi } from '@/apis/tour.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
+import { useQuery } from '@tanstack/react-query'
 
-const dataTourSearch = [
-  {
-    id: 1,
-    image: tour_search1,
-    title: 'Istanbul, Turkey',
-    text: '325 places'
-  },
-  {
-    id: 2,
-    image: tour_search1,
-    title: 'Istanbul, Turkey',
-    text: '325 places'
-  },
-  {
-    id: 3,
-    image: tour_search1,
-    title: 'Istanbul, Turkey',
-    text: '325 places'
-  },
-  {
-    id: 4,
-    image: tour_search1,
-    title: 'Istanbul, Turkey',
-    text: '325 places'
-  }
-]
+
+
+interface Search {
+  id?: string
+  name: string
+  description: string
+  price: string
+  images: string
+}
 export default function SearchTour() {
+  const {data: getAll} = useQuery({
+    queryKey: ['getAllTour'],
+    queryFn: () => tourApi.getAll()
+  })
+  console.log(getAll?.data, "123data");
+  
   return (
     <SectionInViewRight>
       <div className='h-40 px-32 py-3 mb-20 rounded-2xl'>
         <div className='w-full '>
           <h2 className='mb-8 text-2xl font-medium'>Your recent searches</h2>
-          <div className='flex justify-between'>
-            {dataTourSearch.map((item) => (
-              <div className='flex'>
-                <img src={item.image} className='mr-4' alt='' />
+          <div className='flex justify-between gap-5'>
+            {getAll?.data.map((item: Search) => (
+              <div className='flex gap-2 grid-container' key={item.id}>
+                <img src={item.images} className='w-24 h-24 rounded-lg bject-cover' alt='' />
                 <div className='flex items-center'>
                   <div>
-                    <h3 className='text-lg font-medium'>{item.title}</h3>
-                    <p className='text-slate-400'>{item.text}</p>
+                    <h3 className='overflow-hidden text-lg font-medium whitespace-pre-line w-52 text-ellipsis line-clamp-2'>{item.description}</h3>
+                    <p className='overflow-hidden whitespace-pre-line text-slate-400 w-52 text-ellipsis line-clamp-1'>{item.name}</p>
                   </div>
                 </div>
               </div>

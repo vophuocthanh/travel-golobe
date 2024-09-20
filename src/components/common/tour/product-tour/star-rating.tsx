@@ -4,16 +4,16 @@ import Rating from '@mui/material/Rating'
 import * as React from 'react'
 
 const labels: { [index: string]: string } = {
-  0.5: '0.5 Star Hotel',
-  1: '1 Star Hotel',
-  1.5: '1.5 Star Hotel',
-  2: '2 Star Hotel',
-  2.5: '2.5 Star Hotel',
-  3: '3 Star Hotel',
-  3.5: '3.5 Star Hotel',
-  4: '4 Star Hotel',
-  4.5: '4.5 Star Hotel',
-  5: '5 Star Hotel'
+  0.5: '0.5 Star Tour',
+  1: '1 Star Tour',
+  1.5: '1.5 Star Tour',
+  2: '2 Star Tour',
+  2.5: '2.5 Star Tour',
+  3: '3 Star Tour',
+  3.5: '3.5 Star Tour',
+  4: '4 Star Tour',
+  4.5: '4.5 Star Tour',
+  5: '5 Star Tour'
 }
 
 function getLabelText(value: number) {

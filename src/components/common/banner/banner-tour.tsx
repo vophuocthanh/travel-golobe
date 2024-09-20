@@ -1,36 +1,11 @@
 import {banner_tour} from '@/assets/images'
-import { IconAdd, IconCheckin, IconCheckout, IconPlaces, IconRoom, IconTour } from '@/common/icons'
+import { IconAdd,IconPlaces } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
+import { CalendarDays, Sofa, User } from 'lucide-react'
 
-const dataTour = [
-    {
-        id: 1,
-        icon: <IconTour />,
-        title: 'Enter Destination',
-        text: 'Istanbul, Turkey',
-    },
-    {
-        id: 2,
-        icon: <IconCheckin />,
-        title: 'Check In',
-        text: 'Fri 12/2',
-    },
-    {
-        id: 1,
-        icon: <IconCheckout />,
-        title: 'Check Out',
-        text: 'Sun 12/4',
-    },
-    {
-        id: 1,
-        icon: <IconRoom />,
-        title: 'Rooms & Guests',
-        text: '1 room, 2 guests',
-    }
-]
-console.log(dataTour);
+
 
 
 export default function BannerTour()  {
@@ -43,18 +18,58 @@ export default function BannerTour()  {
                     <p>Special offers to suit your plan</p>
                 </div>
                 <div className='absolute top-[440px] w-full px-32'> 
-                    <div className='px-3 py-3 bg-gray-100 h-44 rounded-2xl'>
+                    <div className='px-3 py-3 bg-gray-100 h-50 rounded-2xl'>
                         <div className='w-full '>
-                            <h3 className='mb-2 text-lg font-medium '>Where are you flying?</h3>
+                            <h3 className='mb-5 text-lg font-medium '>Where are you tour?</h3>
                             <div className='flex justify-between mb-3'>
-                                {
-                                    dataTour.map((item) => (
-                                        <div>
-                                            <Label>{item.title}</Label>
-                                            <Input placeholder={item.text} icon={item.icon}  /> 
-                                        </div>
-                                    ))
-                                }
+                                <div className='relative w-[24rem] col-span-2 ml-5 h-[4rem]'>
+                                    <Label
+                                    htmlFor=''
+                                    className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'
+                                    >
+                                    Enter Destination
+                                    </Label>
+                                    <Input
+                                    className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
+                                    placeholder='Istanbul, Turkey'
+                                    />
+                                    <Sofa className='absolute left-3 top-[1rem] z-20 ' />
+                                </div>
+                                <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+                                    <Label
+                                    htmlFor=''
+                                    className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
+                                    >
+                                    Check In
+                                    </Label>
+                                    <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 12/2' />
+                                    <CalendarDays className='absolute right-3 top-3.5' />
+                                </div>
+                                <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+                                    <Label
+                                    htmlFor=''
+                                    className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
+                                    >
+                                    Check Out
+                                    </Label>
+                                    <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 20/2' />
+                                    <CalendarDays className='absolute right-3 top-3.5' />
+                                </div>
+                                <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+                                    <Label
+                                    htmlFor=''
+                                    className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
+                                    >
+                                    Rooms & Guests
+                                    </Label>
+                                    <Input
+                                    className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
+                                    placeholder='1 room ,2 guest'
+                                    />
+                                    <User className='absolute left-3 top-3.5 z-20' />
+
+                                    {/* room and guest */}
+                                </div>
                             </div>
                             <div className='flex justify-end'>
                                 <Button className='p-2 mr-5 bg-white hover:bg-slate-200'>
