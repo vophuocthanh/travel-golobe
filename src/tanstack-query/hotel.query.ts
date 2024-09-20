@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 export const useGetHotelList = () => {
   return useQuery({
     queryKey: ['hotelList'],
-    queryFn: () => hotelApi.getAll(),
+    queryFn: () => hotelApi.getAll(1, 10), // Provide default values for page and limit
     staleTime: 60 * 1000
   })
 }
