@@ -20,7 +20,7 @@ export default function BannerTour()  {
                 <div className='absolute top-[440px] w-full px-32'> 
                     <div className='px-3 py-3 bg-gray-100 h-50 rounded-2xl'>
                         <div className='w-full '>
-                            <h3 className='mb-5 text-lg font-medium '>Where are you flying?</h3>
+                            <h3 className='mb-5 text-lg font-medium '>Where are you tour?</h3>
                             <div className='flex justify-between mb-3'>
                                 <div className='relative w-[24rem] col-span-2 ml-5 h-[4rem]'>
                                     <Label

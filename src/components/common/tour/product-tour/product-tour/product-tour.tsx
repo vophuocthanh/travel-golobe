@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
 import { useQuery } from '@tanstack/react-query'
 import { tourApi } from '@/apis/tour.api'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 
 interface Search {
@@ -17,6 +17,13 @@ interface Search {
   price: string
   images: string
 }
+interface TabProps {
+  label: string
+  description: string
+  isActive: boolean
+  onClick: () => void
+}
+
 const ProductTour = () => {
   const [isOpenSort, setIsOpenSort] = useState<boolean>(false)
 
@@ -35,22 +42,37 @@ const ProductTour = () => {
     //     getAll?.data.slice().sort((a:number, b:number) => b.price - a.price);
     // }
   }
+  const tabs = [
+    { label: 'Hotel', description: '257 places' },
+    { label: 'Motels', description: '51 places' },
+    { label: 'Resorts', description: '72 places' }
+  ]
+  const [activeTab, setActiveTab] = useState('Hotel')
+  const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
+    <div
+      onClick={onClick}
+      className={`flex flex-col justify-center flex-1 px-4 ${isActive ? 'border-b-4 border-primary ' : 'border-r-2 border-transparent'
+        } transition-colors duration-300`}
+    >
+      <p className='text-2xl text-left'>{label}</p>
+      <p className='text-left text-gray-400'>{description}</p>
+    </div>
+  )
   return (
     <div className='w-[70%]'>
       <div>
-        <div className='flex justify-between'>
-          <div className=' p-4 w-[30%] border-b border-b-primary'>
-            <h3>Tour</h3>
-            <p className='flex text-slate-400'>257 places</p>
-          </div>
-          <div className=' p-4 w-[30%]'>
-            <h3>Motels</h3>
-            <p className='flex text-slate-400'>51 places</p>
-          </div>
-          <div className=' p-4 w-[30%]'>
-            <h3>Hotels</h3>
-            <p className='flex text-slate-400'>117 places</p>
-          </div>
+      <div className='bg-white flex flex-row w-full h-[6rem] rounded-md border-b border-gray-300 mx-4 '>
+          {tabs.map((tab, index) => (
+            <React.Fragment key={tab.label}>
+              <Tab
+                label={tab.label}
+                description={tab.description}
+                isActive={tab.label === activeTab}
+                onClick={() => setActiveTab(tab.label)}
+              />
+              {index < tabs.length - 1 && <div className='h-full mx-4 border-r-2 border-gray-300'></div>}
+            </React.Fragment>
+          ))}
         </div>
         <div className='flex justify-between my-6'>
           <div className='flex items-center justify-center '>
