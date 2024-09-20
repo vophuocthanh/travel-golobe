@@ -45,9 +45,8 @@ export default function ContentAllFlight() {
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
     <div
       onClick={onClick}
-      className={`flex flex-col justify-center flex-1 px-4 ${
-        isActive ? 'border-b-4 border-primary ' : 'border-r-2 border-transparent'
-      } transition-colors duration-300`}
+      className={`flex flex-col justify-center flex-1 px-4 ${isActive ? 'border-b-4 border-primary ' : 'border-r-2 border-transparent'
+        } transition-colors duration-300`}
     >
       <p className='text-2xl text-left'>{label}</p>
       <p className='text-left text-gray-400'>{description}</p>

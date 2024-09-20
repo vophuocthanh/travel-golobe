@@ -17,18 +17,13 @@ import { authApi } from '@/apis/auth.api'
 import { IconEye, IconNonEye } from '@/common/icons'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { PropProfile } from '@/shared/ts/types/profile.type'
 import { ChangePasswordSchema } from '@/shared/utils/schema'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-type Props = {
-  title: string
-  content?: string | undefined
-  boolean?: string
-}
-
-export default function ContentPassword({ title, content, boolean }: Props) {
+export default function ContentPassword({ title, content, boolean }: PropProfile) {
   const [open, setOpen] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [isCurrentPassword, setCurrentPassword] = useState<boolean>(false)
