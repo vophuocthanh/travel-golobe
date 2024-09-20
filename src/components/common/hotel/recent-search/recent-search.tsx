@@ -15,7 +15,6 @@ export default function RecentSearch() {
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll(1, 4)
   })
-
   //const recentSearches = getAll?.data.slice(0, 4);
 
 

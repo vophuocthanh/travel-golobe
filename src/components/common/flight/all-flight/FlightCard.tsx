@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+
 interface FlightCardProps {
   image: string;
   price: string;
@@ -14,6 +15,7 @@ interface FlightCardProps {
   onToggleFavorite: () => void;
 }
 
+
 const FlightCard: React.FC<FlightCardProps> = ({
   image,
   price,
@@ -23,6 +25,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
   isFavorite,
   onToggleFavorite,
   }) => {
+    console.log(flightTimes,"flightTimes");
+    
   return (
     <div className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
       <div className='w-[35%] bg-white relative'>
