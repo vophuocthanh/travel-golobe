@@ -29,7 +29,7 @@ export default function ContentCountry({ title, content }: Props) {
   const [openCountryDialog, setOpenCountryDialog] = useState(false)
 
   const [profileData, setProfileData] = useState<MeResponse>({
-    country: ''
+    country: content
   })
 
   const formCountry = useForm<{ country: string }>({
@@ -54,6 +54,8 @@ export default function ContentCountry({ title, content }: Props) {
   function onSubmitCountry(data: { country: string }) {
     if (data.country && data.country !== profileData.country) {
       updateCountryMutation.mutate({ country: data.country })
+    } else {
+      toast.error('Country update failed!')
     }
   }
 

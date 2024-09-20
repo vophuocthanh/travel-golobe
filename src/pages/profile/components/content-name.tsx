@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { meApi } from '@/apis/me'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -28,17 +28,19 @@ type Props = {
 export default function ContentName({ title, content }: Props) {
   const [openNameDialog, setOpenNameDialog] = useState(false)
   const [profileData, setProfileData] = useState<MeResponse>({
-    name: '',
-    phone: '',
-    country: '',
-    address: '',
-    date_of_birth: ''
+    name: content
   })
 
   const formName = useForm<{ name: string }>({
     resolver: zodResolver(NameSchema),
-    defaultValues: { name: profileData.name }
+    defaultValues: { name: '' }
   })
+
+  useEffect(() => {
+    if (openNameDialog) {
+      formName.reset({ name: profileData.name })
+    }
+  }, [openNameDialog, profileData.name, formName])
 
   const updateNameMutation = useMutation({
     mutationKey: ['update-name'],
@@ -46,7 +48,7 @@ export default function ContentName({ title, content }: Props) {
     onSuccess: (updatedData: MeResponse) => {
       toast.success('Name updated successfully!')
       setProfileData((prev) => ({ ...prev, name: updatedData.name }))
-      formName.reset(updatedData)
+      formName.reset({ name: updatedData.name }) // Reset form với giá trị mới
       setOpenNameDialog(false)
     },
     onError: () => {
@@ -57,8 +59,9 @@ export default function ContentName({ title, content }: Props) {
   const onSubmitName = formName.handleSubmit((data) => {
     if (data.name && data.name !== profileData.name) {
       updateNameMutation.mutate({ name: data.name })
+    } else {
+      toast.error('Name update failed!')
     }
-    console.log(formName.formState.errors)
   })
 
   return (

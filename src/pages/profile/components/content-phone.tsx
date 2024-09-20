@@ -29,11 +29,7 @@ export default function ContentPhone({ title, content }: Props) {
   const [openPhoneDialog, setOpenPhoneDialog] = useState(false)
 
   const [profileData, setProfileData] = useState<MeResponse>({
-    name: '',
-    phone: '',
-    country: '',
-    address: '',
-    date_of_birth: ''
+    phone: content
   })
 
   const formPhone = useForm<{ phone: string }>({

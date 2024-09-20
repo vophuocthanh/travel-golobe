@@ -30,11 +30,7 @@ export default function ContentDate({ title, content }: Props) {
   const [openDateOfBirthDialog, setOpenDateOfBirthDialog] = useState(false)
 
   const [profileData, setProfileData] = useState<MeResponse>({
-    name: '',
-    phone: '',
-    country: '',
-    address: '',
-    date_of_birth: ''
+    date_of_birth: content
   })
 
   const formDateOfBirth = useForm<{ date_of_birth: string }>({
