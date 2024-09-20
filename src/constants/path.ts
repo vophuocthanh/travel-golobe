@@ -22,5 +22,9 @@ export const path = {
   admin_tour: '/admin/tours',
   admin_flight: '/admin/flights',
   admin_hotel: '/admin/hotels',
-  admin_employee: '/admin/employee'
+  admin_employee: '/admin/employee',
+  flight_payment: '/flight/all-flight/flight-detail/flight-payment',
+  tour_payment: '/tour/all-tour/detail-view/tour-payment',
+  hotel_payment: '/hotel/home-stay/hotel-detail/hotel-payment',
+
 } as const
