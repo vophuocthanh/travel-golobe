@@ -1,5 +1,6 @@
 import axiosClient from '@/apis/axios-client'
-import { MeResponse } from '@/shared/ts/interface'
+import { MeResponse, UpdateAccountPayload } from '@/shared/ts/interface'
+
 
 export const meApi = {
   getMe(): Promise<MeResponse> {
@@ -21,5 +22,11 @@ export const meApi = {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  updateAccount(data: UpdateAccountPayload): Promise<MeResponse> {
+    const url = '/user/me'
+    return axiosClient.put(url, data)
   }
+
+
 }
