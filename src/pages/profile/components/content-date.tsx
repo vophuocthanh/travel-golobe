@@ -105,7 +105,7 @@ export default function ContentDate({ title, content }: Props) {
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      Lưu thay đổi
+                      Saves {title}
                     </Button>
                   </form>
                 </Form>
