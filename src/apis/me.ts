@@ -1,12 +1,6 @@
 import axiosClient from '@/apis/axios-client'
-import { MeResponse } from '@/shared/ts/interface'
-export interface UpdateAccountPayload {
-  name?: string
-  phone?: string
-  country?: string
-  address?: string
-  date_of_birth?: string
-}
+import { MeResponse, UpdateAccountPayload } from '@/shared/ts/interface'
+
 
 export const meApi = {
   getMe(): Promise<MeResponse> {
