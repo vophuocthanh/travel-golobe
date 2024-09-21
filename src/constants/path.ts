@@ -8,7 +8,7 @@ export const path = {
   flight: '/flight',
   flight_detail: '/flight/:id',
   tour: '/tour',
-  tourDetailView: '/tour/all-tour/detail-view',
+  tourDetailView: '/tour/:id',
   tourId: '/tour/all-tour',
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',

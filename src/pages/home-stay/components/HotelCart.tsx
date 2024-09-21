@@ -74,8 +74,8 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
                   </div>
                 </div>
               </div>
-              <div className='w-full h-[25%] flex'>
-                <div className='flex flex-row items-center justify-center w-full gap-4'>
+              <div className='flex w-full'>
+                <div className='flex items-center justify-center w-full gap-4'>
                   <Button
                     className={isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'}
                     onClick={onFavoriteToggle}
