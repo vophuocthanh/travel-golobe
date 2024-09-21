@@ -1241,6 +1241,11 @@
     "@radix-ui/react-primitive" "2.0.0"
     "@radix-ui/react-use-callback-ref" "1.1.0"
 
+"@radix-ui/react-icons@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-icons/-/react-icons-1.3.0.tgz#c61af8f323d87682c5ca76b856d60c2312dbcb69"
+  integrity sha512-jQxj/0LKgp+j9BiTXz3O3sgs26RNet2iLWmsPyRz2SIcR4q/4SbazXfnYwbAr+vLYKSfc7qxzyGQA1HLlYiuNw==
+
 "@radix-ui/react-id@1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@radix-ui/react-id/-/react-id-1.1.0.tgz"
@@ -2235,7 +2240,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@tanstack/react-table" "^8.17.3"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
-    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-d8b28adc-d5e4-4765-aa0b-679555cb2513-1726473524920/node_modules/app"
+    app "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-4937ae42-9318-4d8b-9d88-2cd92207852a-1726900383639/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
@@ -2265,6 +2270,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     react-toastify "^10.0.5"
     recharts "^2.12.7"
     redux-saga "^1.3.0"
+    socket.io-client "^4.7.5"
     sonner "^1.4.41"
     swiper "^11.1.9"
     tailwind-merge "^2.3.0"

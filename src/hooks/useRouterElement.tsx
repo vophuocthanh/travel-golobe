@@ -5,6 +5,7 @@ import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } 
 import BillingAdmin from '@/pages/admin/billing/BillingAdmin'
 import Dashboard from '@/pages/admin/Dashboard'
 import EmployeeAdmin from '@/pages/admin/employee/EmployeeAdmin'
+import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
@@ -48,6 +49,7 @@ export default function useRoutesElements() {
       { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
+      { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
       { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> }
     ],
