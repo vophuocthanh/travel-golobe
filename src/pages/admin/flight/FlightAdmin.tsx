@@ -40,255 +40,255 @@ export type Payment = {
   status: 'Delivered' | 'Process' | 'Canceled'
   airline: string
 }
-const columns: ColumnDef<Payment>[] = [
+const data: Payment[] = [
   {
-    accessorKey: 'id',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tracking ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('id')}</div>
+    id: '20462',
+    flight: 'https://via.placeholder.com/150',
+    customer: 'Matt Dickerson',
+    date: '24/12/2023',
+    amount: 316,
+    PaymentMode: 'Transfer Bank',
+    status: 'Delivered',
+    airline: 'Vietnam Airlines' // Thêm hãng hàng không
   },
   {
-    accessorKey: 'flight',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => {
-      const flightImage = row.getValue('flight') as string
-      const airlineName = row.getValue('airline') as string
-
-      return (
-        <div className='flex flex-col items-center justify-center'>
-          <img src={flightImage} alt='Flight Image' className='object-cover w-16 h-16' />
-          <p className='mt-1 text-sm text-center text-black lowercase'>{airlineName}</p>
-        </div>
-      )
-    }
+    id: '20463',
+    flight:
+      'https://plus.unsplash.com/premium_photo-1679758629450-30d2263efca5?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    customer: 'Sarah Johnson',
+    date: '24/12/2023',
+    amount: 289,
+    PaymentMode: 'Credit Card',
+    status: 'Process',
+    airline: 'VietJet Air'
   },
   {
-    accessorKey: 'airline',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Airline
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('airline')}</div>
+    id: '20464',
+    flight:
+      'https://media.istockphoto.com/id/667426946/photo/the-plane-at-the-airport.webp?a=1&b=1&s=612x612&w=0&k=20&c=HeADzKhERX5gw0jOnw1Yc30u1pDDaNUIveiCgTPGXGw=',
+    customer: 'John Doe',
+    date: '24/12/2023',
+    amount: 512,
+    PaymentMode: 'PayPal',
+    status: 'Process',
+    airline: 'Bamboo Airways'
   },
   {
-    accessorKey: 'customer',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Customer
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('customer')}</div>
+    id: '20465',
+    flight: 'https://example.com/flight_image4.jpg',
+    customer: 'Alice Brown',
+    date: '24/12/2023',
+    amount: 432,
+    PaymentMode: 'Transfer Bank',
+    status: 'Delivered',
+    airline: 'Pacific Airlines'
   },
   {
-    accessorKey: 'date',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Date
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('date')}</div>
+    id: '20466',
+    flight: 'https://example.com/flight_image5.jpg',
+    customer: 'James Williams',
+    date: '24/12/2023',
+    amount: 220,
+    PaymentMode: 'Cash',
+    status: 'Delivered',
+    airline: 'Vietnam Airlines'
   },
   {
-    accessorKey: 'amount',
-    header: () => <div className='text-right'>Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue('amount'))
-
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount)
-
-      return <div className='font-medium text-right'>{formatted}</div>
-    }
+    id: '20467',
+    flight: 'https://example.com/flight_image6.jpg',
+    customer: 'Emily Davis',
+    date: '24/12/2023',
+    amount: 350,
+    PaymentMode: 'Credit Card',
+    status: 'Delivered',
+    airline: 'VietJet Air'
   },
   {
-    accessorKey: 'PaymentMode',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Payment Mode
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('PaymentMode')}</div>
+    id: '20468',
+    flight: 'https://example.com/flight_image7.jpg',
+    customer: 'Michael Smith',
+    date: '24/12/2023',
+    amount: 278,
+    PaymentMode: 'Transfer Bank',
+    status: 'Process',
+    airline: 'Bamboo Airways'
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => {
-      const status = row.getValue('status') as string
-      let statusColor = ''
-
-      switch (status) {
-        case 'Delivered':
-          statusColor = 'text-green-500'
-          break
-        case 'Process':
-          statusColor = 'text-orange-500'
-          break
-        case 'Canceled':
-          statusColor = 'text-red-500'
-          break
-        default:
-          statusColor = 'text-gray-500'
-          break
-      }
-
-      return <div className={`capitalize ${statusColor}`}>{status}</div>
-    }
+    id: '20469',
+    flight: 'https://example.com/flight_image8.jpg',
+    customer: 'Jessica Lee',
+    date: '24/12/2023',
+    amount: 495,
+    PaymentMode: 'PayPal',
+    status: 'Process',
+    airline: 'Pacific Airlines'
   },
   {
-    accessorKey: 'Action',
-    header: 'Action',
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          <Link to={`/admin/flights/${row.original.id}`}>
-            <IconEdit />
-          </Link>
-          <Button variant='ghost' className='w-8 h-8 p-0'>
-            <IconDelete />
-          </Button>
-        </div>
-      )
-    }
+    id: '20470',
+    flight: 'https://example.com/flight_image9.jpg',
+    customer: 'David Clark',
+    date: '24/12/2023',
+    amount: 410,
+    PaymentMode: 'Cash',
+    status: 'Delivered',
+    airline: 'Vietnam Airlines'
+  },
+  {
+    id: '20471',
+    flight: 'https://example.com/flight_image10.jpg',
+    customer: 'Sophia Miller',
+    date: '22/10/2015',
+    amount: 298,
+    PaymentMode: 'Credit Card',
+    status: 'Canceled',
+    airline: 'VietJet Air'
   }
 ]
+
 function FlightAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const data: Payment[] = [
+  const columns: ColumnDef<Payment>[] = [
     {
-      id: '#20462',
-      flight: 'https://via.placeholder.com/150',
-      customer: 'Matt Dickerson',
-      date: '24/12/2023',
-      amount: 316,
-      PaymentMode: 'Transfer Bank',
-      status: 'Delivered',
-      airline: 'Vietnam Airlines' // Thêm hãng hàng không
+      accessorKey: 'id',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Tracking ID
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='lowercase'>{row.getValue('id')}</div>
     },
     {
-      id: '#20463',
-      flight:
-        'https://plus.unsplash.com/premium_photo-1679758629450-30d2263efca5?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      customer: 'Sarah Johnson',
-      date: '24/12/2023',
-      amount: 289,
-      PaymentMode: 'Credit Card',
-      status: 'Process',
-      airline: 'VietJet Air'
+      accessorKey: 'flight',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Flight
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => {
+        const flightImage = row.getValue('flight') as string
+        const airlineName = row.getValue('airline') as string
+
+        return (
+          <div className='flex flex-col items-center justify-center'>
+            <img src={flightImage} alt='Flight Image' className='object-cover w-16 h-16' />
+            <p className='mt-1 text-sm text-center text-black lowercase'>{airlineName}</p>
+          </div>
+        )
+      }
     },
     {
-      id: '#20464',
-      flight:
-        'https://media.istockphoto.com/id/667426946/photo/the-plane-at-the-airport.webp?a=1&b=1&s=612x612&w=0&k=20&c=HeADzKhERX5gw0jOnw1Yc30u1pDDaNUIveiCgTPGXGw=',
-      customer: 'John Doe',
-      date: '24/12/2023',
-      amount: 512,
-      PaymentMode: 'PayPal',
-      status: 'Process',
-      airline: 'Bamboo Airways'
+      accessorKey: 'airline',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Airline
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='lowercase'>{row.getValue('airline')}</div>
     },
     {
-      id: '#20465',
-      flight: 'https://example.com/flight_image4.jpg',
-      customer: 'Alice Brown',
-      date: '24/12/2023',
-      amount: 432,
-      PaymentMode: 'Transfer Bank',
-      status: 'Delivered',
-      airline: 'Pacific Airlines'
+      accessorKey: 'customer',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Customer
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='lowercase'>{row.getValue('customer')}</div>
     },
     {
-      id: '#20466',
-      flight: 'https://example.com/flight_image5.jpg',
-      customer: 'James Williams',
-      date: '24/12/2023',
-      amount: 220,
-      PaymentMode: 'Cash',
-      status: 'Delivered',
-      airline: 'Vietnam Airlines'
+      accessorKey: 'date',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Date
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='lowercase'>{row.getValue('date')}</div>
     },
     {
-      id: '#20467',
-      flight: 'https://example.com/flight_image6.jpg',
-      customer: 'Emily Davis',
-      date: '24/12/2023',
-      amount: 350,
-      PaymentMode: 'Credit Card',
-      status: 'Delivered',
-      airline: 'VietJet Air'
+      accessorKey: 'amount',
+      header: () => <div className='text-right'>Amount</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('amount'))
+
+        const formatted = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(amount)
+
+        return <div className='font-medium text-right'>{formatted}</div>
+      }
     },
     {
-      id: '#20468',
-      flight: 'https://example.com/flight_image7.jpg',
-      customer: 'Michael Smith',
-      date: '24/12/2023',
-      amount: 278,
-      PaymentMode: 'Transfer Bank',
-      status: 'Process',
-      airline: 'Bamboo Airways'
+      accessorKey: 'PaymentMode',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Payment Mode
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='lowercase'>{row.getValue('PaymentMode')}</div>
     },
     {
-      id: '#20469',
-      flight: 'https://example.com/flight_image8.jpg',
-      customer: 'Jessica Lee',
-      date: '24/12/2023',
-      amount: 495,
-      PaymentMode: 'PayPal',
-      status: 'Process',
-      airline: 'Pacific Airlines'
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status') as string
+        let statusColor = ''
+
+        switch (status) {
+          case 'Delivered':
+            statusColor = 'text-green-500'
+            break
+          case 'Process':
+            statusColor = 'text-orange-500'
+            break
+          case 'Canceled':
+            statusColor = 'text-red-500'
+            break
+          default:
+            statusColor = 'text-gray-500'
+            break
+        }
+
+        return <div className={`capitalize ${statusColor}`}>{status}</div>
+      }
     },
     {
-      id: '#20470',
-      flight: 'https://example.com/flight_image9.jpg',
-      customer: 'David Clark',
-      date: '24/12/2023',
-      amount: 410,
-      PaymentMode: 'Cash',
-      status: 'Delivered',
-      airline: 'Vietnam Airlines'
-    },
-    {
-      id: '#20471',
-      flight: 'https://example.com/flight_image10.jpg',
-      customer: 'Sophia Miller',
-      date: '22/10/2015',
-      amount: 298,
-      PaymentMode: 'Credit Card',
-      status: 'Canceled',
-      airline: 'VietJet Air'
+      accessorKey: 'Action',
+      header: 'Action',
+      cell: ({ row }) => {
+        return (
+          <div className='flex space-x-2'>
+            <Link to={`/admin/flights/${row.original.id}`}>
+              <IconEdit />
+            </Link>
+            <Button variant='ghost' className='w-8 h-8 p-0'>
+              <IconDelete />
+            </Button>
+          </div>
+        )
+      }
     }
   ]
-
   const table = useReactTable({
     data,
     columns,

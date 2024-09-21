@@ -7,30 +7,30 @@ const EditAdminFlight = () => {
 
   return (
     <div className='container p-4 mx-auto'>
-      <h1 className='mb-4 text-2xl font-bold'>Chỉnh sửa chuyến bay #{id}</h1>
+      <h1 className='mb-4 text-2xl font-bold'>Edit FLight {id}</h1>
       <form className='space-y-4'>
         <div>
-          <label className='block text-sm font-medium'>Hãng hàng không</label>
+          <label className='block text-sm font-medium'>Airline</label>
           <input type='text' name='airline' className='block w-full p-2 mt-1 border border-gray-300 rounded-md' />
         </div>
 
         <div>
-          <label className='block text-sm font-medium'>Khách hàng</label>
+          <label className='block text-sm font-medium'>Customer</label>
           <input type='text' name='customer' className='block w-full p-2 mt-1 border border-gray-300 rounded-md' />
         </div>
 
         <div>
-          <label className='block text-sm font-medium'>Ngày</label>
+          <label className='block text-sm font-medium'>Date </label>
           <input type='date' name='date' className='block w-full p-2 mt-1 border border-gray-300 rounded-md' />
         </div>
 
         <div>
-          <label className='block text-sm font-medium'>Số tiền</label>
+          <label className='block text-sm font-medium'>Amount</label>
           <input type='number' name='amount' className='block w-full p-2 mt-1 border border-gray-300 rounded-md' />
         </div>
 
         <div>
-          <label className='block text-sm font-medium'>Phương thức thanh toán</label>
+          <label className='block text-sm font-medium'>PaymentMode</label>
           <select name='paymentMode' className='block w-full p-2 mt-1 border border-gray-300 rounded-md'>
             <option value='Transfer Bank'>Transfer Bank</option>
             <option value='Credit Card'>Credit Card</option>
@@ -40,7 +40,7 @@ const EditAdminFlight = () => {
         </div>
 
         <div>
-          <label className='block text-sm font-medium'>Trạng thái</label>
+          <label className='block text-sm font-medium'>status</label>
           <select name='status' className='block w-full p-2 mt-1 border border-gray-300 rounded-md'>
             <option value='Delivered'>Delivered</option>
             <option value='Process'>Process</option>
@@ -49,7 +49,7 @@ const EditAdminFlight = () => {
         </div>
 
         <Button type='submit' className='w-full'>
-          Lưu thay đổi
+          Save changes
         </Button>
       </form>
     </div>
