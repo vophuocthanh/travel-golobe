@@ -6,11 +6,15 @@ import { useParams } from "react-router-dom";
 
 export default function HotelDetailOverview() {
   const { id } = useParams<{ id: string }>()
-
+  console.log(id,"id");
+  
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id),
   })
+  console.log(getbyId,"byid");
+  
+  
   return (
     <div className="flex w-full mt-5">
       <div className="mx-auto">

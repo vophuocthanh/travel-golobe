@@ -1,10 +1,27 @@
-import { flight, hotel, tour_1 } from '@/assets/images';
+
+import { tourApi } from '@/apis/tour.api';
+import { hotel } from '@/assets/images';
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
+import { useQuery } from '@tanstack/react-query';
 import { ChevronRight, HeartIcon, Link, MapPin, Star } from 'lucide-react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 
 export default function TourDetailView() {
+    const { id } = useParams<{ id: string }>()
+    console.log(id, "id");
+
+
+    const { data: getbyId } = useQuery({
+        queryKey: ['getById', id],
+        queryFn: () => tourApi.getById(id),
+    })
+    console.log(getbyId, "log");
+
+
+
     const [liked, setLiked] = useState(false);
 
     const handleClick = () => {
@@ -21,6 +38,16 @@ export default function TourDetailView() {
     //         }
     //         })
     //     }
+    function handleBookingTour() {
+        // mutationBookingHotel.mutate(id || '', {
+        //     onSuccess: () => {
+        //         toast.success('Booking success 🚀🚀⚡⚡!')
+        //     },
+        //     onError: () => {
+        //         toast.error('Booking failed 😭😭😭😭!')
+        //     }
+        //     })
+    }
     const reviews = [
         {
             rating: 5.0,
@@ -41,25 +68,25 @@ export default function TourDetailView() {
     return (
         <>
             <Header />
-            <div className="container mx-auto pt-28 pb-36 px-4">
+            <div className="container px-4 mx-auto pt-28 pb-36">
                 {/* Header Section */}
                 <section className="mb-12">
-                    <div className="flex text-sm items-center space-x-2 text-gray-600 mb-4">
-                        <p>Today</p>
+                    <div className="flex items-center mb-4 space-x-2 text-sm text-gray-600">
+                        <p className='text-red-400'>Today</p>
                         <ChevronRight className="w-4 h-4 text-gray-500" />
-                        <p>Istanbul</p>
+                        <p className='text-red-400'>Istanbul</p>
                         <ChevronRight className="w-4 h-4 text-gray-500" />
-                        <p>CVK Park Bosphorus Hotel Istanbul</p>
+                        <p>{getbyId?.description}</p>
                     </div>
-                    <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md p-6">
+                    <div className="flex flex-col p-6 bg-white rounded-lg shadow-md md:flex-row">
                         <div className="flex-1 mb-6 md:mb-0">
-                            <p className="text-3xl font-bold text-gray-800">Emirates A380 Airbus</p>
-                            <div className="flex text-sm items-center space-x-2 mt-2 text-gray-500">
+                            <p className="overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line text-ellipsis line-clamp-2">{getbyId?.description}</p>
+                            <div className="flex items-center mt-2 space-x-2 text-sm text-gray-500">
                                 <MapPin className="w-4 h-4" />
-                                <p>Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437</p>
+                                <p>{getbyId?.name}</p>
                             </div>
-                            <div className="flex items-center space-x-2 mt-4">
-                                <p className="border border-primary rounded-lg w-12 h-8 flex justify-center items-center text-sm font-semibold text-primary">
+                            <div className="flex items-center mt-4 space-x-2">
+                                <p className="flex items-center justify-center w-12 h-8 text-sm font-semibold border rounded-lg border-primary text-primary">
                                     4.2
                                 </p>
                                 <p className="text-sm text-gray-600">
@@ -67,21 +94,21 @@ export default function TourDetailView() {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex-none text-right space-y-4">
-                            <p className="text-3xl font-bold text-[#FF8682]">$240</p>
+                        <div className="flex-none space-y-4 text-right">
+                            <p className="text-3xl font-bold text-[#FF8682]">{getbyId?.price}</p>
                             <div className="flex space-x-4">
                                 <div
-                                    className="border border-primary rounded-full w-12 h-12 flex justify-center items-center text-sm font-medium cursor-pointer hover:bg-red-100 transition-colors"
+                                    className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
                                     onClick={handleClick}
                                 >
                                     <HeartIcon
                                         className={`w-5 h-5 ${liked ? 'text-red-600' : 'text-gray-500'}`}
                                     />
                                 </div>
-                                <div className="border border-primary rounded-full w-12 h-12 flex justify-center items-center text-sm font-medium cursor-pointer hover:bg-gray-100 transition-colors">
+                                <div className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-gray-100">
                                     <Link className="w-5 h-5 text-gray-500" />
                                 </div>
-                                <Button>Book now</Button>
+                                <Button onClick={handleBookingTour}>Book now</Button>
                             </div>
                         </div>
                     </div>
@@ -89,69 +116,56 @@ export default function TourDetailView() {
 
                 {/* Image Gallery */}
                 <section className="mb-12">
-                    <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-                        <img src={tour_1} alt="Tour" className="w-full md:w-[60%] h-auto object-cover rounded-lg shadow-lg" />
+                    <div className="flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6">
+                        <img src={getbyId?.image} alt="Tour" className="w-full md:w-[60%] h-auto object-cover rounded-lg shadow-lg" />
                         <div className="flex flex-col space-y-4 w-full md:w-[40%]">
                             <div className="flex space-x-4">
-                                <img src={flight} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
-                                <img src={flight} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
+                                <img src={getbyId?.image} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
+                                <img src={getbyId?.image2} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
                             </div>
                             <div className="flex space-x-4">
-                                <img src={flight} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
-                                <img src={flight} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
+                                <img src={getbyId?.image3} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
+                                <img src={getbyId?.image4} alt="Flight" className="w-[48%] h-auto object-cover rounded-lg shadow-lg" />
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <hr className="border-t border-gray-300 mb-12" />
+                <hr className="mb-12 border-t border-gray-300" />
 
                 <section>
                     <div className="mb-8">
-                        <p className="text-2xl font-bold mb-4">Overview</p>
+                        <p className="mb-4 text-2xl font-bold">Overview</p>
                         <p className="text-base font-medium text-gray-700">
-                            Located in Taksim Gmsuyu, the heart of Istanbul,
-                            the CVK Park Bosphorus Hotel Istanbul has risen from the
-                            ashes of the historic Park Hotel, which also served as
-                            Foreign Affairs Palace 120 years ago and is hosting its
-                            guests by assuming this hospitality mission. With its 452
-                            luxurious rooms and suites, 8500 m2 SPA and fitness area, 18
-                            meeting rooms including 4 dividable ones and 3 terraces with
-                            Bosphorus view, Istanbuls largest terrace with Bosphorus view
-                            (4500 m2) and latest technology infrastructure, CVK Park
-                            Bosphorus Hotel Istanbul is destined to be the popular
-                            attraction point of the city. Room and suite categories
-                            at various sizes with city and Bosphorus view, as well
-                            as 68 separate luxury suites, are offered to its special
-                            guests as a wide variety of selection.
+                            {getbyId?.description}
                         </p>
                     </div>
 
-                    <hr className="border-t border-gray-300 mb-12" />
+                    <hr className="mb-12 border-t border-gray-300" />
 
-                    <div className="flex space-x-6 mb-8">
-                        <div className="bg-primary p-6 rounded-lg text-center text-white flex flex-col items-center shadow-md">
+                    <div className="flex mb-8 space-x-6">
+                        <div className="flex flex-col items-center p-6 text-center text-white rounded-lg shadow-md bg-primary">
                             <p className="text-4xl font-bold">4.2</p>
                             <p className="text-base font-semibold">Very Good</p>
                             <p className="text-sm">371 reviews</p>
                         </div>
-                        <div className="border border-primary p-6 rounded-lg text-center flex flex-col items-center shadow-md">
+                        <div className="flex flex-col items-center p-6 text-center border rounded-lg shadow-md border-primary">
                             <p className="text-4xl font-bold">4.2</p>
                             <p className="text-base font-semibold">Very Good</p>
                             <p className="text-sm">371 reviews</p>
                         </div>
                     </div>
 
-                    <hr className="border-t border-gray-300 mb-12" />
+                    <hr className="mb-12 border-t border-gray-300" />
 
                     <div>
-                        <p className="text-2xl font-bold mb-4">Available Rooms</p>
+                        <p className="mb-4 text-2xl font-bold">Available Rooms</p>
                         <div className="flex items-center justify-between pb-4 mb-4">
-                            <div className="flex space-x-4 items-center">
+                            <div className="flex items-center space-x-4">
                                 <img src={hotel} alt="Hotel Room" className="w-16 h-16 rounded-lg shadow-md" />
                                 <p className="text-base font-medium">Superior room - 1 double bed or 2 twin beds</p>
                             </div>
-                            <div className="flex space-x-10 items-center">
+                            <div className="flex items-center space-x-10">
                                 <div className="text-xl font-semibold">$price <span className="text-sm font-normal">/night</span></div>
                                 <Button>
                                     Book now
@@ -160,17 +174,17 @@ export default function TourDetailView() {
                         </div>
                     </div>
 
-                    <hr className="border-t border-gray-300 mb-12" />
+                    <hr className="mb-12 border-t border-gray-300" />
 
                     <div>
                         <p className="text-xl font-bold">Amenities/Map</p>
-                        <div className="grid grid-cols-2 gap-y-2 gap-x-4 p-4">
+                        <div className="grid grid-cols-2 p-4 gap-y-2 gap-x-4">
                             <div className="flex items-center space-x-80">
                                 <div className='flex space-x-2'>
                                     <MapPin className='w-5 h-5' />
                                     <span>name</span>
                                 </div>
-                                <div className=' flex space-x-2'>
+                                <div className='flex space-x-2 '>
                                     <MapPin className='w-5 h-5' />
                                     <span>name</span>
                                 </div>
@@ -179,12 +193,12 @@ export default function TourDetailView() {
                         </div>
                     </div>
 
-                    <hr className="border-t border-gray-300 mb-12" />
+                    <hr className="mb-12 border-t border-gray-300" />
 
                     <div>
                         <div className="flex items-center justify-between mb-4">
                             <p className="text-2xl font-bold">Location/Map</p>
-                            <Button className="bg-primary text-white">View on Google Maps</Button>
+                            <Button className="text-white bg-primary">View on Google Maps</Button>
                         </div>
 
                         <div>
