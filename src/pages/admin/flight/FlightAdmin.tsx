@@ -310,6 +310,7 @@ function FlightAdmin() {
 
   return (
     <div className='w-full'>
+      <p className='text-3xl font-bold text-center'>Flight - Admin</p>
       <div className='flex items-center py-4'>
         <div className='flex gap-8'>
           <p className='mt-2'>Show</p>
