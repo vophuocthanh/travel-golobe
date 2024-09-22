@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
   ColumnDef,
@@ -269,117 +270,132 @@ export default function HotelAdmin() {
   return (
     <div className='w-full p-2'>
       <h1 className='mb-4 text-2xl font-bold '>HOTEL</h1>
-      <div className='flex items-center justify-between py-4'>
-        <div className='flex items-center'>
-          <div className='flex items-center mr-4 space-x-2'>
-            <span>Show</span>
-            <select
-              className='p-2 border border-gray-300 rounded-lg'
-              value={entriesPerPage}
-              onChange={(e) => {
-                setEntriesPerPage(Number(e.target.value))
-                setPageIndex(0) // Reset to the first page when page size changes
-              }}
-            >
-              {[5, 10, 25, 50, 100].map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            <span>entries</span>
-          </div>
-          <div className='relative'>
-            <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
-              <IconSearch />
-            </div>
-            <Input
-              placeholder='Search product...'
-              value={(table.getColumn('hotelName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('hotelName')?.setFilterValue(event.target.value)}
-              className='max-w-sm pl-10 rounded-xl'
-            />
-          </div>
-        </div>
-        <div className='flex items-center gap-4'>
-          <Button className='flex items-center justify-center gap-2 ml-auto'>
-            <IconMore />
-            Add Customer
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className='capitalize'
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      <div className='border rounded-md'>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+      <Card>
+        <CardContent>
+          <div className='flex items-center justify-between py-4'>
+            <div className='flex items-center'>
+              <div className='flex items-center mr-4 space-x-2'>
+                <span>Show</span>
+                <select
+                  className='p-2 border border-gray-300 rounded-lg'
+                  value={entriesPerPage}
+                  onChange={(e) => {
+                    setEntriesPerPage(Number(e.target.value));
+                    setPageIndex(0);
+                  }}
+                >
+                  {[5, 10, 25, 50, 100].map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
                   ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No hotels available.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className='flex items-center justify-between py-4'>
-        <span className='text-sm text-gray-700'>
-          Showing page {pageIndex + 1} of {table.getPageCount()}
-        </span>
-        <div className='flex space-x-2'>
-          <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
-            Previous
-          </Button>
-          <Button
-            onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
-            disabled={pageIndex + 1 >= table.getPageCount()}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
+                </select>
+                <span>entries</span>
+              </div>
+              <div className='relative'>
+                <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
+                  <IconSearch />
+                </div>
+                <Input
+                  placeholder='Search product...'
+                  value={(table.getColumn('hotelName')?.getFilterValue() as string) ?? ''}
+                  onChange={(event) => table.getColumn('hotelName')?.setFilterValue(event.target.value)}
+                  className='max-w-sm pl-10 rounded-xl'
+                />
+              </div>
+            </div>
+            <div className='flex items-center gap-4'>
+              <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
+                <IconMore />
+                Add Hotel
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant='outline' className='ml-auto'>
+                    Columns <ChevronDown className='w-4 h-4 ml-2' />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align='end'>
+                  {table
+                    .getAllColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => {
+                      return (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className='capitalize'
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        >
+                          {column.id}
+                        </DropdownMenuCheckboxItem>
+                      );
+                    })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+          <div className='border rounded-md'>
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow key={row.id}>
+                      {row.getVisibleCells().map((cell, cellIndex) => (
+                        <TableCell
+                          key={cell.id}
+                          className={`${
+                            cell.column.id === "hotelId" ? "sticky left-0 bg-white z-10" : ""
+                          } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
+                          style={{
+                            minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                            maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                          }}
+                        >
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className='h-24 text-center'>
+                      No hotels available.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <div className='flex items-center justify-between py-4'>
+            <span className='text-sm text-gray-700'>
+              Showing page {pageIndex + 1} of {table.getPageCount()}
+            </span>
+            <div className='flex space-x-2'>
+              <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
+                Previous
+              </Button>
+              <Button
+                onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+                disabled={pageIndex + 1 >= table.getPageCount()}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

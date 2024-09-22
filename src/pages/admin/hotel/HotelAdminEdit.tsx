@@ -1,7 +1,7 @@
 import { hoteldetail1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { CirclePlus } from 'lucide-react'
+import { ArrowLeftToLine, CirclePlus } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -44,10 +44,9 @@ export default function HotelAdminEdit() {
   return (
     <div className='w-full p-2'>
       <h1 className='mb-2 text-2xl font-bold'>EDIT HOTEL {hotelId}</h1>
-      <Button className='flex mb-4 ml-auto' onClick={handleBack}>
-        Back to Hotel Admin
+      <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
+        <ArrowLeftToLine/>
       </Button>
-
       <form onSubmit={handleSubmit} className='space-y-4'>
         <div className='p-4 bg-white rounded-lg shadow'>
           <h2 className='text-xl font-bold '>Hotel Image</h2>
