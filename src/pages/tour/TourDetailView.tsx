@@ -1,7 +1,7 @@
 import { flight, hotel, tour_1 } from '@/assets/images';
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, HeartIcon, Link, MapPin } from 'lucide-react';
+import { ChevronRight, HeartIcon, Link, MapPin, Star } from 'lucide-react';
 import { useState } from 'react';
 
 export default function TourDetailView() {
@@ -10,6 +10,31 @@ export default function TourDetailView() {
     const handleClick = () => {
         setLiked(!liked);
     };
+
+    // function handleBookingTour() {
+    //     mutationBookingHotel.mutate(id || '', {
+    //         onSuccess: () => {
+    //             toast.success('Booking success 🚀🚀⚡⚡!')
+    //         },
+    //         onError: () => {
+    //             toast.error('Booking failed 😭😭😭😭!')
+    //         }
+    //         })
+    //     }
+    const reviews = [
+        {
+            rating: 5.0,
+            title: 'Amazing',
+            author: 'Omar Siphron',
+            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        },
+        {
+            rating: 5.0,
+            title: 'Amazing',
+            author: 'Cristofer Ekstrom Bothman',
+            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        },
+    ];
 
 
 
@@ -175,6 +200,23 @@ export default function TourDetailView() {
                     </div>
 
                     <hr className="border-t border-gray-300 mb-12" />
+                    <hr className="mb-12 border-t border-gray-300" />
+
+                    <div>
+                        <p className="mb-4 text-2xl font-bold">Reviews</p>
+                        <div className="flex flex-col space-y-4">
+                            {reviews.map((review, index) => (
+                                <div key={index} className="p-4 border border-gray-300 rounded-lg shadow-md">
+                                    <div className="flex items-center mb-2 space-x-2">
+                                        <Star className="w-5 h-5 text-yellow-400" />
+                                        <p className="font-semibold">{review.rating} - {review.title}</p>
+                                    </div>
+                                    <p className="mb-2 text-sm font-medium text-gray-700">{review.author}</p>
+                                    <p className="text-sm">{review.content}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </section>
             </div>
             <Footer />
