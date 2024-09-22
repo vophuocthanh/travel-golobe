@@ -314,7 +314,7 @@ function FlightAdmin() {
   return (
     <div className='w-full px-4'>
       <p className='text-2xl font-bold '>Flight - Admin</p>
-      <div className='flex items-center px-6 py-4'>
+      <div className='flex items-center px-6 py-4 w-[100%]'>
         <div className='flex gap-8'>
           <p className='mt-2'>Show</p>
           <DropdownMenu>
