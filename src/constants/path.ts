@@ -27,5 +27,6 @@ export const path = {
   flight_payment: '/flight/all-flight/flight-detail/flight-payment',
   tour_payment: '/tour/all-tour/detail-view/tour-payment',
   hotel_payment: '/hotel/home-stay/hotel-detail/hotel-payment',
+  hotel_edit: '/admin/hotels/hotel-edit',
 
 } as const
