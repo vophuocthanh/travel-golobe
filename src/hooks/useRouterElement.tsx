@@ -23,6 +23,7 @@ import { useLocation, useRoutes } from 'react-router-dom'
 import FlightPayment from '@/pages/flight/FlightPayment'
 import TourPayment from '@/pages/tour/TourPayment'
 import HotelPayment from '@/pages/hotel/HotelPayment'
+import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -52,6 +53,7 @@ export default function useRoutesElements() {
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
+      { path: path.hotel_edit, element: <LayoutMain children={<HotelAdminEdit />} /> },
       { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },
       { path: path.flight_payment, element: <FlightPayment /> },
       { path: path.tour_payment, element: <TourPayment /> },
