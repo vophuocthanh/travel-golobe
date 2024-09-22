@@ -350,7 +350,7 @@ function FlightAdmin() {
           onChange={(event) => table.getColumn('customer')?.setFilterValue(event.target.value)}
           className='max-w-sm ml-20'
         />
-        <Button className='bg-[#624DE3] text-white ml-[32rem] px-4'>+ Add Customer</Button>
+        <Button className='bg-[#624DE3] text-white ml-[32rem] px-[0.5rem]'>+ Add Customer</Button>
       </div>
       <div className='px-4 border rounded-md'>
         <Table>
