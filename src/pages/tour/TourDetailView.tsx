@@ -1,12 +1,8 @@
-import { commentTourApi } from '@/apis/comment-tour.api';
 import { flight, hotel, tour_1 } from '@/assets/images';
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
-import { useQuery } from '@tanstack/react-query';
 import { ChevronRight, HeartIcon, Link, MapPin } from 'lucide-react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import TourDetailReview from './commentTour';
 
 export default function TourDetailView() {
     const [liked, setLiked] = useState(false);
@@ -14,12 +10,7 @@ export default function TourDetailView() {
     const handleClick = () => {
         setLiked(!liked);
     };
-    const { id } = useParams<{ id: string }>()
 
-    const { data } = useQuery({
-        queryKey: ['getComments', id],
-        queryFn: () => commentTourApi.getComments(id || '')
-    })
 
 
     return (
@@ -184,7 +175,6 @@ export default function TourDetailView() {
                     </div>
 
                     <hr className="border-t border-gray-300 mb-12" />
-                    <TourDetailReview data={data?.data ?? []} />
                 </section>
             </div>
             <Footer />
