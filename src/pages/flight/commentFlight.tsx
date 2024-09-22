@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import BasicRating from '../home-stay/components/StarRating'
 import { commentFlightApi } from '@/apis/comment-flght.api'
 import { CommentFlight } from '@/shared/ts/interface/comment-flight.interface'
+import ReadOnlyRating from '../home-stay/components/ReadOnlyRating'
 //import ReadOnlyRating from '../home-stay/components/ReadOnlyRating'
 
 const reviewsPerPage = 5
@@ -99,6 +100,7 @@ export default function FlightDetailReview({ data }: FlightDetailReviewProps) {
                                         <p className='font-bold'>
                                             Amazing | {item.content}
                                         </p>
+                                        <ReadOnlyRating rating={item.rating} />
                                     </div>
                                     <div className='absolute top-2 right-2'>
                                         <IconFlag />
