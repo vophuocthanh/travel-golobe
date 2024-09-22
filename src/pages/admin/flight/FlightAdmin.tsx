@@ -314,12 +314,12 @@ function FlightAdmin() {
   return (
     <div className='w-full px-4'>
       <p className='text-2xl font-bold '>Flight - Admin</p>
-      <div className='flex items-center px-6 py-4 w-[100%]'>
+      <div className='flex items-center px-6 py-4 w-[100%] justify-between'>
         <div className='flex gap-8'>
           <p className='mt-2'>Show</p>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='flex items-center h-10 ml-auto'>
+              <Button variant='outline' className='flex items-center h-10'>
                 <span className='text-sm'>10</span>
                 <ChevronDownIcon className='w-4 h-4 ml-2' />
               </Button>
@@ -343,15 +343,19 @@ function FlightAdmin() {
             </DropdownMenuContent>
           </DropdownMenu>
           <p className='mt-2'>entries</p>
+          <Input
+            placeholder='Filter customer...'
+            value={(table.getColumn('customer')?.getFilterValue() as string) ?? ''}
+            onChange={(event) => table.getColumn('customer')?.setFilterValue(event.target.value)}
+            className='max-w-sm'
+          />
         </div>
-        <Input
-          placeholder='Filter customer...'
-          value={(table.getColumn('customer')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('customer')?.setFilterValue(event.target.value)}
-          className='max-w-sm ml-20'
-        />
-        <Button className='bg-[#624DE3] text-white ml-[32rem] px-[0.5rem]'>+ Add Customer</Button>
+
+        <div className='flex items-center gap-4'>
+          <Button className='bg-[#624DE3] text-white'>+ Add Customer</Button>
+        </div>
       </div>
+
       <div className='px-4 border rounded-md'>
         <Table>
           <TableHeader>
