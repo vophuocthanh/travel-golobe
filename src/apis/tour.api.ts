@@ -1,12 +1,18 @@
 import axiosClient from '@/apis/axios-client'
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { TourResponse } from '@/shared/utils/data-response'
 
 export const tourApi = {
-  getAll() {
+  getAll(page: number | string, limit: number | string) {
     const url = '/tour'
-    return axiosClient.get(url)
+    return axiosClient.get(url, {
+      params: {
+        _page: page,
+        _limit: limit
+      }
+    })
   },
-  getById(id: string) {
+  getById(id: string | undefined) :Promise<TourResponseType> {
     const url = `/tour/${id}`
     return axiosClient.get(url)
   },

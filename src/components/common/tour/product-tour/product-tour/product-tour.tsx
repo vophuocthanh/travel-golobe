@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
 
+
 interface Search {
   id?: string
   name: string
@@ -24,27 +25,42 @@ interface TabProps {
 
 const ProductTour = () => {
   const [isOpenSort, setIsOpenSort] = useState<boolean>(false)
+  const [liked, setLiked] = useState(false);
+
+    const handleClick = (id?: string) => {
+      console.log(id,"like");
+      getAll?.data.map((item: Search)=> {
+        if(item.id === id){
+          console.log("yes");
+          setLiked(true);
+        }else {
+          console.log("no");
+          
+          setLiked(false)
+        }
+      })
+    };
 
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll()
+    queryFn: () => tourApi.getAll(1,5)
   })
-  console.log(getAll?.data['price'], 'anh')
+  
   const toggleVisibilitySort = () => {
     setIsOpenSort(!isOpenSort)
     // if (isOpenSort) {
-    //   getAll?.data.slice().sort((a:number, b:number) => a.price - b.price);
+    //   getAll?.data.slice().sort((a: number | any, b: number | any) => a.price - b.price);
     // } else {
 
-    //     getAll?.data.slice().sort((a:number, b:number) => b.price - a.price);
+    //     getAll?.data.slice().sort((a: number | any, b: number | any) => b.price - a.price);
     // }
   }
   const tabs = [
-    { label: 'Hotel', description: '257 places' },
+    { label: 'Tour', description: '257 places' },
     { label: 'Motels', description: '51 places' },
     { label: 'Resorts', description: '72 places' }
   ]
-  const [activeTab, setActiveTab] = useState('Hotel')
+  const [activeTab, setActiveTab] = useState('Tour')
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
     <div
       onClick={onClick}
@@ -91,13 +107,19 @@ const ProductTour = () => {
         </div>
         <div>
           {getAll?.data.map((item: Search) => (
-            <div className='flex justify-between mb-5' key={item.id}>
-              <img src={item.images} className='mr-6 w-80 h-[360px]' alt='' />
-              <div className='p-3'>
-                <div className='flex justify-between'>
-                  <div className='mr-5 '>
+          
+            <div className='flex w-full h-[21rem] overflow-hidden mb-5' key={item.id}>
+              <div className='relative bg-blue-300 w-[35%] flex-3'>
+                <img src={item.images} className='object-cover w-full h-full ' alt='tour' />
+                <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
+                  9 images
+                </p>
+              </div>
+              <div className='p-3  w-[65%] '>
+                <div className='flex justify-between '>
+                  <div className='mr-5 border-b-2 border-gray-400 w-[85%]'>
                     <h2 className='mb-3 overflow-hidden text-4xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
-                      {item.description}CVK Park Bosphorus Hotel Istanbul
+                      {item.description}
                     </h2>
                     <div className='flex mb-3'>
                       <IconAdress />
@@ -115,7 +137,7 @@ const ProductTour = () => {
                       </div>
                     </div>
 
-                    <div className='flex mb-4'>
+                    <div className='flex mb-6'>
                       <Button className='mr-3 bg-white border border-primary hover:bg-slate-100'>4.2</Button>
                       <p className='flex items-center '>
                         <span className='text-lg font-medium'>Very Good</span> 371 reviews
@@ -125,19 +147,18 @@ const ProductTour = () => {
                   <div>
                     <p>starting from</p>
                     <h2 className='font-medium text-red-500'>
-                      <span className='text-2xl'>{item.price}</span>/night
+                      <span className='text-2xl'>${item.price}</span>/night
                     </h2>
                     <p className='text-right'>excl. tax</p>
                   </div>
                 </div>
                 <div className='w-full h-[25%] flex'>
-                  <div className='flex flex-row items-center w-full gap-4'>
-                    {/* className={isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white w-[3.6rem] '} */}
-                    <Button>
-                      <Heart />
+                  <div className='flex flex-row items-center justify-between w-full '>
+                    <Button className={` mr-5 `} onClick={() => handleClick(item.id)} >
+                      <Heart className={`w-5 h-5 ${liked ? 'text-red-600' : 'text-gray-500'} `} />
                     </Button>
-                    <Link to='/tour/all-tour/detail-view' className='w-[35rem]'>
-                      <Button className='w-full mx-4'>View Deals</Button>
+                    <Link to={`/tour/${item.id}`}  className='w-full'>
+                      <Button className='w-full ' >View Deals</Button>
                     </Link>
                   </div>
                 </div>

@@ -8,7 +8,7 @@ export const path = {
   flight: '/flight',
   flight_detail: '/flight/:id',
   tour: '/tour',
-  tourDetailView: '/tour/all-tour/detail-view',
+  tourDetailView: '/tour/:id',
   tourId: '/tour/all-tour',
   forgot_password: '/forgot-password',
   reset_password: '/reset-password',
@@ -23,5 +23,9 @@ export const path = {
   admin_flight: '/admin/flights',
   admin_flightID: '/admin/flights/:id',
   admin_hotel: '/admin/hotels',
-  admin_employee: '/admin/employee'
+  admin_employee: '/admin/employee',
+  flight_payment: '/flight/all-flight/flight-detail/flight-payment',
+  tour_payment: '/tour/all-tour/detail-view/tour-payment',
+  hotel_payment: '/hotel/home-stay/hotel-detail/hotel-payment',
+
 } as const

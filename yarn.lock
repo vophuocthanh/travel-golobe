@@ -1352,6 +1352,22 @@
     "@radix-ui/react-context" "1.1.0"
     "@radix-ui/react-primitive" "2.0.0"
 
+"@radix-ui/react-radio-group@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/@radix-ui/react-radio-group/-/react-radio-group-1.2.0.tgz#f937dd6b9436ded80c4bebdf3901c20cb8bcbb5a"
+  integrity sha512-yv+oiLaicYMBpqgfpSPw6q+RyXlLdIpQWDHZbUKURxe+nEh53hFXPPlfhfQQtYkS5MMK/5IWIa76SksleQZSzw==
+  dependencies:
+    "@radix-ui/primitive" "1.1.0"
+    "@radix-ui/react-compose-refs" "1.1.0"
+    "@radix-ui/react-context" "1.1.0"
+    "@radix-ui/react-direction" "1.1.0"
+    "@radix-ui/react-presence" "1.1.0"
+    "@radix-ui/react-primitive" "2.0.0"
+    "@radix-ui/react-roving-focus" "1.1.0"
+    "@radix-ui/react-use-controllable-state" "1.1.0"
+    "@radix-ui/react-use-previous" "1.1.0"
+    "@radix-ui/react-use-size" "1.1.0"
+
 "@radix-ui/react-roving-focus@1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@radix-ui/react-roving-focus/-/react-roving-focus-1.1.0.tgz"
@@ -2227,9 +2243,11 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@radix-ui/react-checkbox" "^1.1.1"
     "@radix-ui/react-dialog" "^1.1.1"
     "@radix-ui/react-dropdown-menu" "^2.1.1"
+    "@radix-ui/react-icons" "^1.3.0"
     "@radix-ui/react-label" "^2.1.0"
     "@radix-ui/react-popover" "^1.1.1"
     "@radix-ui/react-progress" "^1.1.0"
+    "@radix-ui/react-radio-group" "^1.2.0"
     "@radix-ui/react-select" "^2.1.1"
     "@radix-ui/react-slider" "^1.2.0"
     "@radix-ui/react-slot" "^1.1.0"
@@ -2240,7 +2258,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@tanstack/react-table" "^8.17.3"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
-    app "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-4937ae42-9318-4d8b-9d88-2cd92207852a-1726900383639/node_modules/app"
+    app "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-4aab372d-7796-4e57-977e-6b9c15bcbaee-1726979781851/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
