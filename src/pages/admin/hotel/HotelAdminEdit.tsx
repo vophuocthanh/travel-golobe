@@ -166,8 +166,8 @@ export default function HotelAdminEdit() {
           </div>
         </div>
 
-        <div className='flex justify-center'>
-          <Button type='button' className='w-[20rem] flex mx-auto'>
+        <div className='flex justify-center text-white'>
+          <Button type='button' className='w-[20rem] flex mx-auto' onClick={handleBack}>
             Cancel
           </Button>
           <Button type='submit' className='w-[20rem] flex mx-auto'>

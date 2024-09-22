@@ -382,7 +382,7 @@ export default function HotelAdmin() {
             <span className='text-sm text-gray-700'>
               Showing page {pageIndex + 1} of {table.getPageCount()}
             </span>
-            <div className='flex space-x-2'>
+            <div className='flex space-x-2 text-white'>
               <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
                 Previous
               </Button>
