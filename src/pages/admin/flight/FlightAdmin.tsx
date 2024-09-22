@@ -278,10 +278,13 @@ function FlightAdmin() {
       cell: ({ row }) => {
         return (
           <div className='flex space-x-2'>
-            <Link to={`/admin/flights/${row.original.id}`}>
-              <IconEdit />
-            </Link>
-            <Button variant='ghost' className='w-8 h-8 p-0'>
+            <Button variant='ghost' className='w-8 h-8 '>
+              <Link to={`/admin/flights/${row.original.id}`}>
+                <IconEdit />
+              </Link>
+            </Button>
+
+            <Button variant='ghost' className='w-8 h-8 p-0 '>
               <IconDelete />
             </Button>
           </div>
@@ -347,7 +350,7 @@ function FlightAdmin() {
           onChange={(event) => table.getColumn('customer')?.setFilterValue(event.target.value)}
           className='max-w-sm ml-20'
         />
-        <Button className='bg-[#624DE3] text-white ml-[34rem]'>+ Add Customer</Button>
+        <Button className='bg-[#624DE3] text-white ml-[32rem] px-4'>+ Add Customer</Button>
       </div>
       <div className='px-4 border rounded-md'>
         <Table>
