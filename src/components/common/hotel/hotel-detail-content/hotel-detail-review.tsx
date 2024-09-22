@@ -1,13 +1,22 @@
+import { commentHotelApi } from '@/apis/comment-hotel.api'
 import { IconFlag } from '@/common/icons'
 import { Button } from '@/components/ui/button'
+import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
+import BasicRating from '@/pages/home-stay/components/StarRating'
+//import BasicRating from '@/pages/home-stay/components/StarRating'
 import { CommentHotel } from '@/shared/ts/interface/comment-hotel.interface'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SetStateAction, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 const reviewsPerPage = 5
 
 interface HotelDetailReviewProps {
   data: CommentHotel[]
 }
+
+
+
 
 export default function HotelDetailReview({ data }: HotelDetailReviewProps) {
   const [currentPage, setCurrentPage] = useState(1)
@@ -18,15 +27,57 @@ export default function HotelDetailReview({ data }: HotelDetailReviewProps) {
     setCurrentPage(pageNumber)
   }
 
+  const [rating, setRating] = useState<number | null>(0);
+  const [comment, setComment] = useState("");
+  const { id } = useParams<{ id: string | undefined }>()
+
+  const queryClient = useQueryClient()
+
+  const mutationReview = useMutation({
+    mutationFn: ({ hotelId, content, rating }: { hotelId: string; content: string; rating: number }) =>
+      commentHotelApi.addComment(hotelId, content, rating),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getComments'] })
+      setComment("");
+      setRating(0);
+    },
+    onError: (error) => {
+      alert("Có lỗi xảy ra: " + error.message);
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (comment.trim() !== "" && rating !== null) {
+      const hotelId = id ?? "";
+      mutationReview.mutate({ hotelId, content: comment, rating });
+    }
+  };
+
   return (
     <div className='flex w-full mt-5'>
       <div className='w-full '>
         <div>
           <hr className='my-8 border-2 border-gray ' />
         </div>
-        <div className='flex items-center justify-between '>
+        <div className='items-center '>
           <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
-          <Button className='px-4 py-2 text-black rounded-md w-[10rem] h-[3rem]'>Give your review</Button>
+          <form onSubmit={handleSubmit} className="flex space-x-4 items-center ">
+            <div className="w-full p-2 border border-gray-300 rounded-md">
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded-md"
+                value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Type your message here." />
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center space-x-5'>
+                  <label htmlFor="">Satisfaction Level.</label>
+                  <BasicRating setRating={setRating} />
+                </div>
+                <Button className="px-4 py-2 text-black rounded-md w-[10rem] h-[3rem]">
+                  Give your review
+                </Button>
+              </div>
+            </div>
+          </form>
         </div>
         <div className='relative flex text-black w-[14rem] '>
           <p className='absolute left-0 text-5xl font-semibold'>4.2</p>
@@ -47,9 +98,9 @@ export default function HotelDetailReview({ data }: HotelDetailReviewProps) {
                   />
                   <div>
                     <p className='font-bold'>
-                      {item.rating} Amazing | {item.content}
+                      Amazing | {item.content}
                     </p>
-                    <p className='text-gray-700 w-[85%]'>dasdsadsadsdas</p>
+                    <ReadOnlyRating rating={item.rating} />
                   </div>
                   <div className='absolute top-2 right-2'>
                     <IconFlag />

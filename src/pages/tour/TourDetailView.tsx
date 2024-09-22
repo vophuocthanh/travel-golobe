@@ -1,6 +1,6 @@
 
 import { tourApi } from '@/apis/tour.api';
-import {  hotel } from '@/assets/images';
+import { hotel } from '@/assets/images';
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
@@ -11,22 +11,33 @@ import { useParams } from 'react-router-dom';
 
 export default function TourDetailView() {
     const { id } = useParams<{ id: string }>()
-    console.log(id,"id");
-    
-    
+    console.log(id, "id");
+
+
     const { data: getbyId } = useQuery({
         queryKey: ['getById', id],
         queryFn: () => tourApi.getById(id),
     })
-    console.log(getbyId,"log");
-    
+    console.log(getbyId, "log");
 
-    
+
+
     const [liked, setLiked] = useState(false);
 
     const handleClick = () => {
         setLiked(!liked);
     };
+
+    // function handleBookingTour() {
+    //     mutationBookingHotel.mutate(id || '', {
+    //         onSuccess: () => {
+    //             toast.success('Booking success 🚀🚀⚡⚡!')
+    //         },
+    //         onError: () => {
+    //             toast.error('Booking failed 😭😭😭😭!')
+    //         }
+    //         })
+    //     }
     function handleBookingTour() {
         // mutationBookingHotel.mutate(id || '', {
         //     onSuccess: () => {
@@ -36,13 +47,13 @@ export default function TourDetailView() {
         //         toast.error('Booking failed 😭😭😭😭!')
         //     }
         //     })
-        }
+    }
     const reviews = [
         {
             rating: 5.0,
             title: 'Amazing',
             author: 'Omar Siphron',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            content: 'Loremm ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         },
         {
             rating: 5.0,
@@ -51,6 +62,8 @@ export default function TourDetailView() {
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         },
     ];
+
+
 
     return (
         <>
@@ -200,6 +213,7 @@ export default function TourDetailView() {
                         </div>
                     </div>
 
+                    <hr className="border-t border-gray-300 mb-12" />
                     <hr className="mb-12 border-t border-gray-300" />
 
                     <div>
