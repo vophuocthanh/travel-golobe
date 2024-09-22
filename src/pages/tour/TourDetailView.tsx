@@ -26,7 +26,7 @@ export default function TourDetailView() {
             rating: 5.0,
             title: 'Amazing',
             author: 'Omar Siphron',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            content: 'Loremm ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         },
         {
             rating: 5.0,
