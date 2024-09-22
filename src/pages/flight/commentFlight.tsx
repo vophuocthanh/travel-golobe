@@ -1,6 +1,6 @@
 import { IconFlag } from '@/common/icons'
 import { Button } from '@/components/ui/button'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SetStateAction, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import BasicRating from '../home-stay/components/StarRating'
@@ -30,13 +30,14 @@ export default function FlightDetailReview({ data }: FlightDetailReviewProps) {
     const [rating, setRating] = useState<number | null>(0);
     const [comment, setComment] = useState("");
     const { id } = useParams<{ id: string | undefined }>()
-
+    const queryClient = useQueryClient()
 
 
     const mutationReview = useMutation({
         mutationFn: ({ flightId, content, rating }: { flightId: string; content: string; rating: number }) =>
             commentFlightApi.addComment(flightId, content, rating),
         onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['getComments'] })
             setComment("");
             setRating(0);
 

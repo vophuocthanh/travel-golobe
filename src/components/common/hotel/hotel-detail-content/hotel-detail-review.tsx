@@ -5,7 +5,7 @@ import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import BasicRating from '@/pages/home-stay/components/StarRating'
 //import BasicRating from '@/pages/home-stay/components/StarRating'
 import { CommentHotel } from '@/shared/ts/interface/comment-hotel.interface'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { SetStateAction, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -31,12 +31,13 @@ export default function HotelDetailReview({ data }: HotelDetailReviewProps) {
   const [comment, setComment] = useState("");
   const { id } = useParams<{ id: string | undefined }>()
 
-
+  const queryClient = useQueryClient()
 
   const mutationReview = useMutation({
     mutationFn: ({ hotelId, content, rating }: { hotelId: string; content: string; rating: number }) =>
       commentHotelApi.addComment(hotelId, content, rating),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getComments'] })
       setComment("");
       setRating(0);
     },
