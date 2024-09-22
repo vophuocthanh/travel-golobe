@@ -1,8 +1,12 @@
+import { commentTourApi } from '@/apis/comment-tour.api';
 import { flight, hotel, tour_1 } from '@/assets/images';
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, HeartIcon, Link, MapPin, Star } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { ChevronRight, HeartIcon, Link, MapPin } from 'lucide-react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import TourDetailReview from './commentTour';
 
 export default function TourDetailView() {
     const [liked, setLiked] = useState(false);
@@ -10,21 +14,13 @@ export default function TourDetailView() {
     const handleClick = () => {
         setLiked(!liked);
     };
+    const { id } = useParams<{ id: string }>()
 
-    const reviews = [
-        {
-            rating: 5.0,
-            title: 'Amazing',
-            author: 'Omar Siphron',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-        {
-            rating: 5.0,
-            title: 'Amazing',
-            author: 'Cristofer Ekstrom Bothman',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-    ];
+    const { data } = useQuery({
+        queryKey: ['getComments', id],
+        queryFn: () => commentTourApi.getComments(id || '')
+    })
+
 
     return (
         <>
@@ -188,22 +184,7 @@ export default function TourDetailView() {
                     </div>
 
                     <hr className="border-t border-gray-300 mb-12" />
-
-                    <div>
-                        <p className="text-2xl font-bold mb-4">Reviews</p>
-                        <div className="flex flex-col space-y-4">
-                            {reviews.map((review, index) => (
-                                <div key={index} className="p-4 border border-gray-300 rounded-lg shadow-md">
-                                    <div className="flex items-center space-x-2 mb-2">
-                                        <Star className="w-5 h-5 text-yellow-400" />
-                                        <p className="font-semibold">{review.rating} - {review.title}</p>
-                                    </div>
-                                    <p className="text-sm font-medium text-gray-700 mb-2">{review.author}</p>
-                                    <p className="text-sm">{review.content}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <TourDetailReview data={data?.data ?? []} />
                 </section>
             </div>
             <Footer />
