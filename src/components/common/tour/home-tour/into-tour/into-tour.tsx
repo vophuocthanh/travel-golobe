@@ -1,4 +1,3 @@
-
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
@@ -13,13 +12,12 @@ interface Search {
   images: string
 }
 
-
 export default function IntoTour() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll()
+    queryFn: () => tourApi.getAll(1, 10)
   })
-  console.log(getAll?.data, "datatour");
+  console.log(getAll?.data, 'datatour')
   return (
     <SectionInViewUp>
       <div className='px-32 py-3 mb-20 rounded-2xl'>
@@ -43,8 +41,12 @@ export default function IntoTour() {
                 <div className='absolute w-full px-4 top-72'>
                   <div className='flex items-center justify-between mb-3'>
                     <div className='text-white'>
-                      <h3 className='overflow-hidden text-xl font-normal whitespace-pre-line text-ellipsis line-clamp-1'>{item.description}</h3>
-                      <p className='overflow-hidden whitespace-pre-line text-slate-200 text-ellipsis line-clamp-1'>{item.name}</p>
+                      <h3 className='overflow-hidden text-xl font-normal whitespace-pre-line text-ellipsis line-clamp-1'>
+                        {item.description}
+                      </h3>
+                      <p className='overflow-hidden whitespace-pre-line text-slate-200 text-ellipsis line-clamp-1'>
+                        {item.name}
+                      </p>
                     </div>
                     <h3 className='text-xl font-normal text-white '>${item.price}</h3>
                   </div>
