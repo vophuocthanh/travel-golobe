@@ -29,6 +29,7 @@ import BillingAllView from '@/components/common/admin/billing/billing-all/Billin
 import BillingHotelView from '@/components/common/admin/billing/billing-hotel/BillingHotelView'
 import BillingFlightView from '@/components/common/admin/billing/billing-flight/BillingFlightView'
 import BillingTourView from '@/components/common/admin/billing/billing-tour/BillingTourView'
+import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -60,6 +61,7 @@ export default function useRoutesElements() {
       { path: path.flight_view, element: <LayoutMain children={<BillingFlightView/>} /> },
       { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
+      { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
       { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
