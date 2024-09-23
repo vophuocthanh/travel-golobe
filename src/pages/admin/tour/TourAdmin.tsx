@@ -412,7 +412,6 @@ function TourAdmin() {
                 </option>
               ))}
             </select>
-            <span>entries</span>
           </div>
           <div className='relative'>
             <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
@@ -491,12 +490,17 @@ function TourAdmin() {
           selected.
         </div>
         <div className='space-x-2'>
-          <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
+          <Button
+            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+            disabled={pageIndex === 0}
+            className='text-white'
+          >
             Previous
           </Button>
           <Button
             onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
             disabled={pageIndex + 1 >= table.getPageCount()}
+            className='text-white'
           >
             Next
           </Button>
