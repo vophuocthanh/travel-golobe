@@ -20,6 +20,7 @@ export const path = {
   users: '/admin/users',
   billing: '/admin/billing',
   admin_tour: '/admin/tours',
+  admin_tourID: '/admin/tours/:id',
   admin_flight: '/admin/flights',
   admin_flightID: '/admin/flights/:id',
   admin_hotel: '/admin/hotels',
