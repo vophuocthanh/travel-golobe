@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { ChevronDownIcon } from '@radix-ui/react-icons'
 import {
   ColumnFiltersState,
   SortingState,
@@ -29,6 +28,8 @@ import { Link } from 'react-router-dom'
 
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
+import { IconSearch } from '@/common/icons'
+import { ChevronDown } from 'lucide-react'
 
 export type Payment = {
   id: string
@@ -150,6 +151,8 @@ function FlightAdmin() {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [entriesPerPage, setEntriesPerPage] = React.useState(5)
+  const [pageIndex, setPageIndex] = React.useState(0)
   const columns: ColumnDef<Payment>[] = [
     {
       accessorKey: 'id',
@@ -175,12 +178,12 @@ function FlightAdmin() {
       },
       cell: ({ row }) => {
         const flightImage = row.getValue('flight') as string
-        const airlineName = row.getValue('airline') as string
+        // const airlineName = row.getValue('airline') as string
 
         return (
           <div className='flex flex-col items-center justify-center'>
             <img src={flightImage} alt='Flight Image' className='object-cover w-16 h-16' />
-            <p className='mt-1 text-sm text-center text-black lowercase'>{airlineName}</p>
+            {/* <p className='mt-1 text-sm text-center text-black lowercase'>{airlineName}</p> */}
           </div>
         )
       }
@@ -307,52 +310,79 @@ function FlightAdmin() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection
+      rowSelection,
+      pagination: {
+        pageIndex,
+        pageSize: entriesPerPage
+      }
     }
   })
+  React.useEffect(() => {
+    table.setPageSize(entriesPerPage)
+  }, [entriesPerPage, table])
+
+  React.useEffect(() => {
+    table.setPageIndex(pageIndex)
+  }, [pageIndex, table])
 
   return (
     <div className='w-full px-4'>
-      <p className='text-2xl font-bold '>Flight - Admin</p>
-      <div className='flex items-center px-6 py-4 w-[100%] justify-between'>
-        <div className='flex gap-8'>
-          <p className='mt-2'>Show</p>
+      <p className='text-2xl font-bold'>Flight - Admin</p>
+      <div className='flex items-center justify-between py-2'>
+        <div className='flex items-center'>
+          <div className='flex items-center mr-4 space-x-2'>
+            <span>Show</span>
+            <select
+              className='p-2 border border-gray-300 rounded-lg'
+              value={entriesPerPage}
+              onChange={(e) => {
+                setEntriesPerPage(Number(e.target.value))
+                table.setPageIndex(0)
+              }}
+            >
+              {[5, 10, 25, 50, 100].map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className='relative'>
+            <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
+              <IconSearch />
+            </div>
+            <Input
+              placeholder='Filter tour name...'
+              value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+              className='max-w-sm pl-10 rounded-xl'
+            />
+          </div>
+        </div>
+        <div className='flex items-center gap-4'>
+          <Button className='bg-[#624DE3] text-white'>+ Add Tour</Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='flex items-center h-10'>
-                <span className='text-sm'>10</span>
-                <ChevronDownIcon className='w-4 h-4 ml-2' />
+              <Button variant='outline' className='ml-auto'>
+                Columns <ChevronDown className='w-4 h-4 ml-2' />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className='capitalize'
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <p className='mt-2'>entries</p>
-          <Input
-            placeholder='Filter customer...'
-            value={(table.getColumn('customer')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('customer')?.setFilterValue(event.target.value)}
-            className='max-w-sm'
-          />
-        </div>
-
-        <div className='flex items-center gap-4'>
-          <Button className='bg-[#624DE3] text-white'>+ Add Customer</Button>
         </div>
       </div>
 
@@ -361,17 +391,15 @@ function FlightAdmin() {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} className='text-black'>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  )
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id} className='text-black'>
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className=''>
+          <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
@@ -395,16 +423,19 @@ function FlightAdmin() {
           {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
           selected.
         </div>
-        <div className='space-x-2'>
+        <div className='pr-4 space-x-2'>
           <Button
-            variant='outline'
-            size='sm'
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+            disabled={pageIndex === 0}
+            className='text-white'
           >
             Previous
           </Button>
-          <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          <Button
+            onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+            disabled={pageIndex + 1 >= table.getPageCount()}
+            className='text-white'
+          >
             Next
           </Button>
         </div>

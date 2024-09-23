@@ -25,6 +25,7 @@ import FlightPayment from '@/pages/flight/FlightPayment'
 import TourPayment from '@/pages/tour/TourPayment'
 import HotelPayment from '@/pages/hotel/HotelPayment'
 import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
+import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -52,6 +53,7 @@ export default function useRoutesElements() {
       { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },
       { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
+      { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
       { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
