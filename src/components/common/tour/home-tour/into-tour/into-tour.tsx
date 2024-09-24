@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 
-interface Search {
+interface Tour {
   id?: string
   name: string
   description: string
@@ -17,7 +17,7 @@ interface Search {
 export default function IntoTour() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll()
+    queryFn: () => tourApi.getAll(1,5)
   })
   console.log(getAll?.data, "datatour");
   return (
@@ -37,7 +37,7 @@ export default function IntoTour() {
             </Link>
           </div>
           <div className='flex justify-between'>
-            {getAll?.data.map((item: Search) => (
+            {getAll?.data.map((item: Tour) => (
               <div className='relative w-[300px] ' key={item.id}>
                 <img src={item.images} className='h-[420px]' alt='' />
                 <div className='absolute w-full px-4 top-72'>

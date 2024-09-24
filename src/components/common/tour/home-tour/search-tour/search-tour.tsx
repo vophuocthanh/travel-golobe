@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 
 
-interface Search {
+interface Tour {
   id?: string
   name: string
   description: string
@@ -14,7 +14,7 @@ interface Search {
 export default function SearchTour() {
   const {data: getAll} = useQuery({
     queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll()
+    queryFn: () => tourApi.getAll(1,5)
   })
   console.log(getAll?.data, "123data");
   
@@ -24,7 +24,7 @@ export default function SearchTour() {
         <div className='w-full '>
           <h2 className='mb-8 text-2xl font-medium'>Your recent searches</h2>
           <div className='flex justify-between gap-5'>
-            {getAll?.data.map((item: Search) => (
+            {getAll?.data.map((item: Tour) => (
               <div className='flex gap-2 grid-container' key={item.id}>
                 <img src={item.images} className='w-24 h-24 rounded-lg bject-cover' alt='' />
                 <div className='flex items-center'>
