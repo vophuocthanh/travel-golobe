@@ -5,6 +5,7 @@ import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } 
 import BillingAdmin from '@/pages/admin/billing/BillingAdmin'
 import Dashboard from '@/pages/admin/Dashboard'
 import EmployeeAdmin from '@/pages/admin/employee/EmployeeAdmin'
+import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
@@ -20,6 +21,15 @@ import TourDetailView from '@/pages/tour/TourDetailView'
 import VerifyCode from '@/pages/verify-code/VerifyCode'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
+import FlightPayment from '@/pages/flight/FlightPayment'
+import TourPayment from '@/pages/tour/TourPayment'
+import HotelPayment from '@/pages/hotel/HotelPayment'
+import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
+import BillingAllView from '@/components/common/admin/billing/billing-all/BillingAllView'
+import BillingHotelView from '@/components/common/admin/billing/billing-hotel/BillingHotelView'
+import BillingFlightView from '@/components/common/admin/billing/billing-flight/BillingFlightView'
+import BillingTourView from '@/components/common/admin/billing/billing-tour/BillingTourView'
+import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -46,10 +56,20 @@ export default function useRoutesElements() {
       { path: path.admin, element: <LayoutMain children={<Dashboard />} /> },
       { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },
       { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },
+      { path: path.all_view, element: <LayoutMain children={<BillingAllView />} /> },
+      { path: path.hotel_view, element: <LayoutMain children={<BillingHotelView />} /> },
+      { path: path.flight_view, element: <LayoutMain children={<BillingFlightView/>} /> },
+      { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
+      { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
+      { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
-      { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> }
+      { path: path.hotel_edit, element: <LayoutMain children={<HotelAdminEdit />} /> },
+      { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },
+      { path: path.flight_payment, element: <FlightPayment /> },
+      { path: path.tour_payment, element: <TourPayment /> },
+      { path: path.hotel_payment, element: <HotelPayment /> }
     ],
     location
   )

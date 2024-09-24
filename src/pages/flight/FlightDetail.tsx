@@ -11,6 +11,8 @@ import { IconFlight } from '@/common/icons';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { flightApi } from '@/apis/flight.api';
+import FlightDetailReview from './commentFlight';
+import { commentFlightApi } from '@/apis/comment-flght.api';
 
 export default function FlightDetail() {
     const [liked, setLiked] = useState(false);
@@ -44,9 +46,12 @@ export default function FlightDetail() {
 
     const { data: getbyId } = useQuery({
         queryKey: ['getById', id],
-        queryFn: () => flightApi.getById(id),
+        queryFn: () => flightApi.getById(id || ''),
     })
-
+    const { data: getCommentFlight } = useQuery({
+        queryKey: ['getComments', id],
+        queryFn: () => commentFlightApi.getComments(id || '')
+    })
     return (
         <>
             <Header />
@@ -215,6 +220,7 @@ export default function FlightDetail() {
                         </div>
                     </div>
                 </section>
+                <FlightDetailReview data={getCommentFlight?.data ?? []} />
             </div>
             <Footer />
         </>

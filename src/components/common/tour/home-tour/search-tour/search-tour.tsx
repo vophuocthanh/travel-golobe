@@ -12,12 +12,11 @@ interface Tour {
   images: string
 }
 export default function SearchTour() {
-  const {data: getAll} = useQuery({
+  const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1,5)
   })
-  console.log(getAll?.data, "123data");
-  
+
   return (
     <SectionInViewRight>
       <div className='h-40 px-32 py-3 mb-20 rounded-2xl'>
@@ -29,8 +28,12 @@ export default function SearchTour() {
                 <img src={item.images} className='w-24 h-24 rounded-lg bject-cover' alt='' />
                 <div className='flex items-center'>
                   <div>
-                    <h3 className='overflow-hidden text-lg font-medium whitespace-pre-line w-52 text-ellipsis line-clamp-2'>{item.description}</h3>
-                    <p className='overflow-hidden whitespace-pre-line text-slate-400 w-52 text-ellipsis line-clamp-1'>{item.name}</p>
+                    <h3 className='overflow-hidden text-lg font-medium whitespace-pre-line w-52 text-ellipsis line-clamp-2'>
+                      {item.description}
+                    </h3>
+                    <p className='overflow-hidden whitespace-pre-line text-slate-400 w-52 text-ellipsis line-clamp-1'>
+                      {item.name}
+                    </p>
                   </div>
                 </div>
               </div>

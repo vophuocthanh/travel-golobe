@@ -1,9 +1,9 @@
 
 
-import { BillingAll } from "@/components/common/admin/billing/BillingAll";
-import { BillingFlight } from "@/components/common/admin/billing/BillingFlight";
-import { BillingHotel } from "@/components/common/admin/billing/BillingHotel";
-import { BillingTour } from "@/components/common/admin/billing/BillingTour";
+import { BillingAll } from "@/components/common/admin/billing/billing-all/BillingAll";
+import { BillingFlight } from "@/components/common/admin/billing/billing-flight/BillingFlight";
+import { BillingHotel } from "@/components/common/admin/billing/billing-hotel/BillingHotel";
+import { BillingTour } from "@/components/common/admin/billing/billing-tour/BillingTour";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

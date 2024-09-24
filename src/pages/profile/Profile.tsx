@@ -13,38 +13,31 @@ import {
 import ContentPassword from '@/pages/profile/components/content-password'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import {
-  Armchair,
-  Calendar,
-  ChevronRight,
-  CirclePlus,
-  Clock4,
-  Cpu,
-  CreditCard,
-  DoorOpen,
-  Minus
-} from 'lucide-react'
-import { useRef } from 'react'
+import { Armchair, Calendar, ChevronRight, CirclePlus, Clock4, Cpu, CreditCard, DoorOpen, Minus } from 'lucide-react'
+import { useRef, useState } from 'react'
 import { toast } from 'sonner'
-import ContentAccount from './components/content-account'
+
 import Div from './components/div-profile'
 import Input from './components/input-profile'
 
-const colors = [
-  '#D1E9F7',
-  '#E9F7D1',
-  '#F7D1E9',
-  '#F7E9D1',
-  '#D1F7E9',
-  '#E9D1F7',
-]
+import ContentCountry from './components/content-country'
+import ContentPhone from './components/content-phone'
+import ContentName from './components/content-name'
+import ContentDate from './components/content-date'
+import ContentEmail from './components/content-email'
+
+const colors = ['#D1E9F7', '#E9F7D1', '#F7D1E9', '#F7E9D1', '#D1F7E9', '#E9D1F7']
 
 const getRandomColor = () => {
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+  const randomIndex = Math.floor(Math.random() * colors.length)
+  return colors[randomIndex]
 }
 
 export default function Profile() {
+  const [activeTab, setActiveTab] = useState('account')
+  const handleTabChange = (value: string) => {
+    setActiveTab(value) // Cập nhật tab hiện tại
+  }
   const inputFileRef = useRef<HTMLInputElement | null>(null)
   const queryClient = useQueryClient()
   const { data: getMeProfile } = useQuery({
@@ -86,11 +79,7 @@ export default function Profile() {
       <Header />
       <section className='container mx-auto pt-28'>
         <div className='relative banner'>
-          <div
-            className='object-cover w-full h-80 rounded-xl'
-            style={{ backgroundColor: randomColor }}
-          >
-          </div>
+          <div className='object-cover w-full h-80 rounded-xl' style={{ backgroundColor: randomColor }}></div>
           <div className='absolute flex flex-col items-center transform -translate-x-1/2 -bottom-24 left-1/2'>
             <img
               src={avatarUrl}
@@ -106,23 +95,35 @@ export default function Profile() {
         </div>
 
         <div className='container pb-64 mx-auto pt-28'>
-          <Tabs defaultValue='account' className='mt-5'>
+          <Tabs value={activeTab} onValueChange={handleTabChange} className='mt-5'>
             <TabsList className='flex justify-center py-5 mb-6 space-x-40 rounded-md shadow-md '>
               <TabsTrigger
                 value='account'
-                className='px-4 py-2 font-semibold text-gray-700 border-b-2 border-transparent hover:border-primary'
+                className={`px-4 py-2 font-semibold ${
+                  activeTab === 'account'
+                    ? 'text-primary border-b-2 border-primary-500'
+                    : 'text-gray-700 border-b-2 border-transparent'
+                } hover:border-primary`}
               >
                 Account
               </TabsTrigger>
               <TabsTrigger
                 value='Tickets-Booking'
-                className='px-4 py-2 font-semibold text-gray-700 border-b-2 border-transparent hover:border-primary'
+                className={`px-4 py-2 font-semibold ${
+                  activeTab === 'Tickets-Booking'
+                    ? 'text-primary border-b-2 border-primary-500'
+                    : 'text-gray-700 border-b-2 border-transparent'
+                } hover:border-primary`}
               >
                 Tickets/Booking
               </TabsTrigger>
               <TabsTrigger
                 value='Payment-methods'
-                className='px-4 py-2 font-semibold text-gray-700 border-b-2 border-transparent hover:border-primary'
+                className={`px-4 py-2 font-semibold ${
+                  activeTab === 'Payment-methods'
+                    ? 'text-primary border-b-2 border-primary-500'
+                    : 'text-gray-700 border-b-2 border-transparent'
+                } hover:border-primary`}
               >
                 Payment methods
               </TabsTrigger>
@@ -130,11 +131,11 @@ export default function Profile() {
             <TabsContent value='account'>
               <p className='mb-6 text-2xl font-bold'>Account</p>
               <div className='space-y-3'>
-                <ContentAccount title='Name' content={getMeProfile?.name} />
-                <ContentAccount title='Email' content={getMeProfile?.email} boolean='hhh' />
-                <ContentAccount title='Phone Number' content={getMeProfile?.phone} />
-                <ContentAccount title='Date of Birth' content={getMeProfile?.date_of_birth} />
-                <ContentAccount title='Country' content={getMeProfile?.country} />
+                <ContentName title='Name' content={getMeProfile?.name} />
+                <ContentEmail title='Email' content={getMeProfile?.email} />
+                <ContentPhone title='Phone Number' content={getMeProfile?.phone} />
+                <ContentDate title='Date of Birth' content={getMeProfile?.date_of_birth} />
+                <ContentCountry title='Country' content={getMeProfile?.country} />
                 <ContentPassword title='Password' />
               </div>
             </TabsContent>

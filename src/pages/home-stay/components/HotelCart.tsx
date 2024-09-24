@@ -1,10 +1,10 @@
-import React from 'react'
+import { hotelApi } from '@/apis/hotel.api'
 import { Button } from '@/components/ui/button'
+import { useQuery } from '@tanstack/react-query'
 import { Coffee, Heart, MapPin } from 'lucide-react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import BasicRating from './StarRating'
-import { useQuery } from '@tanstack/react-query'
-import { hotelApi } from '@/apis/hotel.api'
 
 interface HotelCardProps {
   isFavorite: boolean
@@ -27,7 +27,6 @@ interface Item {
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) => {
-
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll(1, 4)
@@ -54,7 +53,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
                       {item.address}
                     </p>
                     <div className='flex gap-2'>
-                      <BasicRating />
+                      <BasicRating setRating={(value) => console.log(value)} />
                       <div className='flex gap-1'>
                         <p className='font-bold'>20+</p>
                         <Coffee className='font-bold text-black' />

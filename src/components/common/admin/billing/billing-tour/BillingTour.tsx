@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
-import { IconDelete, IconEdit } from "@/common/icons";
-
+import { IconDelete, IconEdit, IconView } from "@/common/icons";
+import { useNavigate } from "react-router-dom";
 const data: Payment[] = [
   { id: "m5gr84i9", billingTime: "2003-05-21", plan: "Basic", amount: 316, status: "success"},
   { id: "3u1reuv4", billingTime: "2024-09-20T12:00:00Z", plan: "Premium", amount: 242, status: "success"},
@@ -30,8 +30,6 @@ const data: Payment[] = [
   { id: "l8def3a5", billingTime: "2024-10-09T14:30:00Z", plan: "Premium", amount: 400, status: "failed"}
 ];
 
-
-
 export type Payment = {
   id: string;
   billingTime: string;
@@ -40,98 +38,8 @@ export type Payment = {
   status: "processing" | "success" | "failed";
 };
 
-const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "id",
-    header: () => <div className="text-left">ID</div>,
-    cell: ({ row }) => <div className="text-left">{row.getValue("id")}</div>,
-    enableSorting: true,
-  },
-  {
-    accessorKey: "billingTime",
-    header: ({ column }) => (
-      <Button
-        className="flex justify-center w-full gap-x-2"
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Billing Time
-        <ArrowUpDown className="w-4 h-4" />
-      </Button>
-    ),
-    cell: ({ row }) => {
-      const date = new Date(row.getValue("billingTime"));
-      const formattedDate = date.toLocaleDateString("vn-Vn");
-      return <div className="flex justify-center">{formattedDate}</div>;
-    },
-    enableSorting: true,
-  },
-  {
-    accessorKey: "plan",
-    header: () => <div className="text-left">Plan</div>,
-    cell: ({ row }) => <div className="text-left">{row.getValue("plan")}</div>,
-    enableSorting: true,
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="flex justify-center">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-      return <div className="flex justify-center font-medium">{formatted}</div>;
-    },
-    enableSorting: true,
-  },
-  {
-    accessorKey: "status",
-    header: () => <div className="flex justify-center">Status</div>,
-    cell: ({ row }) => {
-      const status = row.getValue("status");
-      let statusClass = "bg-gray-200"; // Default class
-
-      if (status === "success") {
-        statusClass = "bg-green-100 text-green-800";
-      } else if (status === "processing") {
-        statusClass = "bg-yellow-100 text-yellow-800";
-      } else if (status === "failed") {
-        statusClass = "bg-red-100 text-red-800";
-      }
-
-      return (
-        <div className="flex items-center justify-center h-10">
-          <div className={`w-[7rem] text-center py-1 rounded-md capitalize ${statusClass}`}>
-            {row.getValue("status")}
-          </div>
-        </div>
-      );
-    },
-    enableSorting: true,
-  },
-  {
-    id: "actions",
-    header: () => <div className="flex justify-center">Actions</div>,
-    cell: ({ row }) => (
-      <div className="flex justify-center space-x-6">
-      <div  className="cursor-pointer" onClick={() => handleEdit(row.original)}> <IconEdit/></div>
-      <div className="cursor-pointer" onClick={() => handleDelete(row.original)}> <IconDelete/></div>
-    </div>
-    ),
-  },
-];
-
-function handleEdit(payment: Payment) {
-  console.log("Editing payment:", payment);
-}
-
-function handleDelete(payment: Payment) {
-  console.log("Deleting payment:", payment);
-}
-
-
-export function BillingFlight() {
+export function BillingTour() {
+  const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -140,6 +48,89 @@ export function BillingFlight() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const columns: ColumnDef<Payment>[] = [ 
+    {
+      accessorKey: "id",  
+      header: () => <div className="text-left">ID</div>,
+      cell: ({ row }) => <div className="text-left">{row.getValue("id")}</div>,
+      enableSorting: true,
+    },
+    {
+      accessorKey: "billingTime",
+      header: ({ column }) => (
+        <Button
+          className="flex justify-center w-full gap-x-2"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Billing Time
+          <ArrowUpDown className="w-4 h-4" />
+        </Button>
+      ),
+      cell: ({ row }) => {
+        const date = new Date(row.getValue("billingTime"));
+        const formattedDate = date.toLocaleDateString("vn-Vn");
+        return <div className="flex justify-center">{formattedDate}</div>;
+      },
+      enableSorting: true,
+    },
+    {
+      accessorKey: "plan",
+      header: () => <div className="text-left">Plan</div>,
+      cell: ({ row }) => <div className="text-left">{row.getValue("plan")}</div>,
+      enableSorting: true,
+    },
+    {
+      accessorKey: "amount",
+      header: () => <div className="flex justify-center">Amount</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("amount"));
+        const formatted = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(amount);
+        return <div className="flex justify-center font-medium">{formatted}</div>;
+      },
+      enableSorting: true,
+    },
+    {
+      accessorKey: "status",
+      header: () => <div className="flex justify-center">Status</div>,
+      cell: ({ row }) => {
+        const status = row.getValue("status");
+        let statusClass = "bg-gray-200"; 
+  
+        if (status === "success") {
+          statusClass = "bg-green-100 text-green-800";
+        } else if (status === "processing") {
+          statusClass = "bg-yellow-100 text-yellow-800";
+        } else if (status === "failed") {
+          statusClass = "bg-red-100 text-red-800";
+        }
+  
+        return (
+          <div className="flex items-center justify-center h-10">
+            <div className={`w-[7rem] text-center py-1 rounded-md capitalize ${statusClass}`}>
+              {row.getValue("status")}
+            </div>
+          </div>
+        );
+      },
+      enableSorting: true,
+    },
+    {
+      id: "actions",
+      header: () => <div className="flex justify-center">Actions</div>,
+      cell: ({ row }) => (
+        <div className="flex justify-center space-x-6">
+        <div className="cursor-pointer" onClick={handleView}> <IconView/></div>
+        <div  className="cursor-pointer" onClick={() => handleEdit(row.original)}> <IconEdit/></div>
+        <div className="cursor-pointer" onClick={() => handleDelete(row.original)}> <IconDelete/></div>
+      </div>
+      ),
+    },
+  ];
+  
   const table = useReactTable({
     data,
     columns,
@@ -158,6 +149,18 @@ export function BillingFlight() {
       rowSelection,
     },
   });
+  
+  function handleEdit(payment: Payment) {
+    console.log("Editing payment:", payment);
+  }
+  
+  function handleDelete(payment: Payment) {
+    console.log("Deleting payment:", payment);
+  }
+  
+  const handleView = () => {
+    navigate(`/admin/billing/tour-view`)
+  }
 
   return (
     <div className="w-full">
@@ -249,8 +252,8 @@ export function BillingFlight() {
       </div>
       <div className="flex items-center justify-end py-4 space-x-2">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          Page {table.getState().pagination.pageIndex + 1} of{" "}
+          {table.getPageCount()}
         </div>
         <div className="space-x-2">
           <Button

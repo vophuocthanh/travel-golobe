@@ -20,7 +20,18 @@ export const path = {
   users: '/admin/users',
   billing: '/admin/billing',
   admin_tour: '/admin/tours',
+  admin_tourID: '/admin/tours/:id',
   admin_flight: '/admin/flights',
+  admin_flightID: '/admin/flights/:id',
   admin_hotel: '/admin/hotels',
-  admin_employee: '/admin/employee'
+  admin_employee: '/admin/employee',
+  flight_payment: '/flight/all-flight/flight-detail/flight-payment',
+  tour_payment: '/tour/all-tour/detail-view/tour-payment',
+  hotel_payment: '/hotel/home-stay/hotel-detail/hotel-payment',
+  hotel_edit: '/admin/hotels/hotel-edit',
+  all_view: '/admin/billing/all-view',
+  hotel_view: '/admin/billing/hotel-view',
+  flight_view: '/admin/billing/flight_view',
+  tour_view: '/admin/billing/tour-view',
+
 } as const

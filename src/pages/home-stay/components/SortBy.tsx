@@ -1,8 +1,8 @@
 import { hotel_istanbul_1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
+import BasicRating from '@/pages/home-stay/components/StarRating'
 import { Coffee, Heart, MapPin } from 'lucide-react'
 import { useState } from 'react'
-import BasicRating from './StarRating'
 
 interface SortByProps {
   isOpenSort: boolean
@@ -48,7 +48,7 @@ export default function SortBy({ isOpenSort }: SortByProps) {
                     Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437
                   </p>
                   <div className='flex gap-2'>
-                    <BasicRating />
+                    <BasicRating setRating={(value) => console.log(value)} />
                     <div className='flex gap-1'>
                       <p className='font-bold'>20+</p>
                       <Coffee className='font-bold text-black' />
@@ -101,7 +101,7 @@ export default function SortBy({ isOpenSort }: SortByProps) {
                     Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437
                   </p>
                   <div className='flex gap-2'>
-                    <BasicRating />
+                    <BasicRating setRating={(value) => console.log(value)} />
                     <div className='flex gap-1'>
                       <p className='font-bold'>20+</p>
                       <Coffee className='font-bold text-black' />

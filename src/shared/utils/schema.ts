@@ -60,6 +60,22 @@ export const VerifyCodeSchema = z.object({
   verificationCode: z.string()
 })
 
+
+export const NameSchema = z.object({
+  name: z.string().min(1, 'Name cannot be empty'), 
+});
+
+export const PhoneSchema = z.object({
+  phone: z.string().min(10, 'Invalid phone number')
+})
+
+export const CountrySchema = z.object({
+  country: z.string().min(1, 'Country cannot be empty')
+})
+
+export const DateOfBirthSchema = z.object({
+  date_of_birth: z.string().min(1, 'Date of birth cannot be empty')
+})
 export const ChangePasswordSchema = z
   .object({
     current_password: z.string().min(1, { message: 'Current password is required' }),
