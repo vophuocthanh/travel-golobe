@@ -9,22 +9,22 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/utils/storage'
 import { LoginSchema } from '@/zod'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function Login() {
+  const reCAPTCHAref = useRef<ReCAPTCHA>(null)
   const navigate = useNavigate()
   const images = [banner_login, banner_login2, banner_login3]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
-  const captchaRef = useRef<HCaptcha>(null)
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -126,10 +126,10 @@ export default function Login() {
                 </Link>
               </div>
               <div className='flex items-center justify-center'>
-                <HCaptcha
-                  sitekey='10000000-ffff-ffff-ffff-000000000001'
-                  onVerify={(token) => setCaptchaToken(token)}
-                  ref={captchaRef}
+                <ReCAPTCHA
+                  sitekey='6LccYU0qAAAAAG6O3ANypT5bxWWOKpHNzATMMTrd'
+                  onChange={(token) => setCaptchaToken(token)}
+                  ref={reCAPTCHAref}
                 />
               </div>
               <Button loading={isLoading} className='w-full text-white' type='submit'>
