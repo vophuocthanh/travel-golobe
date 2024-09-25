@@ -91,7 +91,6 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort, setIsOpenSort
       <div className='container flex flex-col gap-8'>
         {isOpenSort && <SortBy isOpenSort />}
         <HotelCard isFavorite={favoriteStates.card1} onFavoriteToggle={() => handleFavoriteToggle('card1')} />
-
       </div>
     </div>
   )

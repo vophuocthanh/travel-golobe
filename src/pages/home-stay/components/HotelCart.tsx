@@ -2,10 +2,10 @@ import { hotelApi } from '@/apis/hotel.api'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Coffee, Heart, MapPin } from 'lucide-react'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { hoteldetail3 } from '@/assets/images'
 import ReadOnlyRating from './ReadOnlyRating'
+import { useState } from 'react'
 
 interface HotelCardProps {
   isFavorite: boolean
@@ -33,11 +33,19 @@ interface Item {
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) => {
+  const [page, setPage] = useState(1);
+
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(1, 4)
+    queryKey: ['getAllHotel', page],
+    queryFn: () => hotelApi.getAll(page, 4),
   })
 
+  const totalPages = Math.ceil(1100 / 4);
+  const handleClick = (newPage: number) => {
+    setPage(newPage);
+  }
+
+  console.log(page)
   return (
     <>
       {getAll?.data.map((item: Item) => (
@@ -74,8 +82,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
                   </div>
                 </div>
                 <div className='w-[30%] pt-4 text-right'>
-                  <p className='text-sm'>Starting from</p>
-                  <p className='text-3xl text-[#FF8682] font-bold'>{item.price} Đ/night</p>
+                  <p className='text-3xl text-[#FF8682] font-bold'>{item.price} VNĐ/night</p>
                   <p className='mr-3 text-gray-400'>excl. tax</p>
                 </div>
               </div>
@@ -96,8 +103,24 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
           </div>
         </div>
       ))}
-      <div>
-        <Button className='w-full bg-[#112211] text-white hover:text-black'>Show more results</Button>
+      <div className='flex justify-around items-center mt-6'>
+        <Button
+          className='px-3 py-1 bg-gray-300 rounded'
+          disabled={page === 1}
+          onClick={() => handleClick(page - 1)}
+        >
+          &lt;
+        </Button>
+        <p>
+          Page {page} of {totalPages}
+        </p>
+        <Button
+          className='px-3 py-1 bg-gray-300 rounded'
+          disabled={page === totalPages}
+          onClick={() => handleClick(page + 1)}
+        >
+          &gt;
+        </Button>
       </div>
     </>
   )

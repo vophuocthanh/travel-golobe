@@ -34,7 +34,7 @@ export default function FallIntroTravel() {
 
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(1, 4)
+    queryFn: () => hotelApi.getAll(4, 4)
   })
 
   return (
@@ -44,7 +44,7 @@ export default function FallIntroTravel() {
           <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl'> Fall intro travel</h1>
           <div className='flex flex-wrap justify-between '>
             <p className='w-[970px] text-xl mb-8'>
-              Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
+              Going somewhere to celebrate this season? Whether you’re gng home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
             <Link to='/hotel/home-stay'>
@@ -54,7 +54,7 @@ export default function FallIntroTravel() {
           <Link to='/hotel/home-stay'>
             <Swiper className='flex flex-wrap justify-between'
               modules={[Navigation, Pagination, A11y, Autoplay]}
-              spaceBetween={10}
+              spaceBetween={40}
               slidesPerView={3}
               pagination={{ clickable: true }}
               navigation

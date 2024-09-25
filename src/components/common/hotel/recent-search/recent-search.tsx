@@ -22,7 +22,7 @@ interface Search {
 export default function RecentSearch() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(1, 4)
+    queryFn: () => hotelApi.getAll(1, 6)
   })
 
   return (
@@ -30,10 +30,10 @@ export default function RecentSearch() {
       <div className='mx-8 md:mx-36'>
         <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl font-semibold'>Your Recent Searches</h1>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-          {getAll?.data.slice(0, 6).map((search: Search) => (
+          {getAll?.data.map((search: Search) => (
             <div
               key={search.id}
-              className='flex items-center p-4 border rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl overflow-hidden' // Thêm overflow-hidden
+              className='flex items-center p-4 border rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl overflow-hidden'
             >
               <img
                 src={hoteldetail2}
@@ -46,6 +46,7 @@ export default function RecentSearch() {
               </div>
             </div>
           ))}
+
         </div>
       </div>
     </SectionInViewRight>
