@@ -119,7 +119,6 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
           </div>
         </div>
       ))}
-
       <div className='flex justify-around mt-6'>
         <Pagination>
           <PaginationContent>
@@ -145,7 +144,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-blue-500 text-white' : ''} // Nút trang hiện tại
+                  className={page === page ? 'bg-blue-500 text-white' : ''}
                 >
                   {page}
                 </Button>

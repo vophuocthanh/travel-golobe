@@ -17,7 +17,7 @@ export default function ContentAllFlight() {
     setIsOpenSort((prev) => !prev)
   }
 
-  const containerHeight = isOpenSort ? 'h-[160rem]' : 'h-[120rem]'
+  // const containerHeight = isOpenSort ? 'h-[160rem]' : 'h-[120rem]'
 
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
     <div
@@ -41,7 +41,7 @@ export default function ContentAllFlight() {
   ]
 
   return (
-    <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2${containerHeight}`}>
+    <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2 h-[120rem]`}>
       <FilterSection />
       <div className='flex-none w-[70%] ml-2 mt-14 mr-12 '>
         <div className='bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer'>

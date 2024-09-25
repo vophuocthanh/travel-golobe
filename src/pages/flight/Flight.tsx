@@ -92,7 +92,9 @@ export default function Flight() {
           <FlightReview2 />
         </div>
 
-        <Footer />
+        <div className='mt-auto'>
+          <Footer />
+        </div>
       </main>
     </div>
   )
