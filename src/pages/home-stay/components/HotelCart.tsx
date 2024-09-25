@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { hoteldetail3 } from '@/assets/images'
 import ReadOnlyRating from './ReadOnlyRating'
 import { useState } from 'react'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/Pagination'
 
 interface HotelCardProps {
   isFavorite: boolean
@@ -103,24 +104,69 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
           </div>
         </div>
       ))}
-      <div className='flex justify-around items-center mt-6'>
-        <Button
-          className='px-3 py-1 bg-gray-300 rounded'
-          disabled={page === 1}
-          onClick={() => handleClick(page - 1)}
-        >
-          &lt;
-        </Button>
-        <p>
-          Page {page} of {totalPages}
-        </p>
-        <Button
-          className='px-3 py-1 bg-gray-300 rounded'
-          disabled={page === totalPages}
-          onClick={() => handleClick(page + 1)}
-        >
-          &gt;
-        </Button>
+
+      <div className='flex justify-around mt-6'>
+        <Pagination>
+          <PaginationContent >
+            <PaginationItem>
+              <Button
+                className="px-4 py-2 rounded min-w-[100px] text-center" // Class thêm vào
+                disabled={page === 1}
+                onClick={() => handleClick(page - 1)}
+              >
+                Previous
+              </Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button
+                className="px-4 py-2 bg-gray-300" // Class thêm vào
+                onClick={() => handleClick(1)}
+              >
+                1
+              </Button>
+            </PaginationItem>
+            {page > 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {page > 1 && page < totalPages && (
+              <PaginationItem>
+                <Button
+                  className="px-4 py-2 bg-gray-300"
+                  onClick={() => handleClick(page)}
+                >
+                  {page}
+                </Button>
+              </PaginationItem>
+            )}
+            {page < totalPages - 1 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {totalPages > 1 && (
+              <PaginationItem>
+                <Button
+                  className="px-4 py-2 bg-gray-300"
+                  onClick={() => handleClick(totalPages)}
+                >
+                  {totalPages}
+                </Button>
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <Button
+                className="px-4 py-2 min-w-[100px]"
+                onClick={() => handleClick(page + 1)}
+                disabled={page === totalPages}
+              >
+                Next
+              </Button>
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+
       </div>
     </>
   )

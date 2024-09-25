@@ -1427,16 +1427,9 @@
     "@radix-ui/react-use-previous" "1.1.0"
     "@radix-ui/react-use-size" "1.1.0"
 
-"@radix-ui/react-slot@1.1.0":
+"@radix-ui/react-slot@1.1.0", "@radix-ui/react-slot@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.1.0.tgz"
-  integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
-  dependencies:
-    "@radix-ui/react-compose-refs" "1.1.0"
-
-"@radix-ui/react-slot@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.1.0.tgz#7c5e48c36ef5496d97b08f1357bb26ed7c714b84"
   integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.0"
@@ -2270,9 +2263,10 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@shadcn/ui" "^0.0.4"
     "@tanstack/react-query" "^5.45.1"
     "@tanstack/react-table" "^8.17.3"
+    "@types/react-google-recaptcha" "^2.1.9"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
-    app "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-4aab372d-7796-4e57-977e-6b9c15bcbaee-1726979781851/node_modules/app"
+    app "file:../../../Library/Caches/Yarn/v6/npm-app-0.0.0-cb5efd59-33d0-459a-9b6c-73fb4c55eae0-1727271441424/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
