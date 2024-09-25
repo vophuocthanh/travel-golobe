@@ -3,16 +3,17 @@ import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
   getAll(page: number | string, limit: number | string) {
-    const url = '/hotel';
+    const url = '/hotel-crawl/crawl';
+    
     return axiosClient.get(url, {
       params: {
-        _page: page,
-        _limit: limit
+        _page: Number(page), 
+        _limit: Number(limit) 
       }
     });
   },
   getById(id: string |undefined) :Promise<HotelResponseType> {
-    const url = `/hotel/${id}`
+    const url = `/hotel/crawl/${id}`
     return axiosClient.get(url)
   },
   addHotel(data: HotelResponseType) {

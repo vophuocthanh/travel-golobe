@@ -1,8 +1,6 @@
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import React, { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-
 import SortBy from './SortBy'
 import HotelCard from './HotelCart'
 
@@ -93,9 +91,7 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort, setIsOpenSort
       <div className='container flex flex-col gap-8'>
         {isOpenSort && <SortBy isOpenSort />}
         <HotelCard isFavorite={favoriteStates.card1} onFavoriteToggle={() => handleFavoriteToggle('card1')} />
-        <div>
-          <Button className='w-full bg-[#112211] text-white hover:text-black'>Show more results</Button>
-        </div>
+
       </div>
     </div>
   )
