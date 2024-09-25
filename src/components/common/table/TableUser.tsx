@@ -55,13 +55,9 @@ export const columns: ColumnDef<UserResponse>[] = [
     accessorKey: 'avatar',
     header: 'Avatar',
     cell: ({ row }) => {
-      const avatar = row.original.avatar
-      const imagePath = avatar ? `/${avatar.replace('avatar/', '')}` : 'default-avatar.png'
-      const avatarUrl = `${import.meta.env.VITE_AVATAR}/${imagePath}`
-      console.log('imagePath:', imagePath)
       return (
         <div className='flex items-center'>
-          <img src={avatarUrl} alt='Avatar' className='w-8 h-8 rounded-full' />
+          <img src={row.original.avatar} alt='Avatar' className='w-8 h-8 rounded-full' />
         </div>
       )
     }
@@ -92,6 +88,11 @@ export const columns: ColumnDef<UserResponse>[] = [
     accessorKey: 'address',
     header: () => <div className='text-left'>Address</div>,
     cell: ({ row }) => <div>{row.getValue('address') || 'N/A'}</div>
+  },
+  {
+    id: 'role',
+    header: () => <div className='text-left'>Role</div>,
+    cell: ({ row }) => <div>{row.original.role?.name || 'N/A'}</div>
   },
   {
     id: 'actions',
