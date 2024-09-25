@@ -82,9 +82,7 @@ export default function FlightReview1() {
             </Swiper>
           </div>
         </div>
-        
       </div>
     </SectionInViewRight>
-    
   )
 }

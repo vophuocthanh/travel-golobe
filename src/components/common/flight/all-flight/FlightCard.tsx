@@ -8,27 +8,30 @@ import { flightreview1 } from '@/assets/images'
 import { Pagination, PaginationContent, PaginationItem, PaginationEllipsis } from '@/components/ui/pagination' // Đảm bảo import component Pagination
 
 interface FlightCardProps {
-  id: string
-  image: string
-  price: string
-  rating: string
-  reviews: string
-  brand: string
-  trip_time: string
-  images: string
-  start_time: string
-  end_time: string
-  trip_to: string
-  take_place: string
+  id?: string
+  image?: string
+  price?: number
+  rating?: string
+  reviews?: string
+  brand?: string
+  trip_time?: string
+  images?: string
+  start_time?: string
+  end_time?: string
+  trip_to?: string
+  take_place?: string
   create_at?: string
-  destination: string
+  destination?: string
   isFavorite: boolean
   onToggleFavorite: () => void
 }
 
-const formatPrice = (price: string) => {
-  const numberPrice = parseFloat(price)
-  return numberPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+const formatCurrency = (value: string | undefined) => {
+  if (!value) return 'N/A' // Hoặc giá trị mặc định khác
+  const numberValue = parseFloat(value)
+  return isNaN(numberValue)
+    ? 'N/A'
+    : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite }) => {
@@ -94,7 +97,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
                     </div>
                   </div>
                   <div className='w-[30%] pt-4 text-right mr-5'>
-                    <p className='text-xl text-[#FF8682] font-bold'>{formatPrice(flight.price)}</p>
+                    <p className='text-xl text-[#FF8682] font-bold'> {formatCurrency(flight.price?.toString())}</p>
                     <p className='mt-40 font-medium text-right text-black-500'>Trip To: {flight.trip_to}</p>
                   </div>
                 </div>

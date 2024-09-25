@@ -17,28 +17,7 @@ export default function ContentAllFlight() {
     setIsOpenSort((prev) => !prev)
   }
 
-  // type ButtonStates = {
-  //   button1: boolean
-  //   button2: boolean
-  //   button3: boolean
-  //   button4: boolean
-  // }
-
-  // const [buttonStates, setButtonStates] = useState<ButtonStates>({
-  //   button1: true,
-  //   button2: true,
-  //   button3: true,
-  //   button4: true
-  // })
-
   const containerHeight = isOpenSort ? 'h-[160rem]' : 'h-[120rem]'
-
-  // const handleClick = (buttonKey: keyof ButtonStates) => {
-  //   setButtonStates((prevState) => ({
-  //     ...prevState,
-  //     [buttonKey]: !prevState[buttonKey]
-  //   }))
-  // }
 
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
     <div
@@ -101,19 +80,6 @@ export default function ContentAllFlight() {
         <div className='flex flex-col gap-8 '>
           <div className='flex flex-col gap-8'>
             <FlightCard
-              id={''}
-              image={''}
-              price={''}
-              rating={''}
-              reviews={''}
-              brand={''}
-              trip_time={''}
-              images={''}
-              start_time={''}
-              end_time={''}
-              trip_to={''}
-              take_place={''}
-              destination={''}
               isFavorite={false}
               onToggleFavorite={function (): void {
                 throw new Error('Function not implemented.')
