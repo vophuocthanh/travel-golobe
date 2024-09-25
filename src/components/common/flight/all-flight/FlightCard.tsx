@@ -1,36 +1,56 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Heart } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { flightApi } from '@/apis/flight.api';
-import { FlightResponseType } from '@/shared/ts/interface/data.interface';
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Heart } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { flightApi } from '@/apis/flight.api'
+import { flightreview1 } from '@/assets/images'
+import { Pagination, PaginationContent, PaginationItem, PaginationEllipsis } from '@/components/ui/pagination' // Đảm bảo import component Pagination
 
 interface FlightCardProps {
-  image: string;
-  price: string;
-  rating: string;
-  reviews: string;
-  flightTimes: Array<{ time: string; duration: string; airline: string; route: string }>;
-  isFavorite: boolean;
-  onToggleFavorite: () => void;
+  id: string
+  image: string
+  price: string
+  rating: string
+  reviews: string
+  brand: string
+  trip_time: string
+  images: string
+  start_time: string
+  end_time: string
+  trip_to: string
+  take_place: string
+  create_at?: string
+  destination: string
+  isFavorite: boolean
+  onToggleFavorite: () => void
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({ flightTimes, isFavorite, onToggleFavorite }) => {
+const formatPrice = (price: string) => {
+  const numberPrice = parseFloat(price)
+  return numberPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+}
+
+const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite }) => {
+  const [page, setPage] = useState(1)
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllFlight'],
-    queryFn: () => flightApi.getAll(1, 4)
+    queryKey: ['getAllHotel', page],
+    queryFn: () => flightApi.getAll(page, 4)
   })
+
+  const totalPages = Math.ceil(314 / 4)
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage)
+  }
 
   return (
     <>
-      {getAll?.data.map((flight: FlightResponseType) => [
-        <div className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
-          <div className='w-[35%] bg-white relative'>
-            <img src={flight.images} alt='Flight' className='object-cover w-[80%] h-30 ml-8 mt-4' />
-            <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
+      {getAll?.data.map((flight: FlightCardProps) => (
+        <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
+          <div className='w-[40%] bg-white relative'>
+            <img src={flightreview1} alt='Flight' className='object-cover w-[90%] h-34 ml-8 mt-4' />
+            <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2'>
               9 images
             </p>
           </div>
@@ -44,28 +64,38 @@ const FlightCard: React.FC<FlightCardProps> = ({ flightTimes, isFavorite, onTogg
                       <p className='font-bold'>Very good</p>
                       <p>54 reviews</p>
                     </div>
-                    {flightTimes.map((flight, index) => (
-                      <div className='mb-4' key={index}>
-                        <div className='flex items-center mb-2'>
-                          <Input type='checkbox' className='w-5 h-5 mr-2 border-2 border-black rounded-sm' />
-                          <div className='flex-grow'>
-                            <div className='flex justify-between text-black'>
-                              <div className='text-2xl'>{flight.time}</div>
-                              <div>{flight.duration}</div>
-                              <div className='text-2xl'>{flight.duration}</div>
+
+                    <div className='mb-4'>
+                      <div className='flex items-center mb-2'>
+                        <div className='flex-grow'>
+                          <div className='flex items-center justify-center gap-4 text-black'>
+                            <div className='text-2xl '>
+                              {flight.start_time} - {flight.end_time}
                             </div>
+                            <div></div>
+
+                            <div className='text-2xl'>Trip Time: {flight.trip_time}</div>
                           </div>
                         </div>
-                        <div className='flex gap-[14rem] w-full'>
-                          <p className='text-left text-gray-500 mr-[4rem] ml-9'>{flight.airline}</p>
-                          <p className='text-right text-gray-500'>{flight.route}</p>
-                        </div>
                       </div>
-                    ))}
+                      <div className='flex w-[30rem]'>
+                        <p className='text-left text-gray-500 mr-[4rem] ml-9'>
+                          <div className='flex '>
+                            <p className='flex mb-2 font-bold text-black'>From : </p> {flight.take_place}
+                          </div>
+                          <div className='flex'>
+                            <p className='font-bold text-black'>To : </p> {flight.destination}
+                          </div>
+                        </p>
+                      </div>
+                      <div className='flex mt-8 ml-6 text-xl'>
+                        <p className='mr-2 font-bold text-black '>Brand: </p> {flight.brand}
+                      </div>
+                    </div>
                   </div>
                   <div className='w-[30%] pt-4 text-right mr-5'>
-                    <p className='text-sm'>starting from</p>
-                    <p className='text-3xl text-[#FF8682] font-bold'>{flight.price}</p>
+                    <p className='text-xl text-[#FF8682] font-bold'>{formatPrice(flight.price)}</p>
+                    <p className='mt-40 font-medium text-right text-black-500'>Trip To: {flight.trip_to}</p>
                   </div>
                 </div>
               </div>
@@ -78,16 +108,71 @@ const FlightCard: React.FC<FlightCardProps> = ({ flightTimes, isFavorite, onTogg
                     <Heart />
                   </Button>
                   <Link to={`/flight/${flight.id}`} className='w-[35rem]'>
-                    <Button className='w-full mx-4'>View Deals</Button>
+                    <Button className='w-full mx-4 text-white'>View Deals</Button>
                   </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      ])}
-    </>
-  );
-};
+      ))}
 
-export default FlightCard;
+      <div className='flex justify-around mt-6'>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className='text-white'>
+                Previous
+              </Button>
+            </PaginationItem>
+            <PaginationItem>
+              <Button
+                onClick={() => handlePageChange(1)}
+                className={page === 1 ? 'bg-blue-500 text-white' : ''} // Nút trang đầu
+              >
+                1
+              </Button>
+            </PaginationItem>
+            {page > 2 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {page > 1 && page < totalPages && (
+              <PaginationItem>
+                <Button
+                  onClick={() => handlePageChange(page)}
+                  className={page === page ? 'bg-blue-500 text-white' : ''} // Nút trang hiện tại
+                >
+                  {page}
+                </Button>
+              </PaginationItem>
+            )}
+            {page < totalPages - 1 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {totalPages > 1 && (
+              <PaginationItem>
+                <Button
+                  onClick={() => handlePageChange(totalPages)}
+                  className={page === totalPages ? 'bg-blue-500 text-white' : ''}
+                >
+                  {totalPages}
+                </Button>
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className='text-white'>
+                Next
+              </Button>
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
+    </>
+  )
+}
+
+export default FlightCard
