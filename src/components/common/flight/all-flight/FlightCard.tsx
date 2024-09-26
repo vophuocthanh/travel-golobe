@@ -115,7 +115,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-gray-400 text-black' : ''} // Nút trang đầu
+                className={page === 1 ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang đầu
               >
                 1
               </Button>
@@ -129,7 +129,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-gray-400 text-black' : ''}
+                  className={page === page ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
                 >
                   {page}
                 </Button>
@@ -144,7 +144,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-gray-400 text-black' : ''}
+                  className={page === totalPages ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang cuối
                 >
                   {totalPages}
                 </Button>
