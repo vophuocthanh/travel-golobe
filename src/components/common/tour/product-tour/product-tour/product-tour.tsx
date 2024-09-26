@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
 
 
-interface Search {
+interface Tour {
   id?: string
   name: string
   description: string
@@ -29,7 +29,7 @@ const ProductTour = () => {
 
     const handleClick = (id?: string) => {
       console.log(id,"like");
-      getAll?.data.map((item: Search)=> {
+      getAll?.data.map((item: Tour)=> {
         if(item.id === id){
           console.log("yes");
           setLiked(true);
@@ -106,26 +106,26 @@ const ProductTour = () => {
           </div>
         </div>
         <div>
-          {getAll?.data.map((item: Search) => (
+          {getAll?.data.map((item: Tour) => (
           
-            <div className='flex w-full h-[21rem] overflow-hidden mb-5' key={item.id}>
-              <div className='relative bg-blue-300 w-[35%] flex-3'>
+            <div className='flex w-full h-[23rem] overflow-hidden mb-5' key={item.id}>
+              <div className='relative bg-blue-300 w-[27%] flex-3'>
                 <img src={item.images} className='object-cover w-full h-full ' alt='tour' />
                 <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
                   9 images
                 </p>
               </div>
-              <div className='p-3  w-[65%] '>
+              <div className='p-3  w-[73%] '>
                 <div className='flex justify-between '>
-                  <div className='mr-5 border-b-2 border-gray-400 w-[85%]'>
-                    <h2 className='mb-3 overflow-hidden text-4xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
+                  <div className='mr-2 border-b-2 border-gray-400 w-[85%]'>
+                    <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
                       {item.description}
                     </h2>
                     <div className='flex mb-3'>
                       <IconAdress />
                       <p className='ml-2 overflow-hidden whitespace-pre-line text-ellipsis line-clamp-2'>{item.name}</p>
                     </div>
-                    <div className='flex justify-between w-[70%] mb-3'>
+                    <div className='flex justify-between w-[75%] mb-3'>
                       <div className='flex'>
                         <StarRating />
                       </div>

@@ -1,30 +1,40 @@
 import { flightApi } from '@/apis/flight.api'
+import { flightreview1 } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
+// import { formatCurrency } from '../all-flight/FlightCard'
 
-interface Travel {
+export interface Flight {
   id?: string
-  name: string
-  description: string
+  brand: string
+  trip_time: string
   images: string
-  price: string
-  startDate: string
-  endDate: string
-  perios: string
+  price: number
+  start_time: string
+  end_time: string
+  trip_to: string
+  take_place: string
   create_at?: string
   update_at?: string
 }
 
-
 export default function FlightReview1() {
-
   const { data: getAll } = useQuery({
     queryKey: ['getAllFlight'],
     queryFn: () => flightApi.getAll(1, 4)
   })
-
+  const formatCurrency = (value: string | undefined) => {
+    if (!value) return 'N/A'
+    const numberValue = parseFloat(value)
+    return isNaN(numberValue)
+      ? 'N/A'
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  }
   return (
     <SectionInViewRight>
       <div className='mt-[5rem]'>
@@ -39,25 +49,47 @@ export default function FlightReview1() {
               <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
             </Link>
           </div>
-          <div className='flex flex-wrap justify-between '>
-            {getAll?.data.map((travel: Travel) => (
-              <div
-                key={travel.id}
-                className='relative flex flex-col justify-end h-[35rem] p-5 bg-center bg-cover w-[22rem] rounded-lg my-3'
-                style={{ backgroundImage: `url(${travel.images})` }}
-              >
-                <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent'></div>
-
-                <div className='relative flex justify-between w-full gap-4 mb-4'>
-                  <div className='flex flex-col items-end'>
-                    <p className='w-full text-3xl font-semibold text-white'>{travel.description}</p>
-                    <p className='w-full text-gray-300'>{travel.price}</p>
-                  </div>
-                </div>
-
-                <Button className='relative hover:bg-white hover:border-spacing-3'>Book Flight</Button>
-              </div>
-            ))}
+          <div className='w-full ]'>
+            <Swiper
+              className='flex flex-wrap justify-between '
+              modules={[Navigation, Pagination, A11y, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={3}
+              pagination={{ clickable: true }}
+              navigation
+              autoplay={{
+                delay: 3000
+              }}
+              loop={true}
+            >
+              {getAll?.data.slice(0, 6).map((flight: Flight) => (
+                <SwiperSlide
+                  key={flight.id}
+                  className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
+                  style={{ backgroundImage: `url(${flightreview1})` }}
+                >
+                  <Link to={`/flight/${flight.id}`} key={flight.id}>
+                    <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>
+                    <div className='flex text-xl font-semibold text-white'>
+                      <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>{flight.take_place}</p>
+                      <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'> - {flight.trip_to}</p>
+                    </div>
+                    <p className='w-full text-gray-300'>{flight.trip_time}</p>
+                    <div className='relative flex justify-between w-full gap-4 mb-4'>
+                      <div className='flex flex-row items-end w-[50%]'>
+                        <p className='w-full text-lg font-semibold text-white'>
+                          {flight.start_time}-{flight.end_time}
+                        </p>
+                      </div>
+                      <p className='flex items-center justify-center text-lg text-white'>
+                        {formatCurrency(flight.price?.toString())}
+                      </p>
+                    </div>
+                  </Link>
+                  <Button className='relative text-white hover:border-spacing-3'>Book a Flight</Button>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </div>

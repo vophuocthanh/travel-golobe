@@ -1,3 +1,7 @@
+import BillingAllView from '@/components/common/admin/billing/billing-all/BillingAllView'
+import BillingFlightView from '@/components/common/admin/billing/billing-flight/BillingFlightView'
+import BillingHotelView from '@/components/common/admin/billing/billing-hotel/BillingHotelView'
+import BillingTourView from '@/components/common/admin/billing/billing-tour/BillingTourView'
 import ClientProvider from '@/components/common/loading-screen/client-provider'
 import { path } from '@/constants/path'
 import LayoutMain from '@/layout/LayoutMain'
@@ -8,28 +12,25 @@ import EmployeeAdmin from '@/pages/admin/employee/EmployeeAdmin'
 import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
+import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
+import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
+import UserAdminDetail from '@/pages/admin/users/detail/UserAdminDetail'
 import UserAdmin from '@/pages/admin/users/UserAdmin'
 import AllFlight from '@/pages/flight/all-flight/AllFlight'
 import FlightDetail from '@/pages/flight/FlightDetail'
+import FlightPayment from '@/pages/flight/FlightPayment'
 import ForgotPassword from '@/pages/forgot-password/ForgotPassword'
 import HomeStay from '@/pages/home-stay/HomeStay'
 import HotelDetail from '@/pages/hotel/hotel-detail/HotelDetail'
+import HotelPayment from '@/pages/hotel/HotelPayment'
 import Profile from '@/pages/profile/Profile'
 import ResetPassword from '@/pages/reset-password/ResetPassword'
 import TourDetailView from '@/pages/tour/TourDetailView'
+import TourPayment from '@/pages/tour/TourPayment'
 import VerifyCode from '@/pages/verify-code/VerifyCode'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
-import FlightPayment from '@/pages/flight/FlightPayment'
-import TourPayment from '@/pages/tour/TourPayment'
-import HotelPayment from '@/pages/hotel/HotelPayment'
-import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
-import BillingAllView from '@/components/common/admin/billing/billing-all/BillingAllView'
-import BillingHotelView from '@/components/common/admin/billing/billing-hotel/BillingHotelView'
-import BillingFlightView from '@/components/common/admin/billing/billing-flight/BillingFlightView'
-import BillingTourView from '@/components/common/admin/billing/billing-tour/BillingTourView'
-import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -55,10 +56,11 @@ export default function useRoutesElements() {
       { path: '*', element: <PageNotFound /> },
       { path: path.admin, element: <LayoutMain children={<Dashboard />} /> },
       { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },
+      { path: path.users_id, element: <LayoutMain children={<UserAdminDetail />} /> },
       { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },
       { path: path.all_view, element: <LayoutMain children={<BillingAllView />} /> },
       { path: path.hotel_view, element: <LayoutMain children={<BillingHotelView />} /> },
-      { path: path.flight_view, element: <LayoutMain children={<BillingFlightView/>} /> },
+      { path: path.flight_view, element: <LayoutMain children={<BillingFlightView />} /> },
       { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
       { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },

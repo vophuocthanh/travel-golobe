@@ -1385,7 +1385,7 @@
 
 "@radix-ui/react-select@^2.1.1":
   version "2.1.1"
-  resolved "https://registry.npmjs.org/@radix-ui/react-select/-/react-select-2.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-select/-/react-select-2.1.1.tgz#df05cb0b29d3deaef83b505917c4042e0e418a9f"
   integrity sha512-8iRDfyLtzxlprOo9IicnzvpsO1wNCkuwzzCM+Z5Rb5tNOpCdMvcc2AkzX0Fz+Tz9v6NJ5B/7EEgyZveo4FBRfQ==
   dependencies:
     "@radix-ui/number" "1.1.0"
@@ -2267,6 +2267,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
     app "file:../../../Library/Caches/Yarn/v6/npm-app-0.0.0-cb5efd59-33d0-459a-9b6c-73fb4c55eae0-1727271441424/node_modules/app"
+    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-d2c89db4-d59b-4e4e-9a5b-ad3696160b46-1727250449781/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
