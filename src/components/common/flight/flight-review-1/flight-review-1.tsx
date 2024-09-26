@@ -28,7 +28,13 @@ export default function FlightReview1() {
     queryKey: ['getAllFlight'],
     queryFn: () => flightApi.getAll(1, 4)
   })
-
+  const formatCurrency = (value: string | undefined) => {
+    if (!value) return 'N/A'
+    const numberValue = parseFloat(value)
+    return isNaN(numberValue)
+      ? 'N/A'
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  }
   return (
     <SectionInViewRight>
       <div className='mt-[5rem]'>
@@ -76,7 +82,7 @@ export default function FlightReview1() {
                         </p>
                       </div>
                       <p className='flex items-center justify-center text-lg text-white'>
-                        {(flight.price?.toString())}
+                        {formatCurrency(flight.price?.toString())}
                       </p>
                     </div>
                   </Link>
