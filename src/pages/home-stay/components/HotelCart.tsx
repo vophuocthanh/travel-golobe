@@ -6,31 +6,12 @@ import { Link } from 'react-router-dom'
 import { hoteldetail3 } from '@/assets/images'
 import ReadOnlyRating from './ReadOnlyRating'
 import { useState } from 'react'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/Pagination'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 interface HotelCardProps {
   isFavorite: boolean
   onFavoriteToggle: () => void
-}
-
-interface Item {
-  id: string,
-  hotel_names?: string,
-  location?: string,
-  price?: number,
-  score_hotels?: string | number,
-  number_rating: string | number,
-  star_number?: number,
-  received_time?: string,
-  giveback_time?: string,
-  description?: string,
-  hotel_link?: string,
-  place?: string,
-  image?: string,
-  image_2?: string,
-  image_3?: string,
-  image_4?: string,
-  image_5?: string
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) => {
@@ -41,15 +22,22 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
     queryFn: () => hotelApi.getAll(page, 4),
   })
 
-  const totalPages = Math.ceil(1100 / 4);
+  const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handleClick = (newPage: number) => {
     setPage(newPage);
+  }
+  const formatCurrency = (value: string | undefined) => {
+    if (!value) return 'N/A'
+    const numberValue = parseFloat(value)
+    return isNaN(numberValue)
+      ? 'N/A'
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
 
   console.log(page)
   return (
     <>
-      {getAll?.data.map((item: Item) => (
+      {getAll?.data.map((item: HotelResponseType) => (
         <div key={item.id} className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'>
           <div className='w-[35%] bg-blue-300 flex-3 relative'>
             <img src={hoteldetail3} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
@@ -83,7 +71,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
                   </div>
                 </div>
                 <div className='w-[30%] pt-4 text-right'>
-                  <p className='text-3xl text-[#FF8682] font-bold'>{item.price} VNĐ/night</p>
+                  <p className='text-3xl text-[#FF8682] font-bold'>{formatCurrency(item.price?.toString())}</p>
                   <p className='mr-3 text-gray-400'>excl. tax</p>
                 </div>
               </div>
@@ -119,7 +107,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             </PaginationItem>
             <PaginationItem>
               <Button
-                className="px-4 py-2 bg-gray-300" // Class thêm vào
+                className={`px-4 py-2 bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`} // Class thêm vào
                 onClick={() => handleClick(1)}
               >
                 1
@@ -133,7 +121,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             {page > 1 && page < totalPages && (
               <PaginationItem>
                 <Button
-                  className="px-4 py-2 bg-gray-300"
+                  className={`px-4 py-2 bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`} // Class thêm vào
                   onClick={() => handleClick(page)}
                 >
                   {page}
@@ -148,7 +136,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             {totalPages > 1 && (
               <PaginationItem>
                 <Button
-                  className="px-4 py-2 bg-gray-300"
+                  className={`px-4 py-2 bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`} // Class thêm vào
                   onClick={() => handleClick(totalPages)}
                 >
                   {totalPages}
