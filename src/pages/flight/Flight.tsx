@@ -7,7 +7,6 @@ import PlacesTogether from '@/components/common/flight/places-together/places-to
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-
 export default function Flight() {
   return (
     <div className='w-full'>
@@ -80,17 +79,20 @@ export default function Flight() {
                     + Add Promo Code
                   </Button>
                   <Button className='flex items-center gap-2 px-4 py-2 text-black rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
-                    <IconVectorFlight /> Show Flights                    
+                    <IconVectorFlight /> Show Flights
                   </Button>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <PlacesTogether />
-        <FlightReview1 />
-        <FlightReview2 />
-        <div className='mt-[15rem]'>
+        <div>
+          <PlacesTogether />
+          <FlightReview1 />
+          <FlightReview2 />
+        </div>
+
+        <div className='mt-auto'>
           <Footer />
         </div>
       </main>

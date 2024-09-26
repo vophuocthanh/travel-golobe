@@ -21,10 +21,10 @@ import Div from './components/div-profile'
 import Input from './components/input-profile'
 
 import ContentCountry from './components/content-country'
-import ContentPhone from './components/content-phone'
-import ContentName from './components/content-name'
 import ContentDate from './components/content-date'
 import ContentEmail from './components/content-email'
+import ContentName from './components/content-name'
+import ContentPhone from './components/content-phone'
 
 const colors = ['#D1E9F7', '#E9F7D1', '#F7D1E9', '#F7E9D1', '#D1F7E9', '#E9D1F7']
 
@@ -36,7 +36,7 @@ const getRandomColor = () => {
 export default function Profile() {
   const [activeTab, setActiveTab] = useState('account')
   const handleTabChange = (value: string) => {
-    setActiveTab(value) // Cập nhật tab hiện tại
+    setActiveTab(value)
   }
   const inputFileRef = useRef<HTMLInputElement | null>(null)
   const queryClient = useQueryClient()
@@ -69,9 +69,6 @@ export default function Profile() {
     }
   }
 
-  const avatarFileName = getMeProfile?.avatar?.replace('avatar/', '')
-  const avatarUrl = `${import.meta.env.VITE_AVATAR}/${avatarFileName}`
-
   const randomColor = getRandomColor()
 
   return (
@@ -82,7 +79,7 @@ export default function Profile() {
           <div className='object-cover w-full h-80 rounded-xl' style={{ backgroundColor: randomColor }}></div>
           <div className='absolute flex flex-col items-center transform -translate-x-1/2 -bottom-24 left-1/2'>
             <img
-              src={avatarUrl}
+              src={getMeProfile?.avatar}
               alt='Avatar'
               className='border-4 border-white rounded-full shadow-lg cursor-pointer w-36 h-36'
               onClick={handleClickAvatar}
