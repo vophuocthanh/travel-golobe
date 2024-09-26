@@ -15,21 +15,29 @@ import { ChevronDown } from 'lucide-react'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { flightApi } from '@/apis/flight.api'
+import { Card } from '@/components/ui/card'
 
 const FlightAdmin: React.FC = () => {
 
   const { data: getAllFlights } = useQuery({
     queryKey: ['getAllFlight'],
-    queryFn: () => flightApi.getAll(1, pageIndex)
+    queryFn: () =>flightApi.getAll(1,1)
   })
+  const totalDataCount = getAllFlights?.total || 0; 
+
+  const { data: flightData } = useQuery({
+    queryKey: ['getFlights', totalDataCount],
+    queryFn: () => flightApi.getAll(1, totalDataCount), 
+    enabled: totalDataCount > 0 
+  });
   
-  const flightsData = getAllFlights?.data || [];  
+  const flightsData = flightData?.data || [];  
   
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [entriesPerPage, setEntriesPerPage] = React.useState(5)
+  const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
   const columns: ColumnDef<FlightResponseType>[] = [
     {
@@ -255,7 +263,7 @@ const FlightAdmin: React.FC = () => {
       columnVisibility,
       rowSelection,
       pagination: {
-        pageIndex,
+        pageIndex ,
         pageSize: entriesPerPage
       }
     }
@@ -269,9 +277,10 @@ const FlightAdmin: React.FC = () => {
   }, [pageIndex, table])
   
   return (
-        <div className='w-full px-4'>
-        <p className='text-2xl font-bold'>Flight - Admin</p>
-        <div className='flex items-center justify-between py-2'>
+    <div className='w-full p-2'>
+      <p className='text-2xl font-bold'>Flight - Admin</p>
+      <Card className='p-4 mt-5'>
+        <div className='flex items-center justify-between p-2 py-2'>
           <div className='flex items-center'>
             <div className='flex items-center mr-4 space-x-2'>
               <span>Show</span>
@@ -283,7 +292,7 @@ const FlightAdmin: React.FC = () => {
                   table.setPageIndex(0)
                 }}
               >
-                {[5, 10, 25, 50, 100].map((size) => (
+                {[10, 25, 50, 100].map((size) => (
                   <option key={size} value={size}>
                     {size}
                   </option>
@@ -296,13 +305,14 @@ const FlightAdmin: React.FC = () => {
               </div>
               <Input
                 placeholder='Filter tour name...'
-                value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-                onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+                value={(table.getColumn('brand')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
                 className='max-w-sm pl-10 rounded-xl'
               />
             </div>
           </div>
           <div className='flex items-center gap-4'>
+            <span>Total Flights: {totalDataCount}</span>
             <Button className='bg-[#624DE3] text-white'>+ Add Flight</Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -362,9 +372,9 @@ const FlightAdmin: React.FC = () => {
           </Table>
         </div>
         <div className='flex items-center justify-end py-4 space-x-2'>
-          <div className='flex-1 text-sm text-muted-foreground'>
-            {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-            selected.
+        <div className="flex-1 text-sm text-muted-foreground">
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
           </div>
           <div className='pr-4 space-x-2'>
             <Button
@@ -383,7 +393,8 @@ const FlightAdmin: React.FC = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </Card>
+    </div>
   )
 }
 export default FlightAdmin
