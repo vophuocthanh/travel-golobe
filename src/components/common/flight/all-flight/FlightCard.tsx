@@ -26,14 +26,6 @@ interface FlightCardProps {
   onToggleFavorite: () => void
 }
 
-const formatCurrency = (value: string | undefined) => {
-  if (!value) return 'N/A' // Hoặc giá trị mặc định khác
-  const numberValue = parseFloat(value)
-  return isNaN(numberValue)
-    ? 'N/A'
-    : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
-}
-
 const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite }) => {
   const [page, setPage] = useState(1)
 
@@ -46,7 +38,13 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
   }
-
+  const formatCurrency = (value: string | undefined) => {
+    if (!value) return 'N/A'
+    const numberValue = parseFloat(value)
+    return isNaN(numberValue)
+      ? 'N/A'
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  }
   return (
     <>
       {getAll?.data.map((flight: FlightCardProps) => (
@@ -130,7 +128,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-blue-500 text-white' : ''} // Nút trang đầu
+                className={page === 1 ? 'bg-gray-400 text-black' : ''} // Nút trang đầu
               >
                 1
               </Button>
@@ -144,7 +142,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-blue-500 text-white' : ''}
+                  className={page === page ? 'bg-gray-400 text-black' : ''}
                 >
                   {page}
                 </Button>
@@ -159,7 +157,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-blue-500 text-white' : ''}
+                  className={page === totalPages ? 'bg-gray-400 text-black' : ''}
                 >
                   {totalPages}
                 </Button>

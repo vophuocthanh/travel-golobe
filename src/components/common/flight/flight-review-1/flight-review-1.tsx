@@ -7,12 +7,14 @@ import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
+// import { formatCurrency } from '../all-flight/FlightCard'
+
 export interface Flight {
   id?: string
   brand: string
   trip_time: string
   images: string
-  price: string
+  price: number
   start_time: string
   end_time: string
   trip_to: string
@@ -73,7 +75,9 @@ export default function FlightReview1() {
                           {flight.start_time}-{flight.end_time}
                         </p>
                       </div>
-                      <p className='flex items-center justify-center text-lg text-white'>{flight.price} VND</p>
+                      <p className='flex items-center justify-center text-lg text-white'>
+                        {(flight.price?.toString())}
+                      </p>
                     </div>
                   </Link>
                   <Button className='relative text-white hover:border-spacing-3'>Book a Flight</Button>

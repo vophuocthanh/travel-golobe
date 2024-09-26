@@ -1,6 +1,7 @@
 import axiosClient from '@/apis/axios-client'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 
+
 export const flightApi = {
   getAll(page: number | string, items_per_page: number | string) {
     const url = '/flight-crawl/crawl';
