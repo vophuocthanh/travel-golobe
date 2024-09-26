@@ -28,6 +28,7 @@ import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { UserResponse } from '@/shared/ts/interface'
 import { useQuery } from '@tanstack/react-query'
+import { Spin } from 'antd'
 import { Link } from 'react-router-dom'
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -91,8 +92,36 @@ export const columns: ColumnDef<UserResponse>[] = [
   },
   {
     id: 'role',
-    header: () => <div className='text-left'>Role</div>,
-    cell: ({ row }) => <div>{row.original.role?.name || 'N/A'}</div>
+    header: () => <div className='flex justify-center'>Role</div>,
+    cell: ({ row }) => (
+      <div className='flex justify-center'>
+        <h1
+          className={row.original.role?.name === 'ADMIN' ? 'text-white p-2 inline-block rounded-xl bg-green-400' : ''}
+        >
+          {row.original.role?.name || 'N/A'}
+        </h1>
+      </div>
+    )
+  },
+  {
+    accessorKey: 'date_of_birth',
+    header: () => <div className='flex justify-center'>Date of Birth</div>,
+    cell: ({ row }) => {
+      const formatDate = (dateString?: string): string => {
+        if (!dateString) return 'N/A'
+
+        const date = new Date(dateString)
+        if (isNaN(date.getTime())) return 'N/A'
+
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+
+        return `${day}-${month}-${year}`
+      }
+
+      return <div className='flex justify-center'>{formatDate(row.getValue<string>('date_of_birth'))}</div>
+    }
   },
   {
     id: 'actions',
@@ -202,7 +231,7 @@ export function TableUser() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  <Spin />
                 </TableCell>
               </TableRow>
             )}
