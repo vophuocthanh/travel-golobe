@@ -98,7 +98,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
           <PaginationContent >
             <PaginationItem>
               <Button
-                className="px-4 py-2 rounded min-w-[100px] text-center" // Class thêm vào
+                className="px-4 py-2 text-white rounded min-w-[100px] text-center" // Class thêm vào
                 disabled={page === 1}
                 onClick={() => handleClick(page - 1)}
               >
@@ -107,7 +107,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             </PaginationItem>
             <PaginationItem>
               <Button
-                className={`px-4 py-2 bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`} // Class thêm vào
+                className={`px-4 py-2 text-white bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`} // Class thêm vào
                 onClick={() => handleClick(1)}
               >
                 1
@@ -121,7 +121,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             {page > 1 && page < totalPages && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`} // Class thêm vào
+                  className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`} // Class thêm vào
                   onClick={() => handleClick(page)}
                 >
                   {page}
@@ -136,7 +136,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             {totalPages > 1 && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`} // Class thêm vào
+                  className={`px-4 py-2 text-white bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`} // Class thêm vào
                   onClick={() => handleClick(totalPages)}
                 >
                   {totalPages}
@@ -145,7 +145,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
             )}
             <PaginationItem>
               <Button
-                className="px-4 py-2 min-w-[100px]"
+                className="px-4 text-white py-2 min-w-[100px]"
                 onClick={() => handleClick(page + 1)}
                 disabled={page === totalPages}
               >
