@@ -79,7 +79,7 @@ export default function HotelDetailReview({ data }: HotelDetailReviewProps) {
             </div>
           </form>
         </div>
-        <div className='relative flex text-black w-[14rem] '>
+        <div className='relative flex text-black w-[14rem] pt-5'>
           <p className='absolute left-0 text-5xl font-semibold'>4.2</p>
           <div className='absolute right-0'>
             <p>Very good</p>
