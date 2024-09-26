@@ -1,27 +1,14 @@
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Heart } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 import { flightApi } from '@/apis/flight.api'
 import { flightreview1 } from '@/assets/images'
-import { Pagination, PaginationContent, PaginationItem, PaginationEllipsis } from '@/components/ui/pagination' // Đảm bảo import component Pagination
+import { Button } from '@/components/ui/button'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination' // Đảm bảo import component Pagination
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { useQuery } from '@tanstack/react-query'
+import { Heart } from 'lucide-react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 interface FlightCardProps {
-  id?: string
-  image?: string
-  price?: number
-  rating?: string
-  reviews?: string
-  brand?: string
-  trip_time?: string
-  images?: string
-  start_time?: string
-  end_time?: string
-  trip_to?: string
-  take_place?: string
-  create_at?: string
-  destination?: string
   isFavorite: boolean
   onToggleFavorite: () => void
 }
@@ -34,7 +21,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
     queryFn: () => flightApi.getAll(page, 4)
   })
 
-  const totalPages = Math.ceil(314 / 4)
+  const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
   }
@@ -47,7 +34,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
   }
   return (
     <>
-      {getAll?.data.map((flight: FlightCardProps) => (
+      {getAll?.data.map((flight: FlightResponseType) => (
         <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
           <div className='w-[40%] bg-white relative'>
             <img src={flightreview1} alt='Flight' className='object-cover w-[90%] h-34 ml-8 mt-4' />
