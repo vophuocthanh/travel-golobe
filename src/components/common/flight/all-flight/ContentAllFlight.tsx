@@ -2,6 +2,8 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import React, { useState } from 'react'
 import FilterSection from './FilterSection'
 import FlightCard from './FlightCard'
+import { flightApi } from '@/apis/flight.api'
+import { useQuery } from '@tanstack/react-query'
 
 interface TabProps {
   label: string
@@ -11,7 +13,20 @@ interface TabProps {
 }
 
 export default function ContentAllFlight() {
+  const [priceRange, setPriceRange] = useState<[number, number]>([500000, 20000000])
   const [isOpenSort, setIsOpenSort] = useState<boolean>(false)
+
+  const [activeTab, setActiveTab] = useState('Flight')
+  const { data: flights, isLoading } = useQuery({
+    queryKey: ['getAllFlights'],
+    queryFn: () => flightApi.getAll(1, 1)
+  })
+
+  if (isLoading) return <div>Loading...</div>
+
+  const filteredFlights = flights?.data?.filter(
+    (flight) => flight.price !== undefined && flight.price >= priceRange[0] && flight.price <= priceRange[1]
+  )
 
   const toggleVisibilitySort = () => {
     setIsOpenSort((prev) => !prev)
@@ -31,8 +46,6 @@ export default function ContentAllFlight() {
     </div>
   )
 
-  const [activeTab, setActiveTab] = useState('Flight')
-
   const tabs = [
     { label: 'Cheapest', description: '$99.2h 18m' },
     { label: 'Best', description: '$99.2h 18m' },
@@ -42,7 +55,7 @@ export default function ContentAllFlight() {
 
   return (
     <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2 h-[120rem]`}>
-      <FilterSection />
+      <FilterSection value={priceRange} onChange={setPriceRange} />
       <div className='flex-none w-[70%] ml-2 mt-14 mr-12 '>
         <div className='bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer'>
           <div className='bg-white flex flex-row w-full h-[6rem] rounded-md border-b border-gray-300 mx-4 '>
@@ -77,15 +90,18 @@ export default function ContentAllFlight() {
             )}
           </div>
         </div>
+
         <div className='flex flex-col gap-8 '>
-          <div className='flex flex-col gap-8'>
+          {filteredFlights?.map((flight) => (
             <FlightCard
+              key={flight.id}
+              flight={flight}
               isFavorite={false}
-              onToggleFavorite={function (): void {
+              onToggleFavorite={() => {
                 throw new Error('Function not implemented.')
               }}
             />
-          </div>
+          ))}
         </div>
       </div>
     </div>

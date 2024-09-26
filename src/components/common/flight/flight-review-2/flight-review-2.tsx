@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 export default function FlightReview1() {
   return (
     <SectionInViewUp>
-      <div className='mt-[5rem]'>
+      <div className='mt-[5rem] mb-[12rem]'>
         <div className='relative mx-36'>
           <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'> Fall intro travel</h1>
           <div className='flex flex-wrap justify-between '>

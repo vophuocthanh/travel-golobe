@@ -57,22 +57,22 @@ export default function FlightDetail() {
             <Header />
             <div className='container mx-auto pt-28 pb-72'>
                 <section>
-                    <div className='flex text-sm items-center space-x-2 text-gray-600'>
+                    <div className='flex items-center space-x-2 text-sm text-gray-600'>
                         <p>Today</p>
                         <ChevronRight className='w-4 h-4' />
                         <p>Istanbul</p>
                         <ChevronRight className='w-4 h-4' />
-                        <p>{getbyId?.name}</p>
+                        <p>{getbyId?.trip_to}</p>
                     </div>
                     <div className='flex justify-between p-4'>
                         <div>
-                            <p className='text-2xl font-bold'>{getbyId?.name}</p>
-                            <div className='flex text-sm items-center space-x-2 mt-1'>
+                            <p className='text-2xl font-bold'>{getbyId?.destination}</p>
+                            <div className='flex items-center mt-1 space-x-2 text-sm'>
                                 <MapPin className='w-4 h-4' />
                                 <p></p>
                             </div>
-                            <div className='flex items-center space-x-2 mt-2'>
-                                <p className='border border-primary rounded w-10 h-8 flex justify-center items-center text-xs font-medium'>
+                            <div className='flex items-center mt-2 space-x-2'>
+                                <p className='flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary'>
                                     4.2
                                 </p>
                                 <p className='text-xs font-normal'>
@@ -82,17 +82,17 @@ export default function FlightDetail() {
                             </div>
                         </div>
                         <div className='space-y-2'>
-                            <p className='text-[32px] font-bold text-[#FF8682]'>$240</p>
+                            <p className='text-[32px] font-bold text-[#FF8682]'>{getbyId?.price}</p>
                             <div className='flex space-x-2'>
                                 <p
-                                    className='border border-primary rounded w-10 h-10 flex justify-center items-center text-xs font-medium cursor-pointer transition-colors'
+                                    className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
                                     onClick={handleClick}
                                 >
                                     <HeartIcon
                                         className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`}
                                     />
                                 </p>
-                                <p className='border border-primary rounded w-10 h-10 flex justify-center items-center text-xs font-medium cursor-pointer transition-colors'>
+                                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                                     <Link
                                         className={`w-4 h-4`}
                                     />
@@ -104,7 +104,7 @@ export default function FlightDetail() {
                 </section>
 
                 <section className='mb-8'>
-                    <img src={getbyId?.images} alt="Flight Banner" className='w-full h-80 object-cover rounded-xl' />
+                    <img src={getbyId?.images} alt="Flight Banner" className='object-cover w-full h-80 rounded-xl' />
                 </section>
 
                 <section className='mb-8'>
@@ -152,7 +152,7 @@ export default function FlightDetail() {
                         </Swiper>
                     </div>
 
-                    <div className='bg-primary h-auto rounded-lg p-6 space-y-4 mb-10'>
+                    <div className='h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary'>
                         <p className='text-2xl font-bold '>Emirates Airlines Policies</p>
                         <div className='flex flex-col space-y-4'>
                             <div className='flex items-center space-x-3'>
@@ -170,15 +170,15 @@ export default function FlightDetail() {
                         </div>
                     </div>
 
-                    <div className='border rounded-xl p-6 bg-white shadow-md mb-10'>
+                    <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
                         <div className='flex justify-between'>
                             <p className='text-xl font-bold'>Return Wed, Dec 8</p>
-                            <p className='text-lg font-medium'>{getbyId?.perios}</p>
+                            <p className='text-lg font-medium'>{getbyId?.create_at}</p>
                         </div>
 
                         <div className='pt-6'>
                             <div className='flex justify-between'>
-                                <div className='flex items-center space-x-6 px-8 py-4 border rounded-lg'>
+                                <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
                                     <img src={getbyId?.images} alt="" className='w-16' />
                                     <div>
                                         <p className='text-2xl font-bold'>Emirates</p>
@@ -188,21 +188,21 @@ export default function FlightDetail() {
                                 <div className='flex items-center p-6'>
                                     <div className='flex items-center space-x-6'>
                                         <Plane className='w-6 h-6' />
-                                        <span className='border-l border-gray-400 h-6'></span>
+                                        <span className='h-6 border-l border-gray-400'></span>
                                         <Wifi className='w-6 h-6' />
-                                        <span className='border-l border-gray-400 h-6'></span>
+                                        <span className='h-6 border-l border-gray-400'></span>
                                         <Timer className='w-6 h-6' />
-                                        <span className='border-l border-gray-400 h-6'></span>
+                                        <span className='h-6 border-l border-gray-400'></span>
                                         <UtensilsCrossed className='w-6 h-6' />
-                                        <span className='border-l border-gray-400 h-6'></span>
+                                        <span className='h-6 border-l border-gray-400'></span>
                                         <RockingChair className='w-6 h-6' />
                                     </div>
                                 </div>
 
                             </div>
-                            <div className='flex justify-center items-center space-x-20'>
-                                <div className='flex space-x-4 items-center'>
-                                    <p className='text-2xl font-semibold'>{getbyId?.startDate}</p>
+                            <div className='flex items-center justify-center space-x-20'>
+                                <div className='flex items-center space-x-4'>
+                                    <p className='text-2xl font-semibold'>{getbyId?.start_time}</p>
                                     <p className='text-base font-medium'>Newark(EWR)</p>
                                 </div>
 
@@ -212,8 +212,8 @@ export default function FlightDetail() {
                                     <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
                                 </div>
 
-                                <div className='flex space-x-4 items-center'>
-                                    <p className='text-2xl font-semibold'>{getbyId?.endDate}</p>
+                                <div className='flex items-center space-x-4'>
+                                    <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
                                     <p className='text-base font-medium'>Newark(EWR)</p>
                                 </div>
                             </div>

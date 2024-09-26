@@ -7,11 +7,12 @@ import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 // import { formatCurrency } from '../all-flight/FlightCard'
 
 export interface Flight {
   id?: string
-  brand: string
+  brand?: string
   trip_time: string
   images: string
   price: number
@@ -62,7 +63,7 @@ export default function FlightReview1() {
               }}
               loop={true}
             >
-              {getAll?.data.slice(0, 6).map((flight: Flight) => (
+              {getAll?.data.slice(0, 6).map((flight: FlightResponseType) => (
                 <SwiperSlide
                   key={flight.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'

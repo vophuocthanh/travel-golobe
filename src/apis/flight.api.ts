@@ -15,7 +15,7 @@ export const flightApi = {
     })
   },
   getById(id: string | undefined): Promise<FlightResponseType> {
-    const url = `/flight/${id}`
+    const url = `/flight-crawl/crawl/${id}`
     return axiosClient.get(url)
   },
   addFlight(data: FlightResponseType) {
