@@ -40,9 +40,6 @@ export default function DropdownHeader() {
     queryFn: () => meApi.getMe()
   })
 
-  const avatarFileName = getMe?.avatar?.replace('avatar/', '')
-  const avatarUrl = `${import.meta.env.VITE_AVATAR}/${avatarFileName}`
-
   const handleLogout = () => {
     clearLS()
     window.location.reload()
@@ -52,7 +49,7 @@ export default function DropdownHeader() {
       <DropdownMenuTrigger asChild className='select-none'>
         <div className='flex items-center gap-2'>
           <Avatar>
-            <AvatarImage src={avatarUrl} alt={getMe?.name || 'Avatar'} />
+            <AvatarImage src={getMe?.avatar} alt={getMe?.name || 'Avatar'} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>

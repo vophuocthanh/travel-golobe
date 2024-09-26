@@ -20,3 +20,24 @@ export interface MeResponse {
   date_of_birth?: string
   country?: string
 }
+
+interface Role {
+  name: string
+}
+
+export interface UserResponse {
+  id?: string
+  email?: string
+  phone?: string | null
+  address?: string | null
+  avatar?: string
+  name?: string
+  date_of_birth?: string | null
+  country?: string | null
+  createAt?: Date
+  updateAt?: Date
+  verificationCode?: string | null
+  verificationCodeExpiresAt?: Date | null
+  isVerified?: boolean
+  role: Role
+}
