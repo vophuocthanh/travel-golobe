@@ -1,8 +1,9 @@
 import axiosClient from '@/apis/axios-client'
+import { ListResponse } from '@/shared/ts/interface';
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
-  getAll(page: number | string, items_per_page: number | string) {
+  getAll(page: number | string, items_per_page: number | string): Promise<ListResponse<HotelResponseType>>  {
     const url = '/hotel-crawl/crawl';
     
     return axiosClient.get(url, {
