@@ -65,7 +65,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
   console.log(page)
   return (
     <>
-      <div className='flex items-center justify-between w-full h-16 mt-2'>
+      <div className='flex items-center justify-between w-full h-10 mt-2'>
         <div>
           {' '}
           <p className=' hover:cursor-pointer'>
