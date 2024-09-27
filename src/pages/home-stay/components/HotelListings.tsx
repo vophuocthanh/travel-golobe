@@ -17,8 +17,7 @@ interface TabProps {
 
 const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
-    <div
-      onClick={onClick}
+    <div onClick={onClick}
       className={`flex flex-col justify-center flex-1 px-4 py-2 transition-colors duration-300 cursor-pointer ${isActive ? 'border-b-4 border-primary text-primary font-semibold' : 'border-b-2 border-transparent text-gray-600'
         }`}
     >

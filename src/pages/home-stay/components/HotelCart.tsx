@@ -1,15 +1,15 @@
 import { hotelApi } from '@/apis/hotel.api'
-import { Button } from '@/components/ui/button'
-import { useQuery } from '@tanstack/react-query'
-import { Coffee, Heart, MapPin } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { hoteldetail3 } from '@/assets/images'
-import ReadOnlyRating from './ReadOnlyRating'
-import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
+import { useQuery } from '@tanstack/react-query'
+import { Coffee, Heart, MapPin } from 'lucide-react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import ReadOnlyRating from './ReadOnlyRating'
 
 interface HotelCardProps {
   isFavorite: boolean
@@ -51,8 +51,8 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handleClick = (newPage: number) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
     const numberValue = parseFloat(value)
@@ -83,7 +83,10 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
 
       </div>
       {getAll?.data.map((item: HotelResponseType) => (
-        <div key={item.id} className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'>
+        <div
+          key={item.id}
+          className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
+        >
           <div className='w-[35%] bg-blue-300 flex-3 relative'>
             <img src={hoteldetail3} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
             <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
@@ -94,16 +97,16 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
             <div className='flex flex-col w-full h-full'>
               <div className='flex flex-row w-full h-[75%] border-b-2 border-gray-400 pb-4'>
                 <div className='w-[70%] flex flex-col gap-4'>
-                  <p className='pt-2 text-2xl font-bold overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.hotel_names}</p>
+                  <p className='pt-2 overflow-hidden text-2xl font-bold whitespace-nowrap overflow-ellipsis'>
+                    {item.hotel_names}
+                  </p>
                   <p className='flex text-gray-500 text-md '>
-                    <MapPin className='w-4 h-4 text-black mr-1 ' />
-                    <p className='overflow-hidden whitespace-nowrap overflow-ellipsis'>
-                      {item.location}
-                    </p>
+                    <MapPin className='w-4 h-4 mr-1 text-black ' />
+                    <p className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</p>
                   </p>
                   <div className='flex gap-2'>
                     <ReadOnlyRating rating={Number(item.score_hotels)} />
-                    <div className='flex gap-1 items-center'>
+                    <div className='flex items-center gap-1'>
                       <p className='font-bold'>20+</p>
                       <Coffee className='font-bold text-black' />
                       <p>Amenities</p>
@@ -123,13 +126,14 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
                   <Button
-                    className={`flex items-center justify-center ${isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'}`}
+                    className={`flex items-center justify-center ${isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'
+                      }`}
                     onClick={onFavoriteToggle}
                   >
                     <Heart />
                   </Button>
                   <Link to={`/hotel/${item.id}`} className='w-full'>
-                    <Button className='w-full bg-primary text-white'>View Place</Button>
+                    <Button className='w-full text-white bg-primary'>View Place</Button>
                   </Link>
                 </div>
               </div>
@@ -140,10 +144,10 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
 
       <div className='flex justify-around mt-6'>
         <Pagination>
-          <PaginationContent >
+          <PaginationContent>
             <PaginationItem>
               <Button
-                className="px-4 py-2 text-white rounded min-w-[100px] text-center" // Class thêm vào
+                className='px-4 py-2 text-white rounded min-w-[100px] text-center' // Class thêm vào
                 disabled={page === 1}
                 onClick={() => handleClick(page - 1)}
               >
@@ -190,7 +194,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
             )}
             <PaginationItem>
               <Button
-                className="px-4 text-white py-2 min-w-[100px]"
+                className='px-4 text-white py-2 min-w-[100px]'
                 onClick={() => handleClick(page + 1)}
                 disabled={page === totalPages}
               >
@@ -199,10 +203,9 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-
       </div>
     </>
   )
 }
 
-export default HotelCard;
+export default HotelCard
