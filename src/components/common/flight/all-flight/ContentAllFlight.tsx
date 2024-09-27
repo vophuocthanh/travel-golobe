@@ -1,9 +1,6 @@
-import { ChevronDown, ChevronUp } from 'lucide-react'
 import React, { useState } from 'react'
 import FilterSection from './FilterSection'
 import FlightCard from './FlightCard'
-import { flightApi } from '@/apis/flight.api'
-import { useQuery } from '@tanstack/react-query'
 
 interface TabProps {
   label: string
@@ -13,27 +10,14 @@ interface TabProps {
 }
 
 export default function ContentAllFlight() {
-  const [priceRange, setPriceRange] = useState<[number, number]>([500000, 20000000])
-  const [isOpenSort, setIsOpenSort] = useState<boolean>(false)
-
   const [activeTab, setActiveTab] = useState('Flight')
-  const { data: flights, isLoading } = useQuery({
-    queryKey: ['getAllFlights'],
-    queryFn: () => flightApi.getAll(1, 1)
-  })
+  const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
 
-  if (isLoading) return <div>Loading...</div>
-
-  const filteredFlights = flights?.data?.filter(
-    (flight) => flight.price !== undefined && flight.price >= priceRange[0] && flight.price <= priceRange[1]
-  )
-
-  const toggleVisibilitySort = () => {
-    setIsOpenSort((prev) => !prev)
+  const handleApplyFilter = (min: number | undefined, max: number | undefined) => {
+    setMinPrice(min)
+    setMaxPrice(max)
   }
-
-  // const containerHeight = isOpenSort ? 'h-[160rem]' : 'h-[120rem]'
-
   const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
     <div
       onClick={onClick}
@@ -55,7 +39,7 @@ export default function ContentAllFlight() {
 
   return (
     <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2 h-[120rem]`}>
-      <FilterSection value={priceRange} onChange={setPriceRange} />
+      <FilterSection onApplyFilter={handleApplyFilter} />
       <div className='flex-none w-[70%] ml-2 mt-14 mr-12 '>
         <div className='bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer'>
           <div className='bg-white flex flex-row w-full h-[6rem] rounded-md border-b border-gray-300 mx-4 '>
@@ -73,35 +57,15 @@ export default function ContentAllFlight() {
           </div>
         </div>
 
-        <div className='flex items-center justify-between w-full h-20 mt-2'>
-          <div>
-            <p className=' hover:cursor-pointer'>
-              Showing 4 of <span className='text-[#FF8682]'>257 places</span>
-            </p>
-          </div>
-          <div className='flex gap-2' onClick={toggleVisibilitySort}>
-            <p className='text-gray-900 hover:cursor-pointer'>
-              Sort by <span className='text-[#112211] '>Recommended</span>
-            </p>
-            {isOpenSort ? (
-              <ChevronUp className='transition-transform duration-300' />
-            ) : (
-              <ChevronDown className='transition-transform duration-300' />
-            )}
-          </div>
-        </div>
-
         <div className='flex flex-col gap-8 '>
-          {filteredFlights?.map((flight) => (
-            <FlightCard
-              key={flight.id}
-              flight={flight}
-              isFavorite={false}
-              onToggleFavorite={() => {
-                throw new Error('Function not implemented.')
-              }}
-            />
-          ))}
+          <FlightCard
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            isFavorite={false}
+            onToggleFavorite={() => {
+              throw new Error('Function not implemented.')
+            }}
+          />
         </div>
       </div>
     </div>

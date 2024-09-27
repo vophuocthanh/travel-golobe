@@ -7,19 +7,43 @@ import { useQuery } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Dropdown, MenuProps, Space } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
 
 interface FlightCardProps {
-  flight: FlightResponseType;
   isFavorite: boolean
   onToggleFavorite: () => void
+  minPrice?: number
+  maxPrice?: number
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite }) => {
+const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, minPrice, maxPrice }) => {
   const [page, setPage] = useState(1)
+  const [sortByPrice, setSortByPrice] = useState('')
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Sắp theo giá',
+      disabled: true
+    },
+    {
+      type: 'divider'
+    },
+    {
+      key: '2',
+      label: 'Từ cao đến thấp',
+      onClick: () => setSortByPrice('desc')
+    },
+    {
+      key: '3',
+      label: 'Từ thấp đến cao',
+      onClick: () => setSortByPrice('asc')
+    }
+  ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page],
-    queryFn: () => flightApi.getAll(page, 4)
+    queryKey: ['getAllHotel', page, sortByPrice, minPrice, maxPrice],
+    queryFn: () => flightApi.getAll(page, 4, sortByPrice, minPrice, maxPrice)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
@@ -35,6 +59,35 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite })
   }
   return (
     <>
+      <div className='flex items-center justify-between mt-4'>
+        <div>
+          {/* <Input
+            value={tempminPrice || ''}
+            onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+          />
+          <Input
+            value={tempmaxPrice || ''}
+            onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+          />
+          <Button
+            onClick={() => {
+              setMinPrice(tempminPrice)
+              setMaxPrice(tempmaxPrice)
+            }}
+          >
+            Filter Price
+          </Button> */}
+        </div>
+        <Dropdown menu={{ items }}>
+          <a onClick={(e) => e.preventDefault()} className='ml-auto'>
+            <Space>
+              Sort By Price
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+      </div>
+
       {getAll?.data.map((flight: FlightResponseType) => (
         <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
           <div className='w-[40%] bg-white relative'>

@@ -1,31 +1,27 @@
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
+
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import ReactSlider from 'react-slider'
-interface FilterSectionProps {
-  value: [number, number]
-  onChange: (value: [number, number]) => void
+
+interface FilterPriceProps {
+  onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
 }
-export default function FilterSection({ value, onChange }: FilterSectionProps) {
-  // const [filteredFlights, setFilteredFlights] = useState([])
+
+const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   const [isRatingVisible, setIsRatingVisible] = useState<boolean>(true)
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
   const [isTripsVisible, setIsTripsVisible] = useState<boolean>(true)
   const [isVisible, setIsVisible] = useState<boolean>(true)
   const [time, setTime] = useState<number[]>([0, 1440])
   const [isTimeVisible, setIsTimeVisible] = useState<boolean>(true)
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
-  }
-  const handlePriceChange = (newValue: [number, number]) => {
-    onChange(newValue)
-  }
+
+  const [, setMinPrice] = useState<number | undefined>(undefined)
+  const [, setMaxPrice] = useState<number | undefined>(undefined)
+  const [tempMinPrice, setTempMinPrice] = useState<number | undefined>(undefined)
+  const [tempMaxPrice, setTempMaxPrice] = useState<number | undefined>(undefined)
 
   const handleTimeChange = (time: number[]) => {
     setTime(time)
@@ -45,7 +41,9 @@ export default function FilterSection({ value, onChange }: FilterSectionProps) {
   const toggleTripsVisibility = () => {
     setIsTripsVisible((prev) => !prev)
   }
+  
 
+ 
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60)
     const mins = minutes % 60
@@ -66,27 +64,35 @@ export default function FilterSection({ value, onChange }: FilterSectionProps) {
         </div>
         {isVisible && (
           <div className='w-[95%] pb-12 border-b-2 mr-5'>
-            <ReactSlider
-              className='w-full h-1 bg-black rounded-lg'
-              thumbClassName='w-6 h-6 bg-black-800 rounded-full cursor-pointer'
-              trackClassName='bg-black-900 h-2 rounded-lg'
-              value={value}
-              onChange={handlePriceChange}
-              min={500000}
-              max={20000000}
-              ariaLabel={['Lower thumb', 'Upper thumb']}
-              renderThumb={(props) => (
-                <div
-                  {...props}
-                  className='flex items-center justify-center w-6 h-6 rounded-full cursor-pointer bg-primary top-[-10px]'
-                ></div>
-              )}
-              pearling
-              minDistance={100000}
-            />
-            <div className='flex justify-between w-full mt-4 text-xl text-black'>
-              <div>{formatPrice(value[0])}</div>
-              <div>{formatPrice(value[1])}</div>
+            <div className='p-4 bg-white rounded-lg shadow-md'>
+              <div className='flex items-center mt-2'>
+                <Input
+                  className='w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                  value={tempMinPrice || ''}
+                  onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+                  placeholder='Giá tối thiểu'
+                />
+                <span className='ml-2 text-gray-600'>đ</span>
+              </div>
+              <div className='flex items-center mt-2'>
+                <Input
+                  className='w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                  value={tempMaxPrice || ''}
+                  onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+                  placeholder='Giá tối đa'
+                />
+                <span className='ml-2 text-gray-600'>đ</span>
+              </div>
+              <Button
+                className='w-full p-2 mt-4 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
+                onClick={() => {
+                  setMinPrice(tempMinPrice)
+                  setMaxPrice(tempMaxPrice)
+                  onApplyFilter(tempMinPrice, tempMaxPrice)
+                }}
+              >
+                Lọc
+              </Button>
             </div>
           </div>
         )}
@@ -248,3 +254,4 @@ export default function FilterSection({ value, onChange }: FilterSectionProps) {
     </div>
   )
 }
+export default FilterSection

@@ -27,7 +27,7 @@ export interface Flight {
 export default function FlightReview1() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllFlight'],
-    queryFn: () => flightApi.getAll(1, 4)
+    queryFn: () => flightApi.getAll(1, 4, '', 500000, 20000000)
   })
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
