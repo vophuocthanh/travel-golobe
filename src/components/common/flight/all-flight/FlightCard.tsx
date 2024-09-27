@@ -1,7 +1,7 @@
 import { flightApi } from '@/apis/flight.api'
 import { flightreview1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination' // Đảm bảo import component Pagination
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
@@ -60,24 +60,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, m
   return (
     <>
       <div className='flex items-center justify-between mt-4'>
-        <div>
-          {/* <Input
-            value={tempminPrice || ''}
-            onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
-          />
-          <Input
-            value={tempmaxPrice || ''}
-            onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
-          />
-          <Button
-            onClick={() => {
-              setMinPrice(tempminPrice)
-              setMaxPrice(tempmaxPrice)
-            }}
-          >
-            Filter Price
-          </Button> */}
-        </div>
+        <div></div>
         <Dropdown menu={{ items }}>
           <a onClick={(e) => e.preventDefault()} className='ml-auto'>
             <Space>
@@ -149,7 +132,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, m
                   >
                     <Heart />
                   </Button>
-                  <Link to={`/flight/${flight.id}`} className='w-[35rem]'>
+                  <Link to={`/flight/${flight.id}`} className='w-[30rem]'>
                     <Button className='w-full mx-4 text-white'>View Deals</Button>
                   </Link>
                 </div>

@@ -13,6 +13,7 @@ import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
 import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
+import RoadVehicleAdmin from '@/pages/admin/road-vehicle/RoadVehicleAdmin'
 import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
 import UserAdminDetail from '@/pages/admin/users/detail/UserAdminDetail'
@@ -68,6 +69,7 @@ export default function useRoutesElements() {
       { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
       { path: path.hotel_edit, element: <LayoutMain children={<HotelAdminEdit />} /> },
+      { path: path.admin_road_vehicle, element: <LayoutMain children={<RoadVehicleAdmin />} /> },
       { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },
       { path: path.flight_payment, element: <FlightPayment /> },
       { path: path.tour_payment, element: <TourPayment /> },

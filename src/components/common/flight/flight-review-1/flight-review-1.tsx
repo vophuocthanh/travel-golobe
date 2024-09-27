@@ -4,25 +4,11 @@ import SectionInViewRight from '@/components/common/animation/SectionInViewRight
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
-import { FlightResponseType } from '@/shared/ts/interface/data.interface'
-// import { formatCurrency } from '../all-flight/FlightCard'
 
-export interface Flight {
-  id?: string
-  brand?: string
-  trip_time: string
-  images: string
-  price: number
-  start_time: string
-  end_time: string
-  trip_to: string
-  take_place: string
-  create_at?: string
-  update_at?: string
-}
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 export default function FlightReview1() {
   const { data: getAll } = useQuery({

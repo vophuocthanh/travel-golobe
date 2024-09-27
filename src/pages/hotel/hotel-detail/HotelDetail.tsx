@@ -65,10 +65,10 @@ export default function HotelDetail() {
                 <ChevronRight className='w-4 h-4' />
                 <p className='text-red-400'>Istanbul</p>
                 <ChevronRight className='w-4 h-4' />
-                <p>{getbyId?.name}</p>
+                <p>{getbyId?.hotel_names}</p>
               </div>
               <div className='flex mt-8 '>
-                <h1 className='mr-5 text-3xl font-bold'>{getbyId?.name}</h1>
+                <h1 className='mr-5 text-3xl font-bold'>{getbyId?.hotel_names}</h1>
                 <div className='flex items-center mt-2'>
                   <IconStart />
                   <IconStart />
@@ -81,7 +81,7 @@ export default function HotelDetail() {
               <div className='mt-5'>
                 <p className='flex text-gray-500 text-md'>
                   <MapPin className='w-4 h-4 mr-2 text-black' />
-                  {getbyId?.address}
+                  {getbyId?.location}
                 </p>
                 <div className='flex items-center gap-2 mt-5'>
                   <Button className='bg-white border border-primary'>4.2</Button>
@@ -109,15 +109,15 @@ export default function HotelDetail() {
           <div className='items-start w-full mt-5 mb-8'>
             <div className='grid w-full grid-cols-4 gap-4'>
               <div className='grid w-full col-span-2'>
-                <img src={getbyId?.images} alt='hotel' className='w-full h-[41rem]' />
+                <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem]' />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_two} alt='hotel' className='w-full h-[20rem]' />
-                <img src={getbyId?.image_three} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_2} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_3} alt='hotel' className='w-full h-[20rem]' />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_two} alt='hotel' className='w-full h-[20rem]' />
-                <img src={getbyId?.image_four} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_4} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_5} alt='hotel' className='w-full h-[20rem]' />
               </div>
             </div>
           </div>

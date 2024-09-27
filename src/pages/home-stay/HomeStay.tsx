@@ -1,11 +1,7 @@
 import { Footer, Header } from '@/components/common'
 import BookingForm from '@/components/common/hotel/booking-form/booking-form'
 import { Button } from '@/components/ui/button'
-// import { Checkbox } from '@/components/ui/checkbox'
 import { Search } from 'lucide-react'
-
-// import ReactSlider from 'react-slider'
-
 import { useState } from 'react'
 import FilterSidebar from './components/FilterSidebar'
 import HotelListings from './components/HotelListings'
