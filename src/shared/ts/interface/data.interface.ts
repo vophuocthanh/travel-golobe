@@ -1,19 +1,24 @@
 export interface HotelResponseType {
-  id?: string
-  name: string
-  address: string
-  create_at?: string
-  update_at?: string
-  evaluate?: string
-  price: string
-  description: string
-  images: string
-  image_two?: string
-  image_three?: string
-  image_four?: string
+  id: string,
+  hotel_names?: string,
+  location?: string,
+  price?: number,
+  score_hotels?: string | number,
+  number_rating?: string | number,
+  star_number?: number,
+  received_time?: string,
+  giveback_time?: string,
+  description?: string,
+  hotel_link?: string,
+  place?: string,
+  image?: string,
+  image_2?: string,
+  image_3?: string,
+  image_4?: string,
+  image_5?: string            
 }
 export interface TourResponseType {
-   name: string
+  name: string
   id?: string
   image: string
   description: string
@@ -39,13 +44,17 @@ export interface TourResponseType {
 
 export interface FlightResponseType {
   id?: string
-  name: string
-  description: string
-  images: string
-  price: string
-  startDate: string
-  endDate: string
-  perios: string
+  image?: string
+  price?: number
+  rating?: string
+  reviews?: string
+  brand?: string
+  trip_time?: string
+  images?: string
+  start_time?: string
+  end_time?: string
+  trip_to?: string
+  take_place?: string
   create_at?: string
-  update_at?: string
+  destination?: string
 }

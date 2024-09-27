@@ -1385,7 +1385,7 @@
 
 "@radix-ui/react-select@^2.1.1":
   version "2.1.1"
-  resolved "https://registry.npmjs.org/@radix-ui/react-select/-/react-select-2.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-select/-/react-select-2.1.1.tgz#df05cb0b29d3deaef83b505917c4042e0e418a9f"
   integrity sha512-8iRDfyLtzxlprOo9IicnzvpsO1wNCkuwzzCM+Z5Rb5tNOpCdMvcc2AkzX0Fz+Tz9v6NJ5B/7EEgyZveo4FBRfQ==
   dependencies:
     "@radix-ui/number" "1.1.0"
@@ -1427,9 +1427,16 @@
     "@radix-ui/react-use-previous" "1.1.0"
     "@radix-ui/react-use-size" "1.1.0"
 
-"@radix-ui/react-slot@1.1.0", "@radix-ui/react-slot@^1.1.0":
+"@radix-ui/react-slot@1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.1.0.tgz"
+  integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
+  dependencies:
+    "@radix-ui/react-compose-refs" "1.1.0"
+
+"@radix-ui/react-slot@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.1.0.tgz#7c5e48c36ef5496d97b08f1357bb26ed7c714b84"
   integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.0"
@@ -2263,9 +2270,10 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@shadcn/ui" "^0.0.4"
     "@tanstack/react-query" "^5.45.1"
     "@tanstack/react-table" "^8.17.3"
+    "@types/react-google-recaptcha" "^2.1.9"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
-    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-02eff346-be9e-49da-9292-9a6cf0723777-1727161525949/node_modules/app"
+    app "file:../../../../../../Library/Caches/Yarn/v6/npm-app-0.0.0-613aa8b9-d18c-4b99-8f4b-c2867990a23a-1727438365871/node_modules/app"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"
