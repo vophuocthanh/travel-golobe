@@ -36,21 +36,21 @@ export default function IntoTour() {
           </div>
           <div className='flex justify-between'>
             {getAll?.data.map((item: Tour) => (
-              <div className='relative w-[300px] ' key={item.id}>
-                <img src={item.images} className='h-[420px]' alt='' />
+              <div className='relative w-[300px]  ' key={item.id}>
+                <img src={item.images} className='h-[420px]  rounded-xl' alt='' />
                 <div className='absolute w-full px-4 top-72'>
-                  <div className='flex items-center justify-between mb-3'>
-                    <div className='text-white'>
-                      <h3 className='overflow-hidden text-xl font-normal whitespace-pre-line text-ellipsis line-clamp-1'>
+                  <div className='flex items-center justify-between p-2 mb-3 bg-white rounded-lg opacity-60'>
+                    <div className=''>
+                      <h3 className='overflow-hidden text-xl font-medium whitespace-pre-line text-ellipsis line-clamp-1'>
                         {item.description}
                       </h3>
-                      <p className='overflow-hidden whitespace-pre-line text-slate-200 text-ellipsis line-clamp-1'>
+                      <p className='overflow-hidden font-medium whitespace-pre-line text-ellipsis line-clamp-1'>
                         {item.name}
                       </p>
                     </div>
-                    <h3 className='text-xl font-normal text-white '>${item.price}</h3>
+                    <h3 className='text-xl font-medium '>${item.price}</h3>
                   </div>
-                  <Button className='w-full '>Book a Hotel</Button>
+                  <Button className='w-full text-white '>Book a Hotel</Button>
                 </div>
               </div>
             ))}
