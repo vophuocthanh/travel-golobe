@@ -17,8 +17,8 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
   });
 
   const [priceRange, setPriceRange] = useState([0, 28499966]);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+  const [minPrice, setMinPrice] = useState('0');
+  const [maxPrice, setMaxPrice] = useState('28499966');
 
   const handleFavoriteToggle = (cardId: keyof typeof favoriteStates) => {
     setFavoriteStates((prev) => ({
