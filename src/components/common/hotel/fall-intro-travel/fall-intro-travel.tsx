@@ -1,37 +1,34 @@
-import { Button } from '@/components/ui/button'
-import { Link } from 'react-router-dom'
-import SectionInViewUp from '../../animation/SectionInViewUp'
-import { useQuery } from '@tanstack/react-query'
 import { hotelApi } from '@/apis/hotel.api'
 import { hoteldetail3 } from '@/assets/images'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
-
-
+import { Button } from '@/components/ui/button'
+import { useQuery } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
+import 'swiper/css'
+import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SectionInViewUp from '../../animation/SectionInViewUp'
 
 interface Travel {
-  id: string,
-  hotel_names?: string,
-  location?: string,
-  price?: number,
-  score_hotels?: string | number,
-  number_rating: string | number,
-  star_number?: number,
-  received_time?: string,
-  giveback_time?: string,
-  description?: string,
-  hotel_link?: string,
-  place?: string,
-  image?: string,
-  image_2?: string,
-  image_3?: string,
-  image_4?: string,
+  id: string
+  hotel_names?: string
+  location?: string
+  price?: number
+  score_hotels?: string | number
+  number_rating?: string | number
+  star_number?: number
+  received_time?: string
+  giveback_time?: string
+  description?: string
+  hotel_link?: string
+  place?: string
+  image?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
   image_5?: string
 }
 
 export default function FallIntroTravel() {
-
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll(4, 4)
@@ -52,15 +49,15 @@ export default function FallIntroTravel() {
             </Link>
           </div>
           <Link to='/hotel/home-stay'>
-            <Swiper className='flex flex-wrap justify-between'
+            <Swiper
+              className='flex flex-wrap justify-between'
               modules={[Navigation, Pagination, A11y, Autoplay]}
               spaceBetween={40}
               slidesPerView={3}
               pagination={{ clickable: true }}
               navigation
-
               autoplay={{
-                delay: 3000,
+                delay: 3000
               }}
               loop={true}
             >

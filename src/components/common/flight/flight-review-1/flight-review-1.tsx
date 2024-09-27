@@ -4,21 +4,20 @@ import SectionInViewRight from '@/components/common/animation/SectionInViewRight
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules'
-// import { formatCurrency } from '../all-flight/FlightCard'
+import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 export interface Flight {
   id?: string
-  brand: string
-  trip_time: string
-  images: string
-  price: number
-  start_time: string
-  end_time: string
-  trip_to: string
-  take_place: string
+  brand?: string
+  trip_time?: string
+  images?: string
+  price?: number
+  start_time?: string | undefined
+  end_time?: string | undefined
+  trip_to?: string
+  take_place?: string
   create_at?: string
   update_at?: string
 }
