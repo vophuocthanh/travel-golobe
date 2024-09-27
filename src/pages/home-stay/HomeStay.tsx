@@ -3,7 +3,7 @@ import BookingForm from '@/components/common/hotel/booking-form/booking-form'
 import { Button } from '@/components/ui/button'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
-import FilterSidebar from './components/FilterSidebar'
+//import FilterSidebar from './components/FilterSidebar'
 import HotelListings from './components/HotelListings'
 
 export default function HomeStay() {
@@ -23,8 +23,7 @@ export default function HomeStay() {
         </div>
       </div>
 
-      <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2  ${containerHeight}`}>
-        <FilterSidebar />
+      <div className={`flex flex-row  mx-[6rem] mt-5 space-y-2  ${containerHeight}`}>
         <HotelListings isOpenSort={isOpenSort} setIsOpenSort={setIsOpenSort} />
       </div>
       <Footer />

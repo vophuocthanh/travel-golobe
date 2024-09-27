@@ -8,24 +8,51 @@ import ReadOnlyRating from './ReadOnlyRating'
 import { useState } from 'react'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { Dropdown, MenuProps, Space } from 'antd'
+import { DownOutlined } from '@ant-design/icons';
 
 interface HotelCardProps {
   isFavorite: boolean
   onFavoriteToggle: () => void
+  priceRangeMax: number
+  priceRangeMin: 0 | number
 }
 
-const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) => {
+
+const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, priceRangeMax, priceRangeMin }) => {
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Sắp xếp theo giá',
+      disabled: true,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: '2',
+      label: 'Từ cao đến thấp',
+      onClick: () => setSortByPrice('desc'),
+    },
+    {
+      key: '3',
+      label: 'Từ thấp đến cao',
+      onClick: () => setSortByPrice('asc'),
+    },
+  ];
+
   const [page, setPage] = useState(1);
+  const [sortByPrice, setSortByPrice] = useState('')
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page],
-    queryFn: () => hotelApi.getAll(page, 4),
+    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax],
+    queryFn: () => hotelApi.getAllByPrice(page, 4, sortByPrice, priceRangeMin, priceRangeMax),
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handleClick = (newPage: number) => {
     setPage(newPage);
-  }
+  };
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
     const numberValue = parseFloat(value)
@@ -34,9 +61,27 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
 
+
   console.log(page)
   return (
     <>
+      <div className='flex items-center justify-between w-full h-16 mt-2'>
+        <div>
+          {' '}
+          <p className=' hover:cursor-pointer'>
+            Showing 4 of <span className='text-[#FF8682]'>257 places</span>
+          </p>
+        </div>
+        <Dropdown menu={{ items }}>
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              Sắp xếp theo giá
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+
+      </div>
       {getAll?.data.map((item: HotelResponseType) => (
         <div key={item.id} className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'>
           <div className='w-[35%] bg-blue-300 flex-3 relative'>
