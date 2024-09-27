@@ -1,7 +1,7 @@
 import { flightApi } from '@/apis/flight.api'
 import { flightreview1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/Pagination'
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
