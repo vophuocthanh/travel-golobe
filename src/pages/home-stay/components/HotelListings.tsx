@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import SortBy from './SortBy';
 import HotelCard from './HotelCart';
 import { Button } from '@/components/ui/button';
+import { Dropdown, MenuProps, Space } from 'antd'
+import { DownOutlined } from '@ant-design/icons';
 
 interface HotelListingsProps {
   isOpenSort: boolean;
@@ -31,7 +33,36 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
     const newMinPrice = parseInt(minPrice, 10) || 0;
     const newMaxPrice = parseInt(maxPrice, 10) || 28499966;
     setPriceRange([newMinPrice, newMaxPrice]);
+    setSortByPrice('')
   };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Sắp xếp theo giá',
+      disabled: true,
+      onClick: () => setSortByPrice(''),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: '2',
+      label: 'Không sắp xếp',
+      onClick: () => setSortByPrice(''),
+    },
+    {
+      key: '3',
+      label: 'Từ cao đến thấp',
+      onClick: () => setSortByPrice('desc'),
+    },
+    {
+      key: '4',
+      label: 'Từ thấp đến cao',
+      onClick: () => setSortByPrice('asc'),
+    },
+  ];
+  const [sortByPrice, setSortByPrice] = useState('')
+
 
   const isRatingVisible = true;
 
@@ -80,15 +111,34 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
               </div>
             )}
           </div>
+          <div className='w-2/3'>
+            <div className='flex items-center justify-between w-full h-10 mb-2'>
+              <div>
+                {' '}
+                <p className=' hover:cursor-pointer'>
+                  Showing 4 of <span className='text-[#FF8682]'>257 places</span>
+                </p>
+              </div>
+              <Dropdown menu={{ items }}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    Sắp xếp theo giá
+                    <DownOutlined />
+                  </Space>
+                </a>
+              </Dropdown>
 
-          <div className="flex flex-col gap-8 flex-1 w-2/3">
-            {isOpenSort && <SortBy isOpenSort />}
-            <HotelCard
-              priceRangeMax={priceRange[1]}
-              priceRangeMin={priceRange[0]}
-              isFavorite={favoriteStates.card1}
-              onFavoriteToggle={() => handleFavoriteToggle('card1')}
-            />
+            </div>
+            <div className="flex flex-col gap-8 flex-1">
+              {isOpenSort && <SortBy isOpenSort />}
+              <HotelCard
+                sortByPrice={sortByPrice}
+                priceRangeMax={priceRange[1]}
+                priceRangeMin={priceRange[0]}
+                isFavorite={favoriteStates.card1}
+                onFavoriteToggle={() => handleFavoriteToggle('card1')}
+              />
+            </div>
           </div>
         </div>
       </div>

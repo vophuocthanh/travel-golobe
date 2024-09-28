@@ -3,8 +3,6 @@ import { hoteldetail3 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
-import { Dropdown, MenuProps, Space } from 'antd'
-import { DownOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query'
 import { Coffee, Heart, MapPin } from 'lucide-react'
 import { useState } from 'react'
@@ -16,34 +14,14 @@ interface HotelCardProps {
   onFavoriteToggle: () => void
   priceRangeMax: number
   priceRangeMin: 0 | number
+  sortByPrice: string
 }
 
 
-const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, priceRangeMax, priceRangeMin }) => {
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: 'Sắp xếp theo giá',
-      disabled: true,
-    },
-    {
-      type: 'divider',
-    },
-    {
-      key: '2',
-      label: 'Từ cao đến thấp',
-      onClick: () => setSortByPrice('desc'),
-    },
-    {
-      key: '3',
-      label: 'Từ thấp đến cao',
-      onClick: () => setSortByPrice('asc'),
-    },
-  ];
+const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, priceRangeMax, priceRangeMin, sortByPrice }) => {
+
 
   const [page, setPage] = useState(1);
-  const [sortByPrice, setSortByPrice] = useState('')
-
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax],
     queryFn: () => hotelApi.getAllByPrice(page, 4, sortByPrice, priceRangeMin, priceRangeMax),
@@ -65,23 +43,6 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, pri
   console.log(page)
   return (
     <>
-      <div className='flex items-center justify-between w-full h-10 mt-2'>
-        <div>
-          {' '}
-          <p className=' hover:cursor-pointer'>
-            Showing 4 of <span className='text-[#FF8682]'>257 places</span>
-          </p>
-        </div>
-        <Dropdown menu={{ items }}>
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              Sắp xếp theo giá
-              <DownOutlined />
-            </Space>
-          </a>
-        </Dropdown>
-
-      </div>
       {getAll?.data.map((item: HotelResponseType) => (
         <div
           key={item.id}
