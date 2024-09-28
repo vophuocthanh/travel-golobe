@@ -1,20 +1,13 @@
 import axiosClient from '@/apis/axios-client'
-import { ListResponse } from '@/shared/ts/interface'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 
 
 export const flightApi = {
-  getAll(page: number | string, items_per_page: number | string): Promise<ListResponse<FlightResponseType>> {
+  getAll() {
     const url = '/flight-crawl/crawl'
-
-    return axiosClient.get(url, {
-      params: {
-        items_per_page: Number(items_per_page),
-        page: Number(page)
-      }
-    })
-  },
-  getById(id: string | undefined): Promise<FlightResponseType> {
+    return axiosClient.get(url)
+    },
+  getById(id: string | undefined) : Promise<FlightResponseType> {
     const url = `/flight/${id}`
     return axiosClient.get(url)
   },

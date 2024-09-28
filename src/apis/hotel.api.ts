@@ -11,7 +11,7 @@ export const hotelApi = {
         items_per_page: Number(items_per_page),
         page: Number(page), 
       }
-    });
+    })
   },
   getById(id: string |undefined) :Promise<HotelResponseType> {
     const url = `/hotel-crawl/crawl/${id}`
