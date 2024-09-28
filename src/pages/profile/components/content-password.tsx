@@ -84,7 +84,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
             ) : null}
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button className='flex items-center p-2 space-x-2 text-sm bg-white border rounded-md shadow-md border-primary'>
+                <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
                   <p>Change</p>
                 </Button>

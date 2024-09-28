@@ -1,3 +1,4 @@
+import { meApi } from '@/apis/me'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -7,18 +8,17 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { useState } from 'react'
-import { toast } from 'sonner'
-import { meApi } from '@/apis/me'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { SquarePen } from 'lucide-react'
-import { useMutation } from '@tanstack/react-query'
-import { CountrySchema } from '@/shared/utils/schema'
 import { MeResponse } from '@/shared/ts/types/meresponse'
+import { CountrySchema } from '@/shared/utils/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { SquarePen } from 'lucide-react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 type Props = {
   title: string
@@ -72,7 +72,7 @@ export default function ContentCountry({ title, content }: Props) {
           <div className='flex space-x-2'>
             <Dialog open={openCountryDialog} onOpenChange={setOpenCountryDialog}>
               <DialogTrigger asChild>
-                <Button className='flex items-center p-2 space-x-2 text-sm bg-white border rounded-md shadow-md border-primary'>
+                <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
                   <p>Change Country</p>
                 </Button>

@@ -10,16 +10,16 @@ import {
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { useState } from 'react'
-import { toast } from 'sonner'
 import { meApi } from '@/apis/me'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { SquarePen } from 'lucide-react'
-import { useMutation } from '@tanstack/react-query'
-import { DateOfBirthSchema } from '@/shared/utils/schema'
 import { MeResponse } from '@/shared/ts/types/meresponse'
+import { DateOfBirthSchema } from '@/shared/utils/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { SquarePen } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 type Props = {
   title: string
@@ -73,7 +73,7 @@ export default function ContentDate({ title, content }: Props) {
           <div className='flex space-x-2'>
             <Dialog open={openDateOfBirthDialog} onOpenChange={setOpenDateOfBirthDialog}>
               <DialogTrigger asChild>
-                <Button className='flex items-center p-2 space-x-2 text-sm bg-white border rounded-md shadow-md border-primary'>
+                <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
                   <p>Change Date of Birth</p>
                 </Button>
