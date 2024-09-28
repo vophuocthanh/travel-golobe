@@ -64,8 +64,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, m
   }
   return (
     <>
-      <div className='flex items-center justify-between mt-4'>
-        <div></div>
+      <div className='flex items-center justify-between mt-20'>
         <Dropdown menu={{ items }}>
           <a onClick={(e) => e.preventDefault()} className='ml-auto'>
             <Space>

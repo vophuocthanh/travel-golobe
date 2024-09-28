@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
@@ -13,7 +12,7 @@ interface FilterPriceProps {
 const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   const [isRatingVisible, setIsRatingVisible] = useState<boolean>(true)
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
-  const [isTripsVisible, setIsTripsVisible] = useState<boolean>(true)
+
   const [isVisible, setIsVisible] = useState<boolean>(true)
   const [time, setTime] = useState<number[]>([0, 1440])
   const [isTimeVisible, setIsTimeVisible] = useState<boolean>(true)
@@ -38,9 +37,6 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   const toggleAirlinesVisibility = () => {
     setIsAirlinesVisible((prev) => !prev)
   }
-  const toggleTripsVisibility = () => {
-    setIsTripsVisible((prev) => !prev)
-  }
 
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60)
@@ -61,46 +57,50 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
           </Button>
         </div>
         {isVisible && (
-          <div className='w-[95%] pb-12 border-b-2 mr-5'>
-            <div className='p-4 bg-white rounded-lg shadow-md'>
-              <div className='flex items-center mt-2'>
-                <Input
-                  className='w-[15rem] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+          <div className='w-full pb-12 border-b-2'>
+            <div className='w-full p-4 bg-white rounded-lg shadow-md'>
+              <div className='flex items-center w-full mt-2'>
+                <input
+                  className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
                   value={tempMinPrice || ''}
                   onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                   placeholder='Giá tối thiểu'
                 />
                 <span className='ml-2 text-gray-600'>đ</span>
               </div>
-              <div className='flex items-center mt-2'>
-                <Input
-                  className='w-[15rem] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+
+              <div className='flex items-center w-full mt-2'>
+                <input
+                  className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
                   value={tempMaxPrice || ''}
                   onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
                   placeholder='Giá tối đa'
                 />
                 <span className='ml-2 text-gray-600'>đ</span>
               </div>
-              <Button
-                className='w-full p-2 mt-4 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
-                onClick={() => {
-                  setMinPrice(tempMinPrice)
-                  setMaxPrice(tempMaxPrice)
-                  onApplyFilter(tempMinPrice, tempMaxPrice)
-                }}
-              >
-                Lọc
-              </Button>
-              <Button
-                className='w-full p-2 mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
-                onClick={() => {
-                  setTempMinPrice(undefined)
-                  setTempMaxPrice(undefined)
-                  onApplyFilter(undefined, undefined)
-                }}
-              >
-                Hủy Lọc
-              </Button>
+
+              <div className=''>
+                <Button
+                  className='w-full mt-4 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
+                  onClick={() => {
+                    setMinPrice(tempMinPrice)
+                    setMaxPrice(tempMaxPrice)
+                    onApplyFilter(tempMinPrice, tempMaxPrice)
+                  }}
+                >
+                  Lọc
+                </Button>
+                <Button
+                  className='w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
+                  onClick={() => {
+                    setTempMinPrice(undefined)
+                    setTempMaxPrice(undefined)
+                    onApplyFilter(undefined, undefined)
+                  }}
+                >
+                  Hủy Lọc
+                </Button>
+              </div>
             </div>
           </div>
         )}
@@ -208,53 +208,6 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
             >
               Etihad
-            </label>
-          </div>
-        </div>
-      )}
-
-      <div className='flex justify-between w-full mt-10 mb-6'>
-        <p>Trips</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleTripsVisibility}>
-          {isTripsVisible ? <ChevronUp /> : <ChevronDown />}
-        </Button>
-      </div>
-      {isTripsVisible && (
-        <div className='flex flex-col gap-3 pb-12 border-b-2'>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              Round trip
-            </label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              On Way
-            </label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              Multi-City
-            </label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              My Dates Are Flexible
             </label>
           </div>
         </div>
