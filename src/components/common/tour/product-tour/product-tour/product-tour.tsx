@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
 import { TabProps, Tour } from '@/shared/ts/interface/comment-tour.interface'
+import { PaginationDemo } from '../pagination/pagination'
 
 
 
@@ -35,6 +36,8 @@ const ProductTour = () => {
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1,5)
   })
+  console.log(getAll?.data, "data");
+  
   
   const toggleVisibilitySort = () => {
     setIsOpenSort(!isOpenSort)
@@ -156,7 +159,7 @@ const ProductTour = () => {
         </div>
       </div>
       <div>
-        <Button className='w-full h-20 text-white bg-black hover:bg-slate-800'>Show more results</Button>
+        <PaginationDemo />
       </div>
     </div>
   )

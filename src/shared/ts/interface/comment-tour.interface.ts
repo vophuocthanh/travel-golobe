@@ -58,9 +58,15 @@ export interface CommentTour {
     updateAt: string,
   }
   export  interface PaginatedHotels {
-    items: Hotel[];          // Danh sách các khách sạn
-    total: number;           // Tổng số khách sạn
-    currentPage: number;     // Trang hiện tại
-    itemsPerPage: number;    // Số lượng khách sạn trên mỗi trang
+    items: Hotel[];         
+    total: number;         
+    currentPage: number;   
+    itemsPerPage: number;    
+  }
+  export  interface InfomationTour {
+    id: number,
+    icon: string,
+    title: string,
+    text: string
   }
   
