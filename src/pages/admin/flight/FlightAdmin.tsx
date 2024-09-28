@@ -21,13 +21,13 @@ const FlightAdmin: React.FC = () => {
 
   const { data: getAllFlights } = useQuery({
     queryKey: ['getAllFlight'],
-    queryFn: () =>flightApi.getAll(1,1)
+    queryFn: () =>flightApi.getAll(1,1,'')
   })
   const totalDataCount = getAllFlights?.total || 0; 
 
   const { data: flightData } = useQuery({
     queryKey: ['getFlights', totalDataCount],
-    queryFn: () => flightApi.getAll(1, totalDataCount), 
+    queryFn: () => flightApi.getAll(1, totalDataCount,''), 
     enabled: totalDataCount > 0 
   });
   

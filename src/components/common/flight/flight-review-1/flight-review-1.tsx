@@ -5,27 +5,15 @@ import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
+
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
-export interface Flight {
-  id?: string
-  brand?: string
-  trip_time?: string
-  images?: string
-  price?: number
-  start_time?: string | undefined
-  end_time?: string | undefined
-  trip_to?: string
-  take_place?: string
-  create_at?: string
-  update_at?: string
-}
 
 export default function FlightReview1() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllFlight'],
-    queryFn: () => flightApi.getAll(1, 4)
+    queryFn: () => flightApi.getAll(1, 4, '', 500000, 20000000)
   })
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
@@ -61,7 +49,7 @@ export default function FlightReview1() {
               }}
               loop={true}
             >
-              {getAll?.data.slice(0, 6).map((flight: Flight) => (
+              {getAll?.data.slice(0, 6).map((flight: FlightResponseType) => (
                 <SwiperSlide
                   key={flight.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
