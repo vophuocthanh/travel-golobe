@@ -8,7 +8,7 @@ export default function TourDetail() {
             <Header />
             <main className='pt-20 mb-60 '>
                 <CheckTour />
-                <div className="flex justify-between mx-8 mt-8">
+                <div className="flex justify-between mx-[6rem] mt-8">
                     <FilterTour  />
                     <ProductTour />
                 </div>

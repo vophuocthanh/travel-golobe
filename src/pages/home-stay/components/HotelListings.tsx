@@ -1,98 +1,149 @@
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import React, { useState } from 'react'
-
-import SortBy from './SortBy'
-import HotelCard from './HotelCart'
+import React, { useState } from 'react';
+import SortBy from './SortBy';
+import HotelCard from './HotelCart';
+import { Button } from '@/components/ui/button';
+import { Dropdown, MenuProps, Space } from 'antd'
+import { DownOutlined } from '@ant-design/icons';
 
 interface HotelListingsProps {
-  isOpenSort: boolean
-  setIsOpenSort: React.Dispatch<React.SetStateAction<boolean>>
+  isOpenSort: boolean;
+  setIsOpenSort: React.Dispatch<React.SetStateAction<boolean>>;
 }
-interface TabProps {
-  label: string
-  description: string
-  isActive: boolean
-  onClick: () => void
-}
-const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort, setIsOpenSort }) => {
-  const toggleVisibilitySort = () => {
-    setIsOpenSort((prev) => !prev)
-  }
-  //   const [isOpenSort, setIsOpenSort] = useState<boolean>(false)
 
-  const Tab: React.FC<TabProps> = ({ label, description, isActive, onClick }) => (
-    <div
-      onClick={onClick}
-      className={`flex flex-col justify-center flex-1 px-4 ${isActive ? 'border-b-4 border-primary ' : 'border-r-2 border-transparent'
-        } transition-colors duration-300`}
-    >
-      <p className='text-2xl text-left'>{label}</p>
-      <p className='text-left text-gray-400'>{description}</p>
-    </div>
-  )
-  const [activeTab, setActiveTab] = useState('Hotel')
-
-  const tabs = [
-    { label: 'Hotel', description: '257 places' },
-    { label: 'Motels', description: '51 places' },
-    { label: 'Resorts', description: '72 places' }
-  ]
+const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
   const [favoriteStates, setFavoriteStates] = useState({
     card1: false,
     card2: false,
     card3: false,
-    card4: false
-  })
+    card4: false,
+  });
+
+  const [priceRange, setPriceRange] = useState([0, 28499966]);
+  const [minPrice, setMinPrice] = useState('0');
+  const [maxPrice, setMaxPrice] = useState('28499966');
 
   const handleFavoriteToggle = (cardId: keyof typeof favoriteStates) => {
     setFavoriteStates((prev) => ({
       ...prev,
-      [cardId]: !prev[cardId]
-    }))
-  }
+      [cardId]: !prev[cardId],
+    }));
+  };
+
+  const handlePriceRangeChange = () => {
+    const newMinPrice = parseInt(minPrice, 10) || 0;
+    const newMaxPrice = parseInt(maxPrice, 10) || 28499966;
+    setPriceRange([newMinPrice, newMaxPrice]);
+    setSortByPrice('')
+  };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: 'Sắp xếp theo giá',
+      disabled: true,
+      onClick: () => setSortByPrice(''),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: '2',
+      label: 'Không sắp xếp',
+      onClick: () => setSortByPrice(''),
+    },
+    {
+      key: '3',
+      label: 'Từ cao đến thấp',
+      onClick: () => setSortByPrice('desc'),
+    },
+    {
+      key: '4',
+      label: 'Từ thấp đến cao',
+      onClick: () => setSortByPrice('asc'),
+    },
+  ];
+  const [sortByPrice, setSortByPrice] = useState('')
+
+
+  const isRatingVisible = true;
+
   return (
-    <div className='flex-none w-[70%] h-56  ml-2 mt-14'>
-      <div className='bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer'>
-        <div className='bg-white flex flex-row w-full h-[6rem] rounded-md border-b border-gray-300 mx-4 '>
-          {tabs.map((tab, index) => (
-            <React.Fragment key={tab.label}>
-              <Tab
-                label={tab.label}
-                description={tab.description}
-                isActive={tab.label === activeTab}
-                onClick={() => setActiveTab(tab.label)}
+    <>
+      <div className="container mx-auto mt-8">
+        <div className="flex space-x-10">
+          <div className="flex flex-col gap-6 pt-10 w-1/3">
+            <div className="border-b-2 border-gray-300 pb-4">
+              <h2 className="text-xl font-semibold text-gray-700">Price Range</h2>
+              <div className="flex items-center space-x-4 mt-4">
+                <div className="flex items-center space-x-4">
+                  <input
+                    className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    placeholder="Min Price"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                  />
+                  <span className="text-lg text-gray-600">-</span>
+                  <input
+                    className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    placeholder="Max Price"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                  />
+                </div>
+                <Button onClick={handlePriceRangeChange} className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition duration-200">
+                  Tìm
+                </Button>
+              </div>
+            </div>
+
+            {isRatingVisible && (
+              <div>
+                <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
+                <div className="flex gap-3 mt-4">
+                  {[0, 1, 2, 3, 4].map((rating) => (
+                    <div
+                      key={rating}
+                      className="flex items-center justify-center w-12 h-8 text-sm font-medium text-black border border-primary rounded-md hover:bg-primary hover:text-white transition duration-200 cursor-pointer"
+                    >
+                      {rating}+
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className='w-2/3'>
+            <div className='flex items-center justify-between w-full h-10 mb-2'>
+              <div>
+                {' '}
+                <p className=' hover:cursor-pointer'>
+                  Showing 4 of <span className='text-[#FF8682]'>257 places</span>
+                </p>
+              </div>
+              <Dropdown menu={{ items }}>
+                <a onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    Sắp xếp theo giá
+                    <DownOutlined />
+                  </Space>
+                </a>
+              </Dropdown>
+
+            </div>
+            <div className="flex flex-col gap-8 flex-1">
+              {isOpenSort && <SortBy isOpenSort />}
+              <HotelCard
+                sortByPrice={sortByPrice}
+                priceRangeMax={priceRange[1]}
+                priceRangeMin={priceRange[0]}
+                isFavorite={favoriteStates.card1}
+                onFavoriteToggle={() => handleFavoriteToggle('card1')}
               />
-              {index < tabs.length - 1 && <div className='h-full mx-4 border-r-2 border-gray-300'></div>}
-            </React.Fragment>
-          ))}
+            </div>
+          </div>
         </div>
       </div>
+    </>
+  );
+};
 
-      <div className='flex items-center justify-between w-full h-20 mt-2'>
-        <div>
-          {' '}
-          <p className=' hover:cursor-pointer'>
-            Showing 4 of <span className='text-[#FF8682]'>257 places</span>
-          </p>
-        </div>
-        <div className='flex gap-2' onClick={toggleVisibilitySort}>
-          <p className='text-gray-900 hover:cursor-pointer'>
-            Sort by <span className='text-[#112211] '>Recommended</span>
-          </p>
-          {isOpenSort ? (
-            <ChevronUp className='transition-transform duration-300' />
-          ) : (
-            <ChevronDown className='transition-transform duration-300' />
-          )}
-        </div>
-      </div>
-      {/* phan sort */}
-
-      <div className='container flex flex-col gap-8'>
-        {isOpenSort && <SortBy isOpenSort />}
-        <HotelCard isFavorite={favoriteStates.card1} onFavoriteToggle={() => handleFavoriteToggle('card1')} />
-      </div>
-    </div>
-  )
-}
-export default HotelListings
+export default HotelListings;

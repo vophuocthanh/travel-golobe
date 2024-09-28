@@ -36,8 +36,8 @@ import { Button } from '@/components/ui/button'
 
 export default function BookingForm() {
   return (
-    <div className='flex flex-wrap justify-between p-4 space-x-4'>
-      <div className='relative w-[24rem] col-span-2 ml-5 h-[4rem]'>
+    <div className='flex flex-wrap justify-between p-4 space-x-2'>
+      <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'

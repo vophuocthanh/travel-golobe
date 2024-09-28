@@ -1,16 +1,11 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
+import { Tour } from '@/shared/ts/interface/comment-tour.interface'
 import { useQuery } from '@tanstack/react-query'
 
 
 
-interface Tour {
-  id?: string
-  name: string
-  description: string
-  price: string
-  images: string
-}
+
 export default function SearchTour() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],

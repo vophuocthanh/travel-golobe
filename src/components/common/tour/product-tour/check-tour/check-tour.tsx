@@ -11,7 +11,7 @@ import { CalendarDays, Sofa, User } from 'lucide-react';
 
 export default function CheckTour()  {
     return (
-        <div className='flex justify-between p-4 mx-8 mt-8 text-center bg-slate-100'>
+        <div className='flex justify-between p-4 mx-[6rem] mt-8 text-center bg-slate-100'>
             <div className='relative w-[24rem] col-span-2 ml-5 h-[4rem]'>
                 <Label
                 htmlFor=''

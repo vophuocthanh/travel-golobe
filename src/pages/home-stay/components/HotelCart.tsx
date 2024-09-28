@@ -12,14 +12,19 @@ import ReadOnlyRating from './ReadOnlyRating'
 interface HotelCardProps {
   isFavorite: boolean
   onFavoriteToggle: () => void
+  priceRangeMax: number
+  priceRangeMin: 0 | number
+  sortByPrice: string
 }
 
-const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) => {
-  const [page, setPage] = useState(1)
 
+const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle, priceRangeMax, priceRangeMin, sortByPrice }) => {
+
+
+  const [page, setPage] = useState(1);
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page],
-    queryFn: () => hotelApi.getAll(page, 4)
+    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax],
+    queryFn: () => hotelApi.getAllByPrice(page, 4, sortByPrice, priceRangeMin, priceRangeMax),
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
@@ -33,6 +38,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
       ? 'N/A'
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
+
 
   console.log(page)
   return (
@@ -81,9 +87,8 @@ const HotelCard: React.FC<HotelCardProps> = ({ isFavorite, onFavoriteToggle }) =
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
                   <Button
-                    className={`flex items-center justify-center ${
-                      isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'
-                    }`}
+                    className={`flex items-center justify-center ${isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'
+                      }`}
                     onClick={onFavoriteToggle}
                   >
                     <Heart />

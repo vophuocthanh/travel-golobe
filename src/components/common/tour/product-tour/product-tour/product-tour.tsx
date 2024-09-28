@@ -7,21 +7,12 @@ import { ChevronDown, ChevronUp, Heart } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
+import { TabProps, Tour } from '@/shared/ts/interface/comment-tour.interface'
+import { PaginationDemo } from '../pagination/pagination'
 
 
-interface Tour {
-  id?: string
-  name: string
-  description: string
-  price: string
-  images: string
-}
-interface TabProps {
-  label: string
-  description: string
-  isActive: boolean
-  onClick: () => void
-}
+
+
 
 const ProductTour = () => {
   const [isOpenSort, setIsOpenSort] = useState<boolean>(false)
@@ -45,6 +36,8 @@ const ProductTour = () => {
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1,5)
   })
+  console.log(getAll?.data, "data");
+  
   
   const toggleVisibilitySort = () => {
     setIsOpenSort(!isOpenSort)
@@ -145,11 +138,9 @@ const ProductTour = () => {
                     </div>
                   </div>
                   <div>
-                    <p>starting from</p>
                     <h2 className='font-medium text-red-500'>
-                      <span className='text-2xl'>${item.price}</span>/night
+                      <span className='text-2xl'>${item.price}</span>
                     </h2>
-                    <p className='text-right'>excl. tax</p>
                   </div>
                 </div>
                 <div className='w-full h-[25%] flex'>
@@ -158,7 +149,7 @@ const ProductTour = () => {
                       <Heart className={`w-5 h-5 ${liked ? 'text-red-600' : 'text-gray-500'} `} />
                     </Button>
                     <Link to={`/tour/${item.id}`}  className='w-full'>
-                      <Button className='w-full ' >View Deals</Button>
+                      <Button className='w-full text-white ' >View Deals</Button>
                     </Link>
                   </div>
                 </div>
@@ -168,7 +159,7 @@ const ProductTour = () => {
         </div>
       </div>
       <div>
-        <Button className='w-full h-20 text-white bg-black hover:bg-slate-800'>Show more results</Button>
+        <PaginationDemo />
       </div>
     </div>
   )

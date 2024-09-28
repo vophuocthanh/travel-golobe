@@ -31,9 +31,10 @@ export interface TourResponseType {
   vchouer?: string
   time_out?: string
   ideal_time?: string
-  image2?: string
-  image3?: string
-  image4?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
+  image_5?: string
   transport?: string
   hotel?: string
   starting_gate?: string
