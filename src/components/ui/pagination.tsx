@@ -1,93 +1,81 @@
-import * as React from "react";
-import { cn } from '@/shared/lib/utils';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
+import * as React from 'react'
 
-// Định nghĩa kiểu cho props của Pagination
-interface PaginationProps {
-    children: React.ReactNode;
-}
+import { ButtonProps, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/shared/lib/utils'
 
-// Pagination component
-const Pagination: React.FC<PaginationProps> = ({ children }) => {
-    return (
-        <nav aria-label="Pagination" className="flex items-center justify-center p-4">
-            {children}
-        </nav>
-    );
-};
+const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
+  <nav
+    role='navigation'
+    aria-label='pagination'
+    className={cn('mx-auto flex w-full justify-center', className)}
+    {...props}
+  />
+)
+Pagination.displayName = 'Pagination'
 
-// PaginationContent component
-const PaginationContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return (
-        <div className="flex items-center">
-            {children}
-        </div>
-    );
-};
+const PaginationContent = React.forwardRef<HTMLUListElement, React.ComponentProps<'ul'>>(
+  ({ className, ...props }, ref) => (
+    <ul ref={ref} className={cn('flex flex-row items-center gap-1', className)} {...props} />
+  )
+)
+PaginationContent.displayName = 'PaginationContent'
 
-// PaginationItem component
-const PaginationItem: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return (
-        <div className="mx-1">
-            {children}
-        </div>
-    );
-};
+const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<'li'>>(({ className, ...props }, ref) => (
+  <li ref={ref} className={cn('', className)} {...props} />
+))
+PaginationItem.displayName = 'PaginationItem'
 
-// PaginationLink component
-const PaginationLink = React.forwardRef<HTMLAnchorElement, { href: string; isActive?: boolean; children: React.ReactNode }>(
-    ({ href, isActive, children }, ref) => {
-        return (
-            <a
-                ref={ref}
-                href={href}
-                className={cn(
-                    "px-3 py-1 text-sm rounded-md",
-                    isActive ? "bg-slate-950 text-white" : "bg-white text-slate-950 hover:bg-slate-100"
-                )}
-            >
-                {children}
-            </a>
-        );
-    }
-);
-PaginationLink.displayName = "PaginationLink";
+type PaginationLinkProps = {
+  isActive?: boolean
+} & Pick<ButtonProps, 'size'> &
+  React.ComponentProps<'a'>
 
-// PaginationPrevious component
-const PaginationPrevious = React.forwardRef<HTMLAnchorElement, { href: string }>(
-    ({ href }, ref) => {
-        return (
-            <a ref={ref} href={href} className="px-3 py-1 text-sm rounded-md bg-white text-slate-950 hover:bg-slate-100">
-                Previous
-            </a>
-        );
-    }
-);
-PaginationPrevious.displayName = "PaginationPrevious";
+const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
+  <a
+    aria-current={isActive ? 'page' : undefined}
+    className={cn(
+      buttonVariants({
+        variant: isActive ? 'outline' : 'ghost',
+        size
+      }),
+      className
+    )}
+    {...props}
+  />
+)
+PaginationLink.displayName = 'PaginationLink'
 
-// PaginationNext component
-const PaginationNext = React.forwardRef<HTMLAnchorElement, { href: string }>(
-    ({ href }, ref) => {
-        return (
-            <a ref={ref} href={href} className="px-3 py-1 text-sm rounded-md bg-white text-slate-950 hover:bg-slate-100">
-                Next
-            </a>
-        );
-    }
-);
-PaginationNext.displayName = "PaginationNext";
+const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink aria-label='Go to previous page' size='default' className={cn('gap-1 pl-2.5', className)} {...props}>
+    <ChevronLeft className='w-4 h-4' />
+    <span>Previous</span>
+  </PaginationLink>
+)
+PaginationPrevious.displayName = 'PaginationPrevious'
 
-// PaginationEllipsis component
-const PaginationEllipsis: React.FC = () => {
-    return <span className="mx-2 text-sm">...</span>;
-};
+const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink aria-label='Go to next page' size='default' className={cn('gap-1 pr-2.5', className)} {...props}>
+    <span>Next</span>
+    <ChevronRight className='w-4 h-4' />
+  </PaginationLink>
+)
+PaginationNext.displayName = 'PaginationNext'
 
-// Xuất các component
+const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => (
+  <span aria-hidden className={cn('flex h-9 w-9 items-center justify-center', className)} {...props}>
+    <MoreHorizontal className='w-4 h-4' />
+    <span className='sr-only'>More pages</span>
+  </span>
+)
+PaginationEllipsis.displayName = 'PaginationEllipsis'
+
 export {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationLink,
-    PaginationPrevious,
-    PaginationNext,
-    PaginationEllipsis,
-};
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+}
