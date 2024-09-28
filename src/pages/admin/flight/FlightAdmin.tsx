@@ -175,7 +175,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Trip_To
+            Trip To
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )

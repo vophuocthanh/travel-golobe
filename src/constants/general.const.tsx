@@ -20,14 +20,14 @@ export const sidebarLinks: TSidebarLinks[] = [
     path: '/admin/flights'
   },
   {
-    title: 'Tour',
-    icon: <Tickets />,
-    path: '/admin/tours'
-  },
-  {
     title: 'Road Vehicle',
     icon: <BusFront />,
     path: '/admin/road-vehicle'
+  },
+  {
+    title: 'Tour',
+    icon: <Tickets />,
+    path: '/admin/tours'
   },
   {
     title: 'Billing',
