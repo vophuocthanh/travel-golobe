@@ -1,4 +1,4 @@
-import { IconDelete, IconEdit, IconMore, IconSearch } from '@/common/icons'
+import { IconDelete, IconEdit, IconMore, IconSearch, IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -24,6 +24,7 @@ import {
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 import { CaretSortIcon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
 
 export type RoadVehicle = {
   id: string;
@@ -66,10 +67,6 @@ export default function RoadVehicleAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
 
-  const handleEdit = (vehicle: RoadVehicle) => {
-    console.log('Edit RoadVehicle:', vehicle);
-  };
-
   const handleDelete = (vehicle: RoadVehicle) => {
     console.log('Deleting RoadVehicle:', vehicle);
   };
@@ -89,7 +86,7 @@ export default function RoadVehicleAdmin() {
       accessorKey: 'brandName',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Name
+          Garage Name
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -211,7 +208,12 @@ export default function RoadVehicleAdmin() {
       header: () => <div className="flex justify-center">Actions</div>,
       cell: ({ row }) => (
         <div className="flex justify-center space-x-6">
-          <div className="cursor-pointer" onClick={() => handleEdit(row.original)}>
+          <div className="cursor-pointer">
+            <Link to={`/admin/road-vehicle/${row.original.id}`}>
+              <IconView />
+            </Link>
+          </div>
+          <div className="cursor-pointer" onClick={() => handleDelete(row.original)}>
             <IconEdit />
           </div>
           <div className="cursor-pointer" onClick={() => handleDelete(row.original)}>
