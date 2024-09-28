@@ -38,6 +38,11 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, m
       key: '3',
       label: 'Từ thấp đến cao',
       onClick: () => setSortByPrice('asc')
+    },
+    {
+      key: '4',
+      label: 'Không sắp xếp',
+      onClick: () => setSortByPrice('')
     }
   ]
 

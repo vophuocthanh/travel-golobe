@@ -41,9 +41,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   const toggleTripsVisibility = () => {
     setIsTripsVisible((prev) => !prev)
   }
-  
 
- 
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60)
     const mins = minutes % 60
@@ -67,7 +65,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
             <div className='p-4 bg-white rounded-lg shadow-md'>
               <div className='flex items-center mt-2'>
                 <Input
-                  className='w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                  className='w-[15rem] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
                   value={tempMinPrice || ''}
                   onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                   placeholder='Giá tối thiểu'
@@ -76,7 +74,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               </div>
               <div className='flex items-center mt-2'>
                 <Input
-                  className='w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                  className='w-[15rem] p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
                   value={tempMaxPrice || ''}
                   onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
                   placeholder='Giá tối đa'
@@ -92,6 +90,16 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
                 }}
               >
                 Lọc
+              </Button>
+              <Button
+                className='w-full p-2 mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
+                onClick={() => {
+                  setTempMinPrice(undefined)
+                  setTempMaxPrice(undefined)
+                  onApplyFilter(undefined, undefined)
+                }}
+              >
+                Hủy Lọc
               </Button>
             </div>
           </div>
