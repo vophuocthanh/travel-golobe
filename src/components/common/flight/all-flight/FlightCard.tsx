@@ -3,12 +3,12 @@ import { flightreview1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
+import { Dropdown, MenuProps, Space } from 'antd'
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Dropdown, MenuProps, Space } from 'antd'
-import { DownOutlined } from '@ant-design/icons'
 
 interface FlightCardProps {
   isFavorite: boolean
