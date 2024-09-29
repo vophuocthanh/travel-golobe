@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 export default function FlightReview1() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllFlight'],
-    queryFn: () => flightApi.getAll(1, 4, '', 500000, 20000000)
+    queryFn: () => flightApi.getAll(1, 4, '', 500000, 20000000, '', '')
   })
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'

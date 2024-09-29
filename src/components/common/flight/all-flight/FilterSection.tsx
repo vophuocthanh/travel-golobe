@@ -52,7 +52,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
           <p>Price</p>
-          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleVisibility}>
+          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleVisibility}>
             {isVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
@@ -108,7 +108,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
           <p>Departure Time</p>
-          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleTimeVisibility}>
+          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleTimeVisibility}>
             {isTimeVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
@@ -141,7 +141,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       </div>
       <div className='flex justify-between w-full mt-10 mb-6'>
         <p>Rating</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleRatingVisibility}>
+        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleRatingVisibility}>
           {isRatingVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>
       </div>
@@ -167,7 +167,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
 
       <div className='flex justify-between w-full mt-10 mb-6'>
         <p>Airlines</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleAirlinesVisibility}>
+        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleAirlinesVisibility}>
           {isAirlinesVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>
       </div>
