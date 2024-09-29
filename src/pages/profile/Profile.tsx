@@ -25,6 +25,7 @@ import ContentDate from './components/content-date'
 import ContentEmail from './components/content-email'
 import ContentName from './components/content-name'
 import ContentPhone from './components/content-phone'
+import ContentAddress from './components/content-adress'
 
 const colors = ['#D1E9F7', '#E9F7D1', '#F7D1E9', '#F7E9D1', '#D1F7E9', '#E9D1F7']
 
@@ -96,31 +97,28 @@ export default function Profile() {
             <TabsList className='flex justify-center py-5 mb-6 space-x-40 rounded-md shadow-md '>
               <TabsTrigger
                 value='account'
-                className={`px-4 py-2 font-semibold ${
-                  activeTab === 'account'
-                    ? 'text-primary border-b-2 border-primary-500'
-                    : 'text-gray-700 border-b-2 border-transparent'
-                } hover:border-primary`}
+                className={`px-4 py-2 font-semibold ${activeTab === 'account'
+                  ? 'text-primary border-b-2 border-primary-500'
+                  : 'text-gray-700 border-b-2 border-transparent'
+                  } hover:border-primary`}
               >
                 Account
               </TabsTrigger>
               <TabsTrigger
                 value='Tickets-Booking'
-                className={`px-4 py-2 font-semibold ${
-                  activeTab === 'Tickets-Booking'
-                    ? 'text-primary border-b-2 border-primary-500'
-                    : 'text-gray-700 border-b-2 border-transparent'
-                } hover:border-primary`}
+                className={`px-4 py-2 font-semibold ${activeTab === 'Tickets-Booking'
+                  ? 'text-primary border-b-2 border-primary-500'
+                  : 'text-gray-700 border-b-2 border-transparent'
+                  } hover:border-primary`}
               >
                 Tickets/Booking
               </TabsTrigger>
               <TabsTrigger
                 value='Payment-methods'
-                className={`px-4 py-2 font-semibold ${
-                  activeTab === 'Payment-methods'
-                    ? 'text-primary border-b-2 border-primary-500'
-                    : 'text-gray-700 border-b-2 border-transparent'
-                } hover:border-primary`}
+                className={`px-4 py-2 font-semibold ${activeTab === 'Payment-methods'
+                  ? 'text-primary border-b-2 border-primary-500'
+                  : 'text-gray-700 border-b-2 border-transparent'
+                  } hover:border-primary`}
               >
                 Payment methods
               </TabsTrigger>
@@ -132,8 +130,9 @@ export default function Profile() {
                 <ContentEmail title='Email' content={getMeProfile?.email} />
                 <ContentPhone title='Phone Number' content={getMeProfile?.phone} />
                 <ContentDate title='Date of Birth' content={getMeProfile?.date_of_birth} />
+                <ContentAddress title='Adresss' content={getMeProfile?.address} />
                 <ContentCountry title='Country' content={getMeProfile?.country} />
-                <ContentPassword title='Password' />
+                <ContentPassword title='Password' content='*************' />
               </div>
             </TabsContent>
             <TabsContent value='Tickets-Booking'>

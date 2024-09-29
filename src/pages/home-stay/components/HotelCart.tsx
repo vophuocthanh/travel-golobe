@@ -12,8 +12,8 @@ import ReadOnlyRating from './ReadOnlyRating'
 interface HotelCardProps {
   isFavorite: boolean
   onFavoriteToggle: () => void
-  priceRangeMax: number
-  priceRangeMin: 0 | number
+  priceRangeMax: number | undefined
+  priceRangeMin: number | undefined
   sortByPrice: string
 }
 
@@ -89,9 +89,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
                   <Button
-                    className={`flex items-center justify-center ${
-                      isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'
-                    }`}
+                    className={`flex items-center justify-center ${isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'
+                      }`}
                     onClick={onFavoriteToggle}
                   >
                     <Heart />
