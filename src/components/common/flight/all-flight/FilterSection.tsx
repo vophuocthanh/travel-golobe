@@ -58,27 +58,26 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
         </div>
         {isVisible && (
           <div className='w-full pb-12 border-b-2'>
-            <div className='w-full p-4 bg-white rounded-lg shadow-md'>
-              <div className='flex items-center w-full mt-2'>
-                <input
-                  className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
-                  value={tempMinPrice || ''}
-                  onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
-                  placeholder='Giá tối thiểu'
-                />
-                <span className='ml-2 text-gray-600'>đ</span>
+            <div className='w-full p-4 bg-white rounded-lg shadow-md '>
+              <div className='flex flex-row gap-4 '>
+                <div className='items-center w-full '>
+                  <input
+                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    value={tempMinPrice || ''}
+                    onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+                    placeholder='Giá tối thiểu'
+                  />
+                </div>
+                <p className='flex items-center justify-center'>-</p>
+                <div className='items-center w-full '>
+                  <input
+                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    value={tempMaxPrice || ''}
+                    onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+                    placeholder='Giá tối đa'
+                  />
+                </div>
               </div>
-
-              <div className='flex items-center w-full mt-2'>
-                <input
-                  className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
-                  value={tempMaxPrice || ''}
-                  onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
-                  placeholder='Giá tối đa'
-                />
-                <span className='ml-2 text-gray-600'>đ</span>
-              </div>
-
               <div className=''>
                 <Button
                   className='w-full mt-4 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'

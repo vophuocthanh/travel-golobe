@@ -2,57 +2,39 @@
 
 import * as React from 'react'
 import { CalendarIcon } from '@radix-ui/react-icons'
+import { format } from 'date-fns'
 
 import { Button } from '@/components/ui/button'
-
+import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/shared/lib/utils'
-import { Calendar } from '@/components/ui/calendar'
-import { DateRange } from 'react-day-picker'
-import { format } from 'date-fns'
-interface DatePickerWithRangeProps {
-  date: DateRange | undefined
-  setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>
-  className: string | undefined
+
+interface DatePickerWithPresetsProps {
+  date: Date | undefined
+  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
 }
-export function DatePickerWithRange({ className, date, setDate }: DatePickerWithRangeProps) {
+export function DatePickerWithPresets({date, setDate}:DatePickerWithPresetsProps) {
+  
+
   return (
-    <div className={cn('grid gap-2 ', className)}>
-      <Popover>
-        <PopoverTrigger asChild className=''>
-          <Button
-            id='date'
-            variant={'outline'}
-            className={cn(
-              'w-[260px] border-none justify-start text-left font-normal',
-              !date && 'text-muted-foreground'
-            )}
-          >
-            <CalendarIcon className='w-4 h-4 mr-2' />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  Từ :{format(date.from, 'dd-MM-yyyy')} - đến :{format(date.to, 'dd-MM-yyyy')}
-                </>
-              ) : (
-                format(date.from, 'dd-MM-yyyy')
-              )
-            ) : (
-              <span>Pick a date</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className='w-auto p-0' align='start'>
-          <Calendar
-            initialFocus
-            mode='range'
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
-            numberOfMonths={1}
-          />
-        </PopoverContent>
-      </Popover>
-    </div>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={'outline'}
+          className={cn(
+            'w-[160px] justify-start text-left font-normal mt-[10px] h-[3.1rem]',
+            !date && 'text-muted-foreground'
+          )}
+        >
+          <CalendarIcon className='w-4 h-4 mr-2' />
+          {date ? format(date, 'dd/MM/yyyy') : <span>Pick a date</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align='start' className='flex flex-col w-auto p-2 space-y-2'>
+        <div className='border rounded-md'>
+          <Calendar mode='single' selected={date} onSelect={setDate} />
+        </div>
+      </PopoverContent>
+    </Popover>
   )
 }

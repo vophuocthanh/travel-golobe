@@ -16,8 +16,8 @@ interface FlightCardProps {
   onToggleFavorite: () => void
   minPrice?: number
   maxPrice?: number
-  fromDate?: string
-  toDate?: string
+  departDate?: string
+  returnDate?: string
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({
@@ -25,8 +25,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
   onToggleFavorite,
   minPrice,
   maxPrice,
-  fromDate,
-  toDate
+  returnDate,
+  departDate
 }) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
@@ -55,12 +55,11 @@ const FlightCard: React.FC<FlightCardProps> = ({
       onClick: () => setSortByPrice('')
     }
   ]
-  console.log({ fromDate, toDate })
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page, sortByPrice, minPrice, maxPrice, fromDate, toDate],
+    queryKey: ['getAllHotel', page, sortByPrice, minPrice, maxPrice, departDate, returnDate],
 
-    queryFn: () => flightApi.getAll(page, 4, sortByPrice, minPrice, maxPrice, fromDate, toDate)
+    queryFn: () => flightApi.getAll(page, 4, sortByPrice, minPrice, maxPrice, departDate, returnDate)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
