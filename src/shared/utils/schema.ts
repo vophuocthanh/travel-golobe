@@ -69,6 +69,10 @@ export const PhoneSchema = z.object({
   phone: z.string().min(10, 'Invalid phone number')
 })
 
+export const AddressSchema = z.object({
+  address: z.string().min(1, 'Adress cannot be empty')
+})
+
 export const CountrySchema = z.object({
   country: z.string().min(1, 'Country cannot be empty')
 })
