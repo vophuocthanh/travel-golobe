@@ -76,7 +76,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
                     </div>
                   </div>
                   <div className='flex items-center gap-2'>
-                    <Button className='bg-white border border-primary'>4.2</Button>
+                    <Button className='text-white'>4.2</Button>
                     <p className='font-bold'>Very good</p>
                     <p>371 reviews</p>
                   </div>
