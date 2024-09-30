@@ -23,4 +23,6 @@ export interface ListResponse<T> {
   sort_by_price:string
   min_price:number|undefined
   max_price:number|undefined
+  start_day:string
+  end_day:string
 }
