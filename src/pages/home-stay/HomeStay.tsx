@@ -14,7 +14,7 @@ export default function HomeStay() {
     <div className='w-full bg-[#F5F5F5]'>
       <Header />
 
-      <div className="flex justify-center items-center bg-gray-100">
+      <div className="flex justify-center items-center pt-5 bg-gray-100">
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 mt-20 bg-white p-6 border border-gray-300 rounded-xl shadow-lg">
           <BookingForm />
           <Button className=" text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 ease-in-out shadow-md">

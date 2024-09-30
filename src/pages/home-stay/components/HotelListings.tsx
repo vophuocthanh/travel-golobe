@@ -113,12 +113,12 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
                 <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
                 <div className="flex gap-3 mt-4">
                   {[0, 1, 2, 3, 4].map((rating) => (
-                    <div
+                    <Button
                       key={rating}
-                      className="flex items-center justify-center w-12 h-8 text-sm font-medium text-black border border-primary rounded-md hover:bg-primary hover:text-white transition duration-200 cursor-pointer"
+                      className="flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md hover:bg-primary hover:text-white transition duration-200 cursor-pointer"
                     >
                       {rating}+
-                    </div>
+                    </Button>
                   ))}
                 </div>
               </div>
