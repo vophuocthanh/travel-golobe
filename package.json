@@ -45,7 +45,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "crisp-sdk-web": "^1.0.25",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "embla-carousel-autoplay": "^8.1.5",
     "embla-carousel-react": "^8.1.5",
     "framer-motion": "^11.2.12",

@@ -52,33 +52,32 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
           <p>Price</p>
-          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleVisibility}>
+          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleVisibility}>
             {isVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
         {isVisible && (
           <div className='w-full pb-12 border-b-2'>
-            <div className='w-full p-4 bg-white rounded-lg shadow-md'>
-              <div className='flex items-center w-full mt-2'>
-                <input
-                  className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
-                  value={tempMinPrice || ''}
-                  onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
-                  placeholder='Giá tối thiểu'
-                />
-                <span className='ml-2 text-gray-600'>đ</span>
+            <div className='w-full p-4 bg-white rounded-lg shadow-md '>
+              <div className='flex flex-row gap-4 '>
+                <div className='items-center w-full '>
+                  <input
+                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    value={tempMinPrice || ''}
+                    onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+                    placeholder='Giá tối thiểu'
+                  />
+                </div>
+                <p className='flex items-center justify-center'>-</p>
+                <div className='items-center w-full '>
+                  <input
+                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    value={tempMaxPrice || ''}
+                    onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+                    placeholder='Giá tối đa'
+                  />
+                </div>
               </div>
-
-              <div className='flex items-center w-full mt-2'>
-                <input
-                  className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
-                  value={tempMaxPrice || ''}
-                  onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
-                  placeholder='Giá tối đa'
-                />
-                <span className='ml-2 text-gray-600'>đ</span>
-              </div>
-
               <div className=''>
                 <Button
                   className='w-full mt-4 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
@@ -108,7 +107,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
           <p>Departure Time</p>
-          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleTimeVisibility}>
+          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleTimeVisibility}>
             {isTimeVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
@@ -141,7 +140,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       </div>
       <div className='flex justify-between w-full mt-10 mb-6'>
         <p>Rating</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleRatingVisibility}>
+        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleRatingVisibility}>
           {isRatingVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>
       </div>
@@ -167,7 +166,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
 
       <div className='flex justify-between w-full mt-10 mb-6'>
         <p>Airlines</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5]' onClick={toggleAirlinesVisibility}>
+        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleAirlinesVisibility}>
           {isAirlinesVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>
       </div>

@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
+
 import { Link } from 'react-router-dom'
 
 interface FlightCardProps {
@@ -15,9 +16,18 @@ interface FlightCardProps {
   onToggleFavorite: () => void
   minPrice?: number
   maxPrice?: number
+  departDate?: string
+  returnDate?: string
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, minPrice, maxPrice }) => {
+const FlightCard: React.FC<FlightCardProps> = ({
+  isFavorite,
+  onToggleFavorite,
+  minPrice,
+  maxPrice,
+  returnDate,
+  departDate
+}) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
   const items: MenuProps['items'] = [
@@ -47,8 +57,9 @@ const FlightCard: React.FC<FlightCardProps> = ({ isFavorite, onToggleFavorite, m
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page, sortByPrice, minPrice, maxPrice],
-    queryFn: () => flightApi.getAll(page, 4, sortByPrice, minPrice, maxPrice)
+    queryKey: ['getAllHotel', page, sortByPrice, minPrice, maxPrice, departDate, returnDate],
+
+    queryFn: () => flightApi.getAll(page, 4, sortByPrice, minPrice, maxPrice, departDate, returnDate)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
