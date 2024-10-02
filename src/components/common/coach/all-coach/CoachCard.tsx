@@ -100,7 +100,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 <div className='flex flex-row w-full h-full'>
                   <div className='w-[70%] flex flex-col gap-4'>
                     <div className='flex items-center gap-2 mt-8'>
-                      <Button className='bg-white border border-primary'>4.2</Button>
+                      <Button className='text-black bg-white border border-primary'>4.2</Button>
                       <p className='font-bold'>Very good</p>
                       <p>54 reviews</p>
                     </div>
@@ -147,8 +147,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
                   >
                     <Heart />
                   </Button>
-                  <Link to={`/vehicle/flight/${flight.id}`} className='w-[30rem]'>
-                    <Button className='w-full mx-4 text-white'>View Deals</Button>
+                  <Link to={`/vehicle/coach/${flight.id}`} className='w-[32rem]'>
+                    <Button className='w-full mx-4 text-black'>View Deals</Button>
                   </Link>
                 </div>
               </div>
@@ -160,14 +160,14 @@ const FlightCard: React.FC<FlightCardProps> = ({
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className='text-white'>
+              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className='text-black'>
                 Previous
               </Button>
             </PaginationItem>
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang đầu
+                className={page === 1 ? 'bg-primary text-black' : 'bg-gray-400 text-black'} // Nút trang đầu
               >
                 1
               </Button>
@@ -181,7 +181,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
+                  className={page === page ? 'bg-primary text-black' : 'bg-gray-400 text-black'} // Nút trang hiện tại
                 >
                   {page}
                 </Button>
@@ -196,14 +196,14 @@ const FlightCard: React.FC<FlightCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang cuối
+                  className={page === totalPages ? 'bg-primary text-black' : 'bg-gray-400 text-black'} // Nút trang cuối
                 >
                   {totalPages}
                 </Button>
               </PaginationItem>
             )}
             <PaginationItem>
-              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className='text-white'>
+              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className='text-black'>
                 Next
               </Button>
             </PaginationItem>

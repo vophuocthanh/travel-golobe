@@ -2,7 +2,7 @@ import { flightreview3, flightreview4, flightreview5, flightreview6 } from '@/as
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
 
-export default function FlightReview2() {
+export default function CoachReview2() {
   return (
     <SectionInViewUp>
       <div className='mt-[5rem] mb-[12rem]'>
