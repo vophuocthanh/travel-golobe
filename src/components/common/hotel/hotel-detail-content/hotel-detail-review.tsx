@@ -2,6 +2,7 @@ import { commentHotelApi } from '@/apis/comment-hotel.api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { useAuth } from '@/hooks/useAuth'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import BasicRating from '@/pages/home-stay/components/StarRating'
 //import BasicRating from '@/pages/home-stay/components/StarRating'
@@ -22,6 +23,7 @@ interface HotelDetailReviewProps {
 
 export default function HotelDetailReview({ data, hotelId, total }: HotelDetailReviewProps) {
   const [currentPage, setCurrentPage] = useState(1)
+  const { isAuthenticated } = useAuth()
 
   const totalPages = Math.ceil(data.length / reviewsPerPage)
 
@@ -134,25 +136,27 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
         </div>
         <div className='items-center '>
           <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
-          <form onSubmit={handleSubmit} className='flex items-center space-x-4 '>
-            <div className='w-full p-2 border border-gray-300 rounded-md'>
-              <textarea
-                className='w-full p-2 border border-gray-300 rounded-md'
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder='Type your message here.'
-              />
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center space-x-5'>
-                  <label htmlFor=''>Satisfaction Level.</label>
-                  <BasicRating setRating={setRating} />
+          {isAuthenticated ? (
+            <form onSubmit={handleSubmit} className='flex items-center space-x-4 '>
+              <div className='w-full p-2 border border-gray-300 rounded-md'>
+                <textarea
+                  className='w-full p-2 border border-gray-300 rounded-md'
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder='Type your message here.'
+                />
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center space-x-5'>
+                    <label htmlFor=''>Satisfaction Level.</label>
+                    <BasicRating setRating={setRating} />
+                  </div>
+                  <Button className='px-4 py-1 text-white rounded-md w-[10rem]' loading={loading}>
+                    Đánh giá
+                  </Button>
                 </div>
-                <Button className='px-4 py-1 text-white rounded-md w-[10rem]' loading={loading}>
-                  Đánh giá
-                </Button>
               </div>
-            </div>
-          </form>
+            </form>
+          ) : null}
         </div>
         <div className='relative flex text-black w-[14rem] pt-5'>
           <p className='absolute left-0 text-5xl font-semibold'>{averageRating}</p>

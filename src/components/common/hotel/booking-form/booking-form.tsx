@@ -18,6 +18,7 @@ import {
   Users
 } from 'lucide-react'
 
+import { hotelApi } from '@/apis/hotel.api'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -33,8 +34,21 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { useDebounce } from '@/hooks/useDebounce'
+import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function BookingForm() {
+  const [searchTerm, setSearchTerm] = useState<string>('')
+  const debouncedSearchTerm = useDebounce<string>(searchTerm, 500)
+
+  const { data: getHotelAll, isLoading } = useQuery({
+    queryKey: ['getHotelAllSearch', debouncedSearchTerm],
+    queryFn: () => hotelApi.getAll(1, 50, debouncedSearchTerm),
+    enabled: !!debouncedSearchTerm
+  })
+
   return (
     <div className='flex flex-wrap justify-between p-4 space-x-2'>
       <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
@@ -47,9 +61,31 @@ export default function BookingForm() {
         <Input
           className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
           placeholder='Istanbul, Turkey'
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Sofa className='absolute left-3 top-[1rem] z-20 ' />
+
+        {isLoading ? (
+          <div className='absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md'>
+            Loading...
+          </div>
+        ) : (
+          getHotelAll &&
+          debouncedSearchTerm && (
+            <div className='absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-40 overflow-y-auto'>
+              {getHotelAll?.data
+                ?.filter((hotel) => hotel.hotel_names?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()))
+                .map((hotel) => (
+                  <div key={hotel.id} className='p-2 cursor-pointer hover:bg-gray-100'>
+                    <Link to={`/hotel/${hotel.id}`}>{hotel.hotel_names}</Link>
+                  </div>
+                ))}
+            </div>
+          )
+        )}
       </div>
+
+      {/* Other Inputs */}
       <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
