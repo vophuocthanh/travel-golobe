@@ -253,7 +253,7 @@ export default function Profile() {
                     <div className='flex flex-col'>
                       <h1 className='text-2xl font-bold'>Hotel yêu thích</h1>
                       {getFavoriteHotels?.data.map(
-                        (hotel: { id: string; image: string; name: string; description: string }) => (
+                        (hotel: { id: string; image: string; hotel_names: string; description: string }) => (
                           <div
                             key={hotel.id}
                             className='flex items-center justify-between p-4 my-2 bg-white border rounded-lg shadow-md'
@@ -265,7 +265,7 @@ export default function Profile() {
                                 className='w-16 h-16 mr-4'
                               />
                               <div className='flex flex-col'>
-                                <h1>{hotel.name}</h1>
+                                <h1 className='font-medium'>{hotel.hotel_names}</h1>
                                 <p className='hotel-description'>{hotel.description}</p>
                               </div>
                             </div>
