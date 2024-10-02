@@ -1,16 +1,11 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
+import { Tour } from '@/shared/ts/interface/comment-tour.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 
-interface Tour {
-  id?: string
-  name: string
-  description: string
-  price: string
-  images: string
-}
+
 
 export default function IntoTour() {
   const { data: getAll } = useQuery({
@@ -34,10 +29,10 @@ export default function IntoTour() {
               <Button className='bg-white border border-primary hover:bg-slate-100'>See All</Button>
             </Link>
           </div>
-          <div className='flex justify-between'>
+          <div className='flex justify-between '>
             {getAll?.data.map((item: Tour) => (
-              <div className='relative w-[300px]  ' key={item.id}>
-                <img src={item.images} className='h-[420px]  rounded-xl' alt='' />
+              <div className='tour relative w-[300px]  ' key={item.id}>
+                <img src={item.image} className='h-[420px]  rounded-xl' alt='' />
                 <div className='absolute w-full px-4 top-72'>
                   <div className='flex items-center justify-between p-2 mb-3 bg-white rounded-lg opacity-60'>
                     <div className=''>

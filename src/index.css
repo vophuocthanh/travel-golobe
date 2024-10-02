@@ -100,4 +100,6 @@ body {
 .iconTour {
   /* transform: scale(1.5); */
 }
-
+.tour:nth-child(n+5) {
+  display: none;
+}
