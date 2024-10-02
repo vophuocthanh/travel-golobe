@@ -52,7 +52,7 @@ body {
 
 .heart-shape::before,
 .heart-shape::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 18px;
   height: 18px;
@@ -84,13 +84,14 @@ body {
   top: 47%;
   position: relative;
 }
-.row--transport::after,.row--transport::before {
+.row--transport::after,
+.row--transport::before {
   background: #b1b1b1;
   border-radius: 1px;
   width: 8px;
   height: 8px;
   z-index: 1;
-  content: "";
+  content: '';
   position: absolute;
   top: -3px;
 }
@@ -101,3 +102,10 @@ body {
   /* transform: scale(1.5); */
 }
 
+.hotel-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Số dòng giới hạn */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
