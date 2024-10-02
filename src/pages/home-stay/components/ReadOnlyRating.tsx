@@ -18,7 +18,7 @@ export default function ReadOnlyRating({ rating }: Props) {
       />
       {rating !== null && (
         <Box sx={{ ml: 1 }}>
-          {rating} Star{rating !== 1 ? 's' : ''}
+          {rating} star{rating !== 1 ? 's' : ''}
         </Box>
       )}
     </Box>

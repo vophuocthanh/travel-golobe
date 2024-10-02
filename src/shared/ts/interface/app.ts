@@ -20,9 +20,9 @@ export interface ListResponse<T> {
   total: number
   page: number
   items_per_page: number
-  sort_by_price:string
-  min_price:number|undefined
-  max_price:number|undefined
-  start_day:string
-  end_day:string
+  sort_by_price: string
+  min_price: number | undefined
+  max_price: number | undefined
+  start_day: string
+  end_day: string
 }

@@ -51,7 +51,23 @@ export default function HotelDetail() {
     queryFn: () => commentHotelApi.getComments(id || '')
   })
 
-  console.log('getCommentHotel:', getCommentHotel)
+  const totalComments = getCommentHotel?.total ?? 0
+  const averageRating =
+    totalComments > 0
+      ? (getCommentHotel?.data.reduce((acc, cur) => acc + cur.rating, 0) / totalComments).toFixed(1)
+      : '0'
+
+  const getRatingStatus = (rating: number) => {
+    if (rating < 3) {
+      return 'Not Good'
+    } else if (rating < 4) {
+      return 'Good'
+    } else {
+      return 'Very Good'
+    }
+  }
+
+  const ratingStatus = getRatingStatus(Number(averageRating))
 
   return (
     <div className='w-full'>
@@ -84,9 +100,11 @@ export default function HotelDetail() {
                   {getbyId?.location}
                 </p>
                 <div className='flex items-center gap-2 mt-5'>
-                  <Button className='bg-white border border-primary'>4.2</Button>
-                  <p className='font-bold'>Very good</p>
-                  <p>371 reviews</p>
+                  <Button className='text-black bg-white border hover:text-white border-primary'>
+                    {averageRating ?? 0}
+                  </Button>
+                  <p className='font-bold'>{ratingStatus}</p>
+                  <p>{getCommentHotel?.total} reviews</p>
                 </div>
               </div>
             </div>
@@ -109,23 +127,52 @@ export default function HotelDetail() {
           <div className='items-start w-full mt-5 mb-8'>
             <div className='grid w-full grid-cols-4 gap-4'>
               <div className='grid w-full col-span-2'>
-                <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem]' />
+                <img
+                  src='https://ik.imagekit.io/tvlk/blog/2023/09/khach-san-view-bien-da-nang-1.jpg?tr=dpr-2,w-675'
+                  alt='hotel'
+                  className='w-full h-[41rem]'
+                />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_2} alt='hotel' className='w-full h-[20rem]' />
-                <img src={getbyId?.image_3} alt='hotel' className='w-full h-[20rem]' />
+                <img
+                  src='https://www.kkday.com/vi/blog/wp-content/uploads/khach-san-Da-Nang-ft.jpg'
+                  alt='hotel'
+                  className='w-full h-[20rem]'
+                />
+                <img
+                  src='https://owa.bestprice.vn/images/combos/658_370/combo-da-nang-3n2d-minh-toan-ocean-hotel-4-ve-may-bay-khu-hoi-5fce0306ee446.jpg'
+                  alt='hotel'
+                  className='w-full h-[20rem]'
+                />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_4} alt='hotel' className='w-full h-[20rem]' />
-                <img src={getbyId?.image_5} alt='hotel' className='w-full h-[20rem]' />
+                <img
+                  src='https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10039783-066fe52d5f3ccb8e0aebb2dba564747b.jpeg'
+                  alt='hotel'
+                  className='w-full h-[20rem]'
+                />
+                <img
+                  src='https://reviewvilla.vn/wp-content/uploads/2022/05/TOP-20-NHA-NGHI-DA-NANG-CHAT-LUONG-TOT-NHAT-2022-2.3.jpg'
+                  alt='hotel'
+                  className='w-full h-[20rem]'
+                />
               </div>
             </div>
           </div>
-          <HotelDetailOverview />
+          <HotelDetailOverview
+            ratingStatus={ratingStatus}
+            description={getbyId?.description || ''}
+            averrange={Number(averageRating) ?? 0}
+            total={getCommentHotel?.total || 0}
+          />
           <HotelDetailRoom />
           <HotelDetailMap />
           <HotelDetailAmenities />
-          <HotelDetailReview data={getCommentHotel?.data ?? []} />
+          <HotelDetailReview
+            data={getCommentHotel?.data ?? []}
+            hotelId={id || ''}
+            total={getCommentHotel?.total || 0}
+          />
         </main>
       </SectionInViewRight>
       <div className='mt-[15rem] bottom-0'>
