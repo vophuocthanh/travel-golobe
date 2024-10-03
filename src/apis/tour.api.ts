@@ -28,6 +28,15 @@ export const tourApi = {
     const url = `/tour/${id}`
     return axiosClient.delete(url)
   },
+  favoriteTourID(id: string | undefined):Promise<TourResponseType> {
+    const url = `/tour/${id}/favorite`
+    
+    return axiosClient.post(url)
+  },
+  unfavoriteTourID(id: string | undefined):Promise<TourResponseType> {
+    const url = `/tour/${id}/unfavorite`
+    return axiosClient.post(url)
+  },
   getFavoriteTours() {
     const url = `/tour/favorite`
     return axiosClient.get(url)
