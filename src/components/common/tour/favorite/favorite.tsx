@@ -1,5 +1,4 @@
 import { tourApi } from '@/apis/tour.api';
-import { Button } from '@/components/ui/button';
 import { useMutation, } from '@tanstack/react-query';
 import { HeartIcon } from 'lucide-react';
 import {  useEffect, useState } from 'react';
@@ -52,13 +51,13 @@ export default function Favorite({ id }: FavoriteProps) {
 
     };
     return (
-        <Button
-            className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
+        <div
+            className={`${isFavorited  ? 'bg-red-300' : 'text-gray-500'} flex items-center rounded-full justify-center w-12 h-12 text-sm font-medium transition-colors border cursor-pointer border-primary hover:bg-red-100`}
             onClick={handleClick}
         >
             <HeartIcon
-                className={`w-5 h-5 ${isFavorited  ? 'text-red-600' : 'text-gray-500'}`}
+                className={`w-5 h-5 `}
             />
-        </Button>
+        </div>
     );
 }

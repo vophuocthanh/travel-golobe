@@ -104,6 +104,9 @@ body {
 .tour:nth-child(n+5) {
   display: none;
 }
+.tour-into:nth-child(n+4) {
+  display: none;
+}
 .hotel-description {
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Số dòng giới hạn */

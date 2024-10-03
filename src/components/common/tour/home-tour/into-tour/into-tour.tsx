@@ -31,7 +31,7 @@ export default function IntoTour() {
           </div>
           <div className='flex justify-between '>
             {getAll?.data.map((item: Tour) => (
-              <div className='tour relative w-[300px]  ' key={item.id}>
+              <div className='tour-into relative w-[400px]  ' key={item.id}>
                 <img src={item.image} className='h-[420px]  rounded-xl' alt='' />
                 <div className='absolute w-full px-4 top-72'>
                   <div className='flex items-center justify-between p-2 mb-3 bg-white rounded-lg opacity-60'>
