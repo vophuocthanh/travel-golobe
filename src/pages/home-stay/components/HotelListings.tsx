@@ -1,39 +1,25 @@
 import React, { useState } from 'react';
-import SortBy from './SortBy';
 import HotelCard from './HotelCart';
 import { Button } from '@/components/ui/button';
 import { Dropdown, MenuProps, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-interface HotelListingsProps {
-  isOpenSort: boolean;
-  setIsOpenSort: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
-  const [favoriteStates, setFavoriteStates] = useState({
-    card1: false,
-    card2: false,
-    card3: false,
-    card4: false,
-  });
+const HotelListings: React.FC = () => {
 
   const [priceRange, setPriceRange] = useState([0, 999999999999999]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
+  const [starNumber, setStarNumer] = useState<number | undefined>(undefined);
 
-  const handleFavoriteToggle = (cardId: keyof typeof favoriteStates) => {
-    setFavoriteStates((prev) => ({
-      ...prev,
-      [cardId]: !prev[cardId],
-    }));
-  };
+
 
   const handlePriceRangeChange = () => {
     const newMinPrice = Number(minPrice);
     const newMaxPrice = Number(maxPrice);
     setPriceRange([newMinPrice, newMaxPrice]);
   };
+
 
   const items: MenuProps['items'] = [
     {
@@ -65,7 +51,7 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
   const [sortByPrice, setSortByPrice] = useState('');
 
   const isRatingVisible = true;
-
+  console.log(starNumber)
   return (
     <>
       <div className="container mx-auto mt-8">
@@ -112,10 +98,13 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
               <div>
                 <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
                 <div className="flex gap-3 mt-4">
-                  {[0, 1, 2, 3, 4].map((rating) => (
+                  {[1, 2, 3, 4, 5].map((rating) => (
                     <Button
                       key={rating}
                       className="flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md hover:bg-primary hover:text-white transition duration-200 cursor-pointer"
+                      onClick={() => {
+                        setStarNumer(rating);
+                      }}
                     >
                       {rating}+
                     </Button>
@@ -143,13 +132,11 @@ const HotelListings: React.FC<HotelListingsProps> = ({ isOpenSort }) => {
             </div>
 
             <div className="flex flex-col gap-8 flex-1">
-              {isOpenSort && <SortBy isOpenSort />}
               <HotelCard
+                starNumber={starNumber}
                 sortByPrice={sortByPrice}
                 priceRangeMax={priceRange[1]}
                 priceRangeMin={priceRange[0]}
-                isFavorite={favoriteStates.card1}
-                onFavoriteToggle={() => handleFavoriteToggle('card1')}
               />
             </div>
           </div>

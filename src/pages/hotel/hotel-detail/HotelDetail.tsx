@@ -1,8 +1,7 @@
 import { bookingHotelApi } from '@/apis/booking-hotel.api'
 import { commentHotelApi } from '@/apis/comment-hotel.api'
 import { hotelApi } from '@/apis/hotel.api'
-
-import { IconLink, IconStart } from '@/common/icons'
+import { IconLink } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import HotelDetailAmenities from '@/components/common/hotel/hotel-detail-content/hotel-detail-amenities'
@@ -11,19 +10,14 @@ import HotelDetailOverview from '@/components/common/hotel/hotel-detail-content/
 import HotelDetailReview from '@/components/common/hotel/hotel-detail-content/hotel-detail-review'
 import HotelDetailRoom from '@/components/common/hotel/hotel-detail-content/hotel-detail-room'
 import { Button } from '@/components/ui/button'
+import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { ChevronRight, HeartIcon, MapPin } from 'lucide-react'
-import { useState } from 'react'
+import { ChevronRight, MapPin } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
+import Favorite from '../components/Favorite'
 
 export default function HotelDetail() {
-  const [liked, setLiked] = useState(false)
-
-  const handleClick = () => {
-    setLiked(!liked)
-  }
-
   const { id } = useParams<{ id: string }>()
 
   const { data: getbyId } = useQuery({
@@ -51,6 +45,7 @@ export default function HotelDetail() {
     queryFn: () => commentHotelApi.getComments(id || '')
   })
 
+
   const totalComments = getCommentHotel?.total ?? 0
   const averageRating =
     totalComments > 0
@@ -58,17 +53,23 @@ export default function HotelDetail() {
       : '0'
 
   const getRatingStatus = (rating: number) => {
-    if (rating < 3) {
+    if (rating <= 2) {
       return 'Not Good'
-    } else if (rating < 4) {
+    } else if (rating <= 4) {
       return 'Good'
     } else {
       return 'Very Good'
     }
   }
+  const formatCurrency = (value: string | undefined) => {
+    if (!value) return 'N/A'
+    const numberValue = parseFloat(value)
+    return isNaN(numberValue)
+      ? 'N/A'
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  }
 
   const ratingStatus = getRatingStatus(Number(averageRating))
-
   return (
     <div className='w-full'>
       <Header />
@@ -86,12 +87,8 @@ export default function HotelDetail() {
               <div className='flex mt-8 '>
                 <h1 className='mr-5 text-3xl font-bold'>{getbyId?.hotel_names}</h1>
                 <div className='flex items-center mt-2'>
-                  <IconStart />
-                  <IconStart />
-                  <IconStart />
-                  <IconStart />
-                  <IconStart />
-                  <span className='mt-1 ml-2'>5 Star Hotel</span>
+                  <ReadOnlyRating rating={Number(getbyId?.star_number)} />
+                  <span className='mt-1 ml-2'>{Number(getbyId?.star_number)} Star Hotel</span>
                 </div>
               </div>
               <div className='mt-5'>
@@ -101,7 +98,7 @@ export default function HotelDetail() {
                 </p>
                 <div className='flex items-center gap-2 mt-5'>
                   <Button className='text-black bg-white border hover:text-white border-primary'>
-                    {averageRating ?? 0}
+                    {getbyId?.score_hotels}
                   </Button>
                   <p className='font-bold'>{ratingStatus}</p>
                   <p>{getCommentHotel?.total} reviews</p>
@@ -109,17 +106,12 @@ export default function HotelDetail() {
               </div>
             </div>
             <div className='flex-1 text-right'>
-              <p className='text-[32px] font-bold text-[#FF8682]'>${getbyId?.price}</p>
+              <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
               <div className='flex justify-end space-x-2'>
-                <p
-                  className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
-                  onClick={handleClick}
-                >
-                  <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
-                </p>
-                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
+                <Favorite idHotel={id} />
+                <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
-                </p>
+                </div>
                 <Button onClick={handleBookingHotel}>Book now</Button>
               </div>
             </div>
@@ -165,7 +157,7 @@ export default function HotelDetail() {
             averrange={Number(averageRating) ?? 0}
             total={getCommentHotel?.total || 0}
           />
-          <HotelDetailRoom />
+          <HotelDetailRoom Room={getbyId?.rooms || []} />
           <HotelDetailMap />
           <HotelDetailAmenities />
           <HotelDetailReview

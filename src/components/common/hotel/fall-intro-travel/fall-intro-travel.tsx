@@ -7,33 +7,15 @@ import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionInViewUp from '../../animation/SectionInViewUp'
+import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
-interface Travel {
-  id: string
-  hotel_names?: string
-  location?: string
-  price?: number
-  score_hotels?: string | number
-  number_rating?: string | number
-  star_number?: number
-  received_time?: string
-  giveback_time?: string
-  description?: string
-  hotel_link?: string
-  place?: string
-  image?: string
-  image_2?: string
-  image_3?: string
-  image_4?: string
-  image_5?: string
-}
 
 export default function FallIntroTravel() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(4, 4)
+    queryFn: () => hotelApi.getAll(1, 6)
   })
-
+  console.log(getAll)
   return (
     <SectionInViewUp>
       <div className='mt-32'>
@@ -61,7 +43,7 @@ export default function FallIntroTravel() {
               }}
               loop={true}
             >
-              {getAll?.data.slice(0, 6).map((travel: Travel) => (
+              {getAll?.data.map((travel: HotelResponseType) => (
                 <SwiperSlide
                   key={travel.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'

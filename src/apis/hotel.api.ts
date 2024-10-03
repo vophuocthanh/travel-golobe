@@ -6,7 +6,6 @@ export const hotelApi = {
   getAll(
     page?: number | string,
     items_per_page?: number | string,
-    search?: string
   ): Promise<ListResponse<HotelResponseType>> {
     const url = '/hotel-crawl/crawl'
 
@@ -14,7 +13,6 @@ export const hotelApi = {
       params: {
         items_per_page: Number(items_per_page),
         page: Number(page),
-        search: String(search)
       }
     })
   },
@@ -23,7 +21,9 @@ export const hotelApi = {
     items_per_page: number | string,
     sort_by_price: string,
     min_price?: number,
-    max_price?: number
+    max_price?: number,
+    search?: string,
+    star_number?:number
   ): Promise<ListResponse<HotelResponseType>> {
     const url = '/hotel-crawl/crawl'
 
@@ -33,7 +33,9 @@ export const hotelApi = {
         page: Number(page),
         sort_by_price: String(sort_by_price),
         min_price: String(min_price),
-        max_price: String(max_price)
+        max_price: String(max_price),
+        search: String(search),
+        star_number:Number(star_number)
       }
     })
   },
@@ -55,9 +57,21 @@ export const hotelApi = {
     const url = '/hotel'
     return axiosClient.post(url, data)
   },
-  updateHotel(id: string, data: HotelResponseType) {
+  updateHotel(id: string | undefined, data: HotelResponseType) {
     const url = `/hotel/${id}`
     return axiosClient.put(url, data)
+  },
+  updateUnFavorite(id: string | undefined) {
+    const url = `/hotel-crawl/${id}/unfavorite`
+    return axiosClient.post(url)
+  },
+  updateFavorite(id: string | undefined) {
+    const url = `/hotel-crawl/${id}/favorite`
+    return axiosClient.post(url)
+  },
+  getFavorites(){
+    const url = `hotel-crawl/favorites`
+    return axiosClient.get(url)
   },
   deleteHotel(id: string) {
     const url = `/hotel/${id}`
