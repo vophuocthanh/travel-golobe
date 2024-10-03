@@ -1,4 +1,3 @@
-import { commentFlightApi } from '@/apis/comment-flght.api'
 import { flightApi } from '@/apis/flight.api'
 import { flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
 import { IconFlight } from '@/common/icons'
@@ -9,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
   HeartIcon,
-  Link,
+  Link2,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -20,11 +19,10 @@ import {
   Wifi
 } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import FlightDetailReview from './commentFlight'
 
 export default function FlightDetail() {
   const [liked, setLiked] = useState(false)
@@ -60,10 +58,7 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-  const { data: getCommentFlight } = useQuery({
-    queryKey: ['getComments', id],
-    queryFn: () => commentFlightApi.getComments(id || '')
-  })
+
   return (
     <>
       <Header />
@@ -103,16 +98,22 @@ export default function FlightDetail() {
                   <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
                 </p>
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <Link className={`w-4 h-4`} />
+                  <Link2 className={`w-4 h-4`} />
                 </p>
-                <Button>Book now</Button>
+                <Link to={`/flight/all-flight/${getbyId?.id}/flight-payment`}>
+                  <Button>Book now</Button>
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
         <section className='mb-8'>
-          <img src={getbyId?.images} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
+          <img
+            src='https://cdn.flightsim.to/images/26/vietnam-airlines-vn-a871--boeing-787-9--8k-30161-1698496977-UMCD3.jpg?width=1400'
+            alt='Flight Banner'
+            className='object-cover w-full h-80 rounded-xl'
+          />
         </section>
 
         <section className='mb-8'>
@@ -189,7 +190,7 @@ export default function FlightDetail() {
                 <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
                   <img src={getbyId?.images} alt='' className='w-16' />
                   <div>
-                    <p className='text-2xl font-bold'>Emirates</p>
+                    <p className='text-2xl font-bold'>{getbyId?.brand}</p>
                     <p className='text-sm font-medium'>Airbus A320</p>
                   </div>
                 </div>
@@ -227,7 +228,6 @@ export default function FlightDetail() {
             </div>
           </div>
         </section>
-        <FlightDetailReview data={getCommentFlight?.data ?? []} />
       </div>
       <Footer />
     </>

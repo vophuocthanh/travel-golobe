@@ -2308,7 +2308,11 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@types/react-google-recaptcha" "^2.1.9"
     "@types/react-router-redux" "^5.0.27"
     antd "^5.20.4"
+<<<<<<< HEAD
     app "file:C:/Users/Admin/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-722d47c8-ec42-4a2a-bfbc-bbdde34c1443-1727881766076/node_modules/app"
+=======
+    app "file:C:/Users/ACER/AppData/Local/Yarn/Cache/v6/npm-app-0.0.0-edd4663e-033d-482a-b12a-7c748c6fd5bb-1727602894505/node_modules/app"
+>>>>>>> 4e609079801f4c6b94bdb5cccc7e9fd1a800720c
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
     classnames "^2.5.1"

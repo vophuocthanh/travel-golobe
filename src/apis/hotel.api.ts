@@ -62,5 +62,10 @@ export const hotelApi = {
   deleteHotel(id: string) {
     const url = `/hotel/${id}`
     return axiosClient.delete(url)
+  },
+  // isFavorite
+  getFavoriteHotels() {
+    const url = `/hotel-crawl/favorites`
+    return axiosClient.get(url)
   }
 }
