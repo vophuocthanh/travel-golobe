@@ -12,7 +12,7 @@ export const tourApi = {
       }
     })
   },
-  getById(id: string | undefined) :Promise<TourResponseType> {
+  getById(id: string | undefined): Promise<TourResponseType> {
     const url = `/tour/${id}`
     return axiosClient.get(url)
   },
@@ -36,5 +36,9 @@ export const tourApi = {
   unfavoriteTourID(id: string | undefined):Promise<TourResponseType> {
     const url = `/tour/${id}/unfavorite`
     return axiosClient.post(url)
+  },
+  getFavoriteTours() {
+    const url = `/tour/favorite`
+    return axiosClient.get(url)
   }
 }
