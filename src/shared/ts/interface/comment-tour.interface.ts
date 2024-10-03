@@ -13,7 +13,7 @@ export interface CommentTour {
     name: string
     description: string
     price: string
-    images: string
+    image: string
   }
   export  interface TabProps {
     label: string

@@ -33,7 +33,9 @@ export default function FlightReview1() {
               travel tools to get you to your destination.
             </p>
             <Link to='/flight/all-flight' className=''>
-              <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
+              <Button className='absolute right-0 text-black bg-white border hover:text-white border-primary top-8'>
+                See All
+              </Button>
             </Link>
           </div>
           <div className='w-full ]'>

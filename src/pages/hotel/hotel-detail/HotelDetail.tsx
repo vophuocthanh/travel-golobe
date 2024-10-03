@@ -25,6 +25,8 @@ export default function HotelDetail() {
     queryFn: () => hotelApi.getById(id)
   })
 
+
+
   const mutationBookingHotel = useMutation({
     mutationFn: (hotelId: string) => bookingHotelApi.addBookingHotel(hotelId)
   })

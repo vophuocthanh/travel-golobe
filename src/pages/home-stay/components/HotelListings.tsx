@@ -56,20 +56,20 @@ const HotelListings: React.FC = () => {
     <>
       <div className="container mx-auto mt-8">
         <div className="flex space-x-10">
-          <div className="flex flex-col gap-6 pt-10 w-1/3">
-            <div className="border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col w-1/3 gap-6 pt-10">
+            <div className="pb-4 border-b-2 border-gray-300">
               <h2 className="text-xl font-semibold text-gray-700">Price Range</h2>
-              <div className="space-y-4 mt-4 bg-white rounded-lg shadow-md p-4">
+              <div className="p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md">
                 <div className="flex items-center w-full space-x-4">
                   <input
-                    className="w-full h-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="Min Price"
                     value={minPrice !== undefined ? minPrice : ''}
                     onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                   />
                   <span className="text-lg text-gray-600">-</span>
                   <input
-                    className="w-full h-10 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="Max Price"
                     value={maxPrice !== undefined ? maxPrice : ''}
                     onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
@@ -77,7 +77,7 @@ const HotelListings: React.FC = () => {
                 </div>
                 <Button
                   onClick={handlePriceRangeChange}
-                  className="px-4 py-2 w-full bg-primary text-white rounded-md hover:bg-primary-dark transition duration-200"
+                  className="w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
                 >
                   Lọc
                 </Button>
