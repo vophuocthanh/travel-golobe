@@ -26,3 +26,9 @@ export interface ListResponse<T> {
   start_day: string
   end_day: string
 }
+
+export interface HotelParams {
+  items_per_page: number
+  page: number
+  search?: string
+}
