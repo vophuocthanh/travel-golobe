@@ -36,6 +36,46 @@ export const flightApi = {
       }
     })
   },
+  checkFavoriteStatus(id: string | undefined): Promise<{ favorited: boolean }> {
+    const token = localStorage.getItem('access_token'); 
+    const url = `/flight-crawl/${id}/is-favorite`;
+
+    if (token) {
+      return axiosClient.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    } else {
+      return Promise.reject(new Error('No token available'));
+    }
+  },
+
+  favorite(id: string | undefined): Promise<void> {
+    const token = localStorage.getItem('access_token')
+    if (!token) {
+      throw new Error('No access token found')
+    }
+    const url = `/flight-crawl/${id}/favorite`
+    return axiosClient.post(url, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  },
+
+  unfavorite(id: string | undefined): Promise<void> {
+    const token = localStorage.getItem('access_token')
+    if (!token) {
+      throw new Error('No access token found')
+    }
+    const url = `/flight-crawl/${id}/unfavorite`
+    return axiosClient.post(url, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  },
   getById(id: string | undefined): Promise<FlightResponseType> {
     const url = `/flight-crawl/crawl/${id}`
     return axiosClient.get(url)

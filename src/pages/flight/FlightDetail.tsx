@@ -1,14 +1,12 @@
 import { commentFlightApi } from '@/apis/comment-flght.api'
 import { flightApi } from '@/apis/flight.api'
-import { flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
+import { banner_flight, flightdetail1, flightdetail2, flightdetail3, ticket_economy } from '@/assets/images'
 import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
-import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
-  HeartIcon,
   Link,
   MapPin,
   MoveLeft,
@@ -19,20 +17,15 @@ import {
   UtensilsCrossed,
   Wifi
 } from 'lucide-react'
-import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import FlightDetailReview from './commentFlight'
+import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
+import Favorite from '@/components/common/flight/all-flight/favorite'
 
 export default function FlightDetail() {
-  const [liked, setLiked] = useState(false)
-
-  const handleClick = () => {
-    setLiked(!liked)
-  }
-
   const slides = [
     { content: flightdetail1 },
     { content: flightdetail2 },
@@ -64,6 +57,9 @@ export default function FlightDetail() {
     queryKey: ['getComments', id],
     queryFn: () => commentFlightApi.getComments(id || '')
   })
+
+  const price = getbyId?.price
+  const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
   return (
     <>
       <Header />
@@ -94,25 +90,20 @@ export default function FlightDetail() {
               </div>
             </div>
             <div className='space-y-2'>
-              <p className='text-[32px] font-bold text-[#FF8682]'>$240</p>
+              <p className='text-[32px] font-bold text-[#FF8682]'>{formattedPrice} </p>
               <div className='flex space-x-2'>
-                <p
-                  className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
-                  onClick={handleClick}
-                >
-                  <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
-                </p>
+                <Favorite id={getbyId?.id} />
+
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link className={`w-4 h-4`} />
                 </p>
-                <Button>Book now</Button>
               </div>
             </div>
           </div>
         </section>
 
         <section className='mb-8'>
-          <img src={getbyId?.images} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
+          <img src={banner_flight} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
         </section>
 
         <section className='mb-8'>
@@ -177,6 +168,8 @@ export default function FlightDetail() {
               </div>
             </div>
           </div>
+
+          <FlightTicketSelection tickets={getbyId?.Ticket || []} ticketEconomy={ticket_economy} />
 
           <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
             <div className='flex justify-between'>

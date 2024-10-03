@@ -44,7 +44,7 @@ export interface TourResponseType {
 }
 
 export interface FlightResponseType {
-  id?: string
+  id: string
   image?: string
   price: number
   rating?: string
@@ -58,4 +58,7 @@ export interface FlightResponseType {
   take_place?: string
   create_at?: string
   destination?: string
+  Ticket?:[]
+  isFavorite: boolean
 }
+
