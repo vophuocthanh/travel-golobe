@@ -100,7 +100,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 <div className='flex flex-row w-full h-full'>
                   <div className='w-[70%] flex flex-col gap-4'>
                     <div className='flex items-center gap-2 mt-8'>
-                      <Button className='bg-white border border-primary'>4.2</Button>
+                      <Button className='text-black bg-white border hover:text-white border-primary'>4.2</Button>
                       <p className='font-bold'>Very good</p>
                       <p>54 reviews</p>
                     </div>

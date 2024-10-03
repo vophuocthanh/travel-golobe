@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
   HeartIcon,
-  Link,
+  Link2,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -20,7 +20,7 @@ import {
   Wifi
 } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -103,9 +103,11 @@ export default function FlightDetail() {
                   <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
                 </p>
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <Link className={`w-4 h-4`} />
+                  <Link2 className={`w-4 h-4`} />
                 </p>
-                <Button>Book now</Button>
+                <Link to={`/flight/all-flight/${getbyId?.id}/flight-payment`}>
+                  <Button>Book now</Button>
+                </Link>
               </div>
             </div>
           </div>

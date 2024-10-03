@@ -8,6 +8,8 @@ interface FavoriteProps {
     id: string | undefined;
 }
 export default function Favorite({ id }: FavoriteProps) {
+    console.log(id,"id");
+    
     const navigate = useNavigate()
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -16,7 +18,6 @@ export default function Favorite({ id }: FavoriteProps) {
         setIsFavorited(favorited === 'true');
     }, [id]);
     
-
     const {mutate: favoriteTourID}  = useMutation({
         mutationKey: ['favoriteTourID'], 
         mutationFn: () => tourApi.favoriteTourID(id),
@@ -47,8 +48,6 @@ export default function Favorite({ id }: FavoriteProps) {
                 favoriteTourID();
             }
         }
-        
-
     };
     return (
         <div

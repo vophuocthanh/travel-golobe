@@ -13,7 +13,6 @@ export default function FlightReview1() {
               Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
-            <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
           </div>
         </div>
         <div className='flex gap-4 mx-36'>
@@ -34,7 +33,7 @@ export default function FlightReview1() {
               living.
             </p>
 
-            <Button className='mt-20 mb-4 bg-white mx-11 hover:bg-white'>Book Flight</Button>
+            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-white'>Book Flight</Button>
           </div>
           <div className='flex flex-col gap-4 h-[30rem] w-[50rem] '>
             <div className='flex gap-4 '>

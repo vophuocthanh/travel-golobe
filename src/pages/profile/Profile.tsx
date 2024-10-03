@@ -24,6 +24,7 @@ import Input from './components/input-profile'
 import { flightApi } from '@/apis/flight.api'
 import { hotelApi } from '@/apis/hotel.api'
 import { tourApi } from '@/apis/tour.api'
+import { Link } from 'react-router-dom'
 import ContentAddress from './components/content-adress'
 import ContentCountry from './components/content-country'
 import ContentDate from './components/content-date'
@@ -222,7 +223,9 @@ export default function Profile() {
                                 <p>{tour.description}</p>
                               </div>
                             </div>
-                            <Button className='px-4 py-2 text-white rounded-md bg-primary'>Book now</Button>
+                            <Link to={`/tour/${tour.id}`}>
+                              <Button className='px-4 py-2 text-white rounded-md bg-primary'>View detail</Button>
+                            </Link>
                           </div>
                         )
                       )}
@@ -246,7 +249,9 @@ export default function Profile() {
                               <p>{flight.price}</p>
                             </div>
                           </div>
-                          <Button className='px-4 py-2 text-white rounded-md bg-primary'>Book now</Button>
+                          <Link to={`/flight/${flight.id}`}>
+                            <Button className='px-4 py-2 text-white rounded-md bg-primary'>View detail</Button>
+                          </Link>
                         </div>
                       ))}
                     </div>
@@ -269,7 +274,9 @@ export default function Profile() {
                                 <p className='hotel-description'>{hotel.description}</p>
                               </div>
                             </div>
-                            <Button className='px-4 py-2 text-white rounded-md bg-primary'>Book now</Button>
+                            <Link to={`/hotel/${hotel.id}`}>
+                              <Button className='px-4 py-2 text-white rounded-md bg-primary'>View detail</Button>
+                            </Link>
                           </div>
                         )
                       )}
