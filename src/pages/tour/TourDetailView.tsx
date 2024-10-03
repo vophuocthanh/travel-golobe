@@ -3,8 +3,8 @@ import { tourApi } from '@/apis/tour.api';
 
 import { Footer, Header } from '@/components/common';
 import { Button } from '@/components/ui/button';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { ChevronRight, HeartIcon, Link, MapPin, Star } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { ChevronRight, Link, MapPin, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Skeleton } from "@/components/ui/skeleton"
@@ -12,6 +12,7 @@ import Vehicle from '@/components/common/tour/detail-tour/vehicle/vehicle';
 import Information from '@/components/common/tour/detail-tour/infomation/infomation';
 import Schedule from '@/components/common/tour/detail-tour/schedule/schedule';
 import { IconDeparture, IconDepartureDate, IconNumberSeats, IconTime, IconTourCode } from '@/common/icons';
+import Favorite from '@/components/common/tour/favorite/favorite';
 
 
 
@@ -26,37 +27,6 @@ export default function TourDetailView() {
         queryFn: () => tourApi.getById(id),
     })
     
-
-
-    const {mutate: favoriteTourID}  = useMutation({
-        mutationKey: ['favoriteTourID'], 
-        mutationFn: () => tourApi.favoriteTourID(id),
-    })
-    const {mutate: unfavoriteTourID}  = useMutation({
-        mutationKey: ['favoriteTourID'], 
-        mutationFn: () => tourApi.unfavoriteTourID(id),
-    })
-    
-
-
-
-    const [clickCount, setClickCount] = useState(0);
-
-    const handleClick = () => {
-        setClickCount(prevCount => {
-            const newCount = prevCount + 1;
-            
-            if (newCount % 2 !== 0) {
-                favoriteTourID();
-            } else {
-                unfavoriteTourID();
-            }
-            
-            return newCount;
-        });
-        
-    };
-
 
     const reviews = [
         {
@@ -115,18 +85,11 @@ export default function TourDetailView() {
                             </div>
                             <div className="flex-none space-y-4 text-right">
                                 <div className="flex space-x-4">
-                                    <div
-                                        className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
-                                        onClick={() => handleClick()}
-                                    >
-                                        <HeartIcon
-                                            className={`w-5 h-5 ${clickCount % 2 !== 0  ? 'text-red-600' : 'text-gray-500'}`}
-                                        />
-                                    </div>
+                                    <Favorite id={id} />
                                     <div className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-gray-100">
                                         <Link className="w-5 h-5 text-gray-500" />
                                     </div>
-                                </div>
+                                </div>                            
                             </div>
                         </div>
                     </section>

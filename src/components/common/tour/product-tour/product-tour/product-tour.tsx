@@ -2,45 +2,76 @@ import { IconAdress, IconDrink } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 
 import { tourApi } from '@/apis/tour.api'
-import { useQuery } from '@tanstack/react-query'
-import { Heart } from 'lucide-react'
-import React, { useState } from 'react'
+import {  useQuery } from '@tanstack/react-query'
+import  {  useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
 import {  Tour } from '@/shared/ts/interface/comment-tour.interface'
 import { PaginationDemo } from '../pagination/pagination'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
+import Favorite from '../../favorite/favorite'
 
 
 
 
 
 const ProductTour = () => {
-  const [liked, setLiked] = useState(false);
+ // const { id } = useParams<{ id: string }>()
   const [sortByPrice, setSortByPrice] = useState('');
   console.log(sortByPrice);
-  
-
-    const handleClick = (id?: string) => {
-      console.log(id,"like");
-      getAll?.data.map((item: Tour)=> {
-        if(item.id === id){
-          console.log("yes");
-          setLiked(true);
-        }else {
-          console.log("no");
-          
-          setLiked(false)
-        }
-      })
-    };
-
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1,5)
   })
-  console.log(getAll?.data, "data");
+  
+
+  //const [isFavorited, setIsFavorited] = useState(false);
+
+    // useEffect(() => {
+    //     const favorited = localStorage.getItem(`favorited_${id}`);
+    //     setIsFavorited(favorited === 'true');
+    // }, [id]);
+    // console.log(isFavorited,"isFavorited");
+    
+
+    // const {mutate: favoriteTourID}  = useMutation({
+    //     mutationKey: ['favoriteTourID'], 
+    //     mutationFn: () => tourApi.favoriteTourID(id),
+    //     onSuccess: () => {
+    //         setIsFavorited(true);
+    //         localStorage.setItem(`favorited_${getAll?.data}`, 'true'); 
+    //         console.log(getAll?.data);
+            
+    //     },
+    // })
+    // const {mutate: unfavoriteTourID}  = useMutation({
+    //     mutationKey: ['unfavoriteTourID'], 
+    //     mutationFn: () => tourApi.unfavoriteTourID(id),
+    //     onSuccess: () => {
+    //         setIsFavorited(false);
+    //         localStorage.setItem(`favorited_${getAll?.data}`, 'false');
+    //         console.log(getAll?.data, "123");
+    //     },
+    // })
+    // console.log(`favorited_${id}`, 'false');
+    
+
+
+    // const handleClick = (id: string | undefined ) => {
+    //   console.log(id,"id1");
+      
+    //     if (isFavorited && id === id) {
+    //       setIsFavorited(true)
+    //         //unfavoriteTourID();
+    //     } else {
+    //       setIsFavorited(false)
+    //        // favoriteTourID();
+    //     }
+
+    // };
+
+
   
   
   const items: MenuProps['items'] = [
@@ -136,9 +167,15 @@ const ProductTour = () => {
                 </div>
                 <div className='w-full h-[25%] flex'>
                   <div className='flex flex-row items-center justify-between w-full '>
-                    <Button className={` mr-5 `} onClick={() => handleClick(item.id)} >
-                      <Heart className={`w-5 h-5 ${liked ? 'text-red-600' : 'text-gray-500'} `} />
-                    </Button>
+                    <Favorite id={item.id}/>
+                  {/* <Button
+                      className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
+                      onClick={() => handleClick(item.id)}
+                  >
+                      <HeartIcon
+                          className={`w-5 h-5 ${isFavorited  ? 'text-red-600' : 'text-gray-500'}`}
+                      />
+                  </Button> */}
                     <Link to={`/tour/${item.id}`}  className='w-full'>
                       <Button className='w-full text-white ' >View Deals</Button>
                     </Link>
