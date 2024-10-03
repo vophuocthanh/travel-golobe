@@ -1,13 +1,14 @@
-import { commentFlightApi } from '@/apis/comment-flght.api'
+// import { commentFlightApi } from '@/apis/comment-flght.api'
 import { flightApi } from '@/apis/flight.api'
 import { banner_flight, flightdetail1, flightdetail2, flightdetail3, ticket_economy } from '@/assets/images'
 import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
+import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
+import Favorite from '@/components/common/tour/favorite/favorite'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
-  Link,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -17,13 +18,11 @@ import {
   UtensilsCrossed,
   Wifi
 } from 'lucide-react'
+
 import { useParams } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import FlightDetailReview from './commentFlight'
-import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
-import Favorite from '@/components/common/flight/all-flight/favorite'
 
 export default function FlightDetail() {
   const slides = [
@@ -53,13 +52,14 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-  const { data: getCommentFlight } = useQuery({
-    queryKey: ['getComments', id],
-    queryFn: () => commentFlightApi.getComments(id || '')
-  })
+  // const { data: getCommentFlight } = useQuery({
+  //   queryKey: ['getComments', id],
+  //   queryFn: () => commentFlightApi.getComments(id || '')
+  // })
 
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
+
   return (
     <>
       <Header />
@@ -93,10 +93,6 @@ export default function FlightDetail() {
               <p className='text-[32px] font-bold text-[#FF8682]'>{formattedPrice} </p>
               <div className='flex space-x-2'>
                 <Favorite id={getbyId?.id} />
-
-                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <Link className={`w-4 h-4`} />
-                </p>
               </div>
             </div>
           </div>
@@ -104,6 +100,11 @@ export default function FlightDetail() {
 
         <section className='mb-8'>
           <img src={banner_flight} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
+          <img
+            src='https://cdn.flightsim.to/images/26/vietnam-airlines-vn-a871--boeing-787-9--8k-30161-1698496977-UMCD3.jpg?width=1400'
+            alt='Flight Banner'
+            className='object-cover w-full h-80 rounded-xl'
+          />
         </section>
 
         <section className='mb-8'>
@@ -182,7 +183,7 @@ export default function FlightDetail() {
                 <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
                   <img src={getbyId?.images} alt='' className='w-16' />
                   <div>
-                    <p className='text-2xl font-bold'>Emirates</p>
+                    <p className='text-2xl font-bold'>{getbyId?.brand}</p>
                     <p className='text-sm font-medium'>Airbus A320</p>
                   </div>
                 </div>
@@ -220,7 +221,6 @@ export default function FlightDetail() {
             </div>
           </div>
         </section>
-        <FlightDetailReview data={getCommentFlight?.data ?? []} />
       </div>
       <Footer />
     </>
