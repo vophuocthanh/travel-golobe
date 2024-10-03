@@ -1,4 +1,3 @@
-import { bookingHotelApi } from '@/apis/booking-hotel.api'
 import { commentHotelApi } from '@/apis/comment-hotel.api'
 import { hotelApi } from '@/apis/hotel.api'
 
@@ -11,11 +10,10 @@ import HotelDetailOverview from '@/components/common/hotel/hotel-detail-content/
 import HotelDetailReview from '@/components/common/hotel/hotel-detail-content/hotel-detail-review'
 import HotelDetailRoom from '@/components/common/hotel/hotel-detail-content/hotel-detail-room'
 import { Button } from '@/components/ui/button'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { ChevronRight, HeartIcon, MapPin } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { Link, useParams } from 'react-router-dom'
 
 export default function HotelDetail() {
   const [liked, setLiked] = useState(false)
@@ -30,21 +28,6 @@ export default function HotelDetail() {
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
-
-  const mutationBookingHotel = useMutation({
-    mutationFn: (hotelId: string) => bookingHotelApi.addBookingHotel(hotelId)
-  })
-
-  function handleBookingHotel() {
-    mutationBookingHotel.mutate(id || '', {
-      onSuccess: () => {
-        toast.success('Booking success 🚀🚀⚡⚡!')
-      },
-      onError: () => {
-        toast.error('Booking failed 😭😭😭😭!')
-      }
-    })
-  }
 
   const { data: getCommentHotel } = useQuery({
     queryKey: ['getComments', id],
@@ -120,7 +103,9 @@ export default function HotelDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
                 </p>
-                <Button onClick={handleBookingHotel}>Book now</Button>
+                <Link to={`/hotel/home-stay/${getbyId?.id}/hotel-payment`}>
+                  <Button>Book now</Button>
+                </Link>
               </div>
             </div>
           </div>
