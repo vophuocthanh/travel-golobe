@@ -25,55 +25,6 @@ const ProductTour = () => {
     queryFn: () => tourApi.getAll(1,5)
   })
   
-
-  //const [isFavorited, setIsFavorited] = useState(false);
-
-    // useEffect(() => {
-    //     const favorited = localStorage.getItem(`favorited_${id}`);
-    //     setIsFavorited(favorited === 'true');
-    // }, [id]);
-    // console.log(isFavorited,"isFavorited");
-    
-
-    // const {mutate: favoriteTourID}  = useMutation({
-    //     mutationKey: ['favoriteTourID'], 
-    //     mutationFn: () => tourApi.favoriteTourID(id),
-    //     onSuccess: () => {
-    //         setIsFavorited(true);
-    //         localStorage.setItem(`favorited_${getAll?.data}`, 'true'); 
-    //         console.log(getAll?.data);
-            
-    //     },
-    // })
-    // const {mutate: unfavoriteTourID}  = useMutation({
-    //     mutationKey: ['unfavoriteTourID'], 
-    //     mutationFn: () => tourApi.unfavoriteTourID(id),
-    //     onSuccess: () => {
-    //         setIsFavorited(false);
-    //         localStorage.setItem(`favorited_${getAll?.data}`, 'false');
-    //         console.log(getAll?.data, "123");
-    //     },
-    // })
-    // console.log(`favorited_${id}`, 'false');
-    
-
-
-    // const handleClick = (id: string | undefined ) => {
-    //   console.log(id,"id1");
-      
-    //     if (isFavorited && id === id) {
-    //       setIsFavorited(true)
-    //         //unfavoriteTourID();
-    //     } else {
-    //       setIsFavorited(false)
-    //        // favoriteTourID();
-    //     }
-
-    // };
-
-
-  
-  
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -123,7 +74,7 @@ const ProductTour = () => {
         <div>
           {getAll?.data.map((item: Tour) => (
           
-            <div className='flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
+            <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
               <div className='relative bg-blue-300 w-[27%] flex-3'>
                 <img src={item.image} className='object-cover w-full h-full ' alt='tour' />
                 <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
@@ -132,7 +83,7 @@ const ProductTour = () => {
               </div>
               <div className='p-3  w-[73%] '>
                 <div className='flex justify-between '>
-                  <div className='mr-2 border-b-2 border-gray-400 w-[85%]'>
+                  <div className='mr-2  w-[85%]'>
                     <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
                       {item.description}
                     </h2>
@@ -153,7 +104,7 @@ const ProductTour = () => {
                     </div>
 
                     <div className='flex mb-6'>
-                      <Button className='mr-3 bg-white border border-primary hover:bg-slate-100'>4.2</Button>
+                      <Button className='mr-3 text-black bg-white border border-primary hover:bg-slate-100'>4.2</Button>
                       <p className='flex items-center '>
                         <span className='text-lg font-medium'>Very Good</span> 371 reviews
                       </p>
@@ -165,17 +116,10 @@ const ProductTour = () => {
                     </h2>
                   </div>
                 </div>
-                <div className='w-full h-[25%] flex'>
+                <div className='border-b-2 border-zinc-400'></div>
+                <div className='w-full h-[25%] flex mb-10'>
                   <div className='flex flex-row items-center justify-between w-full '>
                     <Favorite id={item.id}/>
-                  {/* <Button
-                      className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
-                      onClick={() => handleClick(item.id)}
-                  >
-                      <HeartIcon
-                          className={`w-5 h-5 ${isFavorited  ? 'text-red-600' : 'text-gray-500'}`}
-                      />
-                  </Button> */}
                     <Link to={`/tour/${item.id}`}  className='w-full'>
                       <Button className='w-full text-white ' >View Deals</Button>
                     </Link>
@@ -186,7 +130,7 @@ const ProductTour = () => {
           ))}
         </div>
       </div>
-      <div>
+      <div className='mb-40 py-7'>
         <PaginationDemo />
       </div>
     </div>

@@ -53,7 +53,7 @@ export default function Favorite({ id }: FavoriteProps) {
     <div
       className={`${
         isFavorited ? 'bg-red-300' : 'text-gray-500'
-      } flex items-center rounded-full justify-center w-12 h-12 text-sm font-medium transition-colors border cursor-pointer border-primary hover:bg-red-100`}
+      } flex items-center rounded-full justify-center w-12 h-12 mr-2 text-sm font-medium transition-colors border cursor-pointer border-primary hover:bg-red-100`}
       onClick={handleClick}
     >
       <HeartIcon className={`w-5 h-5 `} />

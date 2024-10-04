@@ -38,7 +38,7 @@ export default function FilterTour()  {
                         <div className="flex gap-5">
                         {
                             [0,1,2,3,4].map((item) =>(
-                                <Button key={item} className="bg-white border border-primary hover:bg-slate-100">{item}+</Button>
+                                <Button key={item} className="text-black bg-white border border-primary hover:bg-slate-100">{item}+</Button>
                             ))
                         }
                         </div>
