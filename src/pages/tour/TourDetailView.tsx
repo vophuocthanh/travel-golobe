@@ -19,13 +19,11 @@ import Favorite from '@/components/common/tour/favorite/favorite';
 
 export default function TourDetailView() {
   const { id } = useParams<{ id: string }>()
-  console.log(id, 'id')
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => tourApi.getById(id)
   })
-  console.log(getbyId?.description, 'log')
 
 
     
@@ -88,7 +86,7 @@ export default function TourDetailView() {
                             </div>
                             <div className="flex-none space-y-4 text-right">
                                 <div className="flex space-x-4">
-                                    <Favorite id={id} />
+                                    <Favorite id={id} isFavorite={getbyId?.isFavorite} />
                                     <div className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-gray-100">
                                         <Link className="w-5 h-5 text-gray-500" />
                                     </div>
@@ -267,7 +265,7 @@ export default function TourDetailView() {
                                     <div className='mr-2 text-xl'>Số chỗ còn:</div>
                                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>9 chỗ</div>
                                 </div>
-                                <Button className='w-full'>Đặt tour</Button>
+                                <div className='w-full p-3 text-center text-black border rounded-lg border-primary hover:bg-slate-200 ' >Đặt tour</div>
                             </div>
 
 

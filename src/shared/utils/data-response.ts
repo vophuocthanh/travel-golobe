@@ -105,4 +105,5 @@ export interface TourResponse {
   sight_seeing?: string
   created_at?: string
   updated_at?: string
+  isFavorite?: boolean
 }

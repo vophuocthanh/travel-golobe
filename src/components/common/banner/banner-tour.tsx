@@ -1,6 +1,5 @@
 import {banner_tour} from '@/assets/images'
 import { IconAdd,IconPlaces } from '@/common/icons'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { CalendarDays, Sofa, User } from 'lucide-react'
@@ -72,15 +71,14 @@ export default function BannerTour()  {
                                 </div>
                             </div>
                             <div className='flex justify-end'>
-                                <Button className='p-2 mr-5 bg-white hover:bg-slate-200'>
-                                    
+                                <div className='flex p-2 mr-5 border rounded-lg border-primary hover:bg-slate-200'>                                    
                                     <div className='mr-2'><IconAdd  /></div>
                                     Add Promo Code
-                                </Button>
-                                <Button>
+                                </div>
+                                <div className='flex items-center p-2 border rounded-lg border-primary hover:bg-slate-200'>
                                     <div className='mr-2'><IconPlaces  /></div>
                                     Show Places
-                                </Button>
+                                </div>
                             </div>
                         </div>
                     </div>

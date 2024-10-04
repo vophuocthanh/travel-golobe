@@ -25,53 +25,6 @@ const ProductTour = () => {
     queryFn: () => tourApi.getAll(1,5)
   })
   
-
-  //const [isFavorited, setIsFavorited] = useState(false);
-
-    // useEffect(() => {
-    //     const favorited = localStorage.getItem(`favorited_${id}`);
-    //     setIsFavorited(favorited === 'true');
-    // }, [id]);
-    // console.log(isFavorited,"isFavorited");
-    
-
-    // const {mutate: favoriteTourID}  = useMutation({
-    //     mutationKey: ['favoriteTourID'], 
-    //     mutationFn: () => tourApi.favoriteTourID(id),
-    //     onSuccess: () => {
-    //         setIsFavorited(true);
-    //         localStorage.setItem(`favorited_${getAll?.data}`, 'true'); 
-    //         console.log(getAll?.data);
-            
-    //     },
-    // })
-    // const {mutate: unfavoriteTourID}  = useMutation({
-    //     mutationKey: ['unfavoriteTourID'], 
-    //     mutationFn: () => tourApi.unfavoriteTourID(id),
-    //     onSuccess: () => {
-    //         setIsFavorited(false);
-    //         localStorage.setItem(`favorited_${getAll?.data}`, 'false');
-    //         console.log(getAll?.data, "123");
-    //     },
-    // })
-    // console.log(`favorited_${id}`, 'false');
-    
-
-
-    // const handleClick = (id: string | undefined ) => {
-    //   console.log(id,"id1");
-      
-    //     if (isFavorited && id === id) {
-    //       setIsFavorited(true)
-    //         //unfavoriteTourID();
-    //     } else {
-    //       setIsFavorited(false)
-    //        // favoriteTourID();
-    //     }
-
-    // };
-
-
   
   
   const items: MenuProps['items'] = [
@@ -123,7 +76,7 @@ const ProductTour = () => {
         <div>
           {getAll?.data.map((item: Tour) => (
           
-            <div className='flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
+            <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
               <div className='relative bg-blue-300 w-[27%] flex-3'>
                 <img src={item.image} className='object-cover w-full h-full ' alt='tour' />
                 <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
@@ -166,18 +119,10 @@ const ProductTour = () => {
                   </div>
                 </div>
                 <div className='w-full h-[25%] flex'>
-                  <div className='flex flex-row items-center justify-between w-full '>
-                    <Favorite id={item.id}/>
-                  {/* <Button
-                      className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
-                      onClick={() => handleClick(item.id)}
-                  >
-                      <HeartIcon
-                          className={`w-5 h-5 ${isFavorited  ? 'text-red-600' : 'text-gray-500'}`}
-                      />
-                  </Button> */}
+                  <div className='flex flex-row items-center justify-between w-full mx-4 '>
+                    <Favorite id={item.id} isFavorite={item.isFavorite}/>
                     <Link to={`/tour/${item.id}`}  className='w-full'>
-                      <Button className='w-full text-white ' >View Deals</Button>
+                      <div className='w-full p-3 ml-4 text-center text-black border rounded-lg border-primary hover:bg-slate-200 ' >View Deals</div>
                     </Link>
                   </div>
                 </div>

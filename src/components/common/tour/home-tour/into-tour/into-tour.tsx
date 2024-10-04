@@ -26,7 +26,7 @@ export default function IntoTour() {
               </p>
             </div>
             <Link to='/tour/all-tour'>
-              <Button className='bg-white border border-primary hover:bg-slate-100'>See All</Button>
+              <div className='p-2 bg-white border rounded-lg border-primary hover:bg-slate-200'>See All</div>
             </Link>
           </div>
           <div className='flex justify-between '>
@@ -45,7 +45,7 @@ export default function IntoTour() {
                     </div>
                     <h3 className='text-xl font-medium '>${item.price}</h3>
                   </div>
-                  <Button className='w-full text-white '>Book a Hotel</Button>
+                  <Button className='w-full text-white'>Book a Hotel</Button>
                 </div>
               </div>
             ))}

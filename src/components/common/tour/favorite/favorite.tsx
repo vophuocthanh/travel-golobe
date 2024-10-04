@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface FavoriteProps {
     id: string | undefined;
+    isFavorite: boolean | undefined
 }
 export default function Favorite({ id }: FavoriteProps) {
     console.log(id,"id");

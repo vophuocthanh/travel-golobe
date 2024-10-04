@@ -41,7 +41,7 @@ export interface TourResponseType {
   sight_seeing?: string
   created_at?: string
   updated_at?: string
-  tourFavorites?:[{isFavorite: boolean}]
+  isFavorite: boolean
 }
 
 export interface FlightResponseType {

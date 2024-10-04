@@ -14,6 +14,7 @@ export interface CommentTour {
     description: string
     price: string
     image: string
+    isFavorite: boolean
   }
   export  interface TabProps {
     label: string
