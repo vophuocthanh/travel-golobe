@@ -52,11 +52,7 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-
-  // const { data: getCommentFlight } = useQuery({
-  //   queryKey: ['getComments', id],
-  //   queryFn: () => commentFlightApi.getComments(id || '')
-  // })
+console.log('alo',getbyId?.id);
 
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
@@ -101,11 +97,7 @@ export default function FlightDetail() {
 
         <section className='mb-8'>
           <img src={banner_flight} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
-          <img
-            src='https://cdn.flightsim.to/images/26/vietnam-airlines-vn-a871--boeing-787-9--8k-30161-1698496977-UMCD3.jpg?width=1400'
-            alt='Flight Banner'
-            className='object-cover w-full h-80 rounded-xl'
-          />
+          
         </section>
 
         <section className='mb-8'>

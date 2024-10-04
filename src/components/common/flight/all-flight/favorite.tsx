@@ -18,7 +18,7 @@ export default function Favorite({ id }: FavoriteProps) {
   }, [id])
 
   const { mutate: favoriteFlightID } = useMutation({
-    mutationKey: ['favorite'],
+    mutationKey: ['favoriteFlightID'],
     mutationFn: () => flightApi.favoriteFLightID(id),
     onSuccess: () => {
       setIsFavorited(true)
