@@ -1,16 +1,16 @@
-import { IconVector, IconVectorDown } from '@/common/icons'
-import IconSreach from '@/common/icons/IconSreach'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { useEffect, useState } from 'react'
 import FilterSection from './FilterSection'
 import FlightCard from './FlightCard'
+import { Input } from '@/components/ui/input'
+import { IconVector, IconVectorDown } from '@/common/icons'
+import IconSreach from '@/common/icons/IconSreach'
+import { Button } from '@/components/ui/button'
 
-import { flightApi } from '@/apis/flight.api'
-import { useQuery } from '@tanstack/react-query'
+import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import { format } from 'date-fns'
 import { toast } from 'sonner'
-import { DatePickerWithPresets } from '../../calendar/calendar-date'
+import { useQuery } from '@tanstack/react-query'
+import { flightApi } from '@/apis/flight.api'
 
 export default function ContentAllFlight() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
@@ -27,7 +27,7 @@ export default function ContentAllFlight() {
     setMaxPrice(max)
   }
   const { data: getAll, refetch } = useQuery({
-    queryKey: ['getAllHotel', 1, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
+    queryKey: ['getAllFlight', 1, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
     queryFn: () => flightApi.getAll(1, 4, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
     enabled: false
   })
@@ -111,7 +111,6 @@ export default function ContentAllFlight() {
             departDate={filteredDepartDate}
             minPrice={minPrice}
             maxPrice={maxPrice}
-            isFavorite={false}
             onToggleFavorite={() => {
               throw new Error('Function not implemented.')
             }}

@@ -1,52 +1,42 @@
 import axiosClient from '@/apis/axios-client'
-import { ListResponse } from '@/shared/ts/interface'
+import { HotelParams, ListResponse } from '@/shared/ts/interface'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
   getAll(
     page?: number | string,
     items_per_page?: number | string,
-    search?: string
-  ): Promise<ListResponse<HotelResponseType>> {
-    const url = '/hotel-crawl/crawl'
-
-    return axiosClient.get(url, {
-      params: {
-        items_per_page: Number(items_per_page),
-        page: Number(page),
-        search: String(search)
-      }
-    })
-  },
-  getAllByPrice(
-    page: number | string,
-    items_per_page: number | string,
-    sort_by_price: string,
+    sort_by_price?: string,
     min_price?: number,
-    max_price?: number
+    max_price?: number,
+    star_number?: number,
   ): Promise<ListResponse<HotelResponseType>> {
-    const url = '/hotel-crawl/crawl'
-
-    return axiosClient.get(url, {
-      params: {
-        items_per_page: Number(items_per_page),
-        page: Number(page),
-        sort_by_price: String(sort_by_price),
-        min_price: String(min_price),
-        max_price: String(max_price)
-      }
-    })
+    const url = '/hotel-crawl/crawl';
+  
+    const params: HotelParams = {
+      items_per_page: Number(items_per_page),
+      page: Number(page),
+    };
+  
+    if (sort_by_price) {
+      params.sort_by_price = sort_by_price;
+    }
+  
+    if (min_price) {
+      params.min_price = min_price;
+    }
+  
+    if (max_price) {
+      params.max_price = max_price;
+    }
+  
+    if (star_number) {
+      params.star_number = star_number;
+    }
+  
+    return axiosClient.get(url, { params });
   },
-  getPrice(max_price: number | string, min_price: number | string): Promise<ListResponse<HotelResponseType>> {
-    const url = '/hotel-crawl/crawl'
-
-    return axiosClient.get(url, {
-      params: {
-        max_price: Number(max_price),
-        main_price: Number(min_price)
-      }
-    })
-  },
+  
   getById(id: string | undefined): Promise<HotelResponseType> {
     const url = `/hotel-crawl/crawl/${id}`
     return axiosClient.get(url)
@@ -55,17 +45,20 @@ export const hotelApi = {
     const url = '/hotel'
     return axiosClient.post(url, data)
   },
-  updateHotel(id: string, data: HotelResponseType) {
+  updateHotel(id: string | undefined, data: HotelResponseType) {
     const url = `/hotel/${id}`
     return axiosClient.put(url, data)
+  },
+  updateUnFavorite(id: string | undefined) {
+    const url = `/hotel-crawl/${id}/unfavorite`
+    return axiosClient.post(url)
+  },
+  updateFavorite(id: string | undefined) {
+    const url = `/hotel-crawl/${id}/favorite`
+    return axiosClient.post(url)
   },
   deleteHotel(id: string) {
     const url = `/hotel/${id}`
     return axiosClient.delete(url)
-  },
-  // isFavorite
-  getFavoriteHotels() {
-    const url = `/hotel-crawl/favorites`
-    return axiosClient.get(url)
   }
 }

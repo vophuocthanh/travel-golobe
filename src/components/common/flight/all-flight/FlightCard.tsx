@@ -1,18 +1,16 @@
 import { flightApi } from '@/apis/flight.api'
-import { flightreview1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
-import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom'
+import Favorite from './favorite'
 
 interface FlightCardProps {
-  isFavorite: boolean
   onToggleFavorite: () => void
   minPrice?: number
   maxPrice?: number
@@ -20,16 +18,10 @@ interface FlightCardProps {
   returnDate?: string
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({
-  isFavorite,
-  onToggleFavorite,
-  minPrice,
-  maxPrice,
-  returnDate,
-  departDate
-}) => {
+const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate, departDate }) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
+
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -73,6 +65,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
       ? 'N/A'
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
+
   return (
     <>
       <div className='flex items-center justify-between mt-20'>
@@ -89,7 +82,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
       {getAll?.data.map((flight: FlightResponseType) => (
         <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
           <div className='w-[40%] bg-white relative'>
-            <img src={flightreview1} alt='Flight' className='object-cover w-[90%] h-34 ml-8 mt-4' />
+            <img src={flight.image} alt='Flight' className='object-cover rounded-md w-[90%] h-34 ml-8 mt-4' />
             <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2'>
               9 images
             </p>
@@ -100,7 +93,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 <div className='flex flex-row w-full h-full'>
                   <div className='w-[70%] flex flex-col gap-4'>
                     <div className='flex items-center gap-2 mt-8'>
-                      <Button className='text-black bg-white border hover:text-white border-primary'>4.2</Button>
+                      <Button className='bg-white border border-primary'>4.2</Button>
                       <p className='font-bold'>Very good</p>
                       <p>54 reviews</p>
                     </div>
@@ -141,13 +134,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
               </div>
               <div className='w-full h-[25%] flex'>
                 <div className='flex flex-row items-center w-full gap-4'>
-                  <Button
-                    className={isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white w-[3.6rem] '}
-                    onClick={onToggleFavorite}
-                  >
-                    <Heart />
-                  </Button>
-                  <Link to={`/vehicle/flight/${flight.id}`} className='w-[30rem]'>
+                  <Favorite id={flight.id} />
+                  <Link to={`/vehicle/flight/${flight.id}`} className='w-[30rem]'>               
                     <Button className='w-full mx-4 text-white'>View Deals</Button>
                   </Link>
                 </div>

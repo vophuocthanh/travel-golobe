@@ -4,36 +4,36 @@ import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
-import { Coffee, Heart, MapPin } from 'lucide-react'
+import { Coffee, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReadOnlyRating from './ReadOnlyRating'
+import Favorite from '@/pages/hotel/components/Favorite'
 
 interface HotelCardProps {
-  isFavorite: boolean
-  onFavoriteToggle: () => void
   priceRangeMax: number | undefined
   priceRangeMin: number | undefined
   sortByPrice: string
+  starNumber?: number | undefined
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({
-  isFavorite,
-  onFavoriteToggle,
   priceRangeMax,
   priceRangeMin,
-  sortByPrice
+  sortByPrice,
+  starNumber
 }) => {
   const [page, setPage] = useState(1)
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax],
-    queryFn: () => hotelApi.getAllByPrice(page, 4, sortByPrice, priceRangeMin, priceRangeMax)
+    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, "", starNumber],
+    queryFn: () => hotelApi.getAll(page, 4, sortByPrice, priceRangeMin, priceRangeMax, starNumber)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handleClick = (newPage: number) => {
     setPage(newPage)
   }
+
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
     const numberValue = parseFloat(value)
@@ -42,7 +42,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
 
-  console.log(page)
   return (
     <>
       {getAll?.data.map((item: HotelResponseType) => (
@@ -63,12 +62,12 @@ const HotelCard: React.FC<HotelCardProps> = ({
                   <p className='pt-2 overflow-hidden text-2xl font-bold whitespace-nowrap overflow-ellipsis'>
                     {item.hotel_names}
                   </p>
-                  <p className='flex text-gray-500 text-md '>
+                  <div className='flex text-gray-500 text-md '>
                     <MapPin className='w-4 h-4 mr-1 text-black ' />
-                    <p className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</p>
-                  </p>
+                    <span className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</span>
+                  </div>
                   <div className='flex gap-2'>
-                    <ReadOnlyRating rating={Number(item.score_hotels)} />
+                    <ReadOnlyRating rating={Number(item.star_number)} />
                     <div className='flex items-center gap-1'>
                       <p className='font-bold'>20+</p>
                       <Coffee className='font-bold text-black' />
@@ -76,7 +75,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
                     </div>
                   </div>
                   <div className='flex items-center gap-2'>
-                    <Button className='text-white'>4.2</Button>
+                    <Button className='text-white'>{item.score_hotels}</Button>
                     <p className='font-bold'>Very good</p>
                     <p>371 reviews</p>
                   </div>
@@ -88,14 +87,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
               </div>
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
-                  <Button
-                    className={`flex items-center justify-center ${
-                      isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white'
-                    }`}
-                    onClick={onFavoriteToggle}
-                  >
-                    <Heart />
-                  </Button>
+                  <Favorite idHotel={item.id} />
                   <Link to={`/hotel/${item.id}`} className='w-full'>
                     <Button className='w-full text-white bg-primary'>View Place</Button>
                   </Link>
@@ -111,7 +103,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
           <PaginationContent>
             <PaginationItem>
               <Button
-                className='px-4 py-2 text-white rounded min-w-[100px] text-center' // Class thêm vào
+                className='px-4 py-2 text-white rounded min-w-[100px] text-center'
                 disabled={page === 1}
                 onClick={() => handleClick(page - 1)}
               >
@@ -120,7 +112,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
             </PaginationItem>
             <PaginationItem>
               <Button
-                className={`px-4 py-2 text-white bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`} // Class thêm vào
+                className={`px-4 py-2 text-white bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`}
                 onClick={() => handleClick(1)}
               >
                 1
@@ -134,7 +126,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
             {page > 1 && page < totalPages && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`} // Class thêm vào
+                  className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`}
                   onClick={() => handleClick(page)}
                 >
                   {page}
@@ -149,7 +141,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
             {totalPages > 1 && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`} // Class thêm vào
+                  className={`px-4 py-2 text-white bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`}
                   onClick={() => handleClick(totalPages)}
                 >
                   {totalPages}

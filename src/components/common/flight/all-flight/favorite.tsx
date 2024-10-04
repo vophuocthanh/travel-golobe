@@ -1,4 +1,5 @@
 import { flightApi } from '@/apis/flight.api'
+
 import { useMutation } from '@tanstack/react-query'
 import { HeartIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -8,8 +9,6 @@ interface FavoriteProps {
   id: string | undefined
 }
 export default function Favorite({ id }: FavoriteProps) {
-  console.log(id, 'id')
-
   const navigate = useNavigate()
   const [isFavorited, setIsFavorited] = useState(false)
 
@@ -18,16 +17,16 @@ export default function Favorite({ id }: FavoriteProps) {
     setIsFavorited(favorited === 'true')
   }, [id])
 
-  const { mutate: favoriteTourID } = useMutation({
-    mutationKey: ['favoriteTourID'],
+  const { mutate: favoriteFlightID } = useMutation({
+    mutationKey: ['favoriteFlightID'],
     mutationFn: () => flightApi.favoriteFLightID(id),
     onSuccess: () => {
       setIsFavorited(true)
       localStorage.setItem(`favorited_${id}`, 'true')
     }
   })
-  const { mutate: unfavoriteTourID } = useMutation({
-    mutationKey: ['unfavoriteTourID'],
+  const { mutate: unfavoriteFlightID } = useMutation({
+    mutationKey: ['unfavoriteFlightID'],
     mutationFn: () => flightApi.unfavoriteFLightID(id),
     onSuccess: () => {
       setIsFavorited(false)
@@ -43,9 +42,9 @@ export default function Favorite({ id }: FavoriteProps) {
       return
     } else {
       if (isFavorited) {
-        unfavoriteTourID()
+        unfavoriteFlightID()
       } else {
-        favoriteTourID()
+        favoriteFlightID()
       }
     }
   }

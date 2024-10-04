@@ -32,15 +32,8 @@ export default function FlightReview1() {
               Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
-<<<<<<< HEAD
             <Link to='/vehicle/flight/all-flight' className=''>
               <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
-=======
-            <Link to='/flight/all-flight' className=''>
-              <Button className='absolute right-0 text-black bg-white border hover:text-white border-primary top-8'>
-                See All
-              </Button>
->>>>>>> 4e609079801f4c6b94bdb5cccc7e9fd1a800720c
             </Link>
           </div>
           <div className='w-full ]'>

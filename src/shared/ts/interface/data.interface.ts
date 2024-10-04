@@ -1,10 +1,11 @@
+
 export interface HotelResponseType {
   id: string,
   hotel_names?: string,
   location?: string,
   price?: number,
   score_hotels?: string | number,
-  number_rating?: string | number,
+  number_rating?:number,
   star_number?: number,
   received_time?: string,
   giveback_time?: string,
@@ -15,8 +16,11 @@ export interface HotelResponseType {
   image_2?: string,
   image_3?: string,
   image_4?: string,
-  image_5?: string            
+  image_5?: string,
+  isFavorite?:boolean
+  rooms?:[] 
 }
+
 export interface TourResponseType {
   name: string
   id?: string
@@ -59,4 +63,7 @@ export interface FlightResponseType {
   take_place?: string
   create_at?: string
   destination?: string
+  Ticket?:[]
+  isFavorite: boolean
 }
+
