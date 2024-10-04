@@ -26,9 +26,11 @@ export interface ListResponse<T> {
   start_day: string
   end_day: string
 }
-
 export interface HotelParams {
   items_per_page: number
   page: number
-  search?: string
+  sort_by_price?: string
+  min_price?: number | undefined
+  max_price?: number | undefined
+  star_number?:number| undefined
 }

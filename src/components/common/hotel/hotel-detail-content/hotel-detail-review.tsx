@@ -58,7 +58,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getComments'] })
       setComment('')
-      setRating(null)
+      setRating(0)
       setLoading(false)
     },
     onError: (error) => {
