@@ -31,7 +31,7 @@ interface Travel {
 export default function FallIntroTravel() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(4, 4)
+    queryFn: () => hotelApi.getAll(4, 4, '')
   })
 
   return (
