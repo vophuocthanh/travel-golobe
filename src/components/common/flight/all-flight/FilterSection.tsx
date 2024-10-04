@@ -1,3 +1,6 @@
+
+
+
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 
@@ -10,7 +13,6 @@ interface FilterPriceProps {
 }
 
 const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
-  const [isRatingVisible, setIsRatingVisible] = useState<boolean>(true)
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
 
   const [isVisible, setIsVisible] = useState<boolean>(true)
@@ -31,9 +33,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   const toggleTimeVisibility = () => {
     setIsTimeVisible((prev) => !prev)
   }
-  const toggleRatingVisibility = () => {
-    setIsRatingVisible((prev) => !prev)
-  }
+
   const toggleAirlinesVisibility = () => {
     setIsAirlinesVisible((prev) => !prev)
   }
@@ -47,7 +47,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
     return `${formattedHours}:${formattedMinutes}${ampm}`
   }
   return (
-    <div className='flex-none w-[22.5%] ml-12 mr-5'>
+    <div className='flex-none w-[22.5%] ml-12 mr-5 mt-[6rem]'>
       <p className='text-3xl text-black'>Filter</p>
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
@@ -138,31 +138,6 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
           </div>
         )}
       </div>
-      <div className='flex justify-between w-full mt-10 mb-6'>
-        <p>Rating</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleRatingVisibility}>
-          {isRatingVisible ? <ChevronUp /> : <ChevronDown />}
-        </Button>
-      </div>
-      {isRatingVisible && (
-        <div className='flex flex-row gap-4 pb-12 border-b-2'>
-          <div className='flex items-center justify-center w-12 h-8 text-sm text-black border rounded-sm border-primary hover:cursor-pointer hover:bg-primary '>
-            0+
-          </div>
-          <div className='flex items-center justify-center w-12 h-8 text-sm text-black border rounded-sm border-primary hover:cursor-pointer hover:bg-primary '>
-            1+
-          </div>
-          <div className='flex items-center justify-center w-12 h-8 text-sm text-black border rounded-sm border-primary hover:cursor-pointer hover:bg-primary '>
-            2+
-          </div>
-          <div className='flex items-center justify-center w-12 h-8 text-sm text-black border rounded-sm border-primary hover:cursor-pointer hover:bg-primary '>
-            3+
-          </div>
-          <div className='flex items-center justify-center w-12 h-8 text-sm text-black border rounded-sm border-primary hover:cursor-pointer hover:bg-primary '>
-            4+
-          </div>
-        </div>
-      )}
 
       <div className='flex justify-between w-full mt-10 mb-6'>
         <p>Airlines</p>

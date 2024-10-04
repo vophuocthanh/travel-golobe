@@ -82,18 +82,18 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
       {getAll?.data.map((flight: FlightResponseType) => (
         <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
           <div className='w-[40%] bg-white relative'>
-            <img src={flight.image} alt='Flight' className='object-cover rounded-md w-[90%] h-34 ml-8 mt-4' />
+            <img src={flight.image} alt='Flight' className='object-cover rounded-md w-[90%]  ml-8 mt-4 h-[90%]' />
             <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2'>
               9 images
             </p>
           </div>
-          <div className='w-[65%] flex-7 h-full pl-4 bg-[#FFFFFF]'>
+          <div className='w-[65%] flex-7 h-full pl-4 bg-[#FFFFFF] pr-4'>
             <div className='flex flex-col w-full h-full '>
-              <div className='w-full h-[75%] border-b-2 border-gray-400'>
+              <div className='w-full h-[75%] border-b-2 border-gray-400  mr-10 '>
                 <div className='flex flex-row w-full h-full'>
                   <div className='w-[70%] flex flex-col gap-4'>
                     <div className='flex items-center gap-2 mt-8'>
-                      <Button className='bg-white border border-primary'>4.2</Button>
+                      <Button className='bg-primary border-primary hover:bg-green-300'>4.2</Button>
                       <p className='font-bold'>Very good</p>
                       <p>54 reviews</p>
                     </div>
@@ -135,7 +135,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
               <div className='w-full h-[25%] flex'>
                 <div className='flex flex-row items-center w-full gap-4'>
                   <Favorite id={flight.id} />
-                  <Link to={`/vehicle/flight/${flight.id}`} className='w-[30rem]'>               
+                  <Link to={`/vehicle/flight/${flight.id}`} className='w-full pr-6'>
                     <Button className='w-full mx-4 text-white'>View Deals</Button>
                   </Link>
                 </div>
@@ -155,7 +155,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang đầu
+                className={page === 1 ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang đầu
               >
                 1
               </Button>
@@ -169,7 +169,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
+                  className={page === page ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
                 >
                   {page}
                 </Button>
@@ -184,7 +184,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-blue-500 text-white' : 'bg-gray-400 text-black'} // Nút trang cuối
+                  className={page === totalPages ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang cuối
                 >
                   {totalPages}
                 </Button>
