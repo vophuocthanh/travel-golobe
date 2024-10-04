@@ -80,7 +80,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               </div>
               <div className=''>
                 <Button
-                  className='w-full mt-4 text-white transition duration-200 bg-blue-500 rounded hover:bg-blue-600'
+                  className='w-full mt-4 text-white transition duration-200 rounded bg-primary hover:bg-green-300'
                   onClick={() => {
                     setMinPrice(tempMinPrice)
                     setMaxPrice(tempMaxPrice)

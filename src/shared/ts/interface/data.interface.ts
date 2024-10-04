@@ -63,4 +63,7 @@ export interface FlightResponseType {
   take_place?: string
   create_at?: string
   destination?: string
+  Ticket?:[]
+  isFavorite: boolean
 }
+
