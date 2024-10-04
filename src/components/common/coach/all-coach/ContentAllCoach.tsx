@@ -1,18 +1,18 @@
+import { useEffect, useState } from 'react'
+import FilterSection from './FilterSection'
+import { Input } from '@/components/ui/input'
 import { IconVector, IconVectorDown } from '@/common/icons'
 import IconSreach from '@/common/icons/IconSreach'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useEffect, useState } from 'react'
-import FilterSection from './FilterSection'
-import FlightCard from './FlightCard'
 
-import { flightApi } from '@/apis/flight.api'
-import { useQuery } from '@tanstack/react-query'
+import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import { format } from 'date-fns'
 import { toast } from 'sonner'
-import { DatePickerWithPresets } from '../../calendar/calendar-date'
+import { useQuery } from '@tanstack/react-query'
+import { flightApi } from '@/apis/flight.api'
+import CoachCard from './CoachCard'
 
-export default function ContentAllFlight() {
+export default function ContentAllCoach() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
 
@@ -27,7 +27,7 @@ export default function ContentAllFlight() {
     setMaxPrice(max)
   }
   const { data: getAll, refetch } = useQuery({
-    queryKey: ['getAllFlight', 1, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
+    queryKey: ['getAllHotel', 1, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
     queryFn: () => flightApi.getAll(1, 4, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
     enabled: false
   })
@@ -73,7 +73,7 @@ export default function ContentAllFlight() {
                   </label>
                   <Input
                     type='text'
-                    className='block text-lg w-full  pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='Return'
                   />
                   <div className='absolute right-3 top-6'>
@@ -81,7 +81,7 @@ export default function ContentAllFlight() {
                   </div>
                 </div>
                 <div className='relative z-10 w-full col-span-2 ml-5'>
-                  <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm '>
                     Depart
                   </label>
                   <div className='flex block text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
@@ -94,7 +94,8 @@ export default function ContentAllFlight() {
                   </label>
                   <div className='flex block text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
-                  </div>                </div>
+                  </div>
+                </div>
                 <div className='w-full col-span-1 ml-5'>
                   <Button className='h-[3rem] mt-1 w-[3.8rem]' onClick={handleSearch}>
                     <IconSreach />
@@ -106,11 +107,12 @@ export default function ContentAllFlight() {
         </div>
 
         <div className='flex flex-col gap-8 '>
-          <FlightCard
+          <CoachCard
             returnDate={filteredReturnDate}
             departDate={filteredDepartDate}
             minPrice={minPrice}
             maxPrice={maxPrice}
+            isFavorite={false}
             onToggleFavorite={() => {
               throw new Error('Function not implemented.')
             }}
