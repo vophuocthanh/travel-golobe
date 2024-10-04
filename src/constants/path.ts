@@ -27,7 +27,7 @@ export const path = {
   admin_hotel: '/admin/hotels',
   admin_employee: '/admin/employee',
   admin_road_vehicle: '/admin/road-vehicle',
-  flight_payment: '/flight/all-flight/:id/flight-payment',
+  flight_payment: '/flight/all-flight/flight-payment/:id',
   tour_payment: '/tour/all-tour/:id/tour-payment',
   hotel_payment: '/hotel/home-stay/:id/hotel-payment',
   hotel_edit: '/admin/hotels/hotel-edit',
