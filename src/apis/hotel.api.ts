@@ -1,5 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { ListResponse } from '@/shared/ts/interface'
+import { HotelParams, ListResponse } from '@/shared/ts/interface'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
@@ -10,13 +10,16 @@ export const hotelApi = {
   ): Promise<ListResponse<HotelResponseType>> {
     const url = '/hotel-crawl/crawl'
 
-    return axiosClient.get(url, {
-      params: {
-        items_per_page: Number(items_per_page),
-        page: Number(page),
-        search: String(search)
-      }
-    })
+    const params: HotelParams = {
+      items_per_page: Number(items_per_page),
+      page: Number(page)
+    }
+
+    if (search) {
+      params.search = String(search)
+    }
+
+    return axiosClient.get(url, { params })
   },
   getAllByPrice(
     page: number | string,

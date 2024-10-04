@@ -1,5 +1,4 @@
 import { flightApi } from '@/apis/flight.api'
-import { flightreview1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
@@ -83,7 +82,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
       {getAll?.data.map((flight: FlightResponseType) => (
         <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
           <div className='w-[40%] bg-white relative'>
-            <img src={flightreview1} alt='Flight' className='object-cover w-[90%] h-34 ml-8 mt-4' />
+            <img src={flight.image} alt='Flight' className='object-cover rounded-md w-[90%] h-34 ml-8 mt-4' />
             <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2'>
               9 images
             </p>

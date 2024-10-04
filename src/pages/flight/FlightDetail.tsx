@@ -1,14 +1,16 @@
-// import { commentFlightApi } from '@/apis/comment-flght.api'
+import { bookingFlightApi } from '@/apis/booking-flight'
 import { flightApi } from '@/apis/flight.api'
-import { banner_flight, flightdetail1, flightdetail2, flightdetail3, ticket_economy } from '@/assets/images'
+import { flightdetail1, flightdetail2, flightdetail3, ticket_economy } from '@/assets/images'
 import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
 import Favorite from '@/components/common/tour/favorite/favorite'
+import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
+  Link2,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -19,7 +21,9 @@ import {
   Wifi
 } from 'lucide-react'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
+
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -47,15 +51,32 @@ export default function FlightDetail() {
   ]
 
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-console.log('alo',getbyId?.id);
+  console.log('alo', getbyId?.id)
 
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
+
+  const mutationFlightBooking = useMutation({
+    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', 2),
+    onSuccess: (data) => {
+      const bookingId = data.id
+      toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
+      navigate(`/flight/all-flight/flight-payment/${bookingId}`)
+    },
+    onError: () => {
+      toast.error('Failed to book flight')
+    }
+  })
+
+  const handleBookFlight = () => {
+    mutationFlightBooking.mutate()
+  }
 
   return (
     <>
@@ -90,14 +111,20 @@ console.log('alo',getbyId?.id);
               <p className='text-[32px] font-bold text-[#FF8682]'>{formattedPrice} </p>
               <div className='flex space-x-2'>
                 <Favorite id={getbyId?.id} />
+
+                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
+                  <Link2 className={`w-4 h-4`} />
+                </p>
+                {/* <Link to={`/flight/all-flight/${getbyId?.id}/flight-payment`}> */}
+                <Button onClick={handleBookFlight}>Book now</Button>
+                {/* </Link> */}
               </div>
             </div>
           </div>
         </section>
 
         <section className='mb-8'>
-          <img src={banner_flight} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
-          
+          <img src={getbyId?.image} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
         </section>
 
         <section className='mb-8'>
