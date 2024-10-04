@@ -1,14 +1,19 @@
 import axiosClient from '@/apis/axios-client'
+import { ListResponse } from '@/shared/ts/interface/comment-tour.interface'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { TourResponse } from '@/shared/utils/data-response'
 
 export const tourApi = {
-  getAll(page: number | string, limit: number | string) {
+  getAll(
+    page?: number | string, 
+    items_per_page?: number | string
+
+  ): Promise<ListResponse<TourResponseType>>{
     const url = '/tour'
     return axiosClient.get(url, {
       params: {
-        _page: page,
-        _limit: limit
+        page: Number(page),
+        items_per_page: Number(items_per_page)
       }
     })
   },
@@ -40,5 +45,5 @@ export const tourApi = {
   getFavoriteTours() {
     const url = `/tour/favorite`
     return axiosClient.get(url)
-  }
+  },
 }

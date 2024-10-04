@@ -1,7 +1,7 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
-import { Tour } from '@/shared/ts/interface/comment-tour.interface'
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
@@ -44,7 +44,7 @@ export default function IntoTour() {
               }}
               loop={true}
             >
-              {getAll?.data.map((item: Tour) => (
+              {getAll?.data.map((item: TourResponseType) => (
                 <SwiperSlide
                   key={item.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'
@@ -56,31 +56,18 @@ export default function IntoTour() {
                       <p className='w-full overflow-hidden text-3xl font-semibold text-white whitespace-pre-line text-ellipsis line-clamp-1'>{item.description}</p>
                       <p className='w-full overflow-hidden text-xl font-medium text-gray-300 whitespace-pre-line text-ellipsis line-clamp-1'>{item.name}</p>
                     </div>
-                    <p className='flex items-center justify-center text-3xl text-white'>${item.price}</p>
+                    <p className='flex items-center justify-center text-2xl text-white'>
+                    {
+                      new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+                        item.price,
+                      )
+                    }
+                    </p>
                   </div>
                   <Button className='relative text-white hover:border-spacing-3'>Book a Hotel</Button>
                 </SwiperSlide>
               ))}
             </Swiper>
-            {/* {getAll?.data.map((item: Tour) => (
-              <div className='tour-into relative w-[400px]  ' key={item.id}>
-                <img src={item.image} className='h-[420px]  rounded-xl' alt='' />
-                <div className='absolute w-full px-4 top-72'>
-                  <div className='flex items-center justify-between p-2 mb-3 bg-white rounded-lg opacity-60'>
-                    <div className=''>
-                      <h3 className='overflow-hidden text-xl font-medium whitespace-pre-line text-ellipsis line-clamp-1'>
-                        {item.description}
-                      </h3>
-                      <p className='overflow-hidden font-medium whitespace-pre-line text-ellipsis line-clamp-1'>
-                        {item.name}
-                      </p>
-                    </div>
-                    <h3 className='text-xl font-medium '>${item.price}</h3>
-                  </div>
-                  <Button className='w-full text-white '>Book a Hotel</Button>
-                </div>
-              </div>
-            ))} */}
           </div>
         </div>
       </div>

@@ -6,11 +6,17 @@ import {  useQuery } from '@tanstack/react-query'
 import  {  useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
-import {  Tour } from '@/shared/ts/interface/comment-tour.interface'
-import { PaginationDemo } from '../pagination/pagination'
+
 import { Dropdown, MenuProps, Space } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
 import Favorite from '../../favorite/favorite'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+} from "@/components/ui/pagination"
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
 
 
 
@@ -18,11 +24,12 @@ import Favorite from '../../favorite/favorite'
 
 const ProductTour = () => {
  // const { id } = useParams<{ id: string }>()
+  const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('');
   console.log(sortByPrice);
   const { data: getAll } = useQuery({
-    queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll(1,5)
+    queryKey: ['getAllTour',page],
+    queryFn: () => tourApi.getAll(page,4)
   })
   
   const items: MenuProps['items'] = [
@@ -51,6 +58,10 @@ const ProductTour = () => {
       onClick: () => setSortByPrice('asc'),
     },
   ];
+  const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
+  const handlePage = (newPage: number) => {
+    setPage(newPage)
+  }
 
 
   return (
@@ -72,7 +83,7 @@ const ProductTour = () => {
               </Dropdown>
         </div>
         <div>
-          {getAll?.data.map((item: Tour) => (
+          {getAll?.data.map((item: TourResponseType) => (
           
             <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
               <div className='relative bg-blue-300 w-[27%] flex-3'>
@@ -111,8 +122,12 @@ const ProductTour = () => {
                     </div>
                   </div>
                   <div>
-                    <h2 className='font-medium text-red-500'>
-                      <span className='text-2xl'>${item.price}</span>
+                    <h2 className='text-2xl font-medium text-red-500'>
+                    {
+                      new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+                        item.price,
+                      )
+                    }
                     </h2>
                   </div>
                 </div>
@@ -131,7 +146,66 @@ const ProductTour = () => {
         </div>
       </div>
       <div className='mb-40 py-7'>
-        <PaginationDemo />
+        <Pagination>
+            <PaginationContent>
+            <PaginationItem>
+              <Button
+                className='px-4 py-2 text-white rounded min-w-[100px] text-center'
+                disabled={page === 1}
+                onClick={() => handlePage(page - 1)}
+              >
+                Previous
+              </Button>
+            </PaginationItem>
+            <PaginationItem>
+            <Button
+                className={`px-4 py-2 text-white bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`}
+                onClick={() => handlePage(1)}
+              >
+                1
+              </Button>
+            </PaginationItem>
+              {page > 3 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+            {page > 1 && page < totalPages && (
+              <PaginationItem>
+                <Button
+                  className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`}
+                  onClick={() => handlePage(page)}
+                >
+                  {page}
+                </Button>
+              </PaginationItem>
+            )}
+            {page < totalPages - 1 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {totalPages > 1 && (
+              <PaginationItem>
+                <Button
+                  className={`px-4 py-2 text-white bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`}
+                  onClick={() => handlePage(totalPages)}
+                >
+                  {totalPages}
+                </Button>
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <Button
+                className='px-4 text-white py-2 min-w-[100px]'
+                onClick={() => handlePage(page + 1)}
+                disabled={page === totalPages}
+              >
+                Next
+              </Button>
+            </PaginationItem>
+            </PaginationContent>
+        </Pagination>
       </div>
     </div>
   )

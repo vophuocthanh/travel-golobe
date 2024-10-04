@@ -8,12 +8,10 @@ export interface CommentTour {
     flightId: string
     avatar?: string
   }
-  export  interface Tour {
-    id?: string
-    name: string
-    description: string
-    price: string
-    image: string
+  export interface ListResponse<T> {
+    data: T[]
+    total: number
+    page: number
   }
   export  interface TabProps {
     label: string

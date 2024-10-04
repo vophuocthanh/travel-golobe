@@ -1,6 +1,6 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
-import { Tour } from '@/shared/ts/interface/comment-tour.interface'
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 
 
@@ -18,7 +18,7 @@ export default function SearchTour() {
         <div className='w-full '>
           <h2 className='mb-8 text-2xl font-medium'>Your recent searches</h2>
           <div className='flex justify-between gap-5'>
-            {getAll?.data.map((item: Tour) => (
+            {getAll?.data.map((item: TourResponseType) => (
               <div className='flex gap-2 tour grid-container' key={item.id}>
                 <img src={item.image} className='w-24 h-24 rounded-lg bject-cover' alt='' />
                 <div className='flex items-center'>

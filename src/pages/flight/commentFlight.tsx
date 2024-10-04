@@ -63,7 +63,7 @@ export default function FlightDetailReview({ data }: FlightDetailReviewProps) {
                 </div>
                 <div className='items-center'>
                     <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
-                    <form onSubmit={handleSubmit} className="flex space-x-4 items-center">
+                    <form onSubmit={handleSubmit} className="flex items-center space-x-4">
                         <div className="w-full p-2 border border-gray-300 rounded-md">
                             <textarea
                                 className="w-full p-2 border border-gray-300 rounded-md"
@@ -84,7 +84,7 @@ export default function FlightDetailReview({ data }: FlightDetailReviewProps) {
                     <p className='absolute left-0 text-5xl font-semibold'>4.2</p>
                     <div className='absolute right-0'>
                         <p>Very good</p>
-                        <p>371 verified reviews</p>
+                        <p>371 verified reviews</p>1
                     </div>
                 </div>
                 <div className='w-full py-2'>
