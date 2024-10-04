@@ -168,16 +168,8 @@ const ProductTour = () => {
                 <div className='w-full h-[25%] flex'>
                   <div className='flex flex-row items-center justify-between w-full '>
                     <Favorite id={item.id}/>
-                  {/* <Button
-                      className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
-                      onClick={() => handleClick(item.id)}
-                  >
-                      <HeartIcon
-                          className={`w-5 h-5 ${isFavorited  ? 'text-red-600' : 'text-gray-500'}`}
-                      />
-                  </Button> */}
                     <Link to={`/tour/${item.id}`}  className='w-full'>
-                      <Button className='w-full text-white ' >View Deals</Button>
+                      <div className='w-full p-3 text-center text-black border rounded-lg border-primary hover:bg-slate-200 ' >View Deals</div>
                     </Link>
                   </div>
                 </div>

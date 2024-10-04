@@ -1,6 +1,5 @@
 import { tour_location1 } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
-import { Button } from '@/components/ui/button'
 
 export default function LocationTour() {
   return (
@@ -15,7 +14,7 @@ export default function LocationTour() {
                 travel tools to get you to your destination.
               </p>
             </div>
-            <Button className='bg-white border border-primary hover:bg-slate-100'>See All</Button>
+            <div className='p-3 text-center text-black bg-white border rounded-lg border-primary hover:bg-slate-200' >See All</div>
           </div>
           <div className='flex justify-between'>
             <div className='p-4 mr-4 bg-primary w-[50%] rounded-lg'>
@@ -33,7 +32,8 @@ export default function LocationTour() {
                   of living.
                 </p>
               </div>
-              <Button className='w-full mt-32 bg-white hover:bg-slate-100'>Book Flight</Button>
+              <div className='w-full p-3 mt-32 text-center text-black bg-white border rounded-lg border-primary hover:bg-slate-200 ' >Book Flight</div>
+              
             </div>
             <div className='grid grid-cols-2 gap-4'>
               <img className='w-full h-full' src={tour_location1} alt='' />

@@ -1,6 +1,5 @@
 import {banner_tour} from '@/assets/images'
 import { IconAdd,IconPlaces } from '@/common/icons'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { CalendarDays, Sofa, User } from 'lucide-react'
@@ -10,7 +9,7 @@ import { CalendarDays, Sofa, User } from 'lucide-react'
 
 export default function BannerTour()  {
     return (
-        <div className='relative w-full mb-40'>
+        <div className='relative w-full mb-40 '>
             <div className='relative '>
                 <img className='w-full h-[500px]  ' src={banner_tour} alt="" />
                 <div className='absolute top-0 w-5/12 p-32 text-white'>
@@ -18,7 +17,7 @@ export default function BannerTour()  {
                     <p>Special offers to suit your plan</p>
                 </div>
                 <div className='absolute top-[440px] w-full px-32'> 
-                    <div className='px-3 py-3 bg-gray-100 h-50 rounded-2xl'>
+                    <div className='p-4 bg-white shadow-2xl h-50 rounded-2xl'>
                         <div className='w-full '>
                             <h3 className='mb-5 text-lg font-medium '>Where are you tour?</h3>
                             <div className='flex justify-between mb-3'>
@@ -72,15 +71,14 @@ export default function BannerTour()  {
                                 </div>
                             </div>
                             <div className='flex justify-end'>
-                                <Button className='p-2 mr-5 bg-white hover:bg-slate-200'>
-                                    
+                                <div className='flex p-2 mr-2 text-center text-black bg-white border rounded-lg border-primary hover:bg-slate-200' >
                                     <div className='mr-2'><IconAdd  /></div>
                                     Add Promo Code
-                                </Button>
-                                <Button>
+                                </div>
+                                <div className='flex p-2 text-center text-black bg-white border rounded-lg border-primary hover:bg-slate-200' >
                                     <div className='mr-2'><IconPlaces  /></div>
                                     Show Places
-                                </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
