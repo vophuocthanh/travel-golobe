@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
-import FilterSection from './FilterSection'
-import FlightCard from './FlightCard'
-import { Input } from '@/components/ui/input'
 import { IconVector, IconVectorDown } from '@/common/icons'
 import IconSreach from '@/common/icons/IconSreach'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useEffect, useState } from 'react'
+import FilterSection from './FilterSection'
+import FlightCard from './FlightCard'
 
-import { DatePickerWithPresets } from '../../calendar/calendar-date'
+import { flightApi } from '@/apis/flight.api'
+import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { toast } from 'sonner'
-import { useQuery } from '@tanstack/react-query'
-import { flightApi } from '@/apis/flight.api'
+import { DatePickerWithPresets } from '../../calendar/calendar-date'
 
 export default function ContentAllFlight() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
