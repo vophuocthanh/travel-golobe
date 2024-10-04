@@ -7,11 +7,10 @@ import { DownOutlined } from '@ant-design/icons';
 
 const HotelListings: React.FC = () => {
 
-  const [priceRange, setPriceRange] = useState([0, 999999999999999]);
+  const [priceRange, setPriceRange] = useState<[number | undefined, number | undefined]>([undefined, undefined]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
   const [starNumber, setStarNumer] = useState<number | undefined>(undefined);
-
 
 
   const handlePriceRangeChange = () => {
@@ -20,6 +19,7 @@ const HotelListings: React.FC = () => {
     setPriceRange([newMinPrice, newMaxPrice]);
   };
 
+  console.log("hahahaha" + starNumber)
 
   const items: MenuProps['items'] = [
     {
@@ -86,7 +86,7 @@ const HotelListings: React.FC = () => {
                   onClick={() => {
                     setMaxPrice(undefined)
                     setMinPrice(undefined)
-                    setPriceRange([0, 999999999999999])
+                    setPriceRange([undefined, undefined])
                   }}
                 >
                   Hủy Lọc
@@ -98,12 +98,16 @@ const HotelListings: React.FC = () => {
               <div>
                 <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
                 <div className="flex gap-3 mt-4">
-                  {[1, 2, 3, 4, 5].map((rating) => (
+                  {[0, 1, 2, 3, 4, 5].map((rating) => (
                     <Button
                       key={rating}
                       className="flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md hover:bg-primary hover:text-white transition duration-200 cursor-pointer"
                       onClick={() => {
-                        setStarNumer(rating);
+                        if (rating === 0) {
+                          setStarNumer(undefined)
+                        } else {
+                          setStarNumer(rating)
+                        }
                       }}
                     >
                       {rating}+

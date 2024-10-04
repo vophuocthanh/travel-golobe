@@ -14,7 +14,7 @@ interface HotelCardProps {
   priceRangeMax: number | undefined
   priceRangeMin: number | undefined
   sortByPrice: string
-  starNumber?: number
+  starNumber?: number | undefined
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({
@@ -26,7 +26,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
   const [page, setPage] = useState(1)
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, "", starNumber],
-    queryFn: () => hotelApi.getAllByPrice(page, 4, sortByPrice, priceRangeMin, priceRangeMax, "", starNumber)
+    queryFn: () => hotelApi.getAll(page, 4, sortByPrice, priceRangeMin, priceRangeMax, starNumber)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)

@@ -5,7 +5,7 @@ export interface HotelResponseType {
   location?: string,
   price?: number,
   score_hotels?: string | number,
-  number_rating?: string | number,
+  number_rating?:number,
   star_number?: number,
   received_time?: string,
   giveback_time?: string,
