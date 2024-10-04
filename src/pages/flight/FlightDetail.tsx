@@ -21,7 +21,7 @@ import {
   Wifi
 } from 'lucide-react'
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import 'swiper/css'
@@ -115,9 +115,9 @@ export default function FlightDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link2 className={`w-4 h-4`} />
                 </p>
-                {/* <Link to={`/flight/all-flight/${getbyId?.id}/flight-payment`}> */}
+                <Link to={`/vehicle/flight/all-flight/${getbyId?.id}/flight-payment`}>
                 <Button onClick={handleBookFlight}>Book now</Button>
-                {/* </Link> */}
+                </Link>
               </div>
             </div>
           </div>

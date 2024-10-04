@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
 
@@ -114,7 +114,9 @@ export default function HotelDetail() {
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
                 </div>
-                <Button onClick={handleBookingHotel}>Book now</Button>
+                <Link to={`/hotel/home-stay/${getbyId?.id}/hotel-payment`}>
+                  <Button onClick={handleBookingHotel}>Book now</Button>
+                </Link>
               </div>
             </div>
           </div>
