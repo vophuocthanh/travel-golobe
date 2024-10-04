@@ -37,16 +37,6 @@ export const hotelApi = {
     return axiosClient.get(url, { params });
   },
   
-  getPrice(max_price: number | string, min_price: number | string): Promise<ListResponse<HotelResponseType>> {
-    const url = '/hotel-crawl/crawl'
-
-    return axiosClient.get(url, {
-      params: {
-        max_price: Number(max_price),
-        main_price: Number(min_price)
-      }
-    })
-  },
   getById(id: string | undefined): Promise<HotelResponseType> {
     const url = `/hotel-crawl/crawl/${id}`
     return axiosClient.get(url)
@@ -61,7 +51,7 @@ export const hotelApi = {
   },
   updateUnFavorite(id: string | undefined) {
     const url = `/hotel-crawl/${id}/unfavorite`
-    return axiosClient.put(url)
+    return axiosClient.post(url)
   },
   updateFavorite(id: string | undefined) {
     const url = `/hotel-crawl/${id}/favorite`

@@ -44,7 +44,7 @@ export default function Favorite({ idHotel }: Props) {
                 className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
                 onClick={handleFavoriteToggle}
             >
-                <HeartIcon className={`w-4 h-4 ${getbyId?.isFavorite === true ? 'text-red-600' : 'text-gray-400'}`} />
+                <HeartIcon className={`w-4 h-4 ${getbyId?.isFavorite ? 'text-red-600' : 'text-gray-400'}`} />
             </div>
         </>
     )

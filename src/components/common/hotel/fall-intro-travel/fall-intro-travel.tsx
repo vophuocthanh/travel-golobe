@@ -15,7 +15,6 @@ export default function FallIntroTravel() {
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll(1, 6)
   })
-  console.log(getAll)
   return (
     <SectionInViewUp>
       <div className='mt-32'>

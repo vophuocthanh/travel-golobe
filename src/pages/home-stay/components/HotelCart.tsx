@@ -42,8 +42,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
 
-  console.log(page)
-
   return (
     <>
       {getAll?.data.map((item: HotelResponseType) => (

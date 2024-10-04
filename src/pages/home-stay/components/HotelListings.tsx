@@ -19,8 +19,6 @@ const HotelListings: React.FC = () => {
     setPriceRange([newMinPrice, newMaxPrice]);
   };
 
-  console.log("hahahaha" + starNumber)
-
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -51,7 +49,6 @@ const HotelListings: React.FC = () => {
   const [sortByPrice, setSortByPrice] = useState('');
 
   const isRatingVisible = true;
-  console.log(starNumber)
   return (
     <>
       <div className="container mx-auto mt-8">
