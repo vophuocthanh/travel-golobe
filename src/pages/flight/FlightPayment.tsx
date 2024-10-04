@@ -40,7 +40,7 @@ export default function FlightPayment() {
                 {getBookingFlightDetails && <FlightInfo data={getBookingFlightDetails} />}
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <FlightBook />
+                {getBookingFlightDetails && <FlightBook data={getBookingFlightDetails} />}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 <FlightOptions />

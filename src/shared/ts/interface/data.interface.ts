@@ -1,24 +1,23 @@
-
 export interface HotelResponseType {
-  id: string,
-  hotel_names?: string,
-  location?: string,
-  price?: number,
-  score_hotels?: string | number,
-  number_rating?:number,
-  star_number?: number,
-  received_time?: string,
-  giveback_time?: string,
-  description?: string,
-  hotel_link?: string,
-  place?: string,
-  image?: string,
-  image_2?: string,
-  image_3?: string,
-  image_4?: string,
-  image_5?: string,
-  isFavorite?:boolean
-  rooms?:[] 
+  id: string
+  hotel_names?: string
+  location?: string
+  price?: number
+  score_hotels?: string | number
+  number_rating?: number
+  star_number?: number
+  received_time?: string
+  giveback_time?: string
+  description?: string
+  hotel_link?: string
+  place?: string
+  image?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
+  image_5?: string
+  isFavorite?: boolean
+  rooms?: []
 }
 
 export interface TourResponseType {
@@ -45,7 +44,7 @@ export interface TourResponseType {
   sight_seeing?: string
   created_at?: string
   updated_at?: string
-  tourFavorites?:[{isFavorite: boolean}]
+  tourFavorites?: [{ isFavorite: boolean }]
 }
 
 export interface FlightResponseType {
@@ -63,7 +62,6 @@ export interface FlightResponseType {
   take_place?: string
   create_at?: string
   destination?: string
-  Ticket?:[]
-  isFavorite: boolean
+  Ticket?: []
+  isFavorite?: boolean
 }
-

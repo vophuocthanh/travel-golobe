@@ -28,7 +28,9 @@ export default function FlightInfo({ data }: FlightInfo) {
             <p className='font-medium text-gray-500 text-md'>{formatDateTime}</p>
           </div>
           <div>
-            <h2 className='mb-3 text-3xl font-bold text-red-500'>{data.price}</h2>
+            <h2 className='mb-3 text-3xl font-bold text-red-500'>
+              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.price || 0)}
+            </h2>
             <p className='flex font-medium text-md'>{data.start_time}</p>
           </div>
         </div>

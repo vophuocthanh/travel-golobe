@@ -201,7 +201,7 @@ export default function FlightDetail() {
             <div className='pt-6'>
               <div className='flex justify-between'>
                 <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
-                  <img src={getbyId?.images} alt='' className='w-16' />
+                  <img src={getbyId?.image} alt='' className='w-20 rounded-md' />
                   <div>
                     <p className='text-2xl font-bold'>{getbyId?.brand}</p>
                     <p className='text-sm font-medium'>Airbus A320</p>
