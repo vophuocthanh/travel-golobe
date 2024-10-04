@@ -45,7 +45,7 @@ export interface TourResponseType {
 }
 
 export interface FlightResponseType {
-  id: string
+  id?: string
   image?: string
   price: number
   rating?: string

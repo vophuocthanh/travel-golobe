@@ -18,16 +18,16 @@ export default function Favorite({ id }: FavoriteProps) {
   }, [id])
 
   const { mutate: favoriteFlightID } = useMutation({
-    mutationKey: ['favoriteTourID'],
-    mutationFn: () => flightApi.favorite(id),
+    mutationKey: ['favorite'],
+    mutationFn: () => flightApi.favoriteFLightID(id),
     onSuccess: () => {
       setIsFavorited(true)
       localStorage.setItem(`favorited_${id}`, 'true')
     }
   })
-  const { mutate: unfavoriteTourID } = useMutation({
-    mutationKey: ['unfavoriteTourID'],
-    mutationFn: () => flightApi.unfavorite(id),
+  const { mutate: unfavoriteFlightID } = useMutation({
+    mutationKey: ['unfavoriteFlightID'],
+    mutationFn: () => flightApi.unfavoriteFLightID(id),
     onSuccess: () => {
       setIsFavorited(false)
       localStorage.setItem(`favorited_${id}`, 'false')
@@ -42,7 +42,7 @@ export default function Favorite({ id }: FavoriteProps) {
       return
     } else {
       if (isFavorited) {
-        unfavoriteTourID()
+        unfavoriteFlightID()
       } else {
         favoriteFlightID()
       }

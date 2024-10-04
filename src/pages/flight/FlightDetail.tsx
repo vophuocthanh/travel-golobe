@@ -52,6 +52,7 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
+
   // const { data: getCommentFlight } = useQuery({
   //   queryKey: ['getComments', id],
   //   queryFn: () => commentFlightApi.getComments(id || '')
