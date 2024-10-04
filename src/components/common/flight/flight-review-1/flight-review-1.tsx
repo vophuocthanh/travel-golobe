@@ -54,7 +54,7 @@ export default function FlightReview1() {
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
                   style={{ backgroundImage: `url(${flight.image})` }}
                 >
-                  <Link to={`/flight/${flight.id}`} key={flight.id}>
+                  <Link to={`/vehicle/flight/${flight.id}`} key={flight.id}>
                     <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>
                     <div className='flex text-xl font-semibold text-white'>
                       <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>{flight.take_place}</p>
