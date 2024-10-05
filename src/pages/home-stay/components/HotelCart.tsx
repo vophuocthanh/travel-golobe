@@ -8,7 +8,6 @@ import { Coffee, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReadOnlyRating from './ReadOnlyRating'
-import Favorite from '@/pages/hotel/components/Favorite'
 
 interface HotelCardProps {
   priceRangeMax: number | undefined
@@ -87,7 +86,6 @@ const HotelCard: React.FC<HotelCardProps> = ({
               </div>
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
-                  <Favorite idHotel={item.id} />
                   <Link to={`/hotel/${item.id}`} className='w-full'>
                     <Button className='w-full text-white bg-primary'>View Place</Button>
                   </Link>
