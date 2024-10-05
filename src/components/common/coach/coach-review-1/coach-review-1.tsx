@@ -1,19 +1,18 @@
-import { flightApi } from '@/apis/flight.api'
 import { flightreview1 } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
-
-import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { CoachResponseType } from '@/shared/ts/interface/data.interface'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { coachApi } from '@/apis/coach.api'
 
 export default function CoachReview1() {
   const { data: getAll } = useQuery({
-    queryKey: ['getAllFlight'],
-    queryFn: () => flightApi.getAll(1, 4, '', 500000, 20000000, '', '')
+    queryKey: ['getAllCoach'],
+    queryFn: () => coachApi.getAll(1, 4, '', 500000, 20000000, '', '')
   })
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
@@ -49,27 +48,27 @@ export default function CoachReview1() {
               }}
               loop={true}
             >
-              {getAll?.data.slice(0, 6).map((flight: FlightResponseType) => (
+              {getAll?.data.slice(0, 6).map((coach: CoachResponseType) => (
                 <SwiperSlide
-                  key={flight.id}
+                  key={coach.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
                   style={{ backgroundImage: `url(${flightreview1})` }}
                 >
-                  <Link to={`/flight/${flight.id}`} key={flight.id}>
+                  <Link to={`/coach/${coach.id}`} key={coach.id}>
                     <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>
                     <div className='flex text-xl font-semibold text-white'>
-                      <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>{flight.take_place}</p>
-                      <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'> - {flight.trip_to}</p>
+                      <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>{coach.take_place}</p>
+                      <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'> - {coach.destination}</p>
                     </div>
-                    <p className='w-full text-gray-300'>{flight.trip_time}</p>
+                    <p className='w-full text-gray-300'>{coach.trip_time}</p>
                     <div className='relative flex justify-between w-full gap-4 mb-4'>
                       <div className='flex flex-row items-end w-[50%]'>
                         <p className='w-full text-lg font-semibold text-white'>
-                          {flight.start_time}-{flight.end_time}
+                          {coach.start_time}-{coach.end_time}
                         </p>
                       </div>
                       <p className='flex items-center justify-center text-lg text-white'>
-                        {formatCurrency(flight.price?.toString())}
+                        {formatCurrency(coach.price?.toString())}
                       </p>
                     </div>
                   </Link>

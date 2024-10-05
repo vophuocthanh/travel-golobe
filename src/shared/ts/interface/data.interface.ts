@@ -65,3 +65,22 @@ export interface FlightResponseType {
   Ticket?: []
   isFavorite?: boolean
 }
+export interface CoachResponseType {
+  id?: string
+  image?: string
+  brand?: string
+  images?: string
+  price: number
+  number_of_seat?: string
+  start_time?: string
+  start_day?: string
+  end_day?: string
+  end_time?: string
+  trip_time?: string
+  take_place?: string
+  destination?: string
+  location?: string
+  Ticket?: []
+  isFavorite?: boolean
+}
+
