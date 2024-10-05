@@ -2,7 +2,6 @@ import { hotelApi } from '@/apis/hotel.api'
 import { hoteldetail3 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
-import Favorite from '@/pages/hotel/components/Favorite'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Coffee, MapPin } from 'lucide-react'
@@ -82,7 +81,6 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
               </div>
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
-                  <Favorite idHotel={item.id} />
                   <Link to={`/hotel/${item.id}`} className='w-full'>
                     <Button className='w-full text-white bg-primary'>View Place</Button>
                   </Link>
