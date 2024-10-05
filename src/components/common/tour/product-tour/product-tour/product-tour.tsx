@@ -6,11 +6,17 @@ import {  useQuery } from '@tanstack/react-query'
 import  {  useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
-import {  Tour } from '@/shared/ts/interface/comment-tour.interface'
-import { PaginationDemo } from '../pagination/pagination'
+
 import { Dropdown, MenuProps, Space } from 'antd'
 import { DownOutlined } from '@ant-design/icons';
 import Favorite from '../../favorite/favorite'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+} from "@/components/ui/pagination"
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
 
 
 
@@ -18,61 +24,13 @@ import Favorite from '../../favorite/favorite'
 
 const ProductTour = () => {
  // const { id } = useParams<{ id: string }>()
+  const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('');
   console.log(sortByPrice);
   const { data: getAll } = useQuery({
-    queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll(1,5)
+    queryKey: ['getAllTour',page],
+    queryFn: () => tourApi.getAll(page,4)
   })
-  
-
-  //const [isFavorited, setIsFavorited] = useState(false);
-
-    // useEffect(() => {
-    //     const favorited = localStorage.getItem(`favorited_${id}`);
-    //     setIsFavorited(favorited === 'true');
-    // }, [id]);
-    // console.log(isFavorited,"isFavorited");
-    
-
-    // const {mutate: favoriteTourID}  = useMutation({
-    //     mutationKey: ['favoriteTourID'], 
-    //     mutationFn: () => tourApi.favoriteTourID(id),
-    //     onSuccess: () => {
-    //         setIsFavorited(true);
-    //         localStorage.setItem(`favorited_${getAll?.data}`, 'true'); 
-    //         console.log(getAll?.data);
-            
-    //     },
-    // })
-    // const {mutate: unfavoriteTourID}  = useMutation({
-    //     mutationKey: ['unfavoriteTourID'], 
-    //     mutationFn: () => tourApi.unfavoriteTourID(id),
-    //     onSuccess: () => {
-    //         setIsFavorited(false);
-    //         localStorage.setItem(`favorited_${getAll?.data}`, 'false');
-    //         console.log(getAll?.data, "123");
-    //     },
-    // })
-    // console.log(`favorited_${id}`, 'false');
-    
-
-
-    // const handleClick = (id: string | undefined ) => {
-    //   console.log(id,"id1");
-      
-    //     if (isFavorited && id === id) {
-    //       setIsFavorited(true)
-    //         //unfavoriteTourID();
-    //     } else {
-    //       setIsFavorited(false)
-    //        // favoriteTourID();
-    //     }
-
-    // };
-
-
-  
   
   const items: MenuProps['items'] = [
     {
@@ -100,6 +58,10 @@ const ProductTour = () => {
       onClick: () => setSortByPrice('asc'),
     },
   ];
+  const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
+  const handlePage = (newPage: number) => {
+    setPage(newPage)
+  }
 
 
   return (
@@ -121,9 +83,9 @@ const ProductTour = () => {
               </Dropdown>
         </div>
         <div>
-          {getAll?.data.map((item: Tour) => (
+          {getAll?.data.map((item: TourResponseType) => (
           
-            <div className='flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
+            <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
               <div className='relative bg-blue-300 w-[27%] flex-3'>
                 <img src={item.image} className='object-cover w-full h-full ' alt='tour' />
                 <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
@@ -132,7 +94,7 @@ const ProductTour = () => {
               </div>
               <div className='p-3  w-[73%] '>
                 <div className='flex justify-between '>
-                  <div className='mr-2 border-b-2 border-gray-400 w-[85%]'>
+                  <div className='mr-2  w-[85%]'>
                     <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
                       {item.description}
                     </h2>
@@ -153,29 +115,26 @@ const ProductTour = () => {
                     </div>
 
                     <div className='flex mb-6'>
-                      <Button className='mr-3 bg-white border border-primary hover:bg-slate-100'>4.2</Button>
+                      <Button className='mr-3 text-black bg-white border border-primary hover:bg-slate-100'>4.2</Button>
                       <p className='flex items-center '>
                         <span className='text-lg font-medium'>Very Good</span> 371 reviews
                       </p>
                     </div>
                   </div>
                   <div>
-                    <h2 className='font-medium text-red-500'>
-                      <span className='text-2xl'>${item.price}</span>
+                    <h2 className='text-2xl font-medium text-red-500'>
+                    {
+                      new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+                        item.price,
+                      )
+                    }
                     </h2>
                   </div>
                 </div>
-                <div className='w-full h-[25%] flex'>
+                <div className='border-b-2 border-zinc-400'></div>
+                <div className='w-full h-[25%] flex mb-10'>
                   <div className='flex flex-row items-center justify-between w-full '>
                     <Favorite id={item.id}/>
-                  {/* <Button
-                      className="flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-red-100"
-                      onClick={() => handleClick(item.id)}
-                  >
-                      <HeartIcon
-                          className={`w-5 h-5 ${isFavorited  ? 'text-red-600' : 'text-gray-500'}`}
-                      />
-                  </Button> */}
                     <Link to={`/tour/${item.id}`}  className='w-full'>
                       <Button className='w-full text-white ' >View Deals</Button>
                     </Link>
@@ -186,8 +145,67 @@ const ProductTour = () => {
           ))}
         </div>
       </div>
-      <div>
-        <PaginationDemo />
+      <div className='mb-40 py-7'>
+        <Pagination>
+            <PaginationContent>
+            <PaginationItem>
+              <Button
+                className='px-4 py-2 text-white rounded min-w-[100px] text-center'
+                disabled={page === 1}
+                onClick={() => handlePage(page - 1)}
+              >
+                Previous
+              </Button>
+            </PaginationItem>
+            <PaginationItem>
+            <Button
+                className={`px-4 py-2 text-white bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`}
+                onClick={() => handlePage(1)}
+              >
+                1
+              </Button>
+            </PaginationItem>
+              {page > 3 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+            {page > 1 && page < totalPages && (
+              <PaginationItem>
+                <Button
+                  className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`}
+                  onClick={() => handlePage(page)}
+                >
+                  {page}
+                </Button>
+              </PaginationItem>
+            )}
+            {page < totalPages - 1 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+            {totalPages > 1 && (
+              <PaginationItem>
+                <Button
+                  className={`px-4 py-2 text-white bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`}
+                  onClick={() => handlePage(totalPages)}
+                >
+                  {totalPages}
+                </Button>
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <Button
+                className='px-4 text-white py-2 min-w-[100px]'
+                onClick={() => handlePage(page + 1)}
+                disabled={page === totalPages}
+              >
+                Next
+              </Button>
+            </PaginationItem>
+            </PaginationContent>
+        </Pagination>
       </div>
     </div>
   )

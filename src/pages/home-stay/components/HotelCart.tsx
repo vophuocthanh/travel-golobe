@@ -124,7 +124,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
                   className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`}
                   onClick={() => handleClick(page)}
                 >
-                  {page}
+                  {page}1
                 </Button>
               </PaginationItem>
             )}

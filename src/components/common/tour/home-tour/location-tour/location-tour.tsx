@@ -15,7 +15,7 @@ export default function LocationTour() {
                 travel tools to get you to your destination.
               </p>
             </div>
-            <Button className='bg-white border border-primary hover:bg-slate-100'>See All</Button>
+            <Button className='text-black bg-white border border-primary'>See All</Button>
           </div>
           <div className='flex justify-between'>
             <div className='p-4 mr-4 bg-primary w-[50%] rounded-lg'>
