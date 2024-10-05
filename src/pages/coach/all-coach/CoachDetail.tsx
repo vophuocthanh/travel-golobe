@@ -1,4 +1,4 @@
-import { flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
+import { bannercoach, flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
@@ -115,7 +115,7 @@ export default function CoachDetail() {
         </section>
 
         <section className='mb-8'>
-          <img src={getbyId?.images} alt='Coach Banner' className='object-cover w-full h-80 rounded-xl' />
+          <img src={bannercoach} alt='Coach Banner' className='object-cover w-full h-[25rem] rounded-xl' />
         </section>
 
         <section className='mb-8'>
