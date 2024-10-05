@@ -1,4 +1,4 @@
-import { IconVector, IconVectorDown } from '@/common/icons'
+import { IconVectorDown } from '@/common/icons'
 import IconSreach from '@/common/icons/IconSreach'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -48,33 +48,32 @@ export default function ContentAllFlight() {
   }, [getAll])
   return (
     <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2 h-[120rem]`}>
-      <FilterSection onApplyFilter={handleApplyFilter} />
-      <div className='flex-none w-[70%] ml-2 mt-14  '>
+      <div className='flex-none w-full ml-2 mt-14 '>
         <div className='bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer'>
           <div className='flex items-center justify-center w-full h-[11rem] overflow-hidden relative bg-gray-100'>
             <div className='flex items-center justify-center bg-white rounded-lg shadow-md shadow-slate-300 w-full h-[8rem]'>
-              <div className='grid items-center grid-cols-10 gap-4'>
-                <div className='relative w-full col-span-3 ml-4'>
+              <div className='grid items-center justify-center grid-cols-9 gap-4 pl-8'>
+                <div className='relative w-full col-span-2 ml-4 '>
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
-                    From - To
+                    From
                   </label>
                   <Input
                     type='text'
                     className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
-                    value='Lahore - Karachi'
+                    value='Lahore '
                   />
-                  <div className='absolute right-3 top-4'>
-                    <IconVector />
+                  <div className='absolute right-3 top-6'>
+                    <IconVectorDown />
                   </div>
                 </div>
                 <div className='relative w-full col-span-2 ml-5'>
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
-                    Trip
+                    To
                   </label>
                   <Input
                     type='text'
                     className='block text-lg w-full  pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
-                    value='Return'
+                    value='Karachi'
                   />
                   <div className='absolute right-3 top-6'>
                     <IconVectorDown />
@@ -94,7 +93,8 @@ export default function ContentAllFlight() {
                   </label>
                   <div className='flex block text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
-                  </div>                </div>
+                  </div>{' '}
+                </div>
                 <div className='w-full col-span-1 ml-5'>
                   <Button className='h-[3rem] mt-1 w-[3.8rem]' onClick={handleSearch}>
                     <IconSreach />
@@ -105,16 +105,19 @@ export default function ContentAllFlight() {
           </div>
         </div>
 
-        <div className='flex flex-col gap-8 '>
-          <FlightCard
-            returnDate={filteredReturnDate}
-            departDate={filteredDepartDate}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            onToggleFavorite={() => {
-              throw new Error('Function not implemented.')
-            }}
-          />
+        <div className='flex flex-row gap-8 '>
+          <FilterSection onApplyFilter={handleApplyFilter} />
+          <div className='flex flex-col gap-8 '>
+            <FlightCard
+              returnDate={filteredReturnDate}
+              departDate={filteredDepartDate}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              onToggleFavorite={() => {
+                throw new Error('Function not implemented.')
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
