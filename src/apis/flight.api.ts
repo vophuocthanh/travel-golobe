@@ -36,6 +36,17 @@ export const flightApi = {
       }
     })
   },
+
+
+  favoriteFLightID(id: string | undefined): Promise<void> {
+    const url = `/flight-crawl/${id}/favorite`
+    return axiosClient.post(url)
+  },
+
+  unfavoriteFLightID(id: string | undefined): Promise<void> {
+    const url = `/flight-crawl/${id}/unfavorite`
+    return axiosClient.post(url)
+  },
   getById(id: string | undefined): Promise<FlightResponseType> {
     const url = `/flight-crawl/crawl/${id}`
     return axiosClient.get(url)

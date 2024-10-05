@@ -68,7 +68,8 @@ import avatar3 from './avatar3.png'
 import avatar4 from './avatar4.png'
 import avatar5 from './avatar5.png'
 import flight_pay from './flight_pay.png'
-
+import banner_coach from './banner_coach.jpg'
+import ticket_economy from './ticketEconomy.webp'
 
 
 export {
@@ -140,4 +141,6 @@ export {
   avatar4,
   avatar5,
   flight_pay,
+  banner_coach,
+  ticket_economy
 }

@@ -1,4 +1,5 @@
 import { flightApi } from '@/apis/flight.api'
+import { flightreview1 } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
@@ -9,7 +10,7 @@ import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-export default function FlightReview1() {
+export default function CoachReview1() {
   const { data: getAll } = useQuery({
     queryKey: ['getAllFlight'],
     queryFn: () => flightApi.getAll(1, 4, '', 500000, 20000000, '', '')
@@ -31,7 +32,7 @@ export default function FlightReview1() {
               Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
-            <Link to='/vehicle/flight/all-flight' className=''>
+            <Link to='/vehicle/coach/all-coach' className=''>
               <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
             </Link>
           </div>
@@ -52,9 +53,9 @@ export default function FlightReview1() {
                 <SwiperSlide
                   key={flight.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
-                  style={{ backgroundImage: `url(${flight.image})` }}
+                  style={{ backgroundImage: `url(${flightreview1})` }}
                 >
-                  <Link to={`/vehicle/flight/${flight.id}`} key={flight.id}>
+                  <Link to={`/flight/${flight.id}`} key={flight.id}>
                     <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>
                     <div className='flex text-xl font-semibold text-white'>
                       <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>{flight.take_place}</p>
@@ -72,7 +73,7 @@ export default function FlightReview1() {
                       </p>
                     </div>
                   </Link>
-                  <Button className='relative text-white hover:border-spacing-3'>Book a Flight</Button>
+                  <Button className='relative text-black hover:border-spacing-3'>Book a Coach</Button>
                 </SwiperSlide>
               ))}
             </Swiper>

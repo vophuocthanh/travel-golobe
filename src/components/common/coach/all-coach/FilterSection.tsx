@@ -48,7 +48,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   }
   return (
     <div className='flex-none w-[22.5%] ml-12 mr-5'>
-      <p className='text-3xl text-black'>Filter</p>
+      <p className='text-3xl text-black bg-white w-[15rem] h-[3rem] flex items-center justify-center rounded-lg shadow-lg'>COACH ALL</p>
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
           <p>Price</p>
@@ -80,7 +80,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               </div>
               <div className=''>
                 <Button
-                  className='w-full mt-4 text-white transition duration-200 rounded bg-primary hover:bg-green-300'
+                  className='w-full mt-4 text-white transition duration-200 rounded bg-primary hover:bg-emerald-400'
                   onClick={() => {
                     setMinPrice(tempMinPrice)
                     setMaxPrice(tempMaxPrice)
@@ -179,7 +179,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               htmlFor='terms'
               className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
             >
-              Emirated
+              Nhà xe Phương Trang
             </label>
           </div>
           <div className='flex items-center space-x-2'>
@@ -188,7 +188,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               htmlFor='terms'
               className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
             >
-              Fly Dubai
+              Nhà xe Thành Bưởi
             </label>
           </div>
           <div className='flex items-center space-x-2'>
@@ -197,7 +197,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               htmlFor='terms'
               className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
             >
-              Qatar
+              Nhà xe Hoàng Long
             </label>
           </div>
           <div className='flex items-center space-x-2'>
@@ -206,7 +206,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               htmlFor='terms'
               className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
             >
-              Etihad
+              Nhà xe Minh Thành Phát
             </label>
           </div>
         </div>

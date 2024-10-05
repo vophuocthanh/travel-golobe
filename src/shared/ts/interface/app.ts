@@ -32,5 +32,6 @@ export interface HotelParams {
   sort_by_price?: string
   min_price?: number | undefined
   max_price?: number | undefined
-  star_number?:number| undefined
+  star_number?: number | undefined
+  search?: string
 }

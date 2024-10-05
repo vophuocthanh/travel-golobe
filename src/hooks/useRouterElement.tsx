@@ -19,6 +19,10 @@ import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
 import UserAdminDetail from '@/pages/admin/users/detail/UserAdminDetail'
 import UserAdmin from '@/pages/admin/users/UserAdmin'
+import AllCoach from '@/pages/coach/all-coach/AllCoach'
+import CoachDetail from '@/pages/coach/all-coach/CoachDetail'
+import CoachPayment from '@/pages/coach/all-coach/CoachPayment'
+import Coach from '@/pages/coach/Coach'
 import AllFlight from '@/pages/flight/all-flight/AllFlight'
 import FlightDetail from '@/pages/flight/FlightDetail'
 import FlightPayment from '@/pages/flight/FlightPayment'
@@ -49,11 +53,14 @@ export default function useRoutesElements() {
       { path: path.hotel, element: <Hotel /> },
       { path: path.home_stay, element: <HomeStay /> },
       { path: path.flight, element: <Flight /> },
+      { path: path.coach, element: <Coach /> },
       { path: path.flight_detail, element: <FlightDetail /> },
+      { path: path.coach_detail, element: <CoachDetail /> },
       { path: path.forgot_password, element: <ForgotPassword /> },
       { path: path.reset_password, element: <ResetPassword /> },
       { path: path.profile, element: <Profile /> },
       { path: path.all_flight, element: <AllFlight /> },
+      { path: path.all_coach, element: <AllCoach /> },
       { path: path.hotelId, element: <HotelDetail /> },
       { path: '*', element: <PageNotFound /> },
       { path: path.admin, element: <LayoutMain children={<Dashboard />} /> },
@@ -74,6 +81,7 @@ export default function useRoutesElements() {
       { path: path.road_vehicleID, element: <LayoutMain children={<RoadVehicleAdminView />} /> },
       { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },
       { path: path.flight_payment, element: <FlightPayment /> },
+      { path: path.coach_payment, element: <CoachPayment /> },
       { path: path.tour_payment, element: <TourPayment /> },
       { path: path.hotel_payment, element: <HotelPayment /> }
     ],

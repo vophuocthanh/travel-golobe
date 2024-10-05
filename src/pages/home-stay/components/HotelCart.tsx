@@ -2,6 +2,7 @@ import { hotelApi } from '@/apis/hotel.api'
 import { hoteldetail3 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import Favorite from '@/pages/hotel/components/Favorite'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Coffee, MapPin } from 'lucide-react'
@@ -16,16 +17,11 @@ interface HotelCardProps {
   starNumber?: number | undefined
 }
 
-const HotelCard: React.FC<HotelCardProps> = ({
-  priceRangeMax,
-  priceRangeMin,
-  sortByPrice,
-  starNumber
-}) => {
+const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sortByPrice, starNumber }) => {
   const [page, setPage] = useState(1)
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, "", starNumber],
-    queryFn: () => hotelApi.getAll(page, 4, sortByPrice, priceRangeMin, priceRangeMax, starNumber)
+    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, starNumber],
+    queryFn: () => hotelApi.getAll(page, 4, '', sortByPrice, priceRangeMin, priceRangeMax, starNumber)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)

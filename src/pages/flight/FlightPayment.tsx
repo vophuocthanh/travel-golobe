@@ -1,12 +1,22 @@
+import { bookingFlightApi } from '@/apis/booking-flight'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import FlightBook from '@/components/common/flight/flight-payment/FlightBook'
 import FlightForm from '@/components/common/flight/flight-payment/FlightForm'
 import FlightInfo from '@/components/common/flight/flight-payment/FlightInfo'
 import FlightOptions from '@/components/common/flight/flight-payment/FlightOptions'
+import { useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
+import { useParams } from 'react-router-dom'
 
 export default function FlightPayment() {
+  const { id } = useParams()
+
+  const { data: getBookingFlightDetails } = useQuery({
+    queryKey: ['getBookedFlightDetails', id],
+    queryFn: () => bookingFlightApi.getBookingDetail(id || '')
+  })
+  console.log('getBookingFlightDetails:', getBookingFlightDetails)
   return (
     <div className='w-full bg-gray-100'>
       <Header />
@@ -21,16 +31,16 @@ export default function FlightPayment() {
                   <ChevronRight className='w-4 h-4' />
                   <p className='text-red-400'>Istanbul</p>
                   <ChevronRight className='w-4 h-4' />
-                  <p>CVK Park Bosphorus Hotel Istanbul</p>
+                  <p>{getBookingFlightDetails?.brand}</p>
                 </div>
               </div>
             </div>
             <div className='grid grid-cols-3 gap-6'>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <FlightInfo />
+                {getBookingFlightDetails && <FlightInfo data={getBookingFlightDetails} />}
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <FlightBook />
+                {getBookingFlightDetails && <FlightBook data={getBookingFlightDetails} />}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 <FlightOptions />
