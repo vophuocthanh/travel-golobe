@@ -1,8 +1,8 @@
-import { flightApi } from '@/apis/flight.api'
-import { flightreview1 } from '@/assets/images'
+import { coachApi } from '@/apis/coach.api'
+import { imgcoach } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
-import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { CoachResponseType } from '@/shared/ts/interface/data.interface'
 import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-interface FlightCardProps {
+interface CoachCardProps {
   isFavorite: boolean
   onToggleFavorite: () => void
   minPrice?: number
@@ -20,7 +20,7 @@ interface FlightCardProps {
   returnDate?: string
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({
+const CoachCard: React.FC<CoachCardProps> = ({
   isFavorite,
   onToggleFavorite,
   minPrice,
@@ -57,9 +57,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page, sortByPrice, minPrice, maxPrice, departDate, returnDate],
+    queryKey: ['getAllCoach', page, sortByPrice, minPrice, maxPrice, departDate, returnDate],
 
-    queryFn: () => flightApi.getAll(page, 4, sortByPrice, minPrice, maxPrice, departDate, returnDate)
+    queryFn: () => coachApi.getAll(page, 4, sortByPrice, minPrice, maxPrice, departDate, returnDate)
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
@@ -75,7 +75,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
   }
   return (
     <>
-      <div className='flex items-center justify-between mt-20'>
+      <div className='flex items-center justify-between mt-8'>
         <Dropdown menu={{ items }}>
           <a onClick={(e) => e.preventDefault()} className='ml-auto'>
             <Space>
@@ -86,20 +86,19 @@ const FlightCard: React.FC<FlightCardProps> = ({
         </Dropdown>
       </div>
 
-      {getAll?.data.map((flight: FlightResponseType) => (
-        <div key={flight.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
+      {getAll?.data.map((coach: CoachResponseType) => (
+        <div key={coach.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
           <div className='w-[40%] bg-white relative'>
-            <img src={flightreview1} alt='Flight' className='object-cover w-[90%] h-34 ml-8 mt-4' />
-            <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2'>
+            <img src={imgcoach} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
+            <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
               9 images
             </p>
           </div>
-          <div className='w-[65%] flex-7 h-full pl-4 bg-[#FFFFFF]'>
-            <div className='flex flex-col w-full h-full '>
-              <div className='w-full h-[75%] border-b-2 border-gray-400'>
-                <div className='flex flex-row w-full h-full'>
-                  <div className='w-[70%] flex flex-col gap-4'>
-                    <div className='flex items-center gap-2 mt-8'>
+          <div className='w-[65%] flex-7 h-full p-4 bg-white'>
+            <div className='flex flex-col w-full h-full'>
+              <div className='flex flex-row w-full h-[85%] border-b-2 border-gray-400 pb-4'>
+                  <div className='w-[70%] flex flex-col gap-4 '>
+                    <div className='flex items-center gap-2 mt-2'>
                       <Button className='text-black bg-white border border-primary'>4.2</Button>
                       <p className='font-bold'>Very good</p>
                       <p>54 reviews</p>
@@ -108,46 +107,48 @@ const FlightCard: React.FC<FlightCardProps> = ({
                     <div className='mb-4'>
                       <div className='flex items-center mb-2'>
                         <div className='flex-grow'>
-                          <div className='flex items-center justify-center gap-4 text-black'>
-                            <div className='text-2xl '>
-                              {flight.start_time} - {flight.end_time}
+                          <div className='flex items-center gap-4 text-black'>
+                            <div className='flex gap-2 text-xl'>
+                              <p>Time Start: </p>{coach.start_time} - <p>Time End:</p>{coach.end_time}
                             </div>
-                            <div></div>
-
-                            <div className='text-2xl'>Trip Time: {flight.trip_time}</div>
+                            <div>
+                          </div>
                           </div>
                         </div>
                       </div>
-                      <div className='flex w-[30rem]'>
-                        <p className='text-left text-gray-500 mr-[4rem] ml-9'>
-                          <div className='flex '>
-                            <p className='flex mb-2 font-bold text-black'>From : </p> {flight.take_place}
+                      <div className='text-xl'>Trip Time: {coach.trip_time}</div>
+                      <div className='w-full py-2 pr-2'>
+                        <div className='flex flex-col w-full text-left text-gray-800'>
+                          <div className='flex gap-2'>
+                            <p className='mb-2 font-bold text-black'>From:</p>
+                            <p className='flex line-clamp-2'>{coach.take_place}</p>
                           </div>
-                          <div className='flex'>
-                            <p className='font-bold text-black'>To : </p> {flight.destination}
+                          <div className='flex gap-7'>
+                            <p className='mb-2 font-bold text-black'>To:</p>
+                            <p className='flex line-clamp-2'>{coach.destination}</p>
                           </div>
-                        </p>
+                        </div>
                       </div>
-                      <div className='flex mt-8 ml-6 text-xl'>
-                        <p className='mr-2 font-bold text-black '>Brand: </p> {flight.brand}
+                      <div className='flex items-center mt-2 ml-6 text-xl'>
+                        <p className='mr-2 font-bold text-black '>Brand: </p> {coach.brand}
                       </div>
                     </div>
                   </div>
-                  <div className='w-[30%] pt-4 text-right mr-5'>
-                    <p className='text-xl text-[#FF8682] font-bold'> {formatCurrency(flight.price?.toString())}</p>
-                    <p className='mt-40 font-medium text-right text-black-500'>Trip To: {flight.trip_to}</p>
+                  <div className='relative w-[30%] pt-4 text-right mr-5'>
+                    <p className='text-xl text-[#FF8682] font-bold'> {formatCurrency(coach.price?.toString())}</p>
+                    <p className='absolute bottom-0 font-medium text-right text-black-500 line-clamp-2'>Trip To: {coach.destination}</p>
                   </div>
-                </div>
               </div>
-              <div className='w-full h-[25%] flex'>
-                <div className='flex flex-row items-center w-full gap-4'>
+
+              <div className='flex w-full mt-2'>
+                <div className='flex flex-row items-center w-full gap-2 mr-4'>
                   <Button
                     className={isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white w-[3.6rem] '}
                     onClick={onToggleFavorite}
                   >
                     <Heart />
                   </Button>
-                  <Link to={`/vehicle/coach/${flight.id}`} className='w-[32rem]'>
+                  <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
                     <Button className='w-full mx-4 text-black'>View Deals</Button>
                   </Link>
                 </div>
@@ -214,4 +215,4 @@ const FlightCard: React.FC<FlightCardProps> = ({
   )
 }
 
-export default FlightCard
+export default CoachCard

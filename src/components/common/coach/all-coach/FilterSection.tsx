@@ -48,7 +48,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   }
   return (
     <div className='flex-none w-[22.5%] ml-12 mr-5'>
-      <p className='text-3xl text-black bg-white w-[15rem] h-[3rem] flex items-center justify-center rounded-lg shadow-lg'>COACH ALL</p>
+      {/* <p className='text-3xl text-black bg-white w-[15rem] h-[3rem] flex items-center justify-center rounded-lg shadow-lg'>COACH ALL</p> */}
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
           <p>Price</p>
@@ -165,7 +165,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       )}
 
       <div className='flex justify-between w-full mt-10 mb-6'>
-        <p>Airlines</p>
+        <p>Coach</p>
         <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleAirlinesVisibility}>
           {isAirlinesVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>

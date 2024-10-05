@@ -1,19 +1,17 @@
-import { commentFlightApi } from '@/apis/comment-flght.api'
-import { flightApi } from '@/apis/flight.api'
-import { flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
-import { IconFlight } from '@/common/icons'
+import { bannercoach, flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { useQuery } from '@tanstack/react-query'
 import {
+  Bus,
+  BusFront,
   ChevronRight,
   HeartIcon,
   Link,
   MapPin,
   MoveLeft,
   MoveRight,
-  Plane,
   RockingChair,
   Timer,
   UtensilsCrossed,
@@ -25,6 +23,8 @@ import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import CoachDetailReview from './commentCoach'
+import { coachApi } from '@/apis/coach.api'
+import { commentCoachApi } from '@/apis/comment-coach.api'
 
 
 export default function CoachDetail() {
@@ -59,12 +59,13 @@ export default function CoachDetail() {
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
-    queryFn: () => flightApi.getById(id || '')
+    queryFn: () => coachApi.getById(id || '')
   })
-  const { data: getCommentFlight } = useQuery({
+  const { data: getCommentCoach } = useQuery({
     queryKey: ['getComments', id],
-    queryFn: () => commentFlightApi.getComments(id || '')
+    queryFn: () => commentCoachApi.getComments(id || '')
   })
+
   return (
     <>
       <Header />
@@ -106,14 +107,15 @@ export default function CoachDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link className={`w-4 h-4`} />
                 </p>
-                <Button>Book now</Button>
+                <Link to={'/vehicle/coach/all-coach/coach-detail/coach-payment'}><Button className='text-black'>Book now</Button></Link>
+                
               </div>
             </div>
           </div>
         </section>
 
         <section className='mb-8'>
-          <img src={getbyId?.images} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
+          <img src={bannercoach} alt='Coach Banner' className='object-cover w-full h-[25rem] rounded-xl' />
         </section>
 
         <section className='mb-8'>
@@ -166,22 +168,26 @@ export default function CoachDetail() {
           </div>
 
           <div className='h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary'>
-            <p className='text-2xl font-bold '>Emirates Airlines Policies</p>
+            <p className='text-2xl font-bold '>Coach Service Health and Safety Policies</p>
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-flight cleaning, installation of cabin HEPA filters.</p>
+                <p className='text-sm text-gray-200'>Pre-Trip Cleaning: Coaches are thoroughly cleaned before every trip, with extra care on high-touch surfaces.</p>
               </div>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-flight health screening questions.</p>
+                <p className='text-sm text-gray-200'>Air Filtration: Coaches are fitted with HEPA filters to purify the air, removing up to 99.97% of particles.</p>
+              </div>
+              <div className='flex items-center space-x-3'>
+                <Timer className='w-5 h-5 text-white' />
+                <p className='text-sm text-gray-200'>Health Screening: Passengers must complete a short health questionnaire before boarding to ensure safe travel for all.</p>
               </div>
             </div>
           </div>
 
           <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
             <div className='flex justify-between'>
-              <p className='text-xl font-bold'>Return Wed, Dec 8</p>
+              <p className='text-xl font-bold'>{getbyId?.start_time} {getbyId?.start_day ? new Date(getbyId.start_day).toLocaleDateString('vi-VN') : 'N/A'}</p>
               <p className='text-lg font-medium'>{getbyId?.brand}</p>
             </div>
 
@@ -190,13 +196,13 @@ export default function CoachDetail() {
                 <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
                   <img src={getbyId?.images} alt='' className='w-16' />
                   <div>
-                    <p className='text-2xl font-bold'>Emirates</p>
-                    <p className='text-sm font-medium'>Airbus A320</p>
+                    <p className='text-2xl font-bold'>{getbyId?.brand}</p>
+                    <p className='text-sm font-medium'>{getbyId?.number_of_seat}</p>
                   </div>
                 </div>
                 <div className='flex items-center p-6'>
                   <div className='flex items-center space-x-6'>
-                    <Plane className='w-6 h-6' />
+                    <BusFront className='w-6 h-6' />
                     <span className='h-6 border-l border-gray-400'></span>
                     <Wifi className='w-6 h-6' />
                     <span className='h-6 border-l border-gray-400'></span>
@@ -216,7 +222,7 @@ export default function CoachDetail() {
 
                 <div className='flex items-center space-x-4'>
                   <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                  <IconFlight />
+                  <Bus className='w-6 h-6'/>
                   <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
                 </div>
 
@@ -228,7 +234,7 @@ export default function CoachDetail() {
             </div>
           </div>
         </section>
-        <CoachDetailReview data={getCommentFlight?.data ?? []} />
+        <CoachDetailReview data={getCommentCoach?.data ?? []} />
       </div>
       <Footer />
     </>
