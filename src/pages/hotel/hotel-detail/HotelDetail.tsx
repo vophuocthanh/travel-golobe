@@ -13,34 +13,38 @@ import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
+import { useState } from 'react'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate();
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
 
-
+  const [flightQuantity, setFlightQuantity] = useState(1)
 
   const mutationBookingHotel = useMutation({
-    mutationFn: (hotelId: string) => bookingHotelApi.addBookingHotel(hotelId)
-  })
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', flightQuantity),
+    onSuccess: (data) => {
+      const bookingId = data.id;
+      toast.success(`Booking success 🚀🚀⚡⚡! ${bookingId}`);
+      navigate(`/hotel/hotel-payment/${bookingId}`);
+    },
+    onError: () => {
+      toast.error('Booking failed 😭😭😭😭!');
+    }
+  });
 
   function handleBookingHotel() {
-    mutationBookingHotel.mutate(id || '', {
-      onSuccess: () => {
-        toast.success('Booking success 🚀🚀⚡⚡!')
-      },
-      onError: () => {
-        toast.error('Booking failed 😭😭😭😭!')
-      }
-    })
+    mutationBookingHotel.mutate();
   }
+
 
   const { data: getCommentHotel } = useQuery({
     queryKey: ['getComments', id],
@@ -114,9 +118,28 @@ export default function HotelDetail() {
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
                 </div>
-                <Link to={`/hotel/home-stay/${getbyId?.id}/hotel-payment`}>
-                  <Button onClick={handleBookingHotel}>Book now</Button>
-                </Link>
+                <div className='flex border border-gray-300 rounded'>
+                  <button
+                    onClick={() => setFlightQuantity(Math.max(1, flightQuantity - 1))}
+                    className='px-4 py-2 bg-gray-200 text-black rounded-l hover:bg-gray-300'
+                  >
+                    -
+                  </button>
+                  <input
+                    type='text'
+                    value={flightQuantity}
+                    onChange={(e) => setFlightQuantity(Math.max(1, Number(e.target.value)))}
+                    min="1"
+                    className='w-16 text-center border-t border-b border-gray-300 focus:outline-none'
+                  />
+                  <button
+                    onClick={() => setFlightQuantity(flightQuantity + 1)}
+                    className='px-4 py-2 bg-gray-200 text-black rounded-r hover:bg-gray-300'
+                  >
+                    +
+                  </button>
+                </div>
+                <Button onClick={handleBookingHotel}>Book now</Button>
               </div>
             </div>
           </div>
