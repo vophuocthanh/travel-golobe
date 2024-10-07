@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 export const useGetFlightList = () => {
   return useQuery({
     queryKey: ['flightList'],
-    queryFn: () => flightApi.getAll(1, 10,''), // Provide default values for page and limit
+    queryFn: () => flightApi.getAll(1, 10,'',''), // Provide default values for page and limit
     staleTime: 60 * 1000
   })
 }

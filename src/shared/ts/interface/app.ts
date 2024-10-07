@@ -25,6 +25,7 @@ export interface ListResponse<T> {
   max_price: number | undefined
   start_day: string
   end_day: string
+  branch: string
 }
 export interface HotelParams {
   items_per_page: number
