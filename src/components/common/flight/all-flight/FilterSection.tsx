@@ -1,8 +1,5 @@
-
-
-
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+// import { Checkbox } from '@/components/ui/checkbox'
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
@@ -10,9 +7,12 @@ import ReactSlider from 'react-slider'
 
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
+  brandFlight: string
+  setBrandFlight: React.Dispatch<React.SetStateAction<string>>
+  handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
+const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight, handleCheckboxChange }) => {
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
 
   const [isVisible, setIsVisible] = useState<boolean>(true)
@@ -27,6 +27,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
   const handleTimeChange = (time: number[]) => {
     setTime(time)
   }
+
   const toggleVisibility = () => {
     setIsVisible((prev) => !prev)
   }
@@ -46,6 +47,11 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
     const formattedMinutes = mins < 10 ? `0${mins}` : mins
     return `${formattedHours}:${formattedMinutes}${ampm}`
   }
+  const brands = [
+    { id: '1', name: 'Bamboo Airways' },
+    { id: '2', name: 'VietJet Air' },
+    { id: '3', name: 'Vietnam Airlines' }
+  ]
   return (
     <div className='flex-none w-[22.5%] ml-12 mr-5 mt-[6rem]'>
       <p className='text-3xl text-black'>Filter</p>
@@ -138,7 +144,6 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
           </div>
         )}
       </div>
-
       <div className='flex justify-between w-full mt-10 mb-6'>
         <p>Airlines</p>
         <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleAirlinesVisibility}>
@@ -148,41 +153,21 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
 
       {isAirlinesVisible && (
         <div className='flex flex-col gap-3 pb-12 border-b-2'>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              Emirated
-            </label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              Fly Dubai
-            </label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              Qatar
-            </label>
-          </div>
-          <div className='flex items-center space-x-2'>
-            <Checkbox id='terms' className='w-5 h-5 border-2 border-black rounded-sm' />
-            <label
-              htmlFor='terms'
-              className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-            >
-              Etihad
-            </label>
+          <div className='mt-4'>
+            <div className='flex flex-col'>
+              {brands.map((brand) => (
+                <label key={brand.id} className='flex items-center'>
+                  <input
+                    type='checkbox'
+                    value={brand.name}
+                    checked={brandFlight === brand.name}
+                    onChange={handleCheckboxChange}
+                    className='w-5 h-5 mr-2 accent-primary '
+                  />
+                  {brand.name}
+                </label>
+              ))}
+            </div>
           </div>
         </div>
       )}
