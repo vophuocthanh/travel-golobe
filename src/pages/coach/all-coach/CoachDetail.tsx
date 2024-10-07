@@ -8,7 +8,6 @@ import {
   BusFront,
   ChevronRight,
   HeartIcon,
-  Link,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -18,13 +17,14 @@ import {
   Wifi
 } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import CoachDetailReview from './commentCoach'
 import { coachApi } from '@/apis/coach.api'
 import { commentCoachApi } from '@/apis/comment-coach.api'
+import { IconLink } from '@/common/icons'
 
 
 export default function CoachDetail() {
@@ -83,7 +83,7 @@ export default function CoachDetail() {
               <p className='text-2xl font-bold'>{getbyId?.brand}</p>
               <div className='flex items-center mt-1 space-x-2 text-sm'>
                 <MapPin className='w-4 h-4' />
-                <p></p>
+                <p>{getbyId?.destination}</p>
               </div>
               <div className='flex items-center mt-2 space-x-2'>
                 <p className='flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary'>
@@ -96,7 +96,7 @@ export default function CoachDetail() {
               </div>
             </div>
             <div className='space-y-2'>
-              <p className='text-[32px] font-bold text-[#FF8682]'>$240</p>
+              <p className='text-[32px] font-bold text-[#FF8682]'>{getbyId?.price?.toLocaleString('vi-VN')} Đ</p>
               <div className='flex space-x-2'>
                 <p
                   className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
@@ -105,10 +105,11 @@ export default function CoachDetail() {
                   <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
                 </p>
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <Link className={`w-4 h-4`} />
+                  <IconLink/>
                 </p>
-                <Link to={'/vehicle/coach/all-coach/coach-detail/coach-payment'}><Button className='text-black'>Book now</Button></Link>
-                
+                <Link to={`/vehicle/coach/all-coach/coach-detail/coach-payment`}>
+                  <Button className='text-black'>Book now</Button>
+                </Link>
               </div>
             </div>
           </div>
