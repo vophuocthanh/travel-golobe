@@ -11,8 +11,8 @@ export const bookingHotelApi = {
     const url =`/bookings/hotel/${bookingId}`
     return axios.get(url)
   },
-  addBookingHotel(hotelCrawlId: string, flightQuantity: number):Promise<HotelBooking> {
+  addBookingHotel(hotelCrawlId: string, hotelQuantity: number):Promise<HotelBooking> {
     const url = '/bookings/book/hotel'
-    return axiosClient.post(url, { hotelCrawlId, flightQuantity })
+    return axiosClient.post(url, { hotelCrawlId, hotelQuantity })
   }
 }

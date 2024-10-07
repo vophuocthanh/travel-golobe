@@ -13,7 +13,7 @@ export default function HotelPayment() {
   const { id } = useParams()
 
   const { data: getBookingFlightDetails } = useQuery({
-    queryKey: ['getById', id],
+    queryKey: ['getByIdBooking', id],
     queryFn: () => bookingHotelApi.getByIdBookingHotel(id || ''),
   });
 

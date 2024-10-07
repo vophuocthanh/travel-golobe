@@ -27,10 +27,10 @@ export default function HotelDetail() {
     queryFn: () => hotelApi.getById(id)
   })
 
-  const [flightQuantity, setFlightQuantity] = useState(1)
+  const [hotelQuantity, setHotelQuantity] = useState(1)
 
   const mutationBookingHotel = useMutation({
-    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', flightQuantity),
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity),
     onSuccess: (data) => {
       const bookingId = data.id;
       toast.success(`Booking success 🚀🚀⚡⚡! ${bookingId}`);
@@ -40,6 +40,8 @@ export default function HotelDetail() {
       toast.error('Booking failed 😭😭😭😭!');
     }
   });
+
+  console.log(hotelQuantity)
 
   function handleBookingHotel() {
     mutationBookingHotel.mutate();
@@ -120,20 +122,20 @@ export default function HotelDetail() {
                 </div>
                 <div className='flex border border-gray-300 rounded'>
                   <button
-                    onClick={() => setFlightQuantity(Math.max(1, flightQuantity - 1))}
+                    onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
                     className='px-4 py-2 bg-gray-200 text-black rounded-l hover:bg-gray-300'
                   >
                     -
                   </button>
                   <input
                     type='text'
-                    value={flightQuantity}
-                    onChange={(e) => setFlightQuantity(Math.max(1, Number(e.target.value)))}
+                    value={hotelQuantity}
+                    onChange={(e) => setHotelQuantity(Math.max(1, Number(e.target.value)))}
                     min="1"
                     className='w-16 text-center border-t border-b border-gray-300 focus:outline-none'
                   />
                   <button
-                    onClick={() => setFlightQuantity(flightQuantity + 1)}
+                    onClick={() => setHotelQuantity(hotelQuantity + 1)}
                     className='px-4 py-2 bg-gray-200 text-black rounded-r hover:bg-gray-300'
                   >
                     +
