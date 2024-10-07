@@ -12,13 +12,13 @@ import { useParams } from 'react-router-dom';
 export default function HotelPayment() {
   const { id } = useParams()
 
-  const { data: getbyIdBooking } = useQuery({
+  const { data: getBookingFlightDetails } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => bookingHotelApi.getByIdBookingHotel(id || ''),
   });
 
   console.log("id đây" + id);
-  console.log(getbyIdBooking)
+  console.log(getBookingFlightDetails)
 
   return (
     <div className='w-full bg-gray-100'>
@@ -34,7 +34,7 @@ export default function HotelPayment() {
                   <ChevronRight className='w-4 h-4' />
                   <p className='text-red-400'>Istanbul</p>
                   <ChevronRight className='w-4 h-4' />
-                  <p>{getbyIdBooking?.hotel_names}</p>
+                  <p>{getBookingFlightDetails?.hotel_names}</p>
                 </div>
               </div>
             </div>

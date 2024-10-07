@@ -34,7 +34,7 @@ export default function HotelDetail() {
     onSuccess: (data) => {
       const bookingId = data.id;
       toast.success(`Booking success 🚀🚀⚡⚡! ${bookingId}`);
-      navigate(`/hotel/hotel-payment/${bookingId}`);
+      navigate(`/hotel/home-stay/hotel-payment/${bookingId}`);
     },
     onError: () => {
       toast.error('Booking failed 😭😭😭😭!');
