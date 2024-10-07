@@ -13,40 +13,39 @@ import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
 
-
-
-  const mutationBookingHotel = useMutation({
-    mutationFn: (hotelId: string) => bookingHotelApi.addBookingHotel(hotelId)
+  const mutationHotelBooking = useMutation({
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', 2),
+    onSuccess: (data) => {
+      const bookingId = data.id
+      toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
+      navigate(`/hotel/home-stay/hotel-payment/${bookingId}`)
+    },
+    onError: () => {
+      toast.error('Failed to book flight')
+    }
   })
 
-  function handleBookingHotel() {
-    mutationBookingHotel.mutate(id || '', {
-      onSuccess: () => {
-        toast.success('Booking success 🚀🚀⚡⚡!')
-      },
-      onError: () => {
-        toast.error('Booking failed 😭😭😭😭!')
-      }
-    })
+  const handleBookHotel = () => {
+    mutationHotelBooking.mutate()
   }
 
   const { data: getCommentHotel } = useQuery({
     queryKey: ['getComments', id],
     queryFn: () => commentHotelApi.getComments(id || '')
   })
-
 
   const totalComments = getCommentHotel?.total ?? 0
   const averageRating =
@@ -114,9 +113,7 @@ export default function HotelDetail() {
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
                 </div>
-                <Link to={`/hotel/home-stay/${getbyId?.id}/hotel-payment`}>
-                  <Button onClick={handleBookingHotel}>Book now</Button>
-                </Link>
+                <Button onClick={handleBookHotel}>Book now</Button>
               </div>
             </div>
           </div>
