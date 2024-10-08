@@ -1,7 +1,6 @@
-import { bannercoach, flightdetail1, flightdetail2, flightdetail3 } from '@/assets/images'
+import { bannercoach, coachdetail1, coachdetail2, coachdetail3 } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@radix-ui/react-checkbox'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   Bus,
@@ -39,24 +38,24 @@ export default function CoachDetail() {
   }
 
   const slides = [
-    { content: flightdetail1 },
-    { content: flightdetail2 },
-    { content: flightdetail3 },
-    { content: flightdetail1 },
-    { content: flightdetail2 },
-    { content: flightdetail3 },
-    { content: flightdetail1 },
-    { content: flightdetail2 },
-    { content: flightdetail3 },
-    { content: flightdetail1 },
-    { content: flightdetail2 },
-    { content: flightdetail3 },
-    { content: flightdetail1 },
-    { content: flightdetail2 },
-    { content: flightdetail3 },
-    { content: flightdetail1 },
-    { content: flightdetail2 },
-    { content: flightdetail3 }
+    { content: coachdetail1 },
+    { content: coachdetail2 },
+    { content: coachdetail3 },
+    { content: coachdetail1 },
+    { content: coachdetail2 },
+    { content: coachdetail3 },
+    { content: coachdetail1 },
+    { content: coachdetail2 },
+    { content: coachdetail3 },
+    { content: coachdetail1 },
+    { content: coachdetail2 },
+    { content: coachdetail3 },
+    { content: coachdetail1 },
+    { content: coachdetail2 },
+    { content: coachdetail3 },
+    { content: coachdetail1 },
+    { content: coachdetail2 },
+    { content: coachdetail3 }
   ]
 
   const { id } = useParams<{ id: string }>()
@@ -74,6 +73,8 @@ export default function CoachDetail() {
   
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
+  
+  
 
   const mutationCoachBooking = useMutation({
     mutationFn: () => bookingCoachApi.addBookingCoach(id || '', roadVehicleQuantity),
@@ -132,6 +133,7 @@ export default function CoachDetail() {
             <div className='space-y-2'>
               <p className='text-[32px] text-right font-bold text-[#FF8682]'>{formattedPrice}</p>
               <div className='flex space-x-2'>
+                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>Còn {getbyId?.number_of_seats_remaining} chổ ngồi</p>
                 <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
                   <Button onClick={handleDecreaseQuantity} className='w-10 px-2 py-1 text-lg text-black border rounded'>
                     -
@@ -157,28 +159,10 @@ export default function CoachDetail() {
         </section>
 
         <section className='mb-8'>
-          <img src={bannercoach} alt='Coach Banner' className='object-cover w-full h-[25rem] rounded-xl' />
+          <img src={bannercoach} alt='Coach Banner' className='object-cover w-full h-[30rem] rounded-xl' />
         </section>
 
         <section className='mb-8'>
-          <div className='flex justify-between p-4'>
-            <p className='text-2xl font-bold text-gray-800'>Basic Economy Features</p>
-            <div className='flex space-x-6'>
-              <label className='flex items-center space-x-2'>
-                <Checkbox />
-                <span className='text-lg font-medium'>Economy</span>
-              </label>
-              <label className='flex items-center space-x-2'>
-                <Checkbox />
-                <span className='text-lg font-medium'>First Class</span>
-              </label>
-              <label className='flex items-center space-x-2'>
-                <Checkbox />
-                <span className='text-lg font-medium'>Business Class</span>
-              </label>
-            </div>
-          </div>
-
           <div className='mb-10'>
             <Swiper
               modules={[Navigation, Pagination, A11y, Autoplay]}
@@ -202,7 +186,7 @@ export default function CoachDetail() {
                   <img
                     src={slide.content}
                     alt={`Slide ${index + 1}`}
-                    className='rounded-lg shadow-md w-[120px] h-[120px]'
+                    className='rounded-lg shadow-md w-[120px] h-[90px] object-fill'
                   />
                 </SwiperSlide>
               ))}

@@ -82,5 +82,6 @@ export interface CoachResponseType {
   location?: string
   Ticket?: []
   isFavorite?: boolean
+  number_of_seats_remaining: number
 }
 
