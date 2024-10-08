@@ -13,10 +13,10 @@ import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
-import { useState } from 'react'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
@@ -110,7 +110,8 @@ export default function HotelDetail() {
             </div>
             <div className='flex-1 text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
-              <div className='flex justify-end space-x-2'>
+              <div className='flex items-center justify-end gap-2 space-x-2'>
+                <p>Còn {getbyId?.number_of_seats_remaining} phòng</p>
                 <Favorite idHotel={id} />
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
@@ -118,7 +119,7 @@ export default function HotelDetail() {
                 <div className='flex border border-gray-300 rounded'>
                   <button
                     onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
-                    className='px-4 py-2 bg-gray-200 text-black rounded-l hover:bg-gray-300'
+                    className='px-4 py-2 text-black bg-gray-200 rounded-l hover:bg-gray-300'
                   >
                     -
                   </button>
@@ -126,12 +127,12 @@ export default function HotelDetail() {
                     type='text'
                     value={hotelQuantity}
                     onChange={(e) => setHotelQuantity(Math.max(1, Number(e.target.value)))}
-                    min="1"
+                    min='1'
                     className='w-16 text-center border-t border-b border-gray-300 focus:outline-none'
                   />
                   <button
                     onClick={() => setHotelQuantity(hotelQuantity + 1)}
-                    className='px-4 py-2 bg-gray-200 text-black rounded-r hover:bg-gray-300'
+                    className='px-4 py-2 text-black bg-gray-200 rounded-r hover:bg-gray-300'
                   >
                     +
                   </button>

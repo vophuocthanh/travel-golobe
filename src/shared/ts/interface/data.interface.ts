@@ -18,6 +18,7 @@ export interface HotelResponseType {
   image_5?: string
   isFavorite?: boolean
   rooms?: []
+  number_of_seats_remaining?: number
 }
 
 export interface TourResponseType {
@@ -83,4 +84,3 @@ export interface CoachResponseType {
   Ticket?: []
   isFavorite?: boolean
 }
-
