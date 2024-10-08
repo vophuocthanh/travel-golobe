@@ -31,16 +31,16 @@ export default function HotelPayment() {
                   <ChevronRight className='w-4 h-4' />
                   <p className='text-red-400'>Istanbul</p>
                   <ChevronRight className='w-4 h-4' />
-                  <p>CVK Park Bosphorus Hotel Istanbul</p>
+                  <p>{getBookingHotelDetails?.hotel_names}</p>
                 </div>
               </div>
             </div>
             <div className='grid grid-cols-3 gap-6'>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <HotelInfo />
+                {getBookingHotelDetails && <HotelInfo hotel={getBookingHotelDetails} />}
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <HotelBook />
+                {getBookingHotelDetails && <HotelBook hotel={getBookingHotelDetails} />}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 <HotelOptions />

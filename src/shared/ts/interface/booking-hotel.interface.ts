@@ -13,12 +13,12 @@ export interface HotelBookingResponse {
   description: string
   hotel_link: string
   place: string
-  image?: string | null
-  image_2?: string | null
-  image_3?: string | null
-  image_4?: string | null
-  image_5?: string | null
-  userId?: string | null
+  image: string | undefined
+  image_2: string | null
+  image_3: string | null
+  image_4: string | null
+  image_5: string | null
+  userId: string | null
   number_of_seats_remaining: number
   hotelQuantity: number
   status: 'PENDING' | 'CONFIRMED' | 'CANCELLED'

@@ -16,6 +16,7 @@ import { ChevronRight, MapPin } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
+import { useState } from 'react'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
@@ -25,9 +26,10 @@ export default function HotelDetail() {
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
+  const [hotelQuantity, setHotelQuantity] = useState(1)
 
   const mutationHotelBooking = useMutation({
-    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', 2),
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
@@ -112,6 +114,27 @@ export default function HotelDetail() {
                 <Favorite idHotel={id} />
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
+                </div>
+                <div className='flex border border-gray-300 rounded'>
+                  <button
+                    onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
+                    className='px-4 py-2 bg-gray-200 text-black rounded-l hover:bg-gray-300'
+                  >
+                    -
+                  </button>
+                  <input
+                    type='text'
+                    value={hotelQuantity}
+                    onChange={(e) => setHotelQuantity(Math.max(1, Number(e.target.value)))}
+                    min="1"
+                    className='w-16 text-center border-t border-b border-gray-300 focus:outline-none'
+                  />
+                  <button
+                    onClick={() => setHotelQuantity(hotelQuantity + 1)}
+                    className='px-4 py-2 bg-gray-200 text-black rounded-r hover:bg-gray-300'
+                  >
+                    +
+                  </button>
                 </div>
                 <Button onClick={handleBookHotel}>Book now</Button>
               </div>
