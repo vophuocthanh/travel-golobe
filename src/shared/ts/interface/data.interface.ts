@@ -83,4 +83,3 @@ export interface CoachResponseType {
   Ticket?: []
   isFavorite?: boolean
 }
-
