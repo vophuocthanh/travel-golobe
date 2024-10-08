@@ -12,7 +12,6 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
   Link2,
-  MapPin,
   MoveLeft,
   MoveRight,
   Plane,
@@ -21,6 +20,7 @@ import {
   UtensilsCrossed,
   Wifi
 } from 'lucide-react'
+import { useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -50,6 +50,7 @@ export default function FlightDetail() {
     { content: flightdetail2 },
     { content: flightdetail3 }
   ]
+  const [flightQuantity, setFlightQuantity] = useState(1)
 
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -64,7 +65,7 @@ export default function FlightDetail() {
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   const mutationFlightBooking = useMutation({
-    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', 2),
+    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
@@ -85,34 +86,54 @@ export default function FlightDetail() {
       <div className='container mx-auto pt-28 pb-72'>
         <section>
           <div className='flex items-center space-x-2 text-sm text-gray-600'>
-            <p>Today</p>
+            <p className='text-xl'>Today</p>
             <ChevronRight className='w-4 h-4' />
-            <p>Istanbul</p>
+            <p className='text-xl'>Istanbul</p>
             <ChevronRight className='w-4 h-4' />
-            <p>{getbyId?.brand}</p>
+            <p className='text-lg text-primary'>{getbyId?.brand}</p>
           </div>
           <div className='flex justify-between p-4'>
             <div>
-              <p className='text-2xl font-bold'>{getbyId?.brand}</p>
+              <p className='text-2xl font-bold text-[#FF8682]'>{getbyId?.brand}</p>
               <div className='flex items-center mt-1 space-x-2 text-sm'>
-                <MapPin className='w-4 h-4' />
+                {/* <MapPin className='w-4 h-4' /> */}
                 <p></p>
               </div>
               <div className='flex items-center mt-2 space-x-2'>
-                <p className='flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary'>
+                <p className='flex items-center justify-center h-10 text-xs font-medium border rounded cursor-pointer w-11 border-primary hover:bg-primary'>
                   4.2
                 </p>
-                <p className='text-xs font-normal'>
+                <p className='font-2xl normal text-'>
                   <span className='font-bold'>Very Good </span>
                   54 reviews
                 </p>
               </div>
             </div>
             <div className='space-y-2'>
-              <p className='text-[32px] font-bold text-[#FF8682]'>{formattedPrice} </p>
+              <p className='text-[32px] font-bold text-[#FF8682] text-right'>{formattedPrice} </p>
               <div className='flex space-x-2'>
+                <p className='mt-2 text-lg font-bold text-black'>Còn {getbyId?.number_of_seats_remaining} Vé</p>
                 <Favorite id={getbyId?.id} />
-
+                <div className='flex border rounded border-primary'>
+                  <button
+                    className='w-10 px-4 py-2 font-bold text-black rounded-l bg-primary hover:bg-green-200'
+                    onClick={() => setFlightQuantity(Math.max(1, flightQuantity - 1))}
+                  >
+                    -
+                  </button>
+                  <input
+                    value={flightQuantity}
+                    type='text'
+                    className='h-10 text-center border-t border-b border-gray-300 w-14 focus:outline-none'
+                    onChange={(e) => setFlightQuantity(Math.max(1, Number(e.target.value)))}
+                  />
+                  <button
+                    onClick={() => setFlightQuantity(Math.max(1, flightQuantity + 1))}
+                    className='w-10 px-4 py-2 text-black rounded-r bg-primary hover:bg-green-200'
+                  >
+                    +
+                  </button>
+                </div>
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link2 className={`w-4 h-4`} />
                 </p>
