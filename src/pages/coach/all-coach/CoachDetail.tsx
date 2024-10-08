@@ -2,7 +2,7 @@ import { bannercoach, flightdetail1, flightdetail2, flightdetail3 } from '@/asse
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   Bus,
   BusFront,
@@ -17,7 +17,7 @@ import {
   Wifi
 } from 'lucide-react'
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -25,10 +25,14 @@ import CoachDetailReview from './commentCoach'
 import { coachApi } from '@/apis/coach.api'
 import { commentCoachApi } from '@/apis/comment-coach.api'
 import { IconLink } from '@/common/icons'
+import { bookingCoachApi } from '@/apis/booking-coach'
+import { toast } from 'sonner'
 
 
 export default function CoachDetail() {
   const [liked, setLiked] = useState(false)
+  const [roadVehicleQuantity, setRoadVehicleQuantity] = useState(1) // Khởi tạo số lượng là 1
+
 
   const handleClick = () => {
     setLiked(!liked)
@@ -56,7 +60,9 @@ export default function CoachDetail() {
   ]
 
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
+  
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => coachApi.getById(id || '')
@@ -65,7 +71,35 @@ export default function CoachDetail() {
     queryKey: ['getComments', id],
     queryFn: () => commentCoachApi.getComments(id || '')
   })
+  
+  const price = getbyId?.price
+  const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
+  const mutationCoachBooking = useMutation({
+    mutationFn: () => bookingCoachApi.addBookingCoach(id || '', roadVehicleQuantity),
+    onSuccess: (data) => {
+      const bookingId = data.id;
+      toast.success(`Coach booked successfully with Booking ID: ${bookingId}`)
+      navigate(`/vehicle/coach/all-coach/coach-payment/${bookingId}`)
+    },
+      onError: () => {
+      toast.error('Failed to book coach')
+    }
+  })
+
+  const handleIncreaseQuantity = () => {
+    setRoadVehicleQuantity((prevQuantity) => prevQuantity + 1)
+  }
+
+  const handleDecreaseQuantity = () => {
+    if (roadVehicleQuantity > 1) {
+      setRoadVehicleQuantity((prevQuantity) => prevQuantity - 1)
+    }
+  }
+  const handleBookCoach = () => {
+    mutationCoachBooking.mutate()
+  }
+  
   return (
     <>
       <Header />
@@ -76,7 +110,7 @@ export default function CoachDetail() {
             <ChevronRight className='w-4 h-4' />
             <p>Istanbul</p>
             <ChevronRight className='w-4 h-4' />
-            <p>{getbyId?.brand}</p>
+            <p>{getbyId?.location}</p>
           </div>
           <div className='flex justify-between p-4'>
             <div>
@@ -96,8 +130,17 @@ export default function CoachDetail() {
               </div>
             </div>
             <div className='space-y-2'>
-              <p className='text-[32px] font-bold text-[#FF8682]'>{getbyId?.price?.toLocaleString('vi-VN')} Đ</p>
+              <p className='text-[32px] text-right font-bold text-[#FF8682]'>{formattedPrice}</p>
               <div className='flex space-x-2'>
+                <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
+                  <Button onClick={handleDecreaseQuantity} className='w-10 px-2 py-1 text-lg text-black border rounded'>
+                    -
+                  </Button>
+                  <p className='text-lg font-semibold'>{roadVehicleQuantity}</p>
+                  <Button onClick={handleIncreaseQuantity} className='w-10 px-2 py-1 text-lg text-black border rounded'>
+                    +
+                  </Button>
+                </div>
                 <p
                   className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
                   onClick={handleClick}
@@ -107,9 +150,7 @@ export default function CoachDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink/>
                 </p>
-                <Link to={`/vehicle/coach/all-coach/coach-detail/coach-payment`}>
-                  <Button className='text-black'>Book now</Button>
-                </Link>
+                  <Button className='text-black' onClick={handleBookCoach}>Book now</Button>
               </div>
             </div>
           </div>
