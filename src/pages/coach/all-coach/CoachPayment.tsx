@@ -1,12 +1,24 @@
+import { bookingCoachApi } from '@/apis/booking-coach'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import CoachBook from '@/components/common/coach/coach-payment/CoachBook'
 import CoachForm from '@/components/common/coach/coach-payment/CoachForm'
 import CoachInfo from '@/components/common/coach/coach-payment/CoachInfo'
 import CoachOptions from '@/components/common/coach/coach-payment/CoachOptions'
+import { useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
+import { useParams } from 'react-router-dom'
 
 export default function CoachPayment() {
+
+  const { id } = useParams()
+
+  const { data: getBookingCoachDeTails } = useQuery({
+    queryKey: ['getBookedCoachDetails', id],
+    queryFn: () => bookingCoachApi.getBookingDetail(id || '')
+  })
+  console.log('getBookedCoachDetails:', getBookingCoachDeTails)
+  
   return (
     <div className='w-full bg-gray-100'>
       <Header />
@@ -21,16 +33,16 @@ export default function CoachPayment() {
                 <ChevronRight className='w-4 h-4' />
                 <p className='text-red-400'>Istanbul</p>
                 <ChevronRight className='w-4 h-4' />
-                <p>CVK Park Bosphorus Hotel Istanbul</p>
+                <p>{getBookingCoachDeTails?.location}</p>
               </div>
             </div>
           </div>
           <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md">
-            <CoachInfo/>
+            {getBookingCoachDeTails && <CoachInfo data={getBookingCoachDeTails} />}
           </div>
           <div className="col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md">
-            <CoachBook/>
+          {getBookingCoachDeTails && <CoachBook data={getBookingCoachDeTails} />}
           </div>
           <div className="col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md">
             <CoachOptions/>

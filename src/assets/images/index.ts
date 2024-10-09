@@ -72,6 +72,12 @@ import banner_coach from './banner_coach.jpg'
 import ticket_economy from './ticketEconomy.webp'
 import imgcoach from './imgcoach.png'
 import bannercoach from './bannercoach.jpg'
+import coachdetail1 from './coachdetail1.jpg'
+import coachdetail2 from './coachdetail2.jpg'
+import coachdetail3 from './coachdetail3.jpg'
+import coachreview from './coachreview.jpg'
+
+
 
 
 
@@ -148,4 +154,8 @@ export {
   ticket_economy,
   imgcoach,
   bannercoach,
+  coachdetail1,
+  coachdetail2,
+  coachdetail3,
+  coachreview,
 }
