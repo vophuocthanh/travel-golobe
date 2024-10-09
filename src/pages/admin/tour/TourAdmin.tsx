@@ -31,191 +31,12 @@ import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import { IconSearch } from '@/common/icons'
 import { ChevronDown } from 'lucide-react'
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
+import { useQuery } from '@tanstack/react-query'
+import { tourApi } from '@/apis/tour.api'
 
-export type Tour = {
-  id: string
-  name: string
-  description: string
-  image: string
-  price: number
-  location: string
-  image_2: string
-  image_3: string
-  image_4: string
-  image_5: string
-  transport: string
-  hotel: string
-  rating: number
-}
-const data: Tour[] = [
-  {
-    id: '1',
-    name: 'Explore Vietnam',
-    description: 'A fascinating tour through the vibrant culture of Vietnam.',
-    image: 'https://via.placeholder.com/150',
-    price: 316,
-    location: 'Hanoi, Vietnam',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Airplane',
-    hotel: 'Vietnam Airlines Hotel',
-    rating: 4.5
-  },
-  {
-    id: '2',
-    name: 'Luxury Getaway',
-    description: 'Relax at luxury resorts with stunning views.',
-    image:
-      'https://plus.unsplash.com/premium_photo-1679758629450-30d2263efca5?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    price: 289,
-    location: 'Phuket, Thailand',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Private Jet',
-    hotel: 'Phuket Luxury Resort',
-    rating: 4.8
-  },
-  {
-    id: '3',
-    name: 'Adventure in the Himalayas',
-    description: 'Experience the majestic beauty of the Himalayas.',
-    image:
-      'https://media.istockphoto.com/id/667426946/photo/the-plane-at-the-airport.webp?a=1&b=1&s=612x612&w=0&k=20&c=HeADzKhERX5gw0jOnw1Yc30u1pDDaNUIveiCgTPGXGw=',
-    price: 512,
-    location: 'Kathmandu, Nepal',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Helicopter',
-    hotel: 'Himalaya Lodge',
-    rating: 4.7
-  },
-  {
-    id: '4',
-    name: 'Beach Paradise',
-    description: 'A tropical getaway to the most beautiful beaches.',
-    image: 'https://example.com/flight_image4.jpg',
-    price: 432,
-    location: 'Maldives',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Boat',
-    hotel: 'Maldives Beach Resort',
-    rating: 5.0
-  },
-  {
-    id: '5',
-    name: 'European Exploration',
-    description: 'Discover the charm of Europe’s iconic cities.',
-    image: 'https://example.com/flight_image5.jpg',
-    price: 220,
-    location: 'Paris, France',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Train',
-    hotel: 'Parisian Hotel',
-    rating: 4.6
-  },
-  {
-    id: '6',
-    name: 'African Safari',
-    description: 'An exhilarating safari across the African savannah.',
-    image: 'https://example.com/flight_image6.jpg',
-    price: 350,
-    location: 'Serengeti, Tanzania',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Jeep',
-    hotel: 'Safari Lodge',
-    rating: 4.9
-  },
-  {
-    id: '7',
-    name: 'Australian Adventure',
-    description: 'Explore the wild landscapes of Australia.',
-    image: 'https://example.com/flight_image7.jpg',
-    price: 278,
-    location: 'Sydney, Australia',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Campervan',
-    hotel: 'Sydney Wilderness Lodge',
-    rating: 4.4
-  },
-  {
-    id: '8',
-    name: 'Pacific Islands Retreat',
-    description: 'Relax on the pristine beaches of the Pacific Islands.',
-    image: 'https://example.com/flight_image8.jpg',
-    price: 495,
-    location: 'Fiji',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Yacht',
-    hotel: 'Fiji Island Resort',
-    rating: 4.7
-  },
-  {
-    id: '9',
-    name: 'American Road Trip',
-    description: 'Take a scenic road trip across the USA.',
-    image: 'https://example.com/flight_image9.jpg',
-    price: 410,
-    location: 'California, USA',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Car',
-    hotel: 'California Motel',
-    rating: 4.3
-  },
-  {
-    id: '10',
-    name: 'Ancient Ruins of Mexico',
-    description: 'Explore the historical ruins of Mexico.',
-    image: 'https://example.com/flight_image10.jpg',
-    price: 298,
-    location: 'Mexico City, Mexico',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Bus',
-    hotel: 'Mexico City Inn',
-    rating: 4.2
-  },
-  {
-    id: '11',
-    name: 'Ancient Ruins of Mexico',
-    description: 'Explore the historical ruins of Mexico.',
-    image: 'https://example.com/flight_image10.jpg',
-    price: 298,
-    location: 'Mexico City, Mexico',
-    image_2: 'https://via.placeholder.com/150',
-    image_3: 'https://via.placeholder.com/150',
-    image_4: 'https://via.placeholder.com/150',
-    image_5: 'https://via.placeholder.com/150',
-    transport: 'Bus',
-    hotel: 'Mexico City Inn',
-    rating: 4.2
-  }
-]
+
+
 
 function TourAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -224,24 +45,37 @@ function TourAdmin() {
   const [rowSelection, setRowSelection] = React.useState({})
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
-  const columns: ColumnDef<Tour>[] = [
+
+  const {data: getAllTour} = useQuery({
+    queryKey: ["getAllTour"],
+    queryFn: () => tourApi.getAll()
+  })
+  const totalTour = getAllTour?.total || 0
+
+  const {data: getTour} = useQuery({
+    queryKey: ["getTour",totalTour],
+    queryFn: () => tourApi.getAll(1,totalTour)
+  })
+  const tourData = getTour?.data || []
+
+  const columns: ColumnDef<TourResponseType>[] = [
     {
       accessorKey: 'id',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             ID
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('id')}</div>
+      cell: ({ row }) => <div className=''>{row.getValue('id')}</div>
     },
     {
       accessorKey: 'name',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant='ghost' className='w-56' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Tour Name
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
@@ -250,23 +84,11 @@ function TourAdmin() {
       cell: ({ row }) => <div className='capitalize'>{row.getValue('name')}</div>
     },
     {
-      accessorKey: 'description',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Description
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('description')}</div>
-    },
-    {
       accessorKey: 'image',
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Main Image
+            Image
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -282,18 +104,247 @@ function TourAdmin() {
       }
     },
     {
-      accessorKey: 'price',
-      header: () => <div className='text-right'>Price</div>,
-      cell: ({ row }) => {
-        const price = parseFloat(row.getValue('price'))
-
-        const formatted = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        }).format(price)
-
-        return <div className='font-medium text-right'>{formatted}</div>
-      }
+      accessorKey: 'userId',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            User Id
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='capitalize'>{row.getValue('userId')}</div>
+    },
+    {
+      accessorKey: 'description',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' className='w-[400px]' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Description
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('description')}</div>
+    },
+    {
+      accessorKey: 'original_price',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Original Price
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('original_price')}</div>
+    },
+    {
+      accessorKey: 'createAt',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Create At
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('createAt')}</div>
+    },
+    {
+      accessorKey: 'updateAt',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Update At
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('updateAt')}</div>
+    },
+    {
+      accessorKey: 'start_date',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Start Date
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('start_date')}</div>
+    },
+    {
+      accessorKey: 'end_date',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            End Date
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('end_date')}</div>
+    },
+    {
+      accessorKey: 'starting_gate',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Starting Gate
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('starting_gate')}</div>
+    },
+    {
+      accessorKey: 'sight_seeing',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Sight Seeing
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('sight_seeing')}</div>
+    },
+    {
+      accessorKey: 'cuisine',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Cuisine
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('cuisine')}</div>
+    },
+    {
+      accessorKey: 'suitable',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Suitable
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('suitable')}</div>
+    },
+    {
+      accessorKey: 'ideal_time',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Ideal Time
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('ideal_time')}</div>
+    },
+    {
+      accessorKey: 'road_vehicle',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Road Vehicle
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('road_vehicle')}</div>
+    },
+    {
+      accessorKey: 'voucher',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Voucher
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('voucher')}</div>
+    },
+    {
+      accessorKey: 'time_trip',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Time Trip
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('time_trip')}</div>
+    },
+    {
+      accessorKey: 'baby_price',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Baby Price
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('baby_price')}</div>
+    },
+    {
+      accessorKey: 'child_price',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Child Price
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('child_price')}</div>
+    },
+    {
+      
+      accessorKey: 'adult_price',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Adult Price
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('adult_price')}</div>
+    },
+    {
+      
+      accessorKey: 'rating',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Rating
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('rating')}</div>
+    },
+    {
+      
+      accessorKey: 'number_of_seats_remaining',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Number Of Seats Remaining
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div>{row.getValue('number_of_seats_remaining')}</div>
     },
     {
       accessorKey: 'location',
@@ -341,8 +392,22 @@ function TourAdmin() {
       }
     },
     {
-      accessorKey: 'Action',
-      header: 'Action',
+      accessorKey: 'price',
+      header: () => <div className='text-right'>Price</div>,
+      cell: ({ row }) => {
+        const price = parseFloat(row.getValue('price'))
+
+        const formatted = new Intl.NumberFormat('vi-VN', {
+          style: 'currency', 
+          currency: 'VND'
+        }).format(price)
+
+        return <div className='font-medium text-right'>{formatted}</div>
+      }
+    },
+    {
+      id: 'actions',
+      header: () => <div className='flex justify-center'>Action</div>,
       cell: ({ row }) => {
         return (
           <div className='flex space-x-2'>
@@ -362,7 +427,7 @@ function TourAdmin() {
   ]
 
   const table = useReactTable({
-    data,
+    data: tourData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -469,8 +534,19 @@ function TourAdmin() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    {row.getVisibleCells().map((cell, cellIndex) => (
+                      <TableCell
+                      key={cell.id}
+                      className={`${
+                        cell.column.id === "id" ? "sticky left-0 bg-[#F4F4F4] z-10" : ""
+                      } ${cell.column.id === "actions" ? "sticky right-0 bg-[#F4F4F4] z-10" : ""}`}
+                      style={{
+                        minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                        maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                      }}
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))

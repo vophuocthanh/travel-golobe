@@ -24,9 +24,9 @@ export interface HotelResponseType {
 export interface TourResponseType {
   name: string
   id?: string
+  userId: string
   image: string
   description: string
-  location: string
   price: number
   quantity?: number
   count?: string
@@ -45,7 +45,20 @@ export interface TourResponseType {
   sight_seeing?: string
   created_at?: string
   updated_at?: string
-  tourFavorites?: [{ isFavorite: boolean }]
+  original_price: string
+  createAt: string
+  updateAt: string
+  start_date: string
+  end_date: string
+  suitable: string
+  road_vehicle: string
+  voucher:string
+  time_trip:string
+  baby_price:string
+  child_price:string
+  adult_price:string
+  rating:string
+  number_of_seats_remaining:string
 }
 
 export interface FlightResponseType {
