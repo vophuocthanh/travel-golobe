@@ -23,11 +23,11 @@ import {
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import { hotelApi } from '@/apis/hotel.api';
 import { HotelResponseType } from '@/shared/ts/interface/data.interface';
 import { hotel } from '@/assets/images'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function HotelAdmin() {
@@ -37,7 +37,7 @@ export default function HotelAdmin() {
   const [rowSelection, setRowSelection] = React.useState({})
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
-
+  const navigate = useNavigate()
   const { data: getAllHotel } = useQuery({
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll()
@@ -54,11 +54,10 @@ export default function HotelAdmin() {
   const hotelData= allHotel?.data || []
   console.log(hotelData,"dât");
   
-  const navigate = useNavigate()
-
-  const handleEdit = () => {
-    navigate(`/admin/hotels/hotel-edit`)
+  const handleEdit = (id: string) =>{
+    navigate(`/admin/hotels/${id}`)
   }
+
 
   const handleDelete = (hotel: HotelResponseType) => {
     console.log('Deleting hotel:', hotel)
@@ -163,8 +162,8 @@ export default function HotelAdmin() {
       header: () => <div className='flex justify-center'>Action</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={handleEdit}>
-            <IconEdit />
+          <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)} >
+          <IconEdit />
           </div>
           <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
             <IconDelete />

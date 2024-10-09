@@ -6,7 +6,9 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function HotelAdminEdit() {
-  const { hotelId } = useParams()
+  const {id} = useParams()
+  console.log(id,"id");
+  
   const navigate = useNavigate()
   const [hotelData, setHotelData] = useState({
     id: '',
@@ -43,7 +45,7 @@ export default function HotelAdminEdit() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>EDIT HOTEL {hotelId}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>EDIT HOTEL {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine/>
       </Button>
