@@ -13,40 +13,41 @@ import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
+  const [hotelQuantity, setHotelQuantity] = useState(1)
 
-
-
-  const mutationBookingHotel = useMutation({
-    mutationFn: (hotelId: string) => bookingHotelApi.addBookingHotel(hotelId)
+  const mutationHotelBooking = useMutation({
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity),
+    onSuccess: (data) => {
+      const bookingId = data.id
+      toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
+      navigate(`/hotel/home-stay/hotel-payment/${bookingId}`)
+    },
+    onError: () => {
+      toast.error('Failed to book flight')
+    }
   })
 
-  function handleBookingHotel() {
-    mutationBookingHotel.mutate(id || '', {
-      onSuccess: () => {
-        toast.success('Booking success 🚀🚀⚡⚡!')
-      },
-      onError: () => {
-        toast.error('Booking failed 😭😭😭😭!')
-      }
-    })
+  const handleBookHotel = () => {
+    mutationHotelBooking.mutate()
   }
 
   const { data: getCommentHotel } = useQuery({
     queryKey: ['getComments', id],
     queryFn: () => commentHotelApi.getComments(id || '')
   })
-
 
   const totalComments = getCommentHotel?.total ?? 0
   const averageRating =
@@ -109,14 +110,34 @@ export default function HotelDetail() {
             </div>
             <div className='flex-1 text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
-              <div className='flex justify-end space-x-2'>
+              <div className='flex items-center justify-end gap-2 space-x-2'>
+                <p>Còn {getbyId?.number_of_seats_remaining} phòng</p>
                 <Favorite idHotel={id} />
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
                 </div>
-                <Link to={`/hotel/home-stay/${getbyId?.id}/hotel-payment`}>
-                  <Button onClick={handleBookingHotel}>Book now</Button>
-                </Link>
+                <div className='flex border border-gray-300 rounded'>
+                  <button
+                    onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
+                    className='px-4 py-2 text-black bg-gray-200 rounded-l hover:bg-gray-300'
+                  >
+                    -
+                  </button>
+                  <input
+                    type='text'
+                    value={hotelQuantity}
+                    onChange={(e) => setHotelQuantity(Math.max(1, Number(e.target.value)))}
+                    min='1'
+                    className='w-16 text-center border-t border-b border-gray-300 focus:outline-none'
+                  />
+                  <button
+                    onClick={() => setHotelQuantity(hotelQuantity + 1)}
+                    className='px-4 py-2 text-black bg-gray-200 rounded-r hover:bg-gray-300'
+                  >
+                    +
+                  </button>
+                </div>
+                <Button onClick={handleBookHotel}>Book now</Button>
               </div>
             </div>
           </div>

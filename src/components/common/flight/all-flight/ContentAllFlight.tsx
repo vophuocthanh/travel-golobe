@@ -15,6 +15,7 @@ import { DatePickerWithPresets } from '../../calendar/calendar-date'
 export default function ContentAllFlight() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
+  const [brandFlight, setBrandFlight] = useState('')
 
   const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
@@ -27,10 +28,19 @@ export default function ContentAllFlight() {
     setMaxPrice(max)
   }
   const { data: getAll, refetch } = useQuery({
-    queryKey: ['getAllFlight', 1, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
-    queryFn: () => flightApi.getAll(1, 4, '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
+    queryKey: ['getAllFlight', 1, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
+    queryFn: () => flightApi.getAll(1, 4, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
     enabled: false
   })
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+
+    if (brandFlight === value) {
+      setBrandFlight('')
+    } else {
+      setBrandFlight(value)
+    }
+  }
   const handleSearch = () => {
     setFilteredDepartDate(formattedDepartDate)
     setFilteredReturnDate(formattedReturnDate)
@@ -106,16 +116,19 @@ export default function ContentAllFlight() {
         </div>
 
         <div className='flex flex-row gap-8 '>
-          <FilterSection onApplyFilter={handleApplyFilter} />
+          <FilterSection
+            onApplyFilter={handleApplyFilter}
+            brandFlight={brandFlight}
+            setBrandFlight={setBrandFlight}
+            handleCheckboxChange={handleCheckboxChange}
+          />
           <div className='flex flex-col gap-8 '>
             <FlightCard
               returnDate={filteredReturnDate}
               departDate={filteredDepartDate}
               minPrice={minPrice}
               maxPrice={maxPrice}
-              onToggleFavorite={() => {
-                throw new Error('Function not implemented.')
-              }}
+              brandFlight={brandFlight}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { flightreview1 } from '@/assets/images'
+import { coachreview } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
@@ -51,8 +51,8 @@ export default function CoachReview1() {
               {getAll?.data.slice(0, 6).map((coach: CoachResponseType) => (
                 <SwiperSlide
                   key={coach.id}
-                  className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
-                  style={{ backgroundImage: `url(${flightreview1})` }}
+                  className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg' 
+                  style={{ backgroundImage: `url(${coachreview})`}}
                 >
                   <Link to={`/coach/${coach.id}`} key={coach.id}>
                     <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>
