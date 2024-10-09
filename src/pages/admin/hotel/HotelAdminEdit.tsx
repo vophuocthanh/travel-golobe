@@ -1,6 +1,8 @@
+import { hotelApi } from '@/apis/hotel.api'
 import { hoteldetail1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useQuery } from '@tanstack/react-query'
 import { ArrowLeftToLine, CirclePlus } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,16 +10,21 @@ import { useNavigate, useParams } from 'react-router-dom'
 export default function HotelAdminEdit() {
   const {id} = useParams()
   console.log(id,"id");
+  const { data: getbyId } = useQuery({
+    queryKey: ['getById', id],
+    queryFn: () => hotelApi.getById(id)
+  })
+  
   
   const navigate = useNavigate()
   const [hotelData, setHotelData] = useState({
     id: '',
-    name: '',
-    userId: '',
-    address: '',
+    hotel_names: '',
+    location: '',
+    place: '',
     createAt: new Date().toISOString(),
     updateAt: '',
-    evaluate: '',
+    star_number: '',
     price: '',
     description: '',
     images: '',
@@ -25,8 +32,12 @@ export default function HotelAdminEdit() {
     image_3: '',
     image_4: '',
     image_5: '',
-    locationId: '',
-    rating: 1
+    score_hotels: '',
+    received_time: '',
+    giveback_time: '',
+    hotel_link:'',
+    number_rating: 1,
+    number_of_seats_remaining:'',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -94,8 +105,8 @@ export default function HotelAdminEdit() {
             <Input
               type='text'
               name='id'
-              placeholder='Hotel ID'
-              value={hotelData.id}
+              placeholder='ID'
+              value={id}
               onChange={handleChange}
               className='col-span-2 p-2 border rounded '
             />
@@ -103,23 +114,23 @@ export default function HotelAdminEdit() {
               type='text'
               name='name'
               placeholder='Hotel Name'
-              value={hotelData.name}
+              value={getbyId?.hotel_names}
               onChange={handleChange}
               className='col-span-2 p-2 border rounded'
             />
             <Input
               type='text'
-              name='userId'
-              placeholder='User ID'
-              value={hotelData.userId}
+              name='location'
+              placeholder='Location'
+              value={getbyId?.location}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
             />
             <Input
               type='text'
-              name='address'
-              placeholder='Address'
-              value={hotelData.address}
+              name='place'
+              placeholder='Place'
+              value={getbyId?.place}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
             />
@@ -127,15 +138,31 @@ export default function HotelAdminEdit() {
               type='text'
               name='price'
               placeholder='Price'
-              value={hotelData.price}
+              value={getbyId?.price}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
             />
             <Input
               type='text'
-              name='locationId'
-              placeholder='Location ID'
-              value={hotelData.locationId}
+              name='score_hotels'
+              placeholder='Score Hotels'
+              value={getbyId?.score_hotels}
+              onChange={handleChange}
+              className='col-span-1 p-2 border rounded'
+            />
+            <Input
+              type='text'
+              name='received_time'
+              placeholder='Received Time'
+              value={getbyId?.received_time}
+              onChange={handleChange}
+              className='col-span-1 p-2 border rounded'
+            />
+            <Input
+              type='text'
+              name='receigiveback_timeved_time'
+              placeholder='Giveback time'
+              value={getbyId?.giveback_time}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
             />
@@ -143,7 +170,7 @@ export default function HotelAdminEdit() {
               type='number'
               name='rating'
               placeholder='Rating'
-              value={hotelData.rating}
+              value={getbyId?.number_rating}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
               min='1'
@@ -152,16 +179,32 @@ export default function HotelAdminEdit() {
             />
             <Input
               type='text'
-              name='evaluate'
-              placeholder='Evaluate'
-              value={hotelData.evaluate}
+              name='star_number'
+              placeholder='Star Number'
+              value={getbyId?.star_number}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
             />
+            <Input
+              type='text'
+              name='hotel_link'
+              placeholder='Hotel Link'
+              value={getbyId?.hotel_link}
+              onChange={handleChange}
+              className='col-span-1 p-2 border rounded'
+            />      
+            <Input
+              type='text'
+              name='number_of_seats_remaining'
+              placeholder='Number Of Seats Remaining'
+              value={getbyId?.number_of_seats_remaining}
+              onChange={handleChange}
+              className='col-span-1 p-2 border rounded'
+            />          
             <textarea
               name='description'
               placeholder='Description'
-              value={hotelData.description}
+              value={getbyId?.description}
               onChange={handleChange}
               className='col-span-2 p-2 border rounded h-[10rem]'
             ></textarea>
