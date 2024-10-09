@@ -12,6 +12,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
   Link2,
+  MapPin,
   MoveLeft,
   MoveRight,
   Plane,
@@ -260,6 +261,23 @@ export default function FlightDetail() {
                 <div className='flex items-center space-x-4'>
                   <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
                   <p className='text-base font-medium'>Newark(EWR)</p>
+                </div>
+              </div>
+
+              <div className='flex flex-row items-center justify-center pt-5'>
+                <div className='flex items-center space-x-4'>
+                  <Plane className='w-6 h-6 text-primary' />
+                  <p className='text-2xl font-semibold'>{getbyId?.take_place}</p>
+                </div>
+                <div className='flex items-center px-4 space-x-6'>
+                  <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                  <IconFlight />
+                  <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                </div>
+
+                <div className='flex items-center space-x-4'>
+                  <MapPin className='w-6 h-6 text-primary' />
+                  <p className='text-2xl font-semibold'>{getbyId?.destination}</p>
                 </div>
               </div>
             </div>

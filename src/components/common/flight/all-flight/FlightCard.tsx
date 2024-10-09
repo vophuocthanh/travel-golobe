@@ -110,6 +110,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
                             </div>
                           </div>
                         </div>
+                        <div></div>
                         <div className='flex w-[30rem]'>
                           <p className='text-left text-gray-500 mr-[4rem] ml-9'>
                             <div className='flex '>
