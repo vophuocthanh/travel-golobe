@@ -110,6 +110,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
                             </div>
                           </div>
                         </div>
+                        <div></div>
                         <div className='flex w-[30rem]'>
                           <p className='text-left text-gray-500 mr-[4rem] ml-9'>
                             <div className='flex '>
@@ -172,7 +173,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === 2 ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
+                  className={page === page ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
                 >
                   {page}
                 </Button>
@@ -187,7 +188,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang cuối
+                  className={page === totalPages ? 'bg-primary text-white' : 'bg-gray-400 text-black'}
                 >
                   {totalPages}
                 </Button>
