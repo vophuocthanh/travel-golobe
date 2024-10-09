@@ -22,7 +22,6 @@ import Div from './components/div-profile'
 import Input from './components/input-profile'
 
 import { flightApi } from '@/apis/flight.api'
-import { hotelApi } from '@/apis/hotel.api'
 import { tourApi } from '@/apis/tour.api'
 import { Link } from 'react-router-dom'
 import ContentAddress from './components/content-adress'
@@ -59,11 +58,6 @@ export default function Profile() {
   const { data: getFavoriteFlights } = useQuery({
     queryKey: ['getFavoriteFlights'],
     queryFn: () => flightApi.getFavoriteFlights()
-  })
-
-  const { data: getFavoriteHotels } = useQuery({
-    queryKey: ['getFavoriteHotels'],
-    queryFn: () => hotelApi.getFavoriteHotels()
   })
 
   const mutationAvatar = useMutation({
@@ -257,7 +251,7 @@ export default function Profile() {
                     </div>
                     <div className='flex flex-col'>
                       <h1 className='text-2xl font-bold'>Hotel yêu thích</h1>
-                      {getFavoriteHotels?.data.map(
+                      {/* {getFavoriteHotels?.data.map(
                         (hotel: { id: string; image: string; hotel_names: string; description: string }) => (
                           <div
                             key={hotel.id}
@@ -279,7 +273,7 @@ export default function Profile() {
                             </Link>
                           </div>
                         )
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </TabsContent>
