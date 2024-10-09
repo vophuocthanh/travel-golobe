@@ -133,7 +133,7 @@ export default function HotelDetail() {
                   <Button
                     onClick={() => setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))}
                     className='px-4 py-1 m-[1px] text-white'
-                    disabled={getbyId?.number_of_seats_remaining === hotelQuantity}
+                    disabled={getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0}
                   >
                     +
                   </Button>
