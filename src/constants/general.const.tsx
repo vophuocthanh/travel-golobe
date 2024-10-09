@@ -1,7 +1,7 @@
 import IconDashboard from '@/assets/icons/icon-dashboard'
 import IconPerson from '@/assets/icons/icon-person'
 import { TSidebarLinks } from '@/shared/ts/types'
-import { BusFront, ContactRound, CreditCard, Hotel, Tickets, TicketsPlane } from 'lucide-react'
+import { BusFront, CircleDollarSign, ContactRound, CreditCard, Hotel, Tickets, TicketsPlane } from 'lucide-react'
 
 export const sidebarLinks: TSidebarLinks[] = [
   {
@@ -33,6 +33,11 @@ export const sidebarLinks: TSidebarLinks[] = [
     title: 'Billing',
     icon: <CreditCard />,
     path: '/admin/billing'
+  },
+  {
+    title: 'Payment',
+    icon: <CircleDollarSign />,
+    path: '/admin/payments'
   },
   {
     title: 'Employee',
