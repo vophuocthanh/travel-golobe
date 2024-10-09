@@ -76,7 +76,7 @@ export default function useRoutesElements() {
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
       { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
-      { path: path.hotel_edit, element: <LayoutMain children={<HotelAdminEdit />} /> },
+      { path: path.admin_hotelID, element: <LayoutMain children={<HotelAdminEdit />} /> },
       { path: path.admin_road_vehicle, element: <LayoutMain children={<RoadVehicleAdmin />} /> },
       { path: path.road_vehicleID, element: <LayoutMain children={<RoadVehicleAdminView />} /> },
       { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },

@@ -23,137 +23,12 @@ import {
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
+import { hotelApi } from '@/apis/hotel.api';
+import { HotelResponseType } from '@/shared/ts/interface/data.interface';
+import { hotel } from '@/assets/images'
+import { useNavigate } from 'react-router-dom';
 
-export type Hotel = {
-  hotelId: string
-  hotelName: string
-  location: string
-  roomsAvailable: number
-  pricePerNight: number
-  rating: number
-  status: string
-}
-
-const data: Hotel[] = [
-  {
-    hotelId: 'H1001',
-    hotelName: 'Grand Plaza',
-    location: 'New York, USA',
-    roomsAvailable: 50,
-    pricePerNight: 250,
-    rating: 4.5,
-    status: 'Delivered'
-  },
-  {
-    hotelId: 'H1002',
-    hotelName: 'Royal Gardens',
-    location: 'London, UK',
-    roomsAvailable: 30,
-    pricePerNight: 180,
-    rating: 4.7,
-    status: 'Process'
-  },
-  {
-    hotelId: 'H1003',
-    hotelName: 'Sunset Beach Resort',
-    location: 'Malibu, USA',
-    roomsAvailable: 12,
-    pricePerNight: 400,
-    rating: 4.9,
-    status: 'Canceled'
-  },
-  {
-    hotelId: 'H1004',
-    hotelName: 'Ocean Breeze Hotel',
-    location: 'Miami, USA',
-    roomsAvailable: 25,
-    pricePerNight: 320,
-    rating: 4.6,
-    status: 'Delivered'
-  },
-  {
-    hotelId: 'H1005',
-    hotelName: 'Mountain Lodge',
-    location: 'Denver, USA',
-    roomsAvailable: 15,
-    pricePerNight: 270,
-    rating: 4.8,
-    status: 'Process'
-  },
-  {
-    hotelId: 'H1006',
-    hotelName: 'City Center Hotel',
-    location: 'Berlin, Germany',
-    roomsAvailable: 40,
-    pricePerNight: 220,
-    rating: 4.4,
-    status: 'Delivered'
-  },
-  {
-    hotelId: 'H1007',
-    hotelName: 'Lakeside Retreat',
-    location: 'Geneva, Switzerland',
-    roomsAvailable: 10,
-    pricePerNight: 450,
-    rating: 4.9,
-    status: 'Canceled'
-  },
-  {
-    hotelId: 'H1008',
-    hotelName: 'The Royal Palace',
-    location: 'Paris, France',
-    roomsAvailable: 20,
-    pricePerNight: 600,
-    rating: 5.0,
-    status: 'Delivered'
-  },
-  {
-    hotelId: 'H1009',
-    hotelName: 'Desert Sands Resort',
-    location: 'Dubai, UAE',
-    roomsAvailable: 45,
-    pricePerNight: 350,
-    rating: 4.7,
-    status: 'Process'
-  },
-  {
-    hotelId: 'H1010',
-    hotelName: 'Blue Lagoon Resort',
-    location: 'Bora Bora, French Polynesia',
-    roomsAvailable: 8,
-    pricePerNight: 700,
-    rating: 4.9,
-    status: 'Delivered'
-  },
-  {
-    hotelId: 'H1011',
-    hotelName: 'Safari Park Lodge',
-    location: 'Nairobi, Kenya',
-    roomsAvailable: 22,
-    pricePerNight: 180,
-    rating: 4.3,
-    status: 'Canceled'
-  },
-  {
-    hotelId: 'H1012',
-    hotelName: 'The Alpine Chalet',
-    location: 'Zermatt, Switzerland',
-    roomsAvailable: 5,
-    pricePerNight: 500,
-    rating: 4.8,
-    status: 'Delivered'
-  },
-  {
-    hotelId: 'H1013',
-    hotelName: 'Golden Gate Hotel',
-    location: 'San Francisco, USA',
-    roomsAvailable: 35,
-    pricePerNight: 280,
-    rating: 4.5,
-    status: 'Process'
-  }
-]
 
 export default function HotelAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -163,60 +38,122 @@ export default function HotelAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
   const navigate = useNavigate()
+  const { data: getAllHotel } = useQuery({
+    queryKey: ['getAllHotel'],
+    queryFn: () => hotelApi.getAll()
+  })
+  const totalDataHotel = getAllHotel?.total || 0
+  console.log(totalDataHotel,"totalDataHotel");
+  
+  const { data: allHotel } = useQuery({
+    queryKey: ['getAllHotel',totalDataHotel],
+    queryFn: () => hotelApi.getAll(1,totalDataHotel)
+  })
 
-  const handleEdit = () => {
-    navigate(`/admin/hotels/hotel-edit`)
+  
+  const hotelData= allHotel?.data || []
+  console.log(hotelData,"dât");
+  
+  const handleEdit = (id: string) =>{
+    navigate(`/admin/hotels/${id}`)
   }
 
-  const handleDelete = (hotel: Hotel) => {
+
+  const handleDelete = (hotel: HotelResponseType) => {
     console.log('Deleting hotel:', hotel)
   }
 
-  const columns: ColumnDef<Hotel>[] = [
+  const columns: ColumnDef<HotelResponseType>[] = [
     {
-      accessorKey: 'hotelId',
+      accessorKey: 'id',
       header: () => <div className='text-left'>ID</div>,
-      cell: ({ row }) => <div className='text-left'>{row.getValue('hotelId')}</div>,
+      cell: ({ row }) => <div className='text-left'>{row.getValue('id')}</div>,
       enableSorting: true
     },
     {
-      accessorKey: 'hotelName',
-      header: () => <div className='text-left'>Hotel Name</div>,
-      cell: ({ row }) => <div className='text-left'>{row.getValue('hotelName')}</div>,
+      accessorKey: 'hotel_names',
+      header: () => <div className='text-left w-52'>Hotel Name </div>,
+      cell: ({ row }) => <div className='text-left'>{row.getValue('hotel_names')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'image',
+      header: () => <div className='text-left w-28'>Image </div>,
+      cell: () => <div className='flex flex-col items-center justify-center'>
+              <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
+            </div>,
       enableSorting: true
     },
     {
       accessorKey: 'location',
-      header: () => <div className='text-left'>Location</div>,
+      header: () => <div className='text-left w-52'>Location </div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('location')}</div>,
       enableSorting: true
     },
     {
-      accessorKey: 'roomsAvailable',
-      header: () => <div className='flex justify-center'>Room Available</div>,
-      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('roomsAvailable')}</div>,
+      accessorKey: 'place',
+      header: () => <div className='flex justify-center w-36'>Place</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('place')}</div>,
       enableSorting: true
     },
     {
-      accessorKey: 'pricePerNight',
+      accessorKey: 'score_hotels',
+      header: () => <div className='flex justify-center'>Score Hotels</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('score_hotels')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'number_rating',
+      header: () => <div className='flex justify-center'>Number Rating</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('number_rating')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'star_number',
+      header: () => <div className='flex justify-center'>Star Number</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('star_number')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'received_time',
+      header: () => <div className='flex justify-center w-36'>Received Time</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('received_time')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'giveback_time',
+      header: () => <div className='flex justify-center w-36'>Giveback Time</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('giveback_time')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'description',
+      header: () => <div className='flex justify-center w-[400px]'>Description</div>,
+      cell: ({ row }) => <div className='overflow-hidden flexjustify-center text-ellipsis line-clamp-3'>{row.getValue('description')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'hotel_link',
+      header: () => <div className='flex justify-center'>Hotel Link</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('hotel_link')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'number_of_seats_remaining',
+      header: () => <div className='flex justify-center'>Remaining</div>,
+      cell: ({ row }) => <div className='flex justify-center'>{row.getValue('number_of_seats_remaining')}</div>,
+      enableSorting: true
+    },
+    {
+      accessorKey: 'price',
       header: () => <div className='flex justify-center'>Price Per Night</div>,
       cell: ({ row }) => {
-        const price = parseFloat(row.getValue('pricePerNight'))
-        const formatted = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD'
+        const price = parseFloat(row.getValue('price'))
+        const formatted = new Intl.NumberFormat('vi-VN', {
+          style: 'currency', 
+          currency: 'VND'
         }).format(price)
         return <div className='flex justify-center font-medium'>{formatted}</div>
-      },
-      enableSorting: true
-    },
-    {
-      accessorKey: 'status',
-      header: () => <div className='flex justify-center'>Status</div>,
-      cell: ({ row }) => {
-        const status = row.getValue('status')
-        const statusColor = status === 'Delivered' ? 'green' : status === 'Process' ? 'orange' : 'red'
-        return <div className={`flex justify-center font-medium text-${statusColor}-600`}>{row.getValue('status')}</div>
       },
       enableSorting: true
     },
@@ -225,8 +162,8 @@ export default function HotelAdmin() {
       header: () => <div className='flex justify-center'>Action</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={handleEdit}>
-            <IconEdit />
+          <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)} >
+          <IconEdit />
           </div>
           <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
             <IconDelete />
@@ -235,9 +172,10 @@ export default function HotelAdmin() {
       )
     }
   ]
+  
 
   const table = useReactTable({
-    data,
+    data:hotelData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -298,8 +236,8 @@ export default function HotelAdmin() {
                 </div>
                 <Input
                   placeholder='Search product...'
-                  value={(table.getColumn('hotelName')?.getFilterValue() as string) ?? ''}
-                  onChange={(event) => table.getColumn('hotelName')?.setFilterValue(event.target.value)}
+                  value={(table.getColumn('hotel_names')?.getFilterValue() as string) ?? ''}
+                  onChange={(event) => table.getColumn('hotel_names')?.setFilterValue(event.target.value)}
                   className='max-w-sm pl-10 rounded-xl'
                 />
               </div>
@@ -339,7 +277,7 @@ export default function HotelAdmin() {
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
+                  <TableRow key={headerGroup.id} >
                     {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
@@ -351,12 +289,12 @@ export default function HotelAdmin() {
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id}>
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}> 
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
                           className={`${
-                            cell.column.id === "hotelId" ? "sticky left-0 bg-white z-10" : ""
+                            cell.column.id === "id" ? "sticky left-0 bg-white z-10" : ""
                           } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
                           style={{
                             minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
