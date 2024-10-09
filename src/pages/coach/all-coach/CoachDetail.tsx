@@ -135,11 +135,11 @@ export default function CoachDetail() {
               <div className='flex space-x-2'>
                 <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>Còn {getbyId?.number_of_seats_remaining} chổ ngồi</p>
                 <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
-                  <Button onClick={handleDecreaseQuantity} className='w-10 px-2 py-1 text-lg text-black border rounded'>
+                  <Button onClick={handleDecreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0} className='w-10 px-2 py-1 text-lg text-black border rounded'>
                     -
                   </Button>
                   <p className='text-lg font-semibold'>{roadVehicleQuantity}</p>
-                  <Button onClick={handleIncreaseQuantity} className='w-10 px-2 py-1 text-lg text-black border rounded'>
+                  <Button onClick={handleIncreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0} className='w-10 px-2 py-1 text-lg text-black border rounded'>
                     +
                   </Button>
                 </div>
@@ -152,7 +152,7 @@ export default function CoachDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink/>
                 </p>
-                  <Button className='text-black' onClick={handleBookCoach}>Book now</Button>
+                  <Button className='text-black' onClick={handleBookCoach} disabled={getbyId?.number_of_seats_remaining === 0}>Book now</Button>
               </div>
             </div>
           </div>
@@ -217,8 +217,8 @@ export default function CoachDetail() {
               <p className='text-lg font-medium'>{getbyId?.brand}</p>
             </div>
 
-            <div className='pt-6'>
-              <div className='flex justify-between'>
+            <div className='gap-4'>
+              <div className='flex justify-between mt-5'>
                 <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
                   <img src={getbyId?.images} alt='' className='w-16' />
                   <div>
@@ -240,10 +240,13 @@ export default function CoachDetail() {
                   </div>
                 </div>
               </div>
-              <div className='flex items-center justify-center space-x-20'>
-                <div className='flex items-center space-x-4'>
-                  <p className='text-2xl font-semibold'>{getbyId?.start_time}</p>
-                  <p className='text-base font-medium'>Newark(EWR)</p>
+              <div className='flex items-center justify-center mt-5 space-x-20'>
+                <div className='flex flex-col'>
+                  <div className='flex items-center space-x-4'>
+                    <p className='text-2xl font-semibold'>{getbyId?.start_time}</p>
+                    <p className='text-base font-medium'>Newark(EWR)</p>
+                  </div>
+                  <p>{getbyId?.take_place}</p>
                 </div>
 
                 <div className='flex items-center space-x-4'>
@@ -252,9 +255,12 @@ export default function CoachDetail() {
                   <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
                 </div>
 
-                <div className='flex items-center space-x-4'>
-                  <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
-                  <p className='text-base font-medium'>Newark(EWR)</p>
+                <div className='flex flex-col'>
+                  <div className='flex items-center space-x-4'>
+                    <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
+                    <p className='text-base font-medium'>Newark(EWR)</p>
+                  </div>
+                  <p>{getbyId?.destination}</p>
                 </div>
               </div>
             </div>
