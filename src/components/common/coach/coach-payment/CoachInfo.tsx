@@ -1,9 +1,9 @@
 import { imgcoach } from '@/assets/images';
-import { BookingResponse } from '@/shared/ts/interface/booking-coach.interface';
+import { BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface';
 import { Bus, MoveLeft, MoveRight, RockingChair, Timer, UtensilsCrossed, Wifi } from 'lucide-react';
 
 interface CoachInfo {
-  data: BookingResponse
+  data: BookingCoachResponse
 }
 
 export default function CoachInfo({ data }: CoachInfo) {

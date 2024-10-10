@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface BookingResponse {
+export interface BookingCoachResponse {
   bookingId: string
   coachId: string
   id: string
