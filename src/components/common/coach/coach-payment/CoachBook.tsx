@@ -56,7 +56,7 @@ export default function CoachBook({ onClick, data, loading }: CoachBookProps) {
             {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.price || 0)}
           </p>
         </div>
-        <Button onClick={onClick} loading={loading} className='w-full mt-4 text-black text-md'>
+        <Button onClick={onClick} loading={loading} className='w-full mt-4 text-md'>
           Thanh toán
         </Button>
       </div>

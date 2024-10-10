@@ -62,10 +62,10 @@ export default function CoachPayment() {
           </div>
           <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md">
-            <CoachInfo data={getBookingCoachDeTails} />
+            {getBookingCoachDeTails && <CoachInfo data={getBookingCoachDeTails} />}
           </div>
           <div className="col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md">
-            <CoachBook loading={loading} onClick={handleAddMomoBooking} data={getBookingCoachDeTails} />
+            {getBookingCoachDeTails && <CoachBook loading={loading} onClick={handleAddMomoBooking} data={getBookingCoachDeTails} />}
           </div>
           <div className="col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md">
             <CoachOptions/>

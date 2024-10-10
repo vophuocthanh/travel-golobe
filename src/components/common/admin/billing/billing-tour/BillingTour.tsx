@@ -259,14 +259,12 @@ export function BillingTour() {
           <Button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="text-black"
           >
             Previous
           </Button>
           <Button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="text-black"
           >
             Next
           </Button>

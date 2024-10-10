@@ -79,7 +79,7 @@ export default function Coach() {
                   <Button className='px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
                     + Add Promo Code
                   </Button>
-                  <Button className='flex items-center gap-2 px-4 py-2 text-black rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
+                  <Button className='flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
                     <IconVectorFlight /> Show Coach
                   </Button>
                 </div>

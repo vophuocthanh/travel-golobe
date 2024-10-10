@@ -140,11 +140,11 @@ export default function CoachDetail() {
               <div className='flex space-x-2'>
                 <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>Còn {getbyId?.number_of_seats_remaining} chổ ngồi</p>
                 <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
-                  <Button onClick={handleDecreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0} className='w-10 px-2 py-1 text-lg text-black border rounded'>
+                  <Button onClick={handleDecreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0} className='w-10 px-2 py-1 text-lg border rounded'>
                     -
                   </Button>
                   <p className='w-5 text-lg font-semibold text-center'>{roadVehicleQuantity}</p>
-                  <Button onClick={handleIncreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0 || getbyId?.number_of_seats_remaining === roadVehicleQuantity} className='w-10 px-2 py-1 text-lg text-black border rounded'>
+                  <Button onClick={handleIncreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0 || getbyId?.number_of_seats_remaining === roadVehicleQuantity} className='w-10 px-2 py-1 text-lg border rounded'>
                     +
                   </Button>
                 </div>
@@ -157,7 +157,7 @@ export default function CoachDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink/>
                 </p>
-                  <Button className='flex text-black w-[8rem]' loading={loadingBooking} onClick={handleBookingCoach} disabled={getbyId?.number_of_seats_remaining === 0}>Book now</Button>
+                  <Button className='flex w-[8rem]' loading={loadingBooking} onClick={handleBookingCoach} disabled={getbyId?.number_of_seats_remaining === 0}>Book now</Button>
               </div>
             </div>
           </div>

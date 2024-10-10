@@ -42,6 +42,7 @@ export default function CoachInfo({ data }: CoachInfo) {
             <img src={imgcoach} alt='' className='w-20 rounded-md' />
             <div>
               <p className='text-2xl font-bold'>{data?.brand}</p>
+              <p className='text-base font-medium'>{data?.number_of_seat}</p>
             </div>
           </div>
 
@@ -61,12 +62,12 @@ export default function CoachInfo({ data }: CoachInfo) {
         </div>
 
         <div className='flex items-center justify-center space-x-20'>
-          <div className='flex items-center space-x-4'>
+          <div className='flex flex-col items-center space-x-4'>
             <p className='text-2xl font-semibold'>{data?.start_time}</p>
-            <p className='text-base font-medium'>{data?.number_of_seat}</p>
+            <p className='text-base font-medium'>{data?.take_place}</p>
           </div>
 
-          <div className='flex items-center space-x-4'>
+          <div className='flex items-center space-x-4 '>
             <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
             <div className='flex justify-center w-10'>
               <Bus />
@@ -74,9 +75,9 @@ export default function CoachInfo({ data }: CoachInfo) {
             <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
           </div>
 
-          <div className='flex items-center space-x-4'>
+          <div className='flex flex-col items-center space-x-4'>
             <p className='text-2xl font-semibold'>{data?.end_time}</p>
-            <p className='text-base font-medium'>{data?.brand}</p>
+            <p className='text-base font-medium'>{data?.destination}</p>
           </div>
         </div>
         <hr className='w-full mt-2 border-black border-1' />
