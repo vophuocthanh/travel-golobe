@@ -21,7 +21,7 @@ import {
   UtensilsCrossed,
   Wifi
 } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -52,7 +52,8 @@ export default function FlightDetail() {
     { content: flightdetail3 }
   ]
   const [flightQuantity, setFlightQuantity] = useState(1)
-
+  const [selectedTicket, setSelectedTicket] = useState('')
+  const SectionRef = useRef<HTMLDivElement | null>(null)
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
@@ -60,13 +61,12 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-  console.log('alo', getbyId?.id)
 
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   const mutationFlightBooking = useMutation({
-    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity),
+    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity, selectedTicket),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
@@ -78,9 +78,18 @@ export default function FlightDetail() {
   })
 
   const handleBookFlight = () => {
-    mutationFlightBooking.mutate()
+    if (selectedTicket === '') {
+      toast.error('Please select a ticket before booking')
+      SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      mutationFlightBooking.mutate()
+    }
   }
 
+  const handleTicketSelection = (id: string) => {
+    setSelectedTicket(id)
+    console.log('Ticket đã chọn:', id)
+  }
   return (
     <>
       <Header />
@@ -215,11 +224,21 @@ export default function FlightDetail() {
             </div>
           </div>
 
-          <FlightTicketSelection tickets={getbyId?.Ticket || []} ticketEconomy={ticket_economy} />
+          <div ref={SectionRef}>
+            <FlightTicketSelection
+              tickets={getbyId?.Ticket || []}
+              ticketEconomy={ticket_economy}
+              onTicketSelect={handleTicketSelection}
+            />
+          </div>
 
           <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
             <div className='flex justify-between'>
-              <p className='text-xl font-bold'>Return Wed, Dec 8</p>
+              <p className='text-xl font-bold'>
+                {new Date(getbyId?.start_day || '').toLocaleDateString('vi-VN')} {' -->  '}
+                {new Date(getbyId?.end_day || '').toLocaleDateString('vi-VN')}
+              </p>
+
               <p className='text-lg font-medium'>{getbyId?.brand}</p>
             </div>
 
