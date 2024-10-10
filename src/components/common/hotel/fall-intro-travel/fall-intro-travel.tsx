@@ -15,8 +15,13 @@ export default function FallIntroTravel() {
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll(1, 6)
   })
-  console.log(getAll?.data,"123");
-  
+  const formatCurrency = (value: string | undefined) => {
+    if (!value) return 'N/A'
+    const numberValue = parseFloat(value)
+    return isNaN(numberValue)
+      ? 'N/A'
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  }
   return (
     <SectionInViewUp>
       <div className='mt-32'>
@@ -57,7 +62,7 @@ export default function FallIntroTravel() {
                       <p className='w-full text-3xl font-semibold text-white'>{travel.place}</p>
                       <p className='w-full text-gray-300'>{travel.hotel_names}</p>
                     </div>
-                    <p className='flex items-center justify-center text-3xl text-white'>{travel.price}</p>
+                    <p className='flex items-center justify-center text-3xl text-white'>{formatCurrency(travel.price?.toString())}</p>
                   </div>
 
                   <Button className='relative text-white hover:border-spacing-3'>Book a Hotel</Button>
