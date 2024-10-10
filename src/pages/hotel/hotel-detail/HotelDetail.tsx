@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import Favorite from '../components/Favorite'
@@ -21,15 +21,23 @@ import Favorite from '../components/Favorite'
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const roomSectionRef = useRef<HTMLDivElement | null>(null);
+
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
   const [hotelQuantity, setHotelQuantity] = useState(1)
+  const [roomId, setRoomId] = useState('')
+
+  const handleValueChange = (value: string) => {
+    setRoomId(value)
+  };
+
 
   const mutationHotelBooking = useMutation({
-    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity),
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
@@ -41,7 +49,13 @@ export default function HotelDetail() {
   })
 
   const handleBookHotel = () => {
-    mutationHotelBooking.mutate()
+    if (roomId === '') {
+      roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+    else {
+      mutationHotelBooking.mutate()
+
+    }
   }
 
   const { data: getCommentHotel } = useQuery({
@@ -189,7 +203,9 @@ export default function HotelDetail() {
             averrange={Number(averageRating) ?? 0}
             total={getCommentHotel?.total || 0}
           />
-          <HotelDetailRoom Room={getbyId?.rooms || []} />
+          <div ref={roomSectionRef}>
+            <HotelDetailRoom Room={getbyId?.rooms || []} onValueChange={handleValueChange} />
+          </div>
           <HotelDetailMap />
           <HotelDetailAmenities />
           <HotelDetailReview
