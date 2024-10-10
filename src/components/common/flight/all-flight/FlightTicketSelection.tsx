@@ -12,9 +12,21 @@ import { Ticket } from '@/shared/ts/interface/ticket-flight'
 interface FlightTicketSelectionProps {
   tickets: Ticket[]
   ticketEconomy: string
+  onTicketSelect: (id: string) => void
 }
 
-const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, ticketEconomy }) => {
+const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, ticketEconomy, onTicketSelect }) => {
+  const [selectedTicketId, setSelectedTicketId] = React.useState<string | null>(null)
+
+  const handleSelectTicket = (id: string) => {
+    if (selectedTicketId == id) {
+      setSelectedTicketId(null)
+      onTicketSelect('')
+    } else {
+      setSelectedTicketId(id)
+      onTicketSelect(id)
+    }
+  }
   return (
     <div className='flex flex-col items-center justify-between pb-10 md:flex-row'>
       <div className='flex-1'>
@@ -44,7 +56,13 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
                 </CardContent>
 
                 <div className='flex justify-end w-full p-4 mt-auto'>
-                  <Button className='w-full'>Chọn</Button>
+                  <Button
+                    className='w-full'
+                    onClick={() => handleSelectTicket(ticket.id)}
+                    disabled={selectedTicketId !== null && selectedTicketId !== ticket.id}
+                  >
+                    {selectedTicketId == ticket.id ? 'Bỏ chọn' : 'Chọn'}
+                  </Button>
                 </div>
               </Card>
             ))
