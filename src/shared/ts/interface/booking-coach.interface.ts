@@ -3,7 +3,7 @@ export interface BookingCoachResponse {
   bookingId: string
   coachId: string
   id: string
-  brand: string
+  brand?: string
   price: number | null
   number_of_seat?: number | null
   start_time: string
