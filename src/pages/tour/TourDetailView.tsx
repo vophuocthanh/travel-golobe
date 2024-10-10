@@ -1,3 +1,4 @@
+import { bookingTourApi } from '@/apis/booking-tour.api'
 import { tourApi } from '@/apis/tour.api'
 
 import { IconDeparture, IconDepartureDate, IconNumberSeats, IconTime, IconTourCode } from '@/common/icons'
@@ -8,20 +9,54 @@ import Vehicle from '@/components/common/tour/detail-tour/vehicle/vehicle'
 import Favorite from '@/components/common/tour/favorite/favorite'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, Link2, MapPin, Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function TourDetailView() {
   const { id } = useParams<{ id: string }>()
-  console.log(id, 'id')
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true)
+  const [tourQuantity, setTourQUantity] = useState(1)
+  const [loadingBooking, setLoadingBooking] = useState(false)
 
   const { data: getbyId } = useQuery({
-    queryKey: ['getById', id],
+    queryKey: ['getByIdTour', id],
     queryFn: () => tourApi.getById(id)
   })
-  console.log(getbyId?.description, 'log')
+
+  const mutationAddBookingTour = useMutation({
+    mutationFn: () => bookingTourApi.addBookingTour(id || '', tourQuantity)
+  })
+
+  const handleIncreaseQuantity = () => {
+    setTourQUantity((prevQuantity) => prevQuantity + 1)
+  }
+
+  const handleDecreaseQuantity = () => {
+    if (tourQuantity > 1) {
+      setTourQUantity((prevQuantity) => prevQuantity - 1)
+    }
+  }
+
+  const handleBookingTour = () => {
+    setLoadingBooking(true)
+    mutationAddBookingTour.mutate(undefined, {
+      onSuccess: (data) => {
+        const bookingId = data.id
+        toast.success('Đặt tour thành công')
+        navigate(`/tour/all-tour/tour-payment/${bookingId}`)
+      },
+      onError: () => {
+        toast.error('Đặt tour thất bại')
+      },
+      onSettled: () => {
+        setLoadingBooking(false)
+      }
+    })
+  }
 
   const reviews = [
     {
@@ -39,7 +74,6 @@ export default function TourDetailView() {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
     }
   ]
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // Giả lập thời gian tải dữ liệu
@@ -47,6 +81,22 @@ export default function TourDetailView() {
       setLoading(false)
     }, 1)
   }, [])
+
+  const formatDate = (dateString?: string): string => {
+    if (!dateString) return 'N/A'
+    const date = new Date(dateString)
+    if (isNaN(date.getTime())) return 'N/A'
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+
+    return `${day}-${month}-${year}`
+  }
+
+  const formatDateTime = formatDate(getbyId?.start_date)
+
+  const price = getbyId?.price
+  const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   return (
     <>
@@ -83,8 +133,25 @@ export default function TourDetailView() {
                     </p>
                   </div>
                 </div>
-                <div className='flex-none space-y-4 text-right'>
-                  <div className='flex space-x-4'>
+                <div className='flex-none space-y-2 text-right'>
+                  <div className='flex items-center space-x-2'>
+                    <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
+                      <Button
+                        onClick={handleDecreaseQuantity}
+                        disabled={getbyId?.number_of_seats_remaining === 0}
+                        className='w-10 px-2 py-1 text-lg text-black border rounded'
+                      >
+                        -
+                      </Button>
+                      <p className='text-lg font-semibold'>{tourQuantity}</p>
+                      <Button
+                        onClick={handleIncreaseQuantity}
+                        disabled={getbyId?.number_of_seats_remaining === 0}
+                        className='w-10 px-2 py-1 text-lg text-black border rounded'
+                      >
+                        +
+                      </Button>
+                    </div>
                     <Favorite id={id} />
                     <div className='flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-gray-100'>
                       <Link2 className='w-5 h-5 text-gray-500' />
@@ -138,10 +205,10 @@ export default function TourDetailView() {
                       />
                     </div>
                   )}
-                  <Vehicle />
+                  <Vehicle data={getbyId} />
 
                   {/* Thông tin */}
-                  <Information />
+                  <Information dataInfo={getbyId} />
 
                   <Schedule />
                 </section>
@@ -242,7 +309,7 @@ export default function TourDetailView() {
                   <div className='flex items-center justify-between '>
                     <div className='text-2xl font-semibold'>Giá:</div>
                     <div>
-                      <span className='text-2xl font-semibold text-red-500'>7,990,000 đ </span>/ Khách
+                      <span className='text-2xl font-semibold text-red-500'>{formattedPrice} </span>/ Khách
                     </div>
                   </div>
                   <div className='flex py-4'>
@@ -251,7 +318,7 @@ export default function TourDetailView() {
                     </div>
                     <div className='mr-2 text-xl'>Mã tour:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
-                      NNSGN133-079-021024VN-V
+                      {getbyId?.id}
                     </div>
                   </div>
                   <div className='flex py-4'>
@@ -260,7 +327,7 @@ export default function TourDetailView() {
                     </div>
                     <div className='mr-2 text-xl'>Khởi hành:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
-                      TP. Hồ Chí Minh
+                      {getbyId?.starting_gate}
                     </div>
                   </div>
                   <div className='flex py-4'>
@@ -269,7 +336,7 @@ export default function TourDetailView() {
                     </div>
                     <div className='mr-2 text-xl'>Ngày khởi hành:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
-                      02-10-2024
+                      {formatDateTime}
                     </div>
                   </div>
                   <div className='flex py-4'>
@@ -277,18 +344,22 @@ export default function TourDetailView() {
                       <IconTime />
                     </div>
                     <div className='mr-2 text-xl'>Thời gian:</div>
-                    <div className='flex items-center justify-center font-medium text-center text-sky-500'>5N4Đ</div>
+                    <div className='flex items-center justify-center font-medium text-center text-sky-500'>
+                      {getbyId?.time_trip}
+                    </div>
                   </div>
                   <div className='flex py-4'>
                     <div className='mr-2'>
                       <IconNumberSeats />
                     </div>
                     <div className='mr-2 text-xl'>Số chỗ còn:</div>
-                    <div className='flex items-center justify-center font-medium text-center text-sky-500'>9 chỗ</div>
+                    <div className='flex items-center justify-center font-medium text-center text-sky-500'>
+                      {getbyId?.number_of_seats_remaining} chỗ
+                    </div>
                   </div>
-                  <Link to={`/tour/all-tour/${getbyId?.id}/tour-payment`}>
-                    <Button className='w-full'>Đặt tour</Button>
-                  </Link>
+                  <Button className='w-full' loading={loadingBooking} onClick={handleBookingTour}>
+                    Đặt tour
+                  </Button>
                 </div>
               </div>
             </div>

@@ -1,12 +1,45 @@
+import { bookingTourApi } from '@/apis/booking-tour.api'
+import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import TourBook from '@/components/common/tour/tour-payment/TourBook'
 import TourForm from '@/components/common/tour/tour-payment/TourForm'
 import TourInfo from '@/components/common/tour/tour-payment/TourInfo'
 import TourOptions from '@/components/common/tour/tour-payment/TourOptions'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 export default function TourPayment() {
+  const { id } = useParams<{ id: string }>()
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const { data: getBookingDetailTour } = useQuery({
+    queryKey: ['getBookingDetailTour', id],
+    queryFn: () => bookingTourApi.getBookingDetail(id || '')
+  })
+
+  const mutationAddMomoBooking = useMutation({
+    mutationFn: () => paymentApi.addMomo(id || '')
+  })
+
+  const handleAddMomoBooking = () => {
+    setLoading(true)
+    mutationAddMomoBooking.mutate(undefined, {
+      onSuccess: (data) => {
+        const paymentUrl = data.paymentUrl.paymentUrl
+        window.location.href = paymentUrl
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
+
   return (
     <div className='w-full bg-gray-100'>
       <Header />
@@ -21,16 +54,16 @@ export default function TourPayment() {
                   <ChevronRight className='w-4 h-4' />
                   <p className='text-red-400'>Istanbul</p>
                   <ChevronRight className='w-4 h-4' />
-                  <p>CVK Park Bosphorus Hotel Istanbul</p>
+                  <p>{getBookingDetailTour?.name}</p>
                 </div>
               </div>
             </div>
             <div className='grid grid-cols-3 gap-6'>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <TourInfo />
+                <TourInfo data={getBookingDetailTour} />
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <TourBook />
+                <TourBook loading={loading} onClick={handleAddMomoBooking} data={getBookingDetailTour} />
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 <TourOptions />
