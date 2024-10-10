@@ -1,25 +1,41 @@
 import { room1 } from "@/assets/images";
 import { Button } from "@/components/ui/button";
 import { RoomType } from "@/shared/ts/interface/roomtype";
+import { useState } from "react";
 
 interface Rom {
-  Room: RoomType[]
+  Room: RoomType[];
+  onValueChange: (value: string) => void; // Hàm callback truyền dữ liệu lên cha
 }
-export default function HotelDetailRoom({ Room }: Rom) {
+
+export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
   const formatCurrency = (value: string | undefined) => {
-    if (!value) return 'N/A'
-    const numberValue = parseFloat(value)
+    if (!value) return 'N/A';
+    const numberValue = parseFloat(value);
     return isNaN(numberValue)
       ? 'N/A'
-      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
-  }
+      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue);
+  };
+
+  const [idTypeRoom, setIdTypeRoom] = useState<string | null>(null);
+
+  const handleClick = (id: string) => {
+    if (idTypeRoom === id) {
+      setIdTypeRoom(null);
+      onValueChange('');
+    } else {
+      setIdTypeRoom(id);
+      onValueChange(id);
+    }
+  };
+
   return (
     <div className="flex w-full mt-5">
       <div className="w-full">
         <div>
-          <hr className="my-8 border-2 border-gray " />
+          <hr className="my-8 border-2 border-gray" />
         </div>
-        <h1 className="mb-4 text-2xl font-semibold ">Available Rooms</h1>
+        <h1 className="mb-4 text-2xl font-semibold">Available Rooms</h1>
         <div className="space-y-4">
           {Room.map((item: RoomType) => (
             <div key={item.id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
@@ -33,12 +49,18 @@ export default function HotelDetailRoom({ Room }: Rom) {
                 <div className="flex items-end">
                   <p className="text-3xl font-semibold">{formatCurrency(item.pricePerDay.toString())}</p>
                 </div>
-                <Button className="px-4 py-2 mt-2 text-black rounded-md w-[7rem] h-[3rem]">Book now</Button>
+                <Button
+                  className="px-4 py-2 mt-2 text-white rounded-md w-[7rem] h-[3rem]"
+                  onClick={() => handleClick(item.id)}
+                  disabled={idTypeRoom !== null && idTypeRoom !== item.id}
+                >
+                  {idTypeRoom === item.id ? "Đã chọn" : "Chọn"}
+                </Button>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

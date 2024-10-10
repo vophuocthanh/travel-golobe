@@ -27,7 +27,16 @@ export interface TourResponseType {
   userId: string
   description: string
   price: number
-  original_price: number | null
+  quantity?: number
+  count?: string
+  suitable_subject?: string
+  vchouer?: string
+  time_out?: string
+  transport?: string
+  hotel?: string
+  created_at?: string
+  updated_at?: string
+  original_price: string
   createAt: string
   updateAt: string
   start_date: string
@@ -35,22 +44,22 @@ export interface TourResponseType {
   starting_gate: string | null
   sight_seeing: string | null
   cuisine: string | null
-  suitable: string | null
   ideal_time: string | null
-  road_vehicle: string
-  voucher: string | null
-  time_trip: string
-  baby_price: number
-  child_price: number
-  adult_price: number
   image: string
   image_2: string
   image_3: string
   image_4: string
   image_5: string
-  rating: number
-  number_of_seats_remaining: number
   isFavorite: boolean
+  suitable: string
+  road_vehicle: string
+  voucher: string
+  time_trip: string
+  baby_price: string
+  child_price: string
+  adult_price: string
+  rating: string
+  number_of_seats_remaining: string
 }
 
 export interface FlightResponseType {
