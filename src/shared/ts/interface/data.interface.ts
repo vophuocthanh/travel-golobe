@@ -41,10 +41,10 @@ export interface TourResponseType {
   updateAt: string
   start_date: string
   end_date: string
-  starting_gate: string | null
-  sight_seeing: string | null
-  cuisine: string | null
-  ideal_time: string | null
+  starting_gate: string
+  sight_seeing: string
+  cuisine: string
+  ideal_time: string
   image: string
   image_2: string
   image_3: string
@@ -55,11 +55,11 @@ export interface TourResponseType {
   road_vehicle: string
   voucher: string
   time_trip: string
-  baby_price: string
-  child_price: string
-  adult_price: string
+  baby_price: number
+  child_price: number
+  adult_price: number
   rating: string
-  number_of_seats_remaining: string
+  number_of_seats_remaining: number
 }
 
 export interface FlightResponseType {
