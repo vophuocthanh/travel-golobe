@@ -14,6 +14,7 @@ import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
 import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
 import PaymentAdmin from '@/pages/admin/payments/PaymentAdmin'
+import PaymentDetailView from '@/pages/admin/payments/PaymentDetailView'
 import RoadVehicleAdmin from '@/pages/admin/road-vehicle/RoadVehicleAdmin'
 import RoadVehicleAdminView from '@/pages/admin/road-vehicle/RoadVehicleAdminView'
 import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
@@ -72,6 +73,7 @@ export default function useRoutesElements() {
       { path: path.all_view, element: <LayoutMain children={<BillingAllView />} /> },
       { path: path.hotel_view, element: <LayoutMain children={<BillingHotelView />} /> },
       { path: path.flight_view, element: <LayoutMain children={<BillingFlightView />} /> },
+      { path: path.payment_view, element: <LayoutMain children={<PaymentDetailView />} /> },
       { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
       { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },

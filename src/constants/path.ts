@@ -33,12 +33,13 @@ export const path = {
   admin_payment: '/admin/payments',
   coach_payment: '/vehicle/coach/all-coach/coach-payment/:id',
   flight_payment: '/vehicle/flight/all-flight/flight-payment/:id',
-  tour_payment: '/tour/all-tour/:id/tour-payment',
+  tour_payment: '/tour/all-tour/tour-payment/:id',
   hotel_payment: '/hotel/home-stay/hotel-payment/:id',
   admin_hotelID: '/admin/hotels/:id',
   all_view: '/admin/billing/all-view',
   hotel_view: '/admin/billing/hotel-view',
   flight_view: '/admin/billing/flight_view',
   tour_view: '/admin/billing/tour-view',
-  road_vehicleID: '/admin/road-vehicle/:id'
+  road_vehicleID: '/admin/road-vehicle/:id',
+  payment_view: '/admin/payment/payment-view',
 } as const

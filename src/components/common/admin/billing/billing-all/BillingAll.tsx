@@ -1,12 +1,12 @@
 import * as React from "react";
 import { ColumnDef, ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table";
 import { ArrowUpDown, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { IconDelete, IconEdit, IconView } from "@/common/icons";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const data: Payment[] = [
     { billingID: "m5gr84i9", billingTime: "2003-05-21", plan: "Basic", amount: 316, status: "success"},
@@ -258,18 +258,16 @@ export function BillingAll() {
           </div>
         <div className="space-x-2 ">
           <Button
-            variant="outline"
-            size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
+            className="text-black"
           >
             Previous
           </Button>
           <Button
-            variant="outline"
-            size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
+            className="text-black"           
           >
             Next
           </Button>
