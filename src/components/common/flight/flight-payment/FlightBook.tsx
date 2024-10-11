@@ -1,10 +1,13 @@
+import { Button } from '@/components/ui/button'
 import { BookingResponse } from '@/shared/ts/interface/booking-flight.interface'
 
 interface FlightBookProps {
   data: BookingResponse
+  onClick?: () => void
+  loading?: boolean
 }
 
-export default function FlightBook({ data }: FlightBookProps) {
+export default function FlightBook({  onClick, data, loading }: FlightBookProps) {
   return (
     <div>
       <div>
@@ -52,6 +55,7 @@ export default function FlightBook({ data }: FlightBookProps) {
             {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.price || 0)}
           </p>
         </div>
+        <Button className='w-full mt-5' onClick={onClick} loading={loading}>Thanh Toán</Button>
       </div>
     </div>
   )
