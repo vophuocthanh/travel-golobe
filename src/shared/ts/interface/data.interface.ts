@@ -22,8 +22,8 @@ export interface HotelResponseType {
 }
 
 export interface TourResponseType {
-  id: string
-  name: string
+  id?: string
+  name?: string
   userId: string
   description: string
   price: number

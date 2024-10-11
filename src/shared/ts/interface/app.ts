@@ -36,3 +36,12 @@ export interface HotelParams {
   star_number?: number | undefined
   search?: string
 }
+export interface TourParams {
+  items_per_page: number
+  page: number
+  sort_by_price?: string
+  min_price?: number | undefined
+  max_price?: number | undefined
+  star_number?: number | undefined
+  search?: string
+}

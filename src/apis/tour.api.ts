@@ -1,21 +1,25 @@
 import axiosClient from '@/apis/axios-client'
-import { ListResponse } from '@/shared/ts/interface/comment-tour.interface'
+import { TourParams,ListResponse } from '@/shared/ts/interface'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { TourResponse } from '@/shared/utils/data-response'
 
 export const tourApi = {
   getAll(
     page?: number | string, 
-    items_per_page?: number | string
+    items_per_page?: number | string,
+    search?: string,
 
   ): Promise<ListResponse<TourResponseType>>{
     const url = '/tour'
-    return axiosClient.get(url, {
-      params: {
-        page: Number(page),
-        items_per_page: Number(items_per_page)
-      }
-    })
+
+    const params: TourParams = {
+      items_per_page: Number(items_per_page),
+      page: Number(page),
+    }
+    if (search && search !== '') {
+      params.search = search
+    }
+    return axiosClient.get(url, {params})
   },
   getById(id: string | undefined): Promise<TourResponseType> {
     const url = `/tour/${id}`
