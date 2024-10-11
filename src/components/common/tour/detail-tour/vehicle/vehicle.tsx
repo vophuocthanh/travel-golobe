@@ -7,6 +7,8 @@ interface IVehicle {
 }
 
 export default function Vehicle({ data }: IVehicle) {
+  console.log(data,"dâtt");
+  
   return (
     <div className='mt-16 '>
       <h2 className='mb-8 text-3xl font-semibold text-center'>LỊCH KHỞI HÀNH </h2>
@@ -52,7 +54,7 @@ export default function Vehicle({ data }: IVehicle) {
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
-                    <h4 className='text-lg font-medium'>Ngày đi -</h4>
+                    <h4 className='text-lg font-medium'>Ngày về -</h4>
                     <p className='flex items-center text-center'> 02/10/2024</p>
                   </div>
                   <div className='flex'>

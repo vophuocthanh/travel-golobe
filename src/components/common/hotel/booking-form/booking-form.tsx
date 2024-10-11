@@ -48,6 +48,8 @@ export default function BookingForm() {
     queryFn: () => hotelApi.getAll(1, 50, debouncedSearchTerm),
     enabled: !!debouncedSearchTerm
   })
+  console.log(getHotelAll?.data,"123");
+  
 
   return (
     <div className='flex flex-wrap justify-between p-4 space-x-2'>
