@@ -1,21 +1,44 @@
 import { bookingHotelApi } from '@/apis/booking-hotel.api'
+import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import HotelBook from '@/components/common/hotel/hotel-payment/HotelBook'
 import HotelForm from '@/components/common/hotel/hotel-payment/HotelForm'
 import HotelInfo from '@/components/common/hotel/hotel-payment/HotelInfo'
 import HotelOptions from '@/components/common/hotel/hotel-payment/HotelOptions'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 export default function HotelPayment() {
   const { id } = useParams()
+  const [loading, setLoading] = useState<boolean>(false)
+
 
   const { data: getBookingHotelDetails } = useQuery({
     queryKey: ['getBookedHotelDetails', id],
     queryFn: () => bookingHotelApi.getBookingDetail(id || '')
   })
+  const mutationAddMomoBooking = useMutation({
+    mutationFn: () => paymentApi.addMomo(id || '')
+  })
+  const handleAddMomoBooking = () => {
+    setLoading(true)
+    mutationAddMomoBooking.mutate(undefined, {
+      onSuccess: (data) => {
+        const paymentUrl = data.paymentUrl.paymentUrl
+        window.location.href = paymentUrl
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
+
   console.log('getBookingHotelDetails:', getBookingHotelDetails)
   return (
     <div className='w-full bg-gray-100'>
@@ -40,7 +63,7 @@ export default function HotelPayment() {
                 {getBookingHotelDetails && <HotelInfo hotel={getBookingHotelDetails} />}
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                {getBookingHotelDetails && <HotelBook hotel={getBookingHotelDetails} />}
+                {getBookingHotelDetails && <HotelBook loading={loading} onClick={handleAddMomoBooking} hotel={getBookingHotelDetails} />}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 <HotelOptions />
