@@ -159,10 +159,7 @@ export default function FlightDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link2 className={`w-4 h-4`} />
                 </p>
-                <Button
-                  onClick={handleBookFlight}
-                  disabled={getbyId?.number_of_seats_remaining === 0 || selectedTicket === ''}
-                >
+                <Button onClick={handleBookFlight} disabled={getbyId?.number_of_seats_remaining === 0}>
                   Book now
                 </Button>
               </div>
