@@ -34,7 +34,7 @@ export default function CoachReview2() {
               living.
             </p>
 
-            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-slate-300'>Book Flight</Button>
+            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-slate-300'>Book Coach</Button>
           </div>
           <div className='flex flex-col gap-4 h-[30rem] w-[50rem] '>
             <div className='flex gap-4 '>

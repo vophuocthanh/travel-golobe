@@ -149,7 +149,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
                     <Heart />
                   </Button>
                   <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
-                    <Button className='w-full mx-4 text-black'>View Deals</Button>
+                    <Button className='w-full mx-4 '>View Deals</Button>
                   </Link>
                 </div>
               </div>
@@ -161,14 +161,14 @@ const CoachCard: React.FC<CoachCardProps> = ({
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className='text-black'>
+              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
                 Previous
               </Button>
             </PaginationItem>
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-primary text-black' : 'bg-gray-400 text-black'} // Nút trang đầu
+                className={page === 1 ? 'bg-primary' : 'bg-gray-400 '} // Nút trang đầu
               >
                 1
               </Button>
@@ -182,7 +182,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-primary text-black' : 'bg-gray-400 text-black'} // Nút trang hiện tại
+                  className={page === page ? 'bg-primary ' : 'bg-gray-400 '} // Nút trang hiện tại
                 >
                   {page}
                 </Button>
@@ -197,14 +197,14 @@ const CoachCard: React.FC<CoachCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-primary text-black' : 'bg-gray-400 text-black'} // Nút trang cuối
+                  className={page === totalPages ? 'bg-primary ' : 'bg-gray-400 '} // Nút trang cuối
                 >
                   {totalPages}
                 </Button>
               </PaginationItem>
             )}
             <PaginationItem>
-              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className='text-black'>
+              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
                 Next
               </Button>
             </PaginationItem>

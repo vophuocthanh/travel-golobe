@@ -72,7 +72,7 @@ export default function CoachReview1() {
                       </p>
                     </div>
                   </Link>
-                  <Button className='relative text-black hover:border-spacing-3'>Book a Coach</Button>
+                  <Button className='relative hover:border-spacing-3'>Book a Coach</Button>
                 </SwiperSlide>
               ))}
             </Swiper>

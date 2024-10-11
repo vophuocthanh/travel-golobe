@@ -1,23 +1,46 @@
 import { bookingCoachApi } from '@/apis/booking-coach'
+import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import CoachBook from '@/components/common/coach/coach-payment/CoachBook'
 import CoachForm from '@/components/common/coach/coach-payment/CoachForm'
 import CoachInfo from '@/components/common/coach/coach-payment/CoachInfo'
 import CoachOptions from '@/components/common/coach/coach-payment/CoachOptions'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 export default function CoachPayment() {
+  const { id } = useParams<{ id: string }>()
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const { id } = useParams()
 
   const { data: getBookingCoachDeTails } = useQuery({
     queryKey: ['getBookedCoachDetails', id],
     queryFn: () => bookingCoachApi.getBookingDetail(id || '')
   })
   console.log('getBookedCoachDetails:', getBookingCoachDeTails)
+  const mutationAddMomoBooking = useMutation({
+    mutationFn: () => paymentApi.addMomo(id || '')
+  })
+
+  const handleAddMomoBooking = () => {
+    setLoading(true)
+    mutationAddMomoBooking.mutate(undefined, {
+      onSuccess: (data) => {
+        const paymentUrl = data.paymentUrl.paymentUrl
+        window.location.href = paymentUrl
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
+
   
   return (
     <div className='w-full bg-gray-100'>
@@ -42,16 +65,14 @@ export default function CoachPayment() {
             {getBookingCoachDeTails && <CoachInfo data={getBookingCoachDeTails} />}
           </div>
           <div className="col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md">
-          {getBookingCoachDeTails && <CoachBook data={getBookingCoachDeTails} />}
+            {getBookingCoachDeTails && <CoachBook loading={loading} onClick={handleAddMomoBooking} data={getBookingCoachDeTails} />}
           </div>
           <div className="col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md">
             <CoachOptions/>
           </div><div className="col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md">
             <CoachForm/>
           </div>
-          
           </div>
-        
         </section>
       </main>
       </SectionInViewRight>
