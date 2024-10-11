@@ -52,8 +52,11 @@ export default function FlightDetail() {
     { content: flightdetail3 }
   ]
   const [flightQuantity, setFlightQuantity] = useState(1)
+
   const [selectedTicket, setSelectedTicket] = useState('')
+
   const SectionRef = useRef<HTMLDivElement | null>(null)
+
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
@@ -125,26 +128,33 @@ export default function FlightDetail() {
                 <p className='mt-2 text-lg font-bold text-black'>Còn {getbyId?.number_of_seats_remaining} Vé</p>
                 <Favorite id={getbyId?.id} />
                 <div className='flex border rounded border-primary'>
-                  <button
+                  <Button
                     className='w-10 px-4 py-2 font-bold text-black rounded-l bg-primary hover:bg-green-200'
                     onClick={() => setFlightQuantity(Math.max(1, flightQuantity - 1))}
                     disabled={getbyId?.number_of_seats_remaining === 0}
                   >
                     -
-                  </button>
+                  </Button>
                   <input
                     value={flightQuantity}
                     type='text'
+                    min='1'
                     className='h-10 text-center border-t border-b border-gray-300 w-14 focus:outline-none'
-                    onChange={(e) => setFlightQuantity(Math.max(1, Number(e.target.value)))}
+                    onChange={(e) =>
+                      setFlightQuantity(Math.max(1, Number(e.target.value), getbyId?.number_of_seats_remaining ?? 0))
+                    }
                   />
-                  <button
-                    onClick={() => setFlightQuantity(Math.max(1, flightQuantity + 1))}
+                  <Button
+                    onClick={() =>
+                      setFlightQuantity(Math.min(flightQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
+                    }
                     className='w-10 px-4 py-2 text-black rounded-r bg-primary hover:bg-green-200'
-                    disabled={getbyId?.number_of_seats_remaining === 0}
+                    disabled={
+                      getbyId?.number_of_seats_remaining === 0 || getbyId?.number_of_seats_remaining === flightQuantity
+                    }
                   >
                     +
-                  </button>
+                  </Button>
                 </div>
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link2 className={`w-4 h-4`} />
