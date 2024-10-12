@@ -1,12 +1,17 @@
+import { Button } from "@/components/ui/button";
 import { HotelBookingResponse } from "@/shared/ts/interface/booking-hotel.interface";
 
 interface hotelType {
   hotel: HotelBookingResponse
+  loading: boolean
+  onClick?: () => void
+
 }
 
 
 
-export default function HotelBook({ hotel }: hotelType) {
+export default function HotelBook({ hotel, loading, onClick }: hotelType) {
+
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
     const numberValue = parseFloat(value)
@@ -65,6 +70,9 @@ export default function HotelBook({ hotel }: hotelType) {
           <p className="text-lg font-bold">{formatCurrency(hotel.price?.toString())}</p>
         </div>
       </div>
+      <Button onClick={onClick} loading={loading} className='w-full mt-4'>
+        Thanh toán
+      </Button>
     </div>
   )
 }

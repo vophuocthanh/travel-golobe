@@ -22,6 +22,7 @@ export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const roomSectionRef = useRef<HTMLDivElement | null>(null);
+  const [loading, setLoading] = useState<boolean>(false)
 
 
   const { data: getbyId } = useQuery({
@@ -45,6 +46,9 @@ export default function HotelDetail() {
     },
     onError: () => {
       toast.error('Failed to book flight')
+    },
+    onSettled: () => {
+      setLoading(false)
     }
   })
 
@@ -155,6 +159,7 @@ export default function HotelDetail() {
                 <Button
                   onClick={handleBookHotel}
                   disabled={getbyId?.number_of_seats_remaining === 0}
+                  loading={loading}
                 >
                   Book now
                 </Button>
