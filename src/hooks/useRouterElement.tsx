@@ -37,6 +37,7 @@ import ResetPassword from '@/pages/reset-password/ResetPassword'
 import TourDetailView from '@/pages/tour/TourDetailView'
 import TourPayment from '@/pages/tour/TourPayment'
 import VerifyCode from '@/pages/verify-code/VerifyCode'
+import AdminRoute from '@/routes/AdminRoute'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
@@ -65,7 +66,14 @@ export default function useRoutesElements() {
       { path: path.all_coach, element: <AllCoach /> },
       { path: path.hotelId, element: <HotelDetail /> },
       { path: '*', element: <PageNotFound /> },
-      { path: path.admin, element: <LayoutMain children={<Dashboard />} /> },
+      {
+        path: path.admin,
+        element: (
+          <AdminRoute>
+            <LayoutMain children={<Dashboard />} />
+          </AdminRoute>
+        )
+      },
       { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },
       { path: path.users_id, element: <LayoutMain children={<UserAdminDetail />} /> },
       { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },

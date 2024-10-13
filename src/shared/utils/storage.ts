@@ -1,3 +1,5 @@
+import { UserResponseType } from '@/shared/ts/interface'
+
 export const LocalStorageEventTarget = new EventTarget()
 
 export const setAccessTokenToLS = (access_token: string) => {
@@ -20,9 +22,9 @@ export const getAccessTokenFromLS = () => localStorage.getItem('access_token') |
 
 export const getRefreshTokenFromLS = () => localStorage.getItem('refresh_token') || ''
 
-export const getProfileFromLS = () => {
-  const result = localStorage.getItem('profile')
-  return result ? JSON.parse(result) : null
+export const getUserFromLocalStorage = (): UserResponseType | null => {
+  const user = localStorage.getItem('user')
+  return user ? JSON.parse(user) : null
 }
 
 export const setUserToLS = (user: { id: string; name: string; email: string; role: string }) => {
