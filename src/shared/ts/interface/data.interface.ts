@@ -102,3 +102,27 @@ export interface CoachResponseType {
   isFavorite?: boolean
   number_of_seats_remaining: number
 }
+
+export interface BillingResponseType{
+  id?: string
+  tourId?: string
+  userId?: string
+  flightCrawlId?: string | null
+  hotelCrawlId?: string | null
+  roadVehicleId?: string | null
+  flightQuantity?: number | null
+  hotelQuantity?: number | null
+  tourQuantity?: number | null
+  roadVehicleQuantity?: number | null
+  flightPrice: number | null
+  hotelPrice: number | null
+  tourPrice: number | null
+  roadVehiclePrice: number | null
+  roomId?: string | null
+  ticketFlighttId?: string | null
+  totalAmount: number
+  createdAt?: string
+  status?: []
+  confirmationTime?: string  | null
+  isFavorite?: boolean
+}

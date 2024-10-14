@@ -1,98 +1,276 @@
 import * as React from "react";
 import { ColumnDef, ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
 import { IconDelete, IconEdit, IconView } from "@/common/icons";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-const data: Payment[] = [
-    { billingID: "m5gr84i9", billingTime: "2003-05-21", plan: "Basic", amount: 316, status: "success"},
-    { billingID: "3u1reuv4", billingTime: "2024-09-20T12:00:00Z", plan: "Premium", amount: 242, status: "success"},
-    { billingID: "4w2ht5k8", billingTime: "2024-09-22T09:00:00Z", plan: "Standard", amount: 150, status: "processing"},
-    { billingID: "5u9hs7j4", billingTime: "2024-09-23T14:00:00Z", plan: "Basic", amount: 299, status: "failed"},
-    { billingID: "6v3ir8l0", billingTime: "2024-09-24T16:00:00Z", plan: "Premium", amount: 350, status: "processing"},
-    { billingID: "7w4js9m1", billingTime: "2024-09-25T11:30:00Z", plan: "Basic", amount: 175, status: "success"},
-    { billingID: "8x5kt0n2", billingTime: "2024-09-26T10:45:00Z", plan: "Standard", amount: 225, status: "processing"},
-    { billingID: "9y6lu1o3", billingTime: "2024-09-27T13:15:00Z", plan: "Premium", amount: 420, status: "failed"},
-    { billingID: "a7zmn2p4", billingTime: "2024-09-28T15:00:00Z", plan: "Basic", amount: 190, status: "success"},
-    { billingID: "b8nop3q5", billingTime: "2024-09-29T17:30:00Z", plan: "Standard", amount: 275, status: "processing"},
-    { billingID: "c9pqr4r6", billingTime: "2024-09-30T18:45:00Z", plan: "Premium", amount: 310, status: "success"},
-    { billingID: "d0stu5s7", billingTime: "2024-10-01T09:00:00Z", plan: "Basic", amount: 210, status: "failed"},
-    { billingID: "e1tuv6t8", billingTime: "2024-10-02T12:15:00Z", plan: "Standard", amount: 195, status: "processing"},
-    { billingID: "f2wvw7u9", billingTime: "2024-10-03T14:30:00Z", plan: "Premium", amount: 360, status: "processing"},
-    { billingID: "g3xyz8v0", billingTime: "2024-10-04T16:00:00Z", plan: "Basic", amount: 205, status: "success"},
-    { billingID: "h4yza9w1", billingTime: "2024-10-05T17:45:00Z", plan: "Standard", amount: 220, status: "failed"},
-    { billingID: "i5zab0x2", billingTime: "2024-10-06T09:30:00Z", plan: "Premium", amount: 380, status: "success"},
-    { billingID: "j6bcd1y3", billingTime: "2024-10-07T11:00:00Z", plan: "Basic", amount: 230, status: "processing"},
-    { billingID: "k7cde2z4", billingTime: "2024-10-08T13:15:00Z", plan: "Standard", amount: 240, status: "processing"},
-    { billingID: "l8def3a5", billingTime: "2024-10-09T14:30:00Z", plan: "Premium", amount: 400, status: "failed"}
-];
-
-export type Payment = {
-  billingID: string;
-  billingTime: string;
-  plan: string;
-  amount: number;
-  status: "processing" | "success" | "failed";
-};
+import { useQuery } from "@tanstack/react-query";
+import { billingApi } from "@/apis/billing-all.api";
+import { BillingResponseType } from "@/shared/ts/interface/data.interface";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 
 export function BillingAll() {
+
+  const { data: getAllBilling } = useQuery({
+    queryKey: ['getAllBilling'],
+    queryFn: () =>billingApi.getAll(1,1,'')
+  })
+  const totalDataCount = getAllBilling?.total || 0; 
+
+  const { data: billiingData } = useQuery({
+    queryKey: ['getBilling', totalDataCount],
+    queryFn: () => billingApi.getAll(1, totalDataCount,''), 
+    enabled: totalDataCount > 0 
+  });
+  
+  const billing = billiingData?.data || [];  
   const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] =React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [entriesPerPage, setEntriesPerPage] = React.useState(10)
+  const [pageIndex, setPageIndex] = React.useState(0)
 
-  const columns: ColumnDef<Payment>[] = [ 
+
+  const columns: ColumnDef<BillingResponseType>[] = [ 
     {
-      accessorKey: "billingID",  
-      header: () => <div className="text-left">ID</div>,
-      cell: ({ row }) => <div className="text-left">{row.getValue("billingID")}</div>,
-      enableSorting: true,
-    },
-    {
-      accessorKey: "billingTime",
+      accessorKey: "id",  
       header: ({ column }) => (
-        <Button
-          className="flex justify-center w-full gap-x-2"
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Billing Time
-          <ArrowUpDown className="w-4 h-4" />
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          ID
+          <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => {
-        const date = new Date(row.getValue("billingTime"));
-        const formattedDate = date.toLocaleDateString("vn-Vn");
-        return <div className="flex justify-center">{formattedDate}</div>;
-      },
-      enableSorting: true,
+      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>,
     },
     {
-      accessorKey: "plan",
-      header: () => <div className="text-left">Plan</div>,
-      cell: ({ row }) => <div className="text-left">{row.getValue("plan")}</div>,
-      enableSorting: true,
+      accessorKey: "tourId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Tour Id
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('tourId')}</div>,
     },
     {
-      accessorKey: "amount",
-      header: () => <div className="flex justify-center">Amount</div>,
+      accessorKey: "userId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          User Id
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('userId')}</div>,
+    },
+    {
+      accessorKey: "flightCrawlId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Flight ID
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('flightCrawlId')}</div>,
+    },
+    {
+      accessorKey: "hotelCrawlId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Hotel ID
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('hotelCrawlId')}</div>,
+    },
+    {
+      accessorKey: "roadVehicleId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Road Vehicle ID
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roadVehicleId')}</div>,
+    },
+    {
+      accessorKey: "flightQuantity",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Flight Quantity
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] text-center lowercase break-words'>{row.getValue('flightQuantity')}</div>,
+    },
+    {
+      accessorKey: "hotelQuantity",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Hotel Quantity
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('hotelQuantity')}</div>,
+    },
+    {
+      accessorKey: "tourQuantity",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Tour Quantity
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('tourQuantity')}</div>,
+    },
+    {
+      accessorKey: "roadVehicleQuantity",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Road Vehicle Quantity
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('roadVehicleQuantity')}</div>,
+    },
+    {
+      accessorKey: 'flightPrice',
+      header: ({column}) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Flight Price
+        <CaretSortIcon className='w-4 h-4 ml-2' />
+      </Button>),
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("amount"));
-        const formatted = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(amount);
-        return <div className="flex justify-center font-medium">{formatted}</div>;
+        const amount = parseFloat(row.getValue('flightPrice'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+        return <div className='font-medium text-center'>{formatted}</div>
+      }
+    },
+    {
+      accessorKey: 'hotelPrice',
+      header: ({column}) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Hotel Price
+        <CaretSortIcon className='w-4 h-4 ml-2' />
+      </Button>),
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('hotelPrice'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+        return <div className='font-medium text-center'>{formatted}</div>
+      }
+    },
+    {
+      accessorKey: 'tourPrice',
+      header: ({column}) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Tour Price
+        <CaretSortIcon className='w-4 h-4 ml-2' />
+      </Button>),
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('tourPrice'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+        return <div className='font-medium text-center'>{formatted}</div>
+      }
+    },
+    {
+      accessorKey: 'roadVehiclePrice',
+      header: ({column}) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        Road Vehicle Price
+        <CaretSortIcon className='w-4 h-4 ml-2' />
+      </Button>),
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('roadVehiclePrice'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+        return <div className='font-medium text-center'>{formatted}</div>
+      }
+    },
+    {
+      accessorKey: "roomId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Room ID
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roomId')}</div>,
+    },
+    {
+      accessorKey: "ticketFlighttId",  
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Ticket Flightt Id
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('ticketFlighttId')}</div>,
+    },
+    {
+      accessorKey: 'totalAmount',
+      header: ({column}) => (
+      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Total Amount
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+      </Button>),
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('totalAmount'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+        return <div className='font-medium text-center'>{formatted}</div>
+      }
+    },
+    {
+      accessorKey: 'createdAt',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Created At
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
       },
-      enableSorting: true,
+      cell: ({ row }) => {
+        const endDate = new Date(row.getValue('createdAt'));
+        return <div className="text-center ">{endDate.toLocaleDateString('vi-VN')}</div>;
+      },
+    },
+    {
+      accessorKey: 'confirmationTime',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Confirmation Time
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => {
+        const endDate = new Date(row.getValue('confirmationTime'));
+        return <div className="text-center ">{endDate.toLocaleDateString('vi-VN')}</div>;
+      },
     },
     {
       accessorKey: "status",
@@ -119,6 +297,7 @@ export function BillingAll() {
       },
       enableSorting: true,
     },
+    
     {
       id: "actions",
       header: () => <div className="flex justify-center">Actions</div>,
@@ -133,7 +312,7 @@ export function BillingAll() {
   ];
   
   const table = useReactTable({
-    data,
+    data: billing,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -148,14 +327,26 @@ export function BillingAll() {
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: {
+        pageIndex ,
+        pageSize: entriesPerPage
+      }
     },
   });
   
-  function handleEdit(payment: Payment) {
+  React.useEffect(() => {
+    table.setPageSize(entriesPerPage)
+  }, [entriesPerPage, table])
+
+  React.useEffect(() => {
+    table.setPageIndex(pageIndex)
+  }, [pageIndex, table])
+  
+  function handleEdit(payment: BillingResponseType) {
     console.log("Editing payment:", payment);
   }
   
-  function handleDelete(payment: Payment) {
+  function handleDelete(payment: BillingResponseType) {
     console.log("Deleting payment:", payment);
   }
   
@@ -165,7 +356,22 @@ export function BillingAll() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center w-full py-4">
+        <span>Show</span>
+          <select
+            className='p-2 border border-gray-300 rounded-lg'
+            value={entriesPerPage}
+            onChange={(e) => {
+              setEntriesPerPage(Number(e.target.value))
+              table.setPageIndex(0)
+            }}
+              >
+            {[10, 25, 50, 100].map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+            ))}
+          </select>
         <Input
           placeholder="Filter id..."
           value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
@@ -174,32 +380,31 @@ export function BillingAll() {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="w-4 h-4 ml-2" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className='flex items-center gap-4 ml-auto'>
+          <span>Total Billing : {totalDataCount}</span>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+                  <Button variant='outline' className='ml-auto'>
+                    Columns <ChevronDown className='w-4 h-4 ml-2' />
+                  </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+                  {table
+                    .getAllColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className='capitalize'
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {column.id}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="border rounded-md">
         <Table>
@@ -251,26 +456,28 @@ export function BillingAll() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end py-4 space-x-2">
-          <div className="flex-1 text-sm text-muted-foreground">
+      <div className='flex items-center justify-end py-4 space-x-2'>
+        <div className="flex-1 text-sm text-muted-foreground">
             Page {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
           </div>
-        <div className="space-x-2 ">
-          <Button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
+          <div className='pr-4 space-x-2'>
+            <Button
+              onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+              disabled={pageIndex === 0}
+              className='text-white'
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+              disabled={pageIndex + 1 >= table.getPageCount()}
+              className='text-white'
+            >
+              Next
+            </Button>
+          </div>
         </div>
-      </div>
     </div>
   );
 }
