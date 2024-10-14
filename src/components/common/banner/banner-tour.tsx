@@ -3,13 +3,28 @@ import { Input } from '@/components/ui/input'
 import { useDebounce } from '@/hooks/useDebounce'
 import { Label } from '@radix-ui/react-label'
 import { useQuery } from '@tanstack/react-query'
-import { CalendarDays, Sofa } from 'lucide-react'
-import { useState } from 'react'
+import {  Sofa } from 'lucide-react'
+import {  useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { CalendarIcon } from '@radix-ui/react-icons'
+import { format } from 'date-fns'
 
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { cn } from '@/shared/lib/utils'
 
-export default function BannerTour() {
+interface DatePickerWithPresetsProps {
+    returnDate: Date | undefined
+    departDate: Date | undefined
+
+    setReturnDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+    setDepartDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+}
+
+export default function BannerTour({departDate,returnDate,setReturnDate, setDepartDate}:DatePickerWithPresetsProps) {
+
     const [searchTour, setSearchTour] = useState<string>('')
     const debouncedSearchTour = useDebounce<string>(searchTour, 500)
 
@@ -18,9 +33,8 @@ export default function BannerTour() {
         queryFn: () => tourApi.getAll( 1,50, debouncedSearchTour),
         enabled: !!debouncedSearchTour
     })
-    console.log(getAllTour?.data,"1234");
     
-
+    
     return (
     <div className='flex flex-wrap justify-between p-4 space-x-2'>
         <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
@@ -66,8 +80,26 @@ export default function BannerTour() {
         >
             Check In
         </Label>
-        <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 12/2' />
-        <CalendarDays className='absolute right-3 top-3.5' />
+        
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button
+                variant={'outline'}
+                className={cn(
+                    'w-full justify-start text-left font-normal h-full',
+                    !departDate && 'text-muted-foreground'
+                )}
+                >
+                <CalendarIcon className='w-4 h-4 mr-2' />
+                {departDate ? format(departDate, 'dd/MM/yyyy') : <span>Pick a date</span>}
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent align='start' className='flex flex-col w-auto p-2 space-y-2'>
+                <div className='border rounded-md'>
+                <Calendar mode='single' selected={departDate} onSelect={setDepartDate} />
+                </div>
+            </PopoverContent>
+        </Popover>
         </div>
         <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
         <Label
@@ -76,10 +108,26 @@ export default function BannerTour() {
         >
             Check Out
         </Label>
-        <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 20/2' />
-        <CalendarDays className='absolute right-3 top-3.5' />
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button
+                variant={'outline'}
+                className={cn(
+                    'w-full justify-start text-left font-normal h-full',
+                    !returnDate && 'text-muted-foreground'
+                )}
+                >
+                <CalendarIcon className='w-4 h-4 mr-2' />
+                {returnDate ? format(returnDate, 'dd/MM/yyyy') : <span>Pick a date</span>}
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent align='start' className='flex flex-col w-auto p-2 space-y-2'>
+                <div className='border rounded-md'>
+                <Calendar mode='single' selected={returnDate} onSelect={setReturnDate} />
+                </div>
+            </PopoverContent>
+        </Popover>
         </div>
-   
     </div>
     )
 }

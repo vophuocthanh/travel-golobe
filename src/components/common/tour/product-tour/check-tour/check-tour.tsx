@@ -30,7 +30,7 @@ export default function CheckTour()  {
                 htmlFor=''
                 className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
                 >
-                Check In
+                Check In123
                 </Label>
                 <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 12/2' />
                 <CalendarDays className='absolute right-3 top-3.5' />

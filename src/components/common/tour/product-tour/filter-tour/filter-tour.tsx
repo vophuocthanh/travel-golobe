@@ -1,113 +1,86 @@
 
 
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Slider } from "@/components/ui/slider"
 
 
-export default function FilterTour()  {
+interface FlightCardProps {
+    minPrice?: number
+    maxPrice?: number
+    handlePriceRangeChange:(min: number | undefined, max: number | undefined) => void
+    setMinPrice: React.Dispatch<React.SetStateAction<number | undefined>>
+    setMaxPrice: React.Dispatch<React.SetStateAction<number | undefined>>
+    handleRating: (val: number | undefined) => void
+}
+
+export default function FilterTour(props:FlightCardProps)  {
+    const {handlePriceRangeChange,handleRating,setMinPrice,setMaxPrice,maxPrice,minPrice} = props
+    const isRatingVisible = true;
     return (
-        <div className='w-[25%]'>
-            <h1 className="mb-8">Filters</h1>
-            <div>
-                <Accordion type="single" defaultValue="item-1"   collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger  >Price</AccordionTrigger>
-                        <AccordionContent   className="mb-6">
-                            <Slider  className="w-full mt-3" defaultValue={[33]} max={100} step={1} />
-                            <div className="flex justify-between mb-6">
-                                <p>$50</p>
-                                <p>$1200</p>
-                            </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-            </div>
-
-            <div className="mt-6" >
-                <Accordion type="single" defaultValue="item-1" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger  >Rating</AccordionTrigger>
-                        <AccordionContent   className="mb-6">
-                        <div className="flex gap-5">
-                        {
-                            [0,1,2,3,4].map((item) =>(
-                                <Button key={item} className="text-black bg-white border border-primary hover:bg-slate-100">{item}+</Button>
-                            ))
-                        }
+        <div >
+            <div className="flex flex-col gap-6 pt-10">
+                <div className="pb-4 border-b-2 border-gray-300">
+                    <h2 className="text-xl font-semibold text-gray-700">Price Range</h2>
+                    <div className="w-full p-4 mt-4 space-y-4 bg-white rounded-lg shadow-2xl">
+                        <div className="flex items-center w-full space-x-4">
+                        <input
+                            className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            placeholder="Min Price"
+                            value={minPrice !== undefined ? minPrice : ''}
+                            onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                        <span className="text-lg text-gray-600">-</span>
+                        <input
+                            className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            placeholder="Max Price"
+                            value={maxPrice !== undefined ? maxPrice : ''}
+                            onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+                        />
                         </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-            </div>
+                        <Button
+                        onClick={() => {
+                            setMinPrice(minPrice)
+                            setMaxPrice(maxPrice)
+                            handlePriceRangeChange(minPrice, maxPrice)
+                        }}
+                        className="w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
+                        >
+                        Lọc
+                        </Button>
+                        <Button
+                        className="w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500"
+                        onClick={() => {
+                            setMinPrice(undefined)
+                            setMaxPrice(undefined)
+                            handlePriceRangeChange(undefined, undefined)
+                        }}
+                        >
+                        Hủy Lọc
+                        </Button>
+                    </div>
+                </div>
 
-            <div className="mt-6">
-                <Accordion type="single" defaultValue="item-1" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger  >Freebie</AccordionTrigger>
-                        <AccordionContent>
-                        <div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Free breakfast</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Free parking</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Free internet</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Free airport shuttle</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Free cancellation</p>
-                            </div>
-                        </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-            </div>
-
-            <div className="mt-6">
-                <Accordion type="single" defaultValue="item-1" collapsible>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger  >Amenities</AccordionTrigger>
-                        <AccordionContent className="mb-6">
-                        <div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">24hr front desk</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Air-conditioned</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Fitness</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Checkbox className=""></Checkbox>
-                                <p className="ml-4">Pool</p>
-                            </div>
-                            <div className="flex items-center mb-4 text-xl ">
-                                <Button className="p-0 text-red-400 bg-white hover:bg-slate-100"> +24 more</Button>
-                            </div>
-                        </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
+                {isRatingVisible && (
+                <div>
+                    <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
+                    <div className="flex gap-3 mt-4">
+                    {[0, 1, 2, 3, 4, 5].map((rating) => (
+                        <Button
+                        key={rating}
+                        className="flex items-center justify-center w-12 h-8 text-sm font-medium text-white transition duration-200 rounded-md cursor-pointer hover:bg-primary hover:text-white"
+                        onClick={() => {
+                            if (rating === 0) {
+                                    handleRating(undefined)
+                                } else {
+                                    handleRating(rating)
+                                }
+                            }}
+                        >
+                        {rating}+
+                        </Button>
+                    ))}
+                    </div>
+                </div>
+                )}
             </div>
         </div>
     )
