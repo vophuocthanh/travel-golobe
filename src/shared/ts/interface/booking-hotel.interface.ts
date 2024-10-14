@@ -25,3 +25,26 @@ export interface HotelBookingResponse {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   invoice: any[]
 }
+export type PaymentHotel = {
+  id: string;
+  tourId: string | null;
+  userId: string;
+  flightCrawlId: string | null;
+  hotelCrawlId: string;
+  roadVehicleId: string | null;
+  flightQuantity: number | null;
+  hotelQuantity: number;
+  tourQuantity: number | null;
+  roadVehicleQuantity: number | null;
+  flightPrice: number | null;
+  hotelPrice: number | null;
+  tourPrice: number | null;
+  roadVehiclePrice: number | null;
+  roomId: string;
+  ticketFlightId: string | null;
+  totalAmount: number;
+  createdAt: string;
+  status: string;
+  confirmationTime: string | null;
+
+};
