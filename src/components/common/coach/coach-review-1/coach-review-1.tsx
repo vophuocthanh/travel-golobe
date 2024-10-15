@@ -72,7 +72,9 @@ export default function CoachReview1() {
                       </p>
                     </div>
                   </Link>
-                  <Button className='relative hover:border-spacing-3'>Book a Coach</Button>
+                  <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
+                    <Button className='relative w-full hover:border-spacing-3'>Book a Coach</Button>
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>
