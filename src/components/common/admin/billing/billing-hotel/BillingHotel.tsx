@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,10 +12,7 @@ import {
 } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
 import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
+  Pagination, PaginationContent, PaginationEllipsis, PaginationItem
 } from '@/components/ui/pagination';
 import { Button } from '@/components/ui/button';
 import {
@@ -41,14 +37,16 @@ export function BillingHotel() {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
 
-  const { data: getBookingHotelData } = useQuery({
+  const { data: getBookingHotelData, isLoading } = useQuery({
     queryKey: ['getBookingHotel', page],
-    queryFn: () => bookingHotelApi.getBookingHotel(page, 4),
+    queryFn: () => bookingHotelApi.getBookingHotel(itemsPerPage, page),
   });
 
-  const totalPages = Math.ceil((getBookingHotelData?.total ?? 0) / 4);
-  const bookingsHotel = getBookingHotelData?.data || [];
+  const totalPages = Math.ceil((getBookingHotelData?.total ?? 0) / itemsPerPage);
+  const totalPage = Math.ceil((getBookingHotelData?.total ?? 0));
+
 
   const handleClick = (newPage: number) => {
     setPage(newPage);
@@ -130,7 +128,7 @@ export function BillingHotel() {
   ];
 
   const table = useReactTable({
-    data: bookingsHotel,
+    data: getBookingHotelData?.data || [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -162,32 +160,35 @@ export function BillingHotel() {
 
   return (
     <div className='w-full'>
-      <div className='flex items-center py-4'>
+      <div className='flex items-center justify-between py-4'>
         <Input
           placeholder='Filter ID...'
           value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
           className='max-w-sm'
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='outline' className='ml-auto'>
-              Columns <ChevronDown className='w-4 h-4 ml-2' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            {table.getAllColumns().filter(column => column.getCanHide()).map(column => (
-              <DropdownMenuCheckboxItem
-                key={column.id}
-                className='capitalize'
-                checked={column.getIsVisible()}
-                onCheckedChange={(value) => column.toggleVisibility(!!value)}
-              >
-                {column.id}
-              </DropdownMenuCheckboxItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className='flex items-center'>
+          <p className='px-5'>Total :{totalPage} </p>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='outline' className='ml-auto'>
+                Columns <ChevronDown className='w-4 h-4 ml-2' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              {table.getAllColumns().filter(column => column.getCanHide()).map(column => (
+                <DropdownMenuCheckboxItem
+                  key={column.id}
+                  className='capitalize'
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                >
+                  {column.id}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className='border rounded-md'>
         <Table>
@@ -203,7 +204,13 @@ export function BillingHotel() {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.length ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className='text-center'>
+                  Loading...
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map(cell => (
@@ -235,44 +242,39 @@ export function BillingHotel() {
                 Previous
               </Button>
             </PaginationItem>
+            <PaginationItem>
+              <Button
+                className={`px-4 py-2 text-white bg-gray-300 ${page === 1 ? 'bg-primary' : ''}`}
+                onClick={() => handleClick(1)}
+              >
+                1
+              </Button>
+            </PaginationItem>
 
-            {/* Hiển thị các nút trang */}
             {page > 2 && (
               <PaginationItem>
-                <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page === 1 ? 'bg-primary' : ''}`}
-                  onClick={() => handleClick(1)}
-                >
-                  1
-                </Button>
+                <PaginationEllipsis />
               </PaginationItem>
             )}
-            {page > 3 && <PaginationEllipsis />}
-            {page > 1 && (
+
+            {page > 1 && page < totalPages && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page === page - 1 ? 'bg-primary' : ''}`}
-                  onClick={() => handleClick(page - 1)}
+                  className={`px-4 py-2 text-white bg-gray-300 ${page === page ? 'bg-primary' : ''}`}
+                  onClick={() => handleClick(page)}
                 >
-                  {page - 1}
+                  {page}
                 </Button>
               </PaginationItem>
             )}
-            <PaginationItem>
-              <Button className='px-4 py-2 text-white bg-primary'>{page}</Button>
-            </PaginationItem>
-            {page < totalPages && (
-              <PaginationItem>
-                <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page === page + 1 ? 'bg-primary' : ''}`}
-                  onClick={() => handleClick(page + 1)}
-                >
-                  {page + 1}
-                </Button>
-              </PaginationItem>
-            )}
-            {page < totalPages - 2 && <PaginationEllipsis />}
+
             {page < totalPages - 1 && (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            )}
+
+            {totalPages > 1 && (
               <PaginationItem>
                 <Button
                   className={`px-4 py-2 text-white bg-gray-300 ${page === totalPages ? 'bg-primary' : ''}`}
@@ -285,9 +287,9 @@ export function BillingHotel() {
 
             <PaginationItem>
               <Button
-                className='px-4 py-2 text-white rounded min-w-[100px] text-center'
-                disabled={page === totalPages}
+                className='px-4 text-white py-2 min-w-[100px]'
                 onClick={() => handleClick(page + 1)}
+                disabled={page === totalPages}
               >
                 Next
               </Button>

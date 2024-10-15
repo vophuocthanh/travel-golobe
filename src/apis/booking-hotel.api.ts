@@ -4,15 +4,14 @@ import { HotelBookingResponse, PaymentHotel } from '@/shared/ts/interface/bookin
 
 export const bookingHotelApi  = {
   getBookingHotel(
-    page?: number | string,
     items_per_page?: number | string,
+    page?: number | string,
   ): Promise<ListResponse<PaymentHotel>> {
     const url = '/bookings/book/hotel';
     return axiosClient.get(url, {
       params: {
+        items_per_page: Number(items_per_page),
         page: Number(page),
-        items_per_page: Number(items_per_page
-        ),
       },
     });
   },
