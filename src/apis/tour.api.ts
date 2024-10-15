@@ -7,11 +7,11 @@ export const tourApi = {
   getAll(
     page?: number | string, 
     items_per_page?: number | string,
-    search?: string,
-    sort_by_price?: string,
     min_price?: number,
     max_price?: number,
-    rating?: number,
+    search?: string,
+    sort_by_price?: string,
+    rating?: number | undefined,
     start_day?: string, 
     end_day?: string,
   ): Promise<ListResponse<TourResponseType>>{
@@ -23,19 +23,21 @@ export const tourApi = {
       min_price: min_price,
       max_price: max_price,
     }
-    if (start_day && end_day) {
-      params.start_day = String(start_day)
-      params.end_day = String(end_day)
-    }
+
     if (search && search !== '') {
       params.search = search
     }
+
     if (sort_by_price) {
       params.sort_by_price = sort_by_price
     }
 
     if (rating !== undefined) {
       params.rating = rating
+    }
+    if (start_day && end_day) {
+      params.start_day = String(start_day)
+      params.end_day = String(end_day)
     }
     return axiosClient.get(url, {params})
   },

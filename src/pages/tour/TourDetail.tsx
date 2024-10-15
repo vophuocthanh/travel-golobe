@@ -17,6 +17,7 @@ import { TourDate } from "./TourDate";
 
 
 
+
 export default function TourDetail() {
     const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
     const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
@@ -24,7 +25,8 @@ export default function TourDetail() {
     const [filteredReturnDate, setFilteredReturnDate] = useState<string | undefined>(undefined)
     const formattedDepartDate: string | undefined = departDate ? format(departDate, 'dd-MM-yyyy') : undefined
     const formattedReturnDate: string | undefined = returnDate ? format(returnDate, 'dd-MM-yyyy') : undefined
-
+    console.log(departDate,returnDate,"9999",formattedDepartDate,formattedReturnDate,"7777",filteredDepartDate, filteredReturnDate);
+    
     
 
     const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
@@ -42,20 +44,20 @@ export default function TourDetail() {
     const debouncedSearchTour = useDebounce<string>(searchTour, 500)
 
     const {data: getAllTour, isLoading} = useQuery({
-        queryKey: ['getAllTourSearch',1, '',debouncedSearchTour ,minPrice,maxPrice,rating,formattedDepartDate,formattedReturnDate],
-        queryFn: () => tourApi.getAll( 1,50,'', debouncedSearchTour ,minPrice,maxPrice,rating,formattedDepartDate,formattedReturnDate),
+        queryKey: ['getAllTourSearch',1,'',minPrice,maxPrice,debouncedSearchTour,'',rating,formattedDepartDate,formattedReturnDate],
+        queryFn: () => tourApi.getAll( 1,50,minPrice,maxPrice,debouncedSearchTour,'',rating,formattedDepartDate,formattedReturnDate),
         enabled: !!debouncedSearchTour
     })
     console.log(getAllTour,"getAllTour");
-    
-
-    
-
-
-
+    const handledate = (departDate: string | undefined, returnDate: string | undefined) => {
+        setFilteredDepartDate(departDate)
+        setFilteredReturnDate(returnDate)
+    };
     const handleSearch = () => {
+        
         setFilteredDepartDate(formattedDepartDate)
         setFilteredReturnDate(formattedReturnDate)
+        handledate(formattedDepartDate,formattedReturnDate)
         if (!formattedDepartDate || !formattedReturnDate) {
             toast.error('Vui lòng nhập đầy đủ ngày khởi hành và ngày trở về.')
             return
@@ -129,7 +131,8 @@ export default function TourDetail() {
                         returnDate={filteredReturnDate}
                         rating={rating}
                         minPrice={minPrice}
-                        maxPrice={maxPrice}                 
+                        maxPrice={maxPrice}      
+                        debouncedSearchTour={debouncedSearchTour}
                         />
                     
                 </div>

@@ -39,12 +39,13 @@ export interface HotelParams {
 export interface TourParams {
   items_per_page: number
   page: number
-  sort_by_price?: string
   min_price?: number
-  max_price?: number
-  rating?: number | undefined
+  max_price?: number 
   search?: string
+  sort_by_price?: string
+  rating?: number
   start_day?: string
   end_day?: string
+
   
 }

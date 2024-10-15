@@ -19,8 +19,9 @@ interface TourlCardProps {
   rating?: number | undefined
   returnDate?: string
   departDate?: string
+  debouncedSearchTour?: string
 }
-const ProductTour:  React.FC<TourlCardProps> = ({minPrice,maxPrice, rating,departDate,returnDate}) => {
+const ProductTour:  React.FC<TourlCardProps> = ({debouncedSearchTour,minPrice,maxPrice, rating,departDate,returnDate}) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
   const items: MenuProps['items'] = [
@@ -49,11 +50,13 @@ const ProductTour:  React.FC<TourlCardProps> = ({minPrice,maxPrice, rating,depar
     },
   ]
   const { data: getAll } = useQuery({
-    queryKey: ['getAllTour', page,'',sortByPrice,minPrice,maxPrice,rating ,departDate, returnDate],
-    queryFn: () => tourApi.getAll(page, 4,'',sortByPrice,minPrice,maxPrice,rating ,departDate, returnDate)
+    queryKey: ['getAllTour', page, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate],
+    queryFn: () => tourApi.getAll(page, 4, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate),
+    enabled: !!debouncedSearchTour || !!sortByPrice || !! page || !!departDate || !! returnDate , 
   })
   console.log(getAll,"getAllDate");
-  
+  console.log(departDate, returnDate, "Dates before calling API");
+  console.log(page, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate, "Params in API");
 
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
@@ -64,7 +67,7 @@ const ProductTour:  React.FC<TourlCardProps> = ({minPrice,maxPrice, rating,depar
   return (
     <div className='w-[70%]'>
       <div>
-        <div className='flex justify-between my-6'>
+        <div className='flex justify-end my-6'>
           <Dropdown menu={{ items }}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
@@ -77,7 +80,7 @@ const ProductTour:  React.FC<TourlCardProps> = ({minPrice,maxPrice, rating,depar
         <div>
           {
             (getAll?.data?.length ?? 0) > 0 ? (
-              getAll?.data.map((item: TourResponseType) => (
+              getAll?.data?.map((item: TourResponseType) => (
                 <Link to={`/tour/${item.id}`} className='w-full'>
                   <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
                     <div className='relative bg-blue-300 w-[27%] flex-3'>

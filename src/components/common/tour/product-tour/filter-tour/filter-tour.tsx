@@ -1,6 +1,7 @@
 
 
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 
 interface FlightCardProps {
@@ -15,6 +16,8 @@ interface FlightCardProps {
 export default function FilterTour(props:FlightCardProps)  {
     const {handlePriceRangeChange,handleRating,setMinPrice,setMaxPrice,maxPrice,minPrice} = props
     const isRatingVisible = true;
+    const [tempMinPrice, setTempMinPrice] = useState<number | undefined>(minPrice);
+    const [tempMaxPrice, setTempMaxPrice] = useState<number | undefined>(maxPrice);
     return (
         <div >
             <div className="flex flex-col gap-6 pt-10">
@@ -25,22 +28,22 @@ export default function FilterTour(props:FlightCardProps)  {
                         <input
                             className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             placeholder="Min Price"
-                            value={minPrice !== undefined ? minPrice : ''}
-                            onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+                            value={tempMinPrice !== undefined ? tempMinPrice : ''}
+                            onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                         />
                         <span className="text-lg text-gray-600">-</span>
                         <input
                             className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                             placeholder="Max Price"
-                            value={maxPrice !== undefined ? maxPrice : ''}
-                            onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+                            value={tempMaxPrice !== undefined ? tempMaxPrice : ''}
+                            onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
                         />
                         </div>
                         <Button
                         onClick={() => {
-                            setMinPrice(minPrice)
-                            setMaxPrice(maxPrice)
-                            handlePriceRangeChange(minPrice, maxPrice)
+                            setMinPrice(tempMinPrice)
+                            setMaxPrice(tempMaxPrice)
+                            handlePriceRangeChange(tempMinPrice, tempMaxPrice)
                         }}
                         className="w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
                         >
@@ -49,6 +52,8 @@ export default function FilterTour(props:FlightCardProps)  {
                         <Button
                         className="w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500"
                         onClick={() => {
+                            setTempMinPrice(undefined);
+                            setTempMaxPrice(undefined);
                             setMinPrice(undefined)
                             setMaxPrice(undefined)
                             handlePriceRangeChange(undefined, undefined)
