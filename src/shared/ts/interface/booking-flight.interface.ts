@@ -23,7 +23,7 @@ export interface BookingResponse {
   invoice: any[]
 }
 
-export type Payment = {
+export type FlightAdmin = {
   id: string
   tourId: string
   userId: string
@@ -46,11 +46,4 @@ export type Payment = {
   confirmationTime: string | null
   
 }
-export interface ListResponse<F> {
-  data: F[]
-  total: number
-  currentPage: number
-  items_per_page: number
 
-}
-export type PaymentListResponse = ListResponse<Payment>;

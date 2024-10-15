@@ -1,7 +1,7 @@
 
 
 import { BillingAll } from "@/components/common/admin/billing/billing-all/BillingAll";
-import { BillingFlight } from "@/components/common/admin/billing/billing-flight/BillingFlight";
+import { BillingFLight } from "@/components/common/admin/billing/billing-flight/BillingFlight";
 import { BillingHotel } from "@/components/common/admin/billing/billing-hotel/BillingHotel";
 import { BillingTour } from "@/components/common/admin/billing/billing-tour/BillingTour";
 import { Button } from "@/components/ui/button";
@@ -80,7 +80,7 @@ export default function BillingAdmin() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <BillingFlight/>
+            <BillingFLight/>
           </CardContent>
         </Card>
       </TabsContent>

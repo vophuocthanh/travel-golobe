@@ -27,6 +27,13 @@ export interface ListResponse<T> {
   end_day: string
   branch: string
 }
+export interface ListResponseFlight<F> {
+  data: F[]
+  total: number
+  currentPage: number
+  items_per_page: number
+
+}
 export interface HotelParams {
   items_per_page: number
   page: number
