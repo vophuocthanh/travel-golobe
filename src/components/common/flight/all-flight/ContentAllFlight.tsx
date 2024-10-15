@@ -30,8 +30,9 @@ export default function ContentAllFlight() {
   const { data: getAll, refetch } = useQuery({
     queryKey: ['getAllFlightList', 1, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
     queryFn: () => flightApi.getAll(1, 4, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
-    enabled: false
+
   })
+  console.log(getAll,"formattedDepartDate");
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 
