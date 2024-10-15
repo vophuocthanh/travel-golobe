@@ -44,8 +44,8 @@ export interface TourParams {
   search?: string
   sort_by_price?: string
   rating?: number
-  start_day?: string
-  end_day?: string
+  start_date?: string
+  end_date?: string
 
   
 }

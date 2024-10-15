@@ -52,12 +52,9 @@ const ProductTour:  React.FC<TourlCardProps> = ({debouncedSearchTour,minPrice,ma
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour', page, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate],
     queryFn: () => tourApi.getAll(page, 4, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate),
-    enabled: !!debouncedSearchTour || !!sortByPrice || !! page || !!departDate || !! returnDate , 
+    enabled: !!debouncedSearchTour || !!sortByPrice || !! page, 
   })
-  console.log(getAll,"getAllDate");
-  console.log(departDate, returnDate, "Dates before calling API");
-  console.log(page, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate, "Params in API");
-
+  console.log(getAll?.data,"getAllDate");
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePage = (newPage: number) => {

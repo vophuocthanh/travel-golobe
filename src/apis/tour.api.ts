@@ -12,8 +12,8 @@ export const tourApi = {
     search?: string,
     sort_by_price?: string,
     rating?: number | undefined,
-    start_day?: string, 
-    end_day?: string,
+    start_date?: string, 
+    end_date?: string,
   ): Promise<ListResponse<TourResponseType>>{
     const url = '/tour'
 
@@ -35,9 +35,9 @@ export const tourApi = {
     if (rating !== undefined) {
       params.rating = rating
     }
-    if (start_day && end_day) {
-      params.start_day = String(start_day)
-      params.end_day = String(end_day)
+    if (start_date && end_date) {
+      params.start_date = String(start_date)
+      params.end_date = String(end_date)
     }
     return axiosClient.get(url, {params})
   },

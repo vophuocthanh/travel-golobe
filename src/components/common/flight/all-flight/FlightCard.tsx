@@ -51,7 +51,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
     queryKey: ['getAllFlight', page, sortByPrice, brandFlight || '', minPrice, maxPrice, departDate, returnDate],
     queryFn: () => flightApi.getAll(page, 4, sortByPrice, brandFlight || '', minPrice, maxPrice, departDate, returnDate)
   })
-  console.log(getAll?.data?.length,"getAllgetAll");
+  console.log(getAll?.min_price,"getAllgetAll");
   
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
