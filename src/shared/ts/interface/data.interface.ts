@@ -102,7 +102,10 @@ export interface CoachResponseType {
   isFavorite?: boolean
   number_of_seats_remaining: number
 }
-export interface FlightBillingResponseType{
+
+export interface FlightBillingResponseType{}
+
+export interface BillingResponseType{
   id?: string
   tourId?: string
   userId?: string
@@ -125,3 +128,4 @@ export interface FlightBillingResponseType{
   confirmationTime?: string  | null
   isFavorite?: boolean
 }
+

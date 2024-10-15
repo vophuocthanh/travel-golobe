@@ -41,3 +41,19 @@ export interface UserResponse {
   isVerified?: boolean
   role: Role
 }
+
+export interface UserResponseType {
+  id: string
+  name: string
+  email: string
+  role: string
+}
+
+export interface RoleResponse {
+  id: string
+  name: string
+}
+
+export interface UpdateRoleResponse {
+  roleId: string
+}

@@ -1,17 +1,61 @@
 import { meApi } from '@/apis/me'
+import { roleApi } from '@/apis/role.api'
+import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft } from 'lucide-react'
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export default function UserAdminDetail() {
   const { id } = useParams<string>()
-  console.log('id', id)
-
+  const queryClient = useQueryClient()
   const { data: getUserById } = useQuery({
     queryKey: ['getUserById', id],
     queryFn: () => meApi.getUserById(id as string)
   })
+  const [selectedRoleId, setSelectedRoleId] = useState<string | undefined>('')
+  const [loading, setLoading] = useState(false)
+
+  const { data: getRoles } = useQuery({
+    queryKey: ['getRoles'],
+    queryFn: () => roleApi.getRoles()
+  })
+
+  const mutationRole = useMutation({
+    mutationFn: (data: { roleId: string }) => roleApi.updateRole(id ?? '', data)
+  })
+
+  const handleUpdateRole = () => {
+    setLoading(true)
+    if (selectedRoleId) {
+      mutationRole.mutate(
+        { roleId: selectedRoleId },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['getUserById', id] })
+            toast.success('Update role successfully')
+          },
+          onError: () => {
+            toast.error('Update role failed')
+          },
+          onSettled: () => {
+            setLoading(false)
+          }
+        }
+      )
+    }
+  }
 
   const formatDate = (dateString?: string): string => {
     if (!dateString) return 'N/A'
@@ -64,7 +108,25 @@ export default function UserAdminDetail() {
             </div>
             <div className='flex flex-col gap-2'>
               <h1 className='text-xl font-semibold'>Role</h1>
-              <p>{getUserById?.role?.name}</p>
+              {getRoles ? (
+                <Select onValueChange={(value) => setSelectedRoleId(value)}>
+                  <SelectTrigger className='w-[180px]'>
+                    <SelectValue placeholder={getUserById?.role?.name || 'Select role'} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Roles</SelectLabel>
+                      {getRoles?.data.map((role: { id: string; name: string }) => (
+                        <SelectItem key={role.id} value={role.id}>
+                          {role.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Skeleton className='w-[180px] h-10' />
+              )}
             </div>
             <div className='flex flex-col gap-2'>
               <h1 className='text-xl font-semibold'>Address</h1>
@@ -72,6 +134,9 @@ export default function UserAdminDetail() {
             </div>
           </div>
         </div>
+        <Button className='flex items-center justify-center w-32 mx-auto' loading={loading} onClick={handleUpdateRole}>
+          Chỉnh sửa
+        </Button>
       </div>
     </div>
   )

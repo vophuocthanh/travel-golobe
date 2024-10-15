@@ -17,6 +17,7 @@ import PaymentAdmin from '@/pages/admin/payments/PaymentAdmin'
 import PaymentDetailView from '@/pages/admin/payments/PaymentDetailView'
 import RoadVehicleAdmin from '@/pages/admin/road-vehicle/RoadVehicleAdmin'
 import RoadVehicleAdminView from '@/pages/admin/road-vehicle/RoadVehicleAdminView'
+import CreateTourAdmin from '@/pages/admin/tour/components/CreateTourAdmin'
 import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
 import UserAdminDetail from '@/pages/admin/users/detail/UserAdminDetail'
@@ -37,6 +38,7 @@ import ResetPassword from '@/pages/reset-password/ResetPassword'
 import TourDetailView from '@/pages/tour/TourDetailView'
 import TourPayment from '@/pages/tour/TourPayment'
 import VerifyCode from '@/pages/verify-code/VerifyCode'
+import AdminRoute from '@/routes/AdminRoute'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
@@ -65,7 +67,14 @@ export default function useRoutesElements() {
       { path: path.all_coach, element: <AllCoach /> },
       { path: path.hotelId, element: <HotelDetail /> },
       { path: '*', element: <PageNotFound /> },
-      { path: path.admin, element: <LayoutMain children={<Dashboard />} /> },
+      {
+        path: path.admin,
+        element: (
+          <AdminRoute>
+            <LayoutMain children={<Dashboard />} />
+          </AdminRoute>
+        )
+      },
       { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },
       { path: path.users_id, element: <LayoutMain children={<UserAdminDetail />} /> },
       { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },
@@ -76,6 +85,7 @@ export default function useRoutesElements() {
       { path: path.payment_view, element: <LayoutMain children={<PaymentDetailView />} /> },
       { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
+      { path: path.admin_create_tour, element: <LayoutMain children={<CreateTourAdmin />} /> },
       { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
       { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },

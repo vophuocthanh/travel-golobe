@@ -23,20 +23,17 @@ import {
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-import IconEdit from '@/assets/icons/icon-edit'
 import IconDelete from '@/assets/icons/icon-delete'
+import IconEdit from '@/assets/icons/icon-edit'
 import { Link } from 'react-router-dom'
 
-import { CaretSortIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
-import { IconSearch } from '@/common/icons'
-import { ChevronDown } from 'lucide-react'
-import { TourResponseType } from '@/shared/ts/interface/data.interface'
-import { useQuery } from '@tanstack/react-query'
 import { tourApi } from '@/apis/tour.api'
-
-
-
+import { IconSearch } from '@/common/icons'
+import { TourResponseType } from '@/shared/ts/interface/data.interface'
+import { CaretSortIcon } from '@radix-ui/react-icons'
+import { useQuery } from '@tanstack/react-query'
+import { ColumnDef } from '@tanstack/react-table'
+import { ChevronDown } from 'lucide-react'
 
 function TourAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -46,15 +43,15 @@ function TourAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
 
-  const {data: getAllTour} = useQuery({
-    queryKey: ["getAllTour"],
+  const { data: getAllTour } = useQuery({
+    queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll()
   })
   const totalTour = getAllTour?.total || 0
 
-  const {data: getTour} = useQuery({
-    queryKey: ["getTour",totalTour],
-    queryFn: () => tourApi.getAll(1,totalTour)
+  const { data: getTour } = useQuery({
+    queryKey: ['getTour', totalTour],
+    queryFn: () => tourApi.getAll(1, totalTour)
   })
   const tourData = getTour?.data || []
 
@@ -119,7 +116,11 @@ function TourAdmin() {
       accessorKey: 'description',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' className='w-[400px]' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button
+            variant='ghost'
+            className='w-[400px]'
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
             Description
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
@@ -308,7 +309,6 @@ function TourAdmin() {
       cell: ({ row }) => <div>{row.getValue('child_price')}</div>
     },
     {
-      
       accessorKey: 'adult_price',
       header: ({ column }) => {
         return (
@@ -321,7 +321,6 @@ function TourAdmin() {
       cell: ({ row }) => <div>{row.getValue('adult_price')}</div>
     },
     {
-      
       accessorKey: 'rating',
       header: ({ column }) => {
         return (
@@ -334,7 +333,6 @@ function TourAdmin() {
       cell: ({ row }) => <div>{row.getValue('rating')}</div>
     },
     {
-      
       accessorKey: 'number_of_seats_remaining',
       header: ({ column }) => {
         return (
@@ -398,7 +396,7 @@ function TourAdmin() {
         const price = parseFloat(row.getValue('price'))
 
         const formatted = new Intl.NumberFormat('vi-VN', {
-          style: 'currency', 
+          style: 'currency',
           currency: 'VND'
         }).format(price)
 
@@ -491,7 +489,9 @@ function TourAdmin() {
           </div>
         </div>
         <div className='flex items-center gap-4'>
-          <Button className='bg-[#624DE3] text-white'>+ Add Tour</Button>
+          <Link to='/admin/tours/create'>
+            <Button className='bg-[#624DE3] text-white'>+ Add Tour</Button>
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>
@@ -534,15 +534,15 @@ function TourAdmin() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                    {row.getVisibleCells().map((cell, cellIndex) => (
-                      <TableCell
+                  {row.getVisibleCells().map((cell, cellIndex) => (
+                    <TableCell
                       key={cell.id}
-                      className={`${
-                        cell.column.id === "id" ? "sticky left-0 bg-[#F4F4F4] z-10" : ""
-                      } ${cell.column.id === "actions" ? "sticky right-0 bg-[#F4F4F4] z-10" : ""}`}
+                      className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
+                        cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
+                      }`}
                       style={{
-                        minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
-                        maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                        minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
+                        maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
                       }}
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

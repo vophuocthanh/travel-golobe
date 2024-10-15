@@ -8,7 +8,7 @@ interface FavoriteProps {
   id: string | undefined
 }
 export default function Favorite({ id }: FavoriteProps) {
-  console.log(id, 'id')
+
 
   const navigate = useNavigate()
   const [isFavorited, setIsFavorited] = useState(false)

@@ -23,8 +23,8 @@ export interface ListResponse<T> {
   sort_by_price: string
   min_price: number | undefined
   max_price: number | undefined
-  start_day: string
-  end_day: string
+  start_day?: string
+  end_day?: string
   branch: string
 }
 export interface ListResponseFlight<F> {
@@ -46,9 +46,13 @@ export interface HotelParams {
 export interface TourParams {
   items_per_page: number
   page: number
-  sort_by_price?: string
-  min_price?: number | undefined
-  max_price?: number | undefined
-  star_number?: number | undefined
+  min_price?: number
+  max_price?: number 
   search?: string
+  sort_by_price?: string
+  rating?: number
+  start_date?: string
+  end_date?: string
+
+  
 }

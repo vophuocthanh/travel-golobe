@@ -5,16 +5,33 @@ import { ParamsType } from '@/shared/ts/interface/params-type-flight'
 
 export const flightApi = {
   getAll(
-        page: number | string, items_per_page: number | string, sort_by_price: string,brand?: string, min_price?: number, 
-        max_price?: number, start_day?: string, end_day?: string,  ): Promise<ListResponse<FlightResponseType>> {
+    page: number | string,
+    items_per_page: number | string,
+    sort_by_price?: string,
+    brand?: string,
+    min_price?: number,
+    max_price?: number,
+    start_day?: string,
+    end_day?: string
+  ): Promise<ListResponse<FlightResponseType>> {
     const url = '/flight-crawl/crawl'
     const params: ParamsType = {
       items_per_page: Number(items_per_page),
-      page: Number(page),
-      sort_by_price: String(sort_by_price),
-      min_price: min_price,
-      max_price: max_price,
+      page: Number(page)
     }
+
+    if (sort_by_price) {
+      params.sort_by_price = sort_by_price
+    }
+
+    if (min_price !== undefined) {
+      params.min_price = min_price
+    }
+
+    if (max_price !== undefined) {
+      params.max_price = max_price
+    }
+
     if (brand) {
       params.brand = String(brand)
     }
@@ -25,7 +42,6 @@ export const flightApi = {
 
     return axiosClient.get(url, { params })
   },
-
 
   favoriteFLightID(id: string | undefined): Promise<void> {
     const url = `/flight-crawl/${id}/favorite`

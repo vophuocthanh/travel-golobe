@@ -24,6 +24,7 @@ export const path = {
   users_id: '/admin/users/:id',
   billing: '/admin/billing',
   admin_tour: '/admin/tours',
+  admin_create_tour: '/admin/tours/create',
   admin_tourID: '/admin/tours/:id',
   admin_flight: '/admin/flights',
   admin_flightID: '/admin/flights/:id',
@@ -41,5 +42,5 @@ export const path = {
   flight_view: '/admin/billing/flight_view',
   tour_view: '/admin/billing/tour-view',
   road_vehicleID: '/admin/road-vehicle/:id',
-  payment_view: '/admin/payment/payment-view',
+  payment_view: '/admin/payment/payment-view'
 } as const
