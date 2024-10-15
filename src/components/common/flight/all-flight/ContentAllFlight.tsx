@@ -28,7 +28,7 @@ export default function ContentAllFlight() {
     setMaxPrice(max)
   }
   const { data: getAll, refetch } = useQuery({
-    queryKey: ['getAllFlight', 1, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
+    queryKey: ['getAllFlightList', 1, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
     queryFn: () => flightApi.getAll(1, 4, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
     enabled: false
   })
