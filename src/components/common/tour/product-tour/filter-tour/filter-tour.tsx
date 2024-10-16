@@ -7,6 +7,7 @@ import { useState } from "react"
 interface FlightCardProps {
     minPrice?: number
     maxPrice?: number
+    rating?:number
     handlePriceRangeChange:(min: number | undefined, max: number | undefined) => void
     setMinPrice: React.Dispatch<React.SetStateAction<number | undefined>>
     setMaxPrice: React.Dispatch<React.SetStateAction<number | undefined>>
@@ -14,7 +15,7 @@ interface FlightCardProps {
 }
 
 export default function FilterTour(props:FlightCardProps)  {
-    const {handlePriceRangeChange,handleRating,setMinPrice,setMaxPrice,maxPrice,minPrice} = props
+    const {handlePriceRangeChange,handleRating,rating,setMinPrice,setMaxPrice,maxPrice,minPrice} = props
     const isRatingVisible = true;
     const [tempMinPrice, setTempMinPrice] = useState<number | undefined>(minPrice);
     const [tempMaxPrice, setTempMaxPrice] = useState<number | undefined>(maxPrice);
@@ -68,19 +69,19 @@ export default function FilterTour(props:FlightCardProps)  {
                 <div>
                     <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
                     <div className="flex gap-3 mt-4">
-                    {[0, 1, 2, 3, 4, 5].map((rating) => (
+                    {[0, 1, 2, 3, 4, 5].map((item) => (
                         <Button
-                        key={rating}
-                        className="flex items-center justify-center w-12 h-8 text-sm font-medium text-white transition duration-200 rounded-md cursor-pointer hover:bg-primary hover:text-white"
+                        key={item}
+                        className={`flex items-center ${rating === item || (rating === undefined && item === 0) ? 'active' : ''} ${rating === item || (rating === undefined && item === 0) ? 'bg-primary' : 'bg-slate-400'}  justify-center w-12 h-8 text-sm font-medium text-white transition duration-200 rounded-md cursor-pointer  hover:bg-primary`}
                         onClick={() => {
-                            if (rating === 0) {
+                            if (item === 0) {
                                     handleRating(undefined)
                                 } else {
-                                    handleRating(rating)
+                                    handleRating(item)
                                 }
                             }}
                         >
-                        {rating}+
+                        {item}+
                         </Button>
                     ))}
                     </div>
