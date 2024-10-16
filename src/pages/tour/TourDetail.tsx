@@ -34,6 +34,8 @@ export default function TourDetail() {
   const handleRating = (val: number | undefined) => {
     setRating(val)
   }
+  console.log(rating,"rating");
+  
   const [searchTour, setSearchTour] = useState<string>('')
   const debouncedSearchTour = useDebounce<string>(searchTour, 500)
 
@@ -135,6 +137,7 @@ export default function TourDetail() {
           minPrice={minPrice}
           maxPrice={maxPrice}
           handleRating={handleRating}
+          rating={rating}
         />
         <ProductTour
           departDate={filteredDepartDate}
