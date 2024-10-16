@@ -103,6 +103,8 @@ export interface CoachResponseType {
   number_of_seats_remaining: number
 }
 
+export interface FlightBillingResponseType{}
+
 export interface BillingResponseType{
   id?: string
   tourId?: string
@@ -126,3 +128,4 @@ export interface BillingResponseType{
   confirmationTime?: string  | null
   isFavorite?: boolean
 }
+

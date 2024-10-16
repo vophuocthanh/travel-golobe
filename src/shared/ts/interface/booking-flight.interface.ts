@@ -22,3 +22,28 @@ export interface BookingResponse {
   baggage_weight: string
   invoice: any[]
 }
+
+export type FlightAdmin = {
+  id: string
+  tourId: string
+  userId: string
+  flightCrawlId: string
+  hotelCrawlId: string
+  roadVehicleId: string | null
+  flightQuantity: number
+  hotelQuantity: number
+  tourQuantity: number
+  roadVehicleQuantity: number | null
+  flightPrice: number
+  hotelPrice: number
+  tourPrice: number
+  roadVehiclePrice: number | null
+  roomId: string | null
+  ticketFlighttId: string | null
+  totalAmount: number
+  createdAt: string
+  status: 'PENDING' | 'PROCESING' | 'CANCELLED'
+  confirmationTime: string | null
+  
+}
+
