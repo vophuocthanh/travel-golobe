@@ -19,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { SquarePen } from 'lucide-react'
 import { useState } from 'react'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 type Props = {
   title: string

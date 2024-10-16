@@ -15,7 +15,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 export default function UserAdminDetail() {
   const { id } = useParams<string>()

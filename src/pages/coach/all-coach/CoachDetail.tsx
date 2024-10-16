@@ -1,4 +1,8 @@
+import { bookingCoachApi } from '@/apis/booking-coach'
+import { coachApi } from '@/apis/coach.api'
+import { commentCoachApi } from '@/apis/comment-coach.api'
 import { bannercoach, coachdetail1, coachdetail2, coachdetail3 } from '@/assets/images'
+import { IconLink } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -17,22 +21,16 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import CoachDetailReview from './commentCoach'
-import { coachApi } from '@/apis/coach.api'
-import { commentCoachApi } from '@/apis/comment-coach.api'
-import { IconLink } from '@/common/icons'
-import { bookingCoachApi } from '@/apis/booking-coach'
-import { toast } from 'sonner'
-
 
 export default function CoachDetail() {
   const [loadingBooking, setLoadingBooking] = useState(false)
   const [liked, setLiked] = useState(false)
   const [roadVehicleQuantity, setRoadVehicleQuantity] = useState(1) // Khởi tạo số lượng là 1
-
 
   const handleClick = () => {
     setLiked(!liked)
@@ -62,7 +60,6 @@ export default function CoachDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => coachApi.getById(id || '')
@@ -71,10 +68,10 @@ export default function CoachDetail() {
     queryKey: ['getComments', id],
     queryFn: () => commentCoachApi.getComments(id || '')
   })
-  
+
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
-  
+
   const handleBookingCoach = () => {
     setLoadingBooking(true)
     mutationCoachBooking.mutate(undefined, {
@@ -93,7 +90,7 @@ export default function CoachDetail() {
   }
 
   const mutationCoachBooking = useMutation({
-    mutationFn: () => bookingCoachApi.addBookingCoach(id || '', roadVehicleQuantity),
+    mutationFn: () => bookingCoachApi.addBookingCoach(id || '', roadVehicleQuantity)
   })
 
   const handleIncreaseQuantity = () => {
@@ -105,7 +102,7 @@ export default function CoachDetail() {
       setRoadVehicleQuantity((prevQuantity) => prevQuantity - 1)
     }
   }
-  
+
   return (
     <>
       <Header />
@@ -138,13 +135,26 @@ export default function CoachDetail() {
             <div className='space-y-2'>
               <p className='text-[32px] text-right font-bold text-[#FF8682]'>{formattedPrice}</p>
               <div className='flex space-x-2'>
-                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>Còn {getbyId?.number_of_seats_remaining} chổ ngồi</p>
+                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>
+                  Còn {getbyId?.number_of_seats_remaining} chổ ngồi
+                </p>
                 <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
-                  <Button onClick={handleDecreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0} className='w-10 px-2 py-1 text-lg border rounded'>
+                  <Button
+                    onClick={handleDecreaseQuantity}
+                    disabled={getbyId?.number_of_seats_remaining === 0}
+                    className='w-10 px-2 py-1 text-lg border rounded'
+                  >
                     -
                   </Button>
                   <p className='w-5 text-lg font-semibold text-center'>{roadVehicleQuantity}</p>
-                  <Button onClick={handleIncreaseQuantity} disabled={getbyId?.number_of_seats_remaining === 0 || getbyId?.number_of_seats_remaining === roadVehicleQuantity} className='w-10 px-2 py-1 text-lg border rounded'>
+                  <Button
+                    onClick={handleIncreaseQuantity}
+                    disabled={
+                      getbyId?.number_of_seats_remaining === 0 ||
+                      getbyId?.number_of_seats_remaining === roadVehicleQuantity
+                    }
+                    className='w-10 px-2 py-1 text-lg border rounded'
+                  >
                     +
                   </Button>
                 </div>
@@ -155,9 +165,16 @@ export default function CoachDetail() {
                   <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
                 </p>
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <IconLink/>
+                  <IconLink />
                 </p>
-                  <Button className='flex w-[8rem]' loading={loadingBooking} onClick={handleBookingCoach} disabled={getbyId?.number_of_seats_remaining === 0}>Book now</Button>
+                <Button
+                  className='flex w-[8rem]'
+                  loading={loadingBooking}
+                  onClick={handleBookingCoach}
+                  disabled={getbyId?.number_of_seats_remaining === 0}
+                >
+                  Book now
+                </Button>
               </div>
             </div>
           </div>
@@ -203,22 +220,34 @@ export default function CoachDetail() {
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-Trip Cleaning: Coaches are thoroughly cleaned before every trip, with extra care on high-touch surfaces.</p>
+                <p className='text-sm text-gray-200'>
+                  Pre-Trip Cleaning: Coaches are thoroughly cleaned before every trip, with extra care on high-touch
+                  surfaces.
+                </p>
               </div>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Air Filtration: Coaches are fitted with HEPA filters to purify the air, removing up to 99.97% of particles.</p>
+                <p className='text-sm text-gray-200'>
+                  Air Filtration: Coaches are fitted with HEPA filters to purify the air, removing up to 99.97% of
+                  particles.
+                </p>
               </div>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Health Screening: Passengers must complete a short health questionnaire before boarding to ensure safe travel for all.</p>
+                <p className='text-sm text-gray-200'>
+                  Health Screening: Passengers must complete a short health questionnaire before boarding to ensure safe
+                  travel for all.
+                </p>
               </div>
             </div>
           </div>
 
           <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
             <div className='flex justify-between'>
-              <p className='text-xl font-bold'>{getbyId?.start_time} {getbyId?.start_day ? new Date(getbyId.start_day).toLocaleDateString('vi-VN') : 'N/A'}</p>
+              <p className='text-xl font-bold'>
+                {getbyId?.start_time}{' '}
+                {getbyId?.start_day ? new Date(getbyId.start_day).toLocaleDateString('vi-VN') : 'N/A'}
+              </p>
               <p className='text-lg font-medium'>{getbyId?.brand}</p>
             </div>
 
@@ -256,7 +285,7 @@ export default function CoachDetail() {
 
                 <div className='flex items-center space-x-4'>
                   <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                  <Bus className='w-6 h-6'/>
+                  <Bus className='w-6 h-6' />
                   <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
                 </div>
 

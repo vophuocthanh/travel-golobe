@@ -21,7 +21,7 @@ import { PropProfile } from '@/shared/ts/types/profile.type'
 import { ChangePasswordSchema } from '@/shared/utils/schema'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 export default function ContentPassword({ title, content, boolean }: PropProfile) {
   const [open, setOpen] = useState(false)

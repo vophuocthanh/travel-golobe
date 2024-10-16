@@ -15,15 +15,14 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 import Favorite from '../components/Favorite'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const roomSectionRef = useRef<HTMLDivElement | null>(null);
+  const roomSectionRef = useRef<HTMLDivElement | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
@@ -34,8 +33,7 @@ export default function HotelDetail() {
 
   const handleValueChange = (value: string) => {
     setRoomId(value)
-  };
-
+  }
 
   const mutationHotelBooking = useMutation({
     mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId),
@@ -54,11 +52,9 @@ export default function HotelDetail() {
 
   const handleBookHotel = () => {
     if (roomId === '') {
-      roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-    else {
+      roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+    } else {
       mutationHotelBooking.mutate()
-
     }
   }
 
@@ -129,12 +125,14 @@ export default function HotelDetail() {
             <div className='flex-1 text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
               <div className='flex items-center justify-end gap-2 space-x-2'>
-                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>Còn {getbyId?.number_of_seats_remaining} chổ ngồi</p>
+                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>
+                  Còn {getbyId?.number_of_seats_remaining} chổ ngồi
+                </p>
                 <Favorite idHotel={id} />
                 <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <IconLink />
                 </div>
-                <div className='flex border border-primary rounded'>
+                <div className='flex border rounded border-primary'>
                   <Button
                     onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
                     className='px-4 py-2 m-[1px] text-white'
@@ -144,26 +142,29 @@ export default function HotelDetail() {
                   <input
                     type='text'
                     value={hotelQuantity}
-                    onChange={(e) => setHotelQuantity(Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0))}
+                    onChange={(e) =>
+                      setHotelQuantity(
+                        Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0)
+                      )
+                    }
                     min='1'
                     className='w-16 text-center focus:outline-none'
                   />
                   <Button
-                    onClick={() => setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))}
+                    onClick={() =>
+                      setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
+                    }
                     className='px-4 py-1 m-[1px] text-white'
-                    disabled={getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0}
+                    disabled={
+                      getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0
+                    }
                   >
                     +
                   </Button>
                 </div>
-                <Button
-                  onClick={handleBookHotel}
-                  disabled={getbyId?.number_of_seats_remaining === 0}
-                  loading={loading}
-                >
+                <Button onClick={handleBookHotel} disabled={getbyId?.number_of_seats_remaining === 0} loading={loading}>
                   Book now
                 </Button>
-
               </div>
             </div>
           </div>

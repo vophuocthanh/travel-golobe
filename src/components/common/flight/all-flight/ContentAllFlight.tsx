@@ -9,7 +9,7 @@ import FlightCard from './FlightCard'
 import { flightApi } from '@/apis/flight.api'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 import { DatePickerWithPresets } from '../../calendar/calendar-date'
 
 export default function ContentAllFlight() {
@@ -29,10 +29,9 @@ export default function ContentAllFlight() {
   }
   const { data: getAll, refetch } = useQuery({
     queryKey: ['getAllFlightList', 1, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
-    queryFn: () => flightApi.getAll(1, 4, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate),
-
+    queryFn: () => flightApi.getAll(1, 4, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate)
   })
-  console.log(getAll,"formattedDepartDate");
+  console.log(getAll, 'formattedDepartDate')
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
 

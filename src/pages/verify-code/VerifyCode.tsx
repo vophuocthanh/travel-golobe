@@ -21,7 +21,7 @@ import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, redirect, useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 export function Loader() {
