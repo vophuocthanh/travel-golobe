@@ -10,8 +10,7 @@ const HotelListings: React.FC = () => {
   const [priceRange, setPriceRange] = useState<[number | undefined, number | undefined]>([undefined, undefined]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
-  const [starNumber, setStarNumer] = useState<number | undefined>(undefined);
-
+  const [starNumber, setStarNumber] = useState<number | undefined>(undefined);
 
   const handlePriceRangeChange = () => {
     const newMinPrice = Number(minPrice);
@@ -95,15 +94,16 @@ const HotelListings: React.FC = () => {
               <div>
                 <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
                 <div className="flex gap-3 mt-4">
-                  {[0, 1, 2, 3, 4, 5].map((rating) => (
+                  {[1, 2, 3, 4, 5].map((rating) => (
                     <Button
                       key={rating}
-                      className="flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md hover:bg-primary hover:text-white transition duration-200 cursor-pointer"
+                      className={`flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md transition duration-200 ${starNumber === rating ? 'bg-primary' : 'opacity-50 hover:opacity-100 cursor-pointer'
+                        }`}
                       onClick={() => {
-                        if (rating === 0) {
-                          setStarNumer(undefined)
+                        if (starNumber === rating) {
+                          setStarNumber(undefined);
                         } else {
-                          setStarNumer(rating)
+                          setStarNumber(rating);
                         }
                       }}
                     >
