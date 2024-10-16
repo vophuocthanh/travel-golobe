@@ -20,7 +20,7 @@ import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, redirect, useNavigate, useSearchParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 export function Loader() {
   const isAuth = getAccessTokenFromLS()

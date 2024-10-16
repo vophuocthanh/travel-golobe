@@ -11,7 +11,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { CornerRightDown, TableOfContents } from 'lucide-react'
 import { SetStateAction, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 const reviewsPerPage = 5
 

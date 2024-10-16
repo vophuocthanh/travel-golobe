@@ -13,7 +13,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, Link2, MapPin, Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 
 export default function TourDetailView() {
   const { id } = useParams<{ id: string }>()

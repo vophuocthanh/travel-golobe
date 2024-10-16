@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react'
-import FilterSection from './FilterSection'
-import { Input } from '@/components/ui/input'
+import { coachApi } from '@/apis/coach.api'
 import { IconVector, IconVectorDown } from '@/common/icons'
 import IconSreach from '@/common/icons/IconSreach'
 import { Button } from '@/components/ui/button'
-import { DatePickerWithPresets } from '../../calendar/calendar-date'
-import { format } from 'date-fns'
-import { toast } from 'sonner'
+import { Input } from '@/components/ui/input'
 import { useQuery } from '@tanstack/react-query'
+import { format } from 'date-fns'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import CoachCard from './CoachCard'
-import { coachApi } from '@/apis/coach.api'
+import FilterSection from './FilterSection'
 
 export default function ContentAllCoach() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
@@ -76,32 +76,32 @@ export default function ContentAllCoach() {
                 <IconVectorDown />
               </div>
             </div>
-              <div className='relative z-10 w-full col-span-2 ml-5'>
-                <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm '>
-                  Depart
-                </label>
+            <div className='relative z-10 w-full col-span-2 ml-5'>
+              <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm '>
+                Depart
+              </label>
               <div className='text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
                 <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
-                </div>
-              </div>
-              <div className='relative z-10 w-full col-span-2 ml-5'>
-                <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
-                  Return
-                </label>
-              <div className=' text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
-                  <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
               </div>
             </div>
-              <div className='w-full col-span-1 ml-5'>
-                <Button className='h-[3rem] mt-1 w-[3.8rem]' onClick={handleSearch}>
-                  <IconSreach />
-                </Button>
+            <div className='relative z-10 w-full col-span-2 ml-5'>
+              <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                Return
+              </label>
+              <div className=' text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
+                <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
               </div>
+            </div>
+            <div className='w-full col-span-1 ml-5'>
+              <Button className='h-[3rem] mt-1 w-[3.8rem]' onClick={handleSearch}>
+                <IconSreach />
+              </Button>
             </div>
           </div>
+        </div>
       </div>
 
-        <div className={`flex flex-row mx-[6rem]  gap-2 h-[120rem]`}>
+      <div className={`flex flex-row mx-[6rem]  gap-2 h-[120rem]`}>
         <FilterSection onApplyFilter={handleApplyFilter} />
         <div className='flex flex-col w-full gap-8 '>
           <CoachCard

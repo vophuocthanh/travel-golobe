@@ -15,7 +15,7 @@ import { useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 export default function Login() {
