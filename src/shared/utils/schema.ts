@@ -60,10 +60,9 @@ export const VerifyCodeSchema = z.object({
   verificationCode: z.string()
 })
 
-
 export const NameSchema = z.object({
-  name: z.string().min(1, 'Name cannot be empty'), 
-});
+  name: z.string().min(1, 'Name cannot be empty')
+})
 
 export const PhoneSchema = z.object({
   phone: z.string().min(10, 'Invalid phone number')

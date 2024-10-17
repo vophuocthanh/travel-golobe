@@ -59,7 +59,7 @@ export default function HotelDetail() {
   }
 
   const { data: getCommentHotel } = useQuery({
-    queryKey: ['getComments', id],
+    queryKey: ['getCommentHotel', id],
     queryFn: () => commentHotelApi.getComments(id || '')
   })
 

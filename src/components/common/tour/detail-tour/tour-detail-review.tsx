@@ -1,13 +1,12 @@
-import { commentHotelApi } from '@/apis/comment-hotel.api'
+import { commentTourApi } from '@/apis/comment-tour.api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useAuth } from '@/hooks/useAuth'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import BasicRating from '@/pages/home-stay/components/StarRating'
-//import BasicRating from '@/pages/home-stay/components/StarRating'
-import { CommentHotel, CommentHotelForm } from '@/shared/ts/interface/comment-hotel.interface'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { CommentTour, CommentTourForm } from '@/shared/ts/interface/comment-tour.interface'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CornerRightDown, TableOfContents } from 'lucide-react'
 import { SetStateAction, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -15,13 +14,13 @@ import { toast } from 'react-toastify'
 
 const reviewsPerPage = 5
 
-interface HotelDetailReviewProps {
-  data: CommentHotel[]
-  hotelId: string
+interface TourDetailReviewProps {
+  data: CommentTour[]
+  tourId: string
   total: number
 }
 
-export default function HotelDetailReview({ data, hotelId, total }: HotelDetailReviewProps) {
+export default function TourDetailReview({ data, tourId, total }: TourDetailReviewProps) {
   const [currentPage, setCurrentPage] = useState(1)
   const { isAuthenticated } = useAuth()
 
@@ -40,23 +39,10 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
     setCurrentPage(pageNumber)
   }
 
-  const [commentId, setCommentId] = useState<string | null>(null)
-
-  const { data: getReplyComment } = useQuery({
-    queryKey: ['getReplyComment', commentId],
-    queryFn: () => commentHotelApi.getReplyComment(commentId ?? ''),
-    enabled: !!commentId
-  })
-  const handleReplyIconClick = (commentId: string) => {
-    setCommentId(commentId)
-    queryClient.invalidateQueries({ queryKey: ['getReplyComment', commentId] })
-  }
-  console.log('getReplyComment:', getReplyComment)
-
   const mutationReview = useMutation({
-    mutationFn: (data: CommentHotelForm) => commentHotelApi.addComment(data, id ?? ''),
+    mutationFn: (data: CommentTourForm) => commentTourApi.addComment(id ?? '', data.content, data.rating),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['getCommentHotel'] })
+      queryClient.invalidateQueries({ queryKey: ['getCommentTour'] })
       setComment('')
       setRating(0)
       setLoading(false)
@@ -67,9 +53,9 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
   })
 
   const deleteComment = useMutation({
-    mutationFn: (commentId: string) => commentHotelApi.deleteComment(id ?? '', commentId),
+    mutationFn: (commentId: string) => commentTourApi.deleteComment(id ?? '', commentId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['getCommentHotel'] })
+      queryClient.invalidateQueries({ queryKey: ['getCommentTour'] })
       toast.success('Xoá bình luận thành công!')
     },
     onError: (error) => {
@@ -85,7 +71,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
     e.preventDefault()
     if (comment.trim() !== '' && rating !== null) {
       setLoading(true)
-      mutationReview.mutate({ hotelId, content: comment, rating })
+      mutationReview.mutate({ tourId, content: comment, rating })
     }
   }
 
@@ -170,10 +156,10 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
             {data?.map((item, index) => (
               <li className='p-4 bg-white rounded shadow ' key={index}>
                 <div className='relative flex items-center space-x-4'>
-                  <img src={item.user.avatar} alt='avatar' className='w-12 h-12 mr-2 rounded-full' />
+                  <img src={item.users?.avatar} alt='avatar' className='w-12 h-12 mr-2 rounded-full' />
                   <div>
                     <p className='font-bold'>
-                      {item.user.name} - {formatDateTime(item.createdAt)}
+                      {item.users?.name} - {formatDateTime(item.createdAt)}
                     </p>
                     <p>{item.content}</p>
                     <ReadOnlyRating rating={item.rating} />
@@ -189,9 +175,8 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                     </Popover>
                   </div>
                   <div className='absolute bottom-1 right-16'>
-                    <CornerRightDown className='w-6 h-6' onClick={() => handleReplyIconClick(item.id)} />
+                    <CornerRightDown className='w-6 h-6' />
                   </div>
-
                   <div className='absolute bottom-1 right-2'>
                     <p onClick={() => handleReplyClick(item.id)} className='text-blue-500 cursor-pointer'>
                       Trả lời

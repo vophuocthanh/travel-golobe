@@ -1,16 +1,18 @@
 import { bookingTourApi } from '@/apis/booking-tour.api'
+import { commentTourApi } from '@/apis/comment-tour.api'
 import { tourApi } from '@/apis/tour.api'
 
 import { IconDeparture, IconDepartureDate, IconNumberSeats, IconTime, IconTourCode } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import Information from '@/components/common/tour/detail-tour/infomation/infomation'
 import Schedule from '@/components/common/tour/detail-tour/schedule/schedule'
+import TourDetailReview from '@/components/common/tour/detail-tour/tour-detail-review'
 import Vehicle from '@/components/common/tour/detail-tour/vehicle/vehicle'
 import Favorite from '@/components/common/tour/favorite/favorite'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { ChevronRight, Link2, MapPin, Star } from 'lucide-react'
+import { ChevronRight, Link2, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -25,6 +27,11 @@ export default function TourDetailView() {
   const { data: getbyId } = useQuery({
     queryKey: ['getByIdTour', id],
     queryFn: () => tourApi.getById(id)
+  })
+
+  const { data: getCommentTour } = useQuery({
+    queryKey: ['getCommentTour', id],
+    queryFn: () => commentTourApi.getComments(id || '')
   })
 
   const mutationAddBookingTour = useMutation({
@@ -58,23 +65,6 @@ export default function TourDetailView() {
     })
   }
 
-  const reviews = [
-    {
-      rating: 5.0,
-      title: 'Amazing',
-      author: 'Omar Siphron',
-      content:
-        'Loremm ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    },
-    {
-      rating: 5.0,
-      title: 'Amazing',
-      author: 'Cristofer Ekstrom Bothman',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-    }
-  ]
-
   useEffect(() => {
     // Giả lập thời gian tải dữ liệu
     setTimeout(() => {
@@ -98,6 +88,23 @@ export default function TourDetailView() {
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
+  const getRatingStatus = (rating: number) => {
+    if (rating <= 2) {
+      return 'Not Good'
+    } else if (rating <= 4) {
+      return 'Good'
+    } else {
+      return 'Very Good'
+    }
+  }
+
+  const totalComments = getCommentTour?.total ?? 0
+  const averageRating =
+    totalComments > 0
+      ? (getCommentTour?.data.reduce((acc, cur) => acc + cur.rating, 0) / totalComments).toFixed(1)
+      : '0'
+
+  const ratingStatus = getRatingStatus(Number(averageRating))
   return (
     <>
       {
@@ -129,7 +136,7 @@ export default function TourDetailView() {
                       4.2
                     </p>
                     <p className='text-sm text-gray-600'>
-                      <span className='font-semibold'>Very Good</span> 54 reviews
+                      <span className='font-semibold'>{ratingStatus}</span> {getCommentTour?.total} reviews
                     </p>
                   </div>
                 </div>
@@ -146,7 +153,10 @@ export default function TourDetailView() {
                       <p className='text-lg font-semibold'>{tourQuantity}</p>
                       <Button
                         onClick={handleIncreaseQuantity}
-                        disabled={getbyId?.number_of_seats_remaining === 0}
+                        disabled={
+                          getbyId?.number_of_seats_remaining === tourQuantity ||
+                          getbyId?.number_of_seats_remaining === 0
+                        }
                         className='w-10 px-2 py-1 text-lg text-black border rounded'
                       >
                         +
@@ -287,18 +297,11 @@ export default function TourDetailView() {
                   <div>
                     <p className='mb-4 text-2xl font-bold'>Reviews</p>
                     <div className='flex flex-col space-y-4'>
-                      {reviews.map((review, index) => (
-                        <div key={index} className='p-4 border border-gray-300 rounded-lg shadow-md'>
-                          <div className='flex items-center mb-2 space-x-2'>
-                            <Star className='w-5 h-5 text-yellow-400' />
-                            <p className='font-semibold'>
-                              {review.rating} - {review.title}
-                            </p>
-                          </div>
-                          <p className='mb-2 text-sm font-medium text-gray-700'>{review.author}</p>
-                          <p className='text-sm'>{review.content}</p>
-                        </div>
-                      ))}
+                      <TourDetailReview
+                        data={getCommentTour?.data ?? []}
+                        tourId={id || ''}
+                        total={getCommentTour?.total || 0}
+                      />
                     </div>
                   </div>
                 </section>
@@ -357,7 +360,12 @@ export default function TourDetailView() {
                       {getbyId?.number_of_seats_remaining} chỗ
                     </div>
                   </div>
-                  <Button className='w-full' loading={loadingBooking} onClick={handleBookingTour}>
+                  <Button
+                    className='w-full'
+                    loading={loadingBooking}
+                    onClick={handleBookingTour}
+                    disabled={getbyId?.number_of_seats_remaining === 0}
+                  >
                     Đặt tour
                   </Button>
                 </div>

@@ -1,5 +1,6 @@
 import * as React from 'react'
 // import { ChevronDownIcon } from '@radix-ui/react-icons'
+import { Button } from '@/components/ui/button'
 import {
   ColumnFiltersState,
   SortingState,
@@ -11,8 +12,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-
-import { Button } from '@/components/ui/button'
+import dayjs from 'dayjs'
 
 import {
   DropdownMenu,
@@ -78,7 +78,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className='capitalize'>{row.getValue('name')}</div>
+      cell: ({ row }) => <div className='truncate max-w-[300px]'>{row.getValue('name')}</div>
     },
     {
       accessorKey: 'image',
@@ -110,7 +110,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className='capitalize'>{row.getValue('userId')}</div>
+      cell: ({ row }) => <div>{row.getValue('userId')}</div>
     },
     {
       accessorKey: 'description',
@@ -126,43 +126,19 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('description')}</div>
-    },
-    {
-      accessorKey: 'original_price',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Original Price
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('original_price')}</div>
+      cell: ({ row }) => <div className='truncate max-w-[400px]'>{row.getValue('description')}</div>
     },
     {
       accessorKey: 'createAt',
       header: ({ column }) => {
         return (
           <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Create At
+            Ngày tạo
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('createAt')}</div>
-    },
-    {
-      accessorKey: 'updateAt',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Update At
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('updateAt')}</div>
+      cell: ({ row }) => <div>{dayjs(row.getValue('createdAt')).format('DD/MM/YYYY, HH:mm:ss')}</div>
     },
     {
       accessorKey: 'start_date',
@@ -174,7 +150,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('start_date')}</div>
+      cell: ({ row }) => <div>{dayjs(row.getValue('start_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
     },
     {
       accessorKey: 'end_date',
@@ -186,67 +162,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('end_date')}</div>
-    },
-    {
-      accessorKey: 'starting_gate',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Starting Gate
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('starting_gate')}</div>
-    },
-    {
-      accessorKey: 'sight_seeing',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Sight Seeing
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('sight_seeing')}</div>
-    },
-    {
-      accessorKey: 'cuisine',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Cuisine
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('cuisine')}</div>
-    },
-    {
-      accessorKey: 'suitable',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Suitable
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('suitable')}</div>
-    },
-    {
-      accessorKey: 'ideal_time',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Ideal Time
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('ideal_time')}</div>
+      cell: ({ row }) => <div>{dayjs(row.getValue('end_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
     },
     {
       accessorKey: 'road_vehicle',
@@ -259,18 +175,6 @@ function TourAdmin() {
         )
       },
       cell: ({ row }) => <div>{row.getValue('road_vehicle')}</div>
-    },
-    {
-      accessorKey: 'voucher',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Voucher
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('voucher')}</div>
     },
     {
       accessorKey: 'time_trip',
@@ -321,18 +225,6 @@ function TourAdmin() {
       cell: ({ row }) => <div>{row.getValue('adult_price')}</div>
     },
     {
-      accessorKey: 'rating',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Rating
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div>{row.getValue('rating')}</div>
-    },
-    {
       accessorKey: 'number_of_seats_remaining',
       header: ({ column }) => {
         return (
@@ -342,52 +234,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('number_of_seats_remaining')}</div>
-    },
-    {
-      accessorKey: 'location',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Location
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div className='capitalize'>{row.getValue('location')}</div>
-    },
-    {
-      accessorKey: 'transport',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Transport
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div className='capitalize'>{row.getValue('transport')}</div>
-    },
-    {
-      accessorKey: 'hotel',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Hotel
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div className='capitalize'>{row.getValue('hotel')}</div>
-    },
-    {
-      accessorKey: 'rating',
-      header: () => <div className='text-right'>Rating</div>,
-      cell: ({ row }) => {
-        const rating = parseFloat(row.getValue('rating'))
-
-        return <div className='font-medium text-right'>{rating.toFixed(1)}</div>
-      }
+      cell: ({ row }) => <div className='text-center'>{row.getValue('number_of_seats_remaining')}</div>
     },
     {
       accessorKey: 'price',

@@ -106,3 +106,14 @@ export interface TourResponse {
   created_at?: string
   updated_at?: string
 }
+
+export interface TourRequest {
+  name: string
+  description: string
+  image: string
+  price: number
+  hotelId: string
+  flightId: string
+  start_date: string
+  end_date: string
+}

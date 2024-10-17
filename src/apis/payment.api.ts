@@ -15,5 +15,17 @@ export const paymentApi = {
   momoIpn(data: MoMoPaymentResponse): Promise<MoMoPaymentResponse> {
     const url = '/momo/ipn'
     return axiosClient.post(url, data)
+  },
+  getPaymentUser() {
+    const url = '/momo/user'
+    return axiosClient.get(url)
+  },
+  getAllPayemnt() {
+    const url = '/momo/payment'
+    return axiosClient.get(url)
+  },
+  getPaymentById(id: string) {
+    const url = `/momo/payment/${id}`
+    return axiosClient.get(url)
   }
 }

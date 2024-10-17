@@ -1,4 +1,3 @@
-
 import { tourApi } from '@/apis/tour.api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,14 +7,13 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function EditTourAdmin() {
-  const {id} = useParams()
-  console.log(id,"id");
+  const { id } = useParams()
+  console.log(id, 'id')
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => tourApi.getById(id)
   })
-  
-  
+
   const navigate = useNavigate()
   const [tourData, setTourData] = useState({
     id: '',
@@ -35,9 +33,9 @@ export default function EditTourAdmin() {
     score_hotels: '',
     received_time: '',
     giveback_time: '',
-    hotel_link:'',
+    hotel_link: '',
     number_rating: 1,
-    number_of_seats_remaining:'',
+    number_of_seats_remaining: ''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -51,14 +49,14 @@ export default function EditTourAdmin() {
   }
 
   const handleBack = () => {
-    navigate('/admin/hotels')
+    navigate('/admin/tours')
   }
 
   return (
     <div className='w-full p-2'>
       <h1 className='mb-2 text-2xl font-bold'>EDIT Tour {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
-        <ArrowLeftToLine/>
+        <ArrowLeftToLine />
       </Button>
       <form onSubmit={handleSubmit} className='space-y-4'>
         <div className='p-4 bg-white rounded-lg shadow'>
@@ -192,7 +190,7 @@ export default function EditTourAdmin() {
               value={getbyId?.sight_seeing}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />      
+            />
             <Input
               type='text'
               name='cuisine'
@@ -200,7 +198,7 @@ export default function EditTourAdmin() {
               value={getbyId?.cuisine}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />          
+            />
             <Input
               type='text'
               name='suitable'
@@ -208,7 +206,7 @@ export default function EditTourAdmin() {
               value={getbyId?.suitable}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />      
+            />
             <Input
               type='text'
               name='ideal_time'
@@ -216,7 +214,7 @@ export default function EditTourAdmin() {
               value={getbyId?.ideal_time}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />  
+            />
             <Input
               type='text'
               name='road_vehicle'
@@ -224,7 +222,7 @@ export default function EditTourAdmin() {
               value={getbyId?.road_vehicle}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />      
+            />
             <Input
               type='text'
               name='voucher'
@@ -232,7 +230,7 @@ export default function EditTourAdmin() {
               value={getbyId?.voucher}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />    
+            />
             <Input
               type='text'
               name='time_trip'
@@ -240,7 +238,7 @@ export default function EditTourAdmin() {
               value={getbyId?.time_trip}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />      
+            />
             <Input
               type='text'
               name='baby_price'
@@ -248,7 +246,7 @@ export default function EditTourAdmin() {
               value={getbyId?.baby_price}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />    
+            />
             <Input
               type='text'
               name='child_price'
@@ -256,7 +254,7 @@ export default function EditTourAdmin() {
               value={getbyId?.child_price}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />      
+            />
             <Input
               type='text'
               name='adult_price'
@@ -264,7 +262,7 @@ export default function EditTourAdmin() {
               value={getbyId?.adult_price}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />    
+            />
             <Input
               type='text'
               name='rating'
@@ -272,7 +270,7 @@ export default function EditTourAdmin() {
               value={getbyId?.rating}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />    
+            />
             <Input
               type='text'
               name='number_of_seats_remaining'
@@ -280,7 +278,7 @@ export default function EditTourAdmin() {
               value={getbyId?.number_of_seats_remaining}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />          
+            />
             <textarea
               name='description'
               placeholder='Description'
