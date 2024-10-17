@@ -1,6 +1,7 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
@@ -27,7 +28,7 @@ export default function IntoTour() {
               </p>
             </div>
             <Link to='/tour/all-tour'>
-              <Button className='text-black bg-white border border-primary'>See All</Button>
+              <Button className='text-black bg-white border border-primary'>Xem tất cả</Button>
             </Link>
           </div>
           <div className='flex justify-between '>
@@ -61,10 +62,10 @@ export default function IntoTour() {
                         </p>
                       </div>
                       <p className='flex items-center justify-center text-2xl text-white'>
-                        {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price)}
+                        {formatCurrencyVND(item.totalAmount)}
                       </p>
                     </div>
-                    <Button className='relative w-full text-white hover:border-spacing-3'>Book a Hotel</Button>
+                    <Button className='relative w-full text-white hover:border-spacing-3'>Đặt tour</Button>
                   </Link>
                 </SwiperSlide>
               ))}

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
 
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { DownOutlined } from '@ant-design/icons'
 import { Dropdown, MenuProps, Space } from 'antd'
@@ -21,14 +22,21 @@ interface TourlCardProps {
   departDate?: string
   debouncedSearchTour?: string
 }
-const ProductTour:  React.FC<TourlCardProps> = ({debouncedSearchTour,minPrice,maxPrice, rating,departDate,returnDate}) => {
+const ProductTour: React.FC<TourlCardProps> = ({
+  debouncedSearchTour,
+  minPrice,
+  maxPrice,
+  rating,
+  departDate,
+  returnDate
+}) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
   const items: MenuProps['items'] = [
     {
       key: '1',
       label: 'Sắp xếp theo giá',
-      disabled: true,
+      disabled: true
     },
     {
       type: 'divider'
@@ -47,14 +55,25 @@ const ProductTour:  React.FC<TourlCardProps> = ({debouncedSearchTour,minPrice,ma
       key: '4',
       label: 'Không sắp xếp',
       onClick: () => setSortByPrice('')
-    },
+    }
   ]
   const { data: getAll } = useQuery({
-    queryKey: ['getAllTour', page, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate],
-    queryFn: () => tourApi.getAll(page, 4, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate),
-    enabled: !!debouncedSearchTour || !!sortByPrice || !! page, 
+    queryKey: [
+      'getAllTour',
+      page,
+      minPrice,
+      maxPrice,
+      debouncedSearchTour,
+      sortByPrice,
+      rating,
+      departDate,
+      returnDate
+    ],
+    queryFn: () =>
+      tourApi.getAll(page, 4, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate),
+    enabled: !!debouncedSearchTour || !!sortByPrice || !!page
   })
-  console.log(getAll?.data,"getAllDate");
+  console.log(getAll?.data, 'getAllDate')
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePage = (newPage: number) => {
@@ -75,71 +94,67 @@ const ProductTour:  React.FC<TourlCardProps> = ({debouncedSearchTour,minPrice,ma
           </Dropdown>
         </div>
         <div>
-          {
-            (getAll?.data?.length ?? 0) > 0 ? (
-              getAll?.data?.map((item: TourResponseType) => (
-                <Link to={`/tour/${item.id}`} className='w-full'>
-                  <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
-                    <div className='relative bg-blue-300 w-[27%] flex-3'>
-                      <img src={item.image} className='object-cover w-full h-full ' alt='tour' />
-                      <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
-                        9 images
-                      </p>
-                    </div>
-                    <div className='p-3  w-[73%] '>
-                      <div className='flex justify-between '>
-                        <div className='mr-2  w-[85%]'>
-                          <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
-                            {item.description}
-                          </h2>
-                          <div className='flex mb-3'>
-                            <IconAdress />
-                            <p className='ml-2 overflow-hidden whitespace-pre-line text-ellipsis line-clamp-2'>
-                              {item.name}
-                            </p>
+          {(getAll?.data?.length ?? 0) > 0 ? (
+            getAll?.data?.map((item: TourResponseType) => (
+              <Link to={`/tour/${item.id}`} className='w-full'>
+                <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
+                  <div className='relative bg-blue-300 w-[27%] flex-3'>
+                    <img src={item.image} className='object-cover w-full h-full ' alt='tour' />
+                    <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
+                      9 images
+                    </p>
+                  </div>
+                  <div className='p-3  w-[73%] '>
+                    <div className='flex justify-between '>
+                      <div className='mr-2  w-[85%]'>
+                        <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
+                          {item.description}
+                        </h2>
+                        <div className='flex mb-3'>
+                          <IconAdress />
+                          <p className='ml-2 overflow-hidden whitespace-pre-line text-ellipsis line-clamp-2'>
+                            {item.name}
+                          </p>
+                        </div>
+                        <div className='flex justify-between w-[75%] mb-3'>
+                          <div className='flex'>
+                            <StarRating rating={Number(item.rating)} />
                           </div>
-                          <div className='flex justify-between w-[75%] mb-3'>
-                            <div className='flex'>
-                              <StarRating rating={Number(item.rating)} />
-                            </div>
-                            <div className='flex'>
-                              <IconDrink />
-                              <p className='ml-3'>
-                                <span className='font-semibold'>20+</span> Aminities
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className='flex mb-6'>
-                            <Button className='mr-3 text-black bg-white border border-primary hover:bg-slate-100'>
-                              4.2
-                            </Button>
-                            <p className='flex items-center '>
-                              <span className='text-lg font-medium'>Very Good</span> 371 reviews
+                          <div className='flex'>
+                            <IconDrink />
+                            <p className='ml-3'>
+                              <span className='font-semibold'>20+</span> Aminities
                             </p>
                           </div>
                         </div>
-                        <div>
-                          <h2 className='text-2xl font-medium text-red-500'>
-                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price)}
-                          </h2>
+
+                        <div className='flex mb-6'>
+                          <Button className='mr-3 text-black bg-white border border-primary hover:bg-slate-100'>
+                            4.2
+                          </Button>
+                          <p className='flex items-center '>
+                            <span className='text-lg font-medium'>Very Good</span> 371 reviews
+                          </p>
                         </div>
                       </div>
-                      <div className='border-b-2 border-zinc-400'></div>
-                      <div className='w-full h-[25%] flex mb-10'>
-                        <div className='flex flex-row items-center justify-between w-full '>
-                          <Favorite id={item.id} />
-                          <Button className='w-full text-white '>View Deals</Button>
-                        </div>
+                      <div>
+                        <h2 className='text-2xl font-medium text-red-500'>{formatCurrencyVND(item.totalAmount)}</h2>
+                      </div>
+                    </div>
+                    <div className='border-b-2 border-zinc-400'></div>
+                    <div className='w-full h-[25%] flex mb-10'>
+                      <div className='flex flex-row items-center justify-between w-full '>
+                        <Favorite id={item.id} />
+                        <Button className='w-full text-white '>View Deals</Button>
                       </div>
                     </div>
                   </div>
-                </Link>
-              ))
-            ) : (
-              <p className='text-center'>Không có tour nào phù hợp.</p>
-            )
-          }
+                </div>
+              </Link>
+            ))
+          ) : (
+            <p className='text-center'>Không có tour nào phù hợp.</p>
+          )}
         </div>
       </div>
       <div className='mb-40 py-7'>

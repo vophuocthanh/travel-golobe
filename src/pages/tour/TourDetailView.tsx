@@ -85,7 +85,7 @@ export default function TourDetailView() {
 
   const formatDateTime = formatDate(getbyId?.start_date)
 
-  const price = getbyId?.price
+  const price = getbyId?.totalAmount
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   const getRatingStatus = (rating: number) => {
@@ -188,22 +188,22 @@ export default function TourDetailView() {
                     <div className='flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6 '>
                       <div className='w-full space-y-4 '>
                         <img
-                          src={getbyId?.image_2}
+                          src={getbyId?.image_5 ?? undefined}
                           alt='Flight'
                           className='object-cover w-full h-[150px] rounded-lg shadow-lg '
                         />
                         <img
-                          src={getbyId?.image_3}
+                          src={getbyId?.image_3 ?? undefined}
                           alt='Flight'
                           className='object-cover w-full h-[150px] rounded-lg shadow-lg '
                         />
                         <img
-                          src={getbyId?.image_4}
+                          src={getbyId?.image_4 ?? undefined}
                           alt='Flight'
                           className='object-cover w-full h-[150px] rounded-lg shadow-lg '
                         />
                         <img
-                          src={getbyId?.image_5}
+                          src={getbyId?.image_5 ?? undefined}
                           alt='Flight'
                           className='object-cover w-full h-[150px] rounded-lg shadow-lg '
                         />
