@@ -4,6 +4,7 @@ import { tourApi } from '@/apis/tour.api'
 
 import { IconDeparture, IconDepartureDate, IconNumberSeats, IconTime, IconTourCode } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
+import ShareButtons from '@/components/common/share/share-link'
 import Information from '@/components/common/tour/detail-tour/infomation/infomation'
 import Schedule from '@/components/common/tour/detail-tour/schedule/schedule'
 import TourDetailReview from '@/components/common/tour/detail-tour/tour-detail-review'
@@ -12,7 +13,7 @@ import Favorite from '@/components/common/tour/favorite/favorite'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { ChevronRight, Link2, MapPin } from 'lucide-react'
+import { ChevronRight, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -65,8 +66,10 @@ export default function TourDetailView() {
     })
   }
 
+  const tourUrl = `https://travel-golobe.vercel.app/tour/${id}`
+  const tourTitle = getbyId?.description || 'Chia sẻ tour thú vị này!'
+
   useEffect(() => {
-    // Giả lập thời gian tải dữ liệu
     setTimeout(() => {
       setLoading(false)
     }, 1)
@@ -163,9 +166,8 @@ export default function TourDetailView() {
                       </Button>
                     </div>
                     <Favorite id={id} />
-                    <div className='flex items-center justify-center w-12 h-12 text-sm font-medium transition-colors border rounded-full cursor-pointer border-primary hover:bg-gray-100'>
-                      <Link2 className='w-5 h-5 text-gray-500' />
-                    </div>
+
+                    <ShareButtons url={tourUrl} title={tourTitle} />
                   </div>
                 </div>
               </div>
@@ -321,7 +323,7 @@ export default function TourDetailView() {
                     </div>
                     <div className='mr-2 text-xl'>Mã tour:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
-                      {getbyId?.id}
+                      {getbyId?.tour_code}
                     </div>
                   </div>
                   <div className='flex py-4'>

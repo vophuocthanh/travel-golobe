@@ -5,13 +5,13 @@ import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import Favorite from '@/components/common/flight/all-flight/favorite'
 import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
+import ShareButtons from '@/components/common/share/share-link'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
-  Link2,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -93,6 +93,10 @@ export default function FlightDetail() {
     setSelectedTicket(id)
     console.log('Ticket đã chọn:', id)
   }
+
+  const flightUrl = `https://travel-golobe.vercel.app/tour/${id}`
+  const flightTitle = 'Chia sẻ chyến bay thú vị này!'
+
   return (
     <>
       <Header />
@@ -156,9 +160,7 @@ export default function FlightDetail() {
                     +
                   </Button>
                 </div>
-                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <Link2 className={`w-4 h-4`} />
-                </p>
+                <ShareButtons url={flightUrl} title={flightTitle} />
                 <Button onClick={handleBookFlight} disabled={getbyId?.number_of_seats_remaining === 0}>
                   Book now
                 </Button>
