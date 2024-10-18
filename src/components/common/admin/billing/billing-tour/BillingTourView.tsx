@@ -50,19 +50,6 @@ export default function BillingTourView() {
     setBillingData({ ...billingData, [name]: value })
   }
 
-  const getStatusClass = () => {
-    switch (billingData.status) {
-      case 'success':
-        return 'bg-green-300'
-      case 'processing':
-        return 'bg-yellow-300'
-      case 'failed':
-        return 'bg-red-300'
-      default:
-        return ''
-    }
-  }
-
   const formatCurrency = (amount: number | bigint) => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -156,32 +143,6 @@ export default function BillingTourView() {
                     : ''}
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className='p-6 bg-white rounded-lg shadow-lg'>
-          <h2 className='mb-4 text-xl font-bold border-b'>Billing Information</h2>
-          <div className='grid grid-cols-2 gap-4'>
-            <div className='col-span-1'>
-              <p className='font-semibold'>Billing ID</p>
-              <p className='p-2 border rounded shadow-sm'>{billingData.id}</p>
-            </div>
-            <div className='col-span-1'>
-              <p className='font-semibold'>Billing Time</p>
-              <p className='p-2 border rounded shadow-sm'>{billingData.billingTime}</p>
-            </div>
-            <div className='col-span-1'>
-              <p className='font-semibold'>Plan</p>
-              <p className='p-2 border rounded shadow-sm'>{billingData.plan}</p>
-            </div>
-            <div className='col-span-1'>
-              <p className='font-semibold'>Amount</p>
-              <p className='p-2 border rounded shadow-sm'>{formatCurrency(billingData.amount)}</p>
-            </div>
-            <div className='col-span-1'>
-              <p className='font-semibold'>Status</p>
-              <p className={`p-2 border rounded shadow-sm ${getStatusClass()}`}>{billingData.status}</p>
             </div>
           </div>
         </div>
