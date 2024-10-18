@@ -118,8 +118,45 @@ export interface TourBillingResponseType {
   createdAt?: string
   status?: []
   confirmationTime?: string 
-
+  tour?:Tour
 }
+
+export interface Tour {
+  id: string;
+  name: string;
+  userId: string;
+  description: string;
+  price: number;
+  original_price: number | null;
+  createAt: string;
+  updateAt: string;
+  start_date: string;
+  end_date: string;
+  starting_gate: string | null;
+  sight_seeing: string | null;
+  cuisine: string | null;
+  suitable: string | null;
+  ideal_time: string | null;
+  road_vehicle: string | null;
+  voucher: string | null;
+  time_trip: string;
+  baby_price: number;
+  child_price: number;
+  adult_price: number;
+  image: string;
+  image_2: string | null;
+  image_3: string | null;
+  image_4: string | null;
+  image_5: string | null;
+  rating: number;
+  number_of_seats_remaining: number;
+  totalAmount: number;
+  hotelId: string;
+  flightId: string;
+  roadVehicleId: string | null;
+  tour_code: string;
+}
+
 
 export interface BillingResponseType {
   id?: string

@@ -24,7 +24,7 @@ import { IconDelete, IconEdit, IconView } from '@/common/icons'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
-import { TourBillingResponseType } from '@/shared/ts/interface/data.interface'
+import { Tour, TourBillingResponseType } from '@/shared/ts/interface/data.interface'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { bookingTourApi } from '@/apis/booking-tour.api'
 
@@ -84,175 +84,32 @@ export function BillingTour() {
       cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('userId')}</div>
     },
     {
-      accessorKey: 'flightCrawlId',
+      accessorKey: 'tour',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('flightCrawlId')}</div>
-    },
-    {
-      accessorKey: 'hotelCrawlId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('hotelCrawlId')}</div>
-    },
-    {
-      accessorKey: 'roadVehicleId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roadVehicleId')}</div>
-    },
-    {
-      accessorKey: 'flightQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] text-center lowercase break-words'>{row.getValue('flightQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'hotelQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('hotelQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'tourQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('tourQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'roadVehicleQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('roadVehicleQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'flightPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Price
+          hotel Id
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('flightPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
+        const tour = row.getValue('tour') as Tour
+        return <div className='w-[5rem] lowercase break-words'>{tour?.hotelId || 'N/A'}</div>
       }
     },
     {
-      accessorKey: 'hotelPrice',
+      accessorKey: 'tour',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel Price
+          flight Id
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('hotelPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
+        const tour = row.getValue('tour') as Tour
+        return <div className='w-[5rem] lowercase break-words'>{tour?.flightId || 'N/A'}</div>
       }
     },
-    {
-      accessorKey: 'tourPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('tourPrice'))
 
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'roadVehiclePrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('roadVehiclePrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'roomId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Room ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roomId')}</div>
-    },
-    {
-      accessorKey: 'ticketFlighttId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Ticket Flightt Id
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('ticketFlighttId')}</div>
-    },
     {
       accessorKey: 'totalAmount',
       header: ({ column }) => (
