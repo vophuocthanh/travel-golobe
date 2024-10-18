@@ -200,3 +200,4 @@ interface Hotel {
   description: string
   hotel_link: string
 }
+

@@ -1,9 +1,19 @@
 import axiosClient from '@/apis/axios-client'
-import { BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface'
+import { ListResponse } from '@/shared/ts/interface'
+import { BillingCoachResponseAdmin, BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface'
 export const bookingCoachApi = {
   getBooking() {
-    const url = '/book/hotel'
+    const url = '/bookings/book/road-vehicle'
     return axiosClient.get(url)
+  },
+  getBookingCoach( page: number | string, items_per_page: number | string): Promise<ListResponse<BillingCoachResponseAdmin>>{
+    const url = `/bookings/book/road-vehicle`;
+    return axiosClient.get(url, {
+      params: {
+        page: Number(page),
+        items_per_page: Number(items_per_page),
+      },
+    });
   },
   getBookingDetail(id: string): Promise<BookingCoachResponse> {
     const url = `/bookings/road-vehicle/${id}`

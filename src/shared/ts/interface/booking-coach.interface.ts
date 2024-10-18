@@ -22,3 +22,17 @@ export interface BookingCoachResponse {
   type_ticket: string
   invoice: any[]
 }
+export interface BillingCoachResponseAdmin {
+  id?: string
+  userId?: string
+  roadVehicleId?: string | null
+  roadVehicleQuantity?: number | null
+  roadVehiclePrice: number | null
+  ticketCoachId?: string | null
+  totalAmount: number
+  createdAt?: string
+  status?: []
+  confirmationTime?: string | null
+  isFavorite?: boolean
+  roadVehicles:[]
+}

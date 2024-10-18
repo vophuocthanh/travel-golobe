@@ -45,7 +45,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('id')}</div>,
     },
     {
       accessorKey: "tourId",  
@@ -55,7 +55,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('tourId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('tourId')}</div>,
     },
     {
       accessorKey: "userId",  
@@ -65,7 +65,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('userId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('userId')}</div>,
     },
     {
       accessorKey: "flightCrawlId",  
@@ -75,7 +75,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('flightCrawlId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('flightCrawlId')}</div>,
     },
     {
       accessorKey: "hotelCrawlId",  
@@ -85,7 +85,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('hotelCrawlId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('hotelCrawlId')}</div>,
     },
     {
       accessorKey: "roadVehicleId",  
@@ -95,7 +95,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roadVehicleId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('roadVehicleId')}</div>,
     },
     {
       accessorKey: "flightQuantity",  
@@ -105,7 +105,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] text-center lowercase break-words'>{row.getValue('flightQuantity')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] text-center lowercase truncate'>{row.getValue('flightQuantity')}</div>,
     },
     {
       accessorKey: "hotelQuantity",  
@@ -115,7 +115,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('hotelQuantity')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate text-center'>{row.getValue('hotelQuantity')}</div>,
     },
     {
       accessorKey: "tourQuantity",  
@@ -125,7 +125,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('tourQuantity')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate text-center'>{row.getValue('tourQuantity')}</div>,
     },
     {
       accessorKey: "roadVehicleQuantity",  
@@ -135,7 +135,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('roadVehicleQuantity')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate text-center'>{row.getValue('roadVehicleQuantity')}</div>,
     },
     {
       accessorKey: 'flightPrice',
@@ -213,7 +213,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roomId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('roomId')}</div>,
     },
     {
       accessorKey: "ticketFlighttId",  
@@ -223,7 +223,7 @@ export function BillingAll() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('ticketFlighttId')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('ticketFlighttId')}</div>,
     },
     {
       accessorKey: 'totalAmount',
@@ -356,7 +356,7 @@ export function BillingAll() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center w-full py-4">
+      <div className="flex items-center w-full gap-4 py-4">
         <span>Show</span>
           <select
             className='p-2 border border-gray-300 rounded-lg'
