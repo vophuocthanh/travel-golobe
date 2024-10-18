@@ -1,4 +1,5 @@
 import BillingAllView from '@/components/common/admin/billing/billing-all/BillingAllView'
+import BillingCoachView from '@/components/common/admin/billing/billing-coach/BillingCoachView'
 import BillingFlightView from '@/components/common/admin/billing/billing-flight/BillingFlightView'
 import BillingHotelView from '@/components/common/admin/billing/billing-hotel/BillingHotelView'
 import BillingTourView from '@/components/common/admin/billing/billing-tour/BillingTourView'
@@ -82,6 +83,7 @@ export default function useRoutesElements() {
       { path: path.all_view, element: <LayoutMain children={<BillingAllView />} /> },
       { path: path.hotel_view, element: <LayoutMain children={<BillingHotelView />} /> },
       { path: path.flight_view, element: <LayoutMain children={<BillingFlightView />} /> },
+      { path: path.coach_view, element: <LayoutMain children={<BillingCoachView />} /> },
       { path: path.payment_view, element: <LayoutMain children={<PaymentDetailView />} /> },
       { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
