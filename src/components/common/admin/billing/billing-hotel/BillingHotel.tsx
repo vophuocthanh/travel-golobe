@@ -72,10 +72,10 @@ export function BillingHotel() {
       enableSorting: true,
     },
     {
-      accessorKey: 'price',
-      header: () => <div className='text-left'>Price</div>,
+      accessorKey: 'totalAmount',
+      header: () => <div className='text-left'>Total Amount</div>,
       cell: ({ row }) => {
-        const price = row.getValue('price');
+        const price = row.getValue('totalAmount');
         if (typeof price === 'number') {
           const formattedPrice = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -155,7 +155,7 @@ export function BillingHotel() {
   }
 
   const handleView = (payment: PaymentHotel) => {
-    navigate(`/admin/billing/hotel-view/${payment.id}`);
+    navigate(`/admin/billing/${payment.userId}/hotel-view/${payment.id}`);
   };
 
   return (

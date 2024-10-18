@@ -38,7 +38,7 @@ export const path = {
   hotel_payment: '/hotel/home-stay/hotel-payment/:id',
   admin_hotelID: '/admin/hotels/:id',
   all_view: '/admin/billing/all-view',
-  hotel_view: '/admin/billing/hotel-view',
+  hotel_view: '/admin/billing/:userId/hotel-view/:id',
   flight_view: '/admin/billing/flight_view',
   tour_view: '/admin/billing/tour-view',
   road_vehicleID: '/admin/road-vehicle/:id',
