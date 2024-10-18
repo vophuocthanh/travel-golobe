@@ -61,7 +61,9 @@ export function BillingTour() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase overflow-hidden whitespace-nowrap truncate'>{row.getValue('id')}</div>
+      )
     },
     {
       accessorKey: 'tourId',
@@ -71,7 +73,11 @@ export function BillingTour() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('tourId')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('tourId')}
+        </div>
+      )
     },
     {
       accessorKey: 'userId',
@@ -81,7 +87,11 @@ export function BillingTour() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('userId')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('userId')}
+        </div>
+      )
     },
     {
       accessorKey: 'tour',
@@ -93,7 +103,11 @@ export function BillingTour() {
       ),
       cell: ({ row }) => {
         const tour = row.getValue('tour') as Tour
-        return <div className='w-[5rem] lowercase break-words'>{tour?.hotelId || 'N/A'}</div>
+        return (
+          <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+            {tour?.hotelId || 'N/A'}
+          </div>
+        )
       }
     },
     {
@@ -106,7 +120,11 @@ export function BillingTour() {
       ),
       cell: ({ row }) => {
         const tour = row.getValue('tour') as Tour
-        return <div className='w-[5rem] lowercase break-words'>{tour?.flightId || 'N/A'}</div>
+        return (
+          <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+            {tour?.flightId || 'N/A'}
+          </div>
+        )
       }
     },
 
@@ -303,10 +321,10 @@ export function BillingTour() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className='w-[3rem]'>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className='w-[3rem'>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   )
@@ -317,9 +335,11 @@ export function BillingTour() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'} className='w-full py-8'>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell key={cell.id} className='w-full'>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
                   ))}
                 </TableRow>
               ))
