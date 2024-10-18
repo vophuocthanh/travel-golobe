@@ -63,7 +63,11 @@ export function BillingFLight() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('id')}
+        </div>
+      )
     },
 
     {
@@ -74,7 +78,11 @@ export function BillingFLight() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('flightCrawlId')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('flightCrawlId')}
+        </div>
+      )
     },
 
     {
@@ -85,9 +93,7 @@ export function BillingFLight() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] text-center lowercase break-words'>{row.getValue('flightQuantity')}</div>
-      )
+      cell: ({ row }) => <div className='text-center lowercase'>{row.getValue('flightQuantity')}</div>
     },
 
     {
@@ -98,7 +104,11 @@ export function BillingFLight() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('ticketFlighttId')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('ticketFlighttId')}
+        </div>
+      )
     },
     {
       accessorKey: 'totalAmount',
