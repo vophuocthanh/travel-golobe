@@ -44,6 +44,8 @@ export function BillingFLight() {
   })
 
   const billing = billiingFLightData?.data || []
+  console.log()
+
   const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -63,26 +65,7 @@ export function BillingFLight() {
       ),
       cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>
     },
-    {
-      accessorKey: 'tourId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Id
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('tourId')}</div>
-    },
-    {
-      accessorKey: 'userId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          User Id
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('userId')}</div>
-    },
+
     {
       accessorKey: 'flightCrawlId',
       header: ({ column }) => (
@@ -93,26 +76,7 @@ export function BillingFLight() {
       ),
       cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('flightCrawlId')}</div>
     },
-    {
-      accessorKey: 'hotelCrawlId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('hotelCrawlId')}</div>
-    },
-    {
-      accessorKey: 'roadVehicleId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roadVehicleId')}</div>
-    },
+
     {
       accessorKey: 'flightQuantity',
       header: ({ column }) => (
@@ -125,124 +89,7 @@ export function BillingFLight() {
         <div className='w-[5rem] text-center lowercase break-words'>{row.getValue('flightQuantity')}</div>
       )
     },
-    {
-      accessorKey: 'hotelQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('hotelQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'tourQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('tourQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'roadVehicleQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('roadVehicleQuantity')}</div>
-      )
-    },
-    {
-      accessorKey: 'flightPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('flightPrice'))
 
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'hotelPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('hotelPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'tourPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('tourPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'roadVehiclePrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('roadVehiclePrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'roomId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Room ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('roomId')}</div>
-    },
     {
       accessorKey: 'ticketFlighttId',
       header: ({ column }) => (
@@ -308,11 +155,11 @@ export function BillingFLight() {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
 
-        if (status === 'success') {
+        if (status === 'PENDING') {
           statusClass = 'bg-green-100 text-green-800'
-        } else if (status === 'processing') {
+        } else if (status === 'PROCESSING') {
           statusClass = 'bg-yellow-100 text-yellow-800'
-        } else if (status === 'failed') {
+        } else if (status === 'CANCELLED') {
           statusClass = 'bg-red-100 text-red-800'
         }
 
@@ -332,7 +179,7 @@ export function BillingFLight() {
       header: () => <div className='flex justify-center'>Actions</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={handleView}>
+          <div className='cursor-pointer' onClick={() => handleView(row.original)}>
             {' '}
             <IconView />
           </div>
@@ -380,16 +227,16 @@ export function BillingFLight() {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
-  function handleEdit(payment: FlightBillingResponseType) {
-    console.log('Editing payment:', payment)
+  function handleEdit(flight: FlightBillingResponseType) {
+    console.log('Editing payment:', flight)
   }
 
-  function handleDelete(payment: FlightBillingResponseType) {
-    console.log('Deleting payment:', payment)
+  function handleDelete(flight: FlightBillingResponseType) {
+    console.log('Deleting payment:', flight)
   }
 
-  const handleView = () => {
-    navigate(`/admin/billing/flight-view`)
+  const handleView = (flight: FlightBillingResponseType) => {
+    navigate(`/admin/billing/flight_view/${flight.id}`)
   }
 
   return (
@@ -397,7 +244,7 @@ export function BillingFLight() {
       <div className='flex items-center w-full py-4'>
         <span>Show</span>
         <select
-          className='p-2 border border-gray-300 rounded-lg'
+          className='p-2 ml-4 border border-gray-300 rounded-lg'
           value={entriesPerPage}
           onChange={(e) => {
             setEntriesPerPage(Number(e.target.value))
@@ -414,7 +261,7 @@ export function BillingFLight() {
           placeholder='Filter id...'
           value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
-          className='max-w-sm'
+          className='max-w-sm ml-4'
         />
         <div className='flex items-center gap-4 ml-auto'>
           <span>Total : {total}</span>

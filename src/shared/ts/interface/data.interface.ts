@@ -98,7 +98,28 @@ export interface CoachResponseType {
   number_of_seats_remaining: number
 }
 
-export interface FlightBillingResponseType {}
+export interface FlightBillingResponseType {
+  id?: string
+  flightCrawlId?: string | null
+  flightQuantity?: number | null
+  flightPrice: number
+  ticketFlighttId?: string | null
+  totalAmount: number
+  createdAt?: string
+  status?: []
+}
+export interface TourBillingResponseType {
+  id?: string
+  flightCrawlId?: string
+  flightQuantity?: number 
+  flightPrice?: number
+  ticketFlighttId?: string 
+  totalAmount?: number
+  createdAt?: string
+  status?: []
+  confirmationTime?: string 
+
+}
 
 export interface BillingResponseType {
   id?: string

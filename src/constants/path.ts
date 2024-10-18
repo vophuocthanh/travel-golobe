@@ -39,8 +39,8 @@ export const path = {
   admin_hotelID: '/admin/hotels/:id',
   all_view: '/admin/billing/all-view',
   hotel_view: '/admin/billing/hotel-view',
-  flight_view: '/admin/billing/flight_view',
-  tour_view: '/admin/billing/tour-view',
+  flight_view: '/admin/billing/flight_view/:id',
+  tour_view: '/admin/billing/tour-view/:billingID',
   road_vehicleID: '/admin/road-vehicle/:id',
   payment_view: '/admin/payment/payment-view'
 } as const

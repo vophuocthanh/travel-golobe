@@ -50,7 +50,7 @@ export interface TourBookingDetail {
   cuisine: string | null
   suitable: string | null
   ideal_time: string | null
-  road_vehicle: string
+  
   voucher: string | null
   time_trip: string
   baby_price: number
@@ -68,4 +68,38 @@ export interface TourBookingDetail {
   hotelQuantity: number
   status: string // Status options
   invoice: any[] // Adjust the type of `invoice` if you have more details
+  hotelDetails:HotelDetails
+  road_vehicle:RoadVehicle
+
+  
+}
+export interface HotelDetails {
+  id: string; // ID khách sạn
+  hotel_names: string; // Tên khách sạn
+  location: string; // Địa chỉ
+  price: number; // Giá
+  score_hotels: number; // Điểm đánh giá khách sạn
+}
+export interface RoadVehicle {
+  type: string; // Loại phương tiện, ví dụ: "Máy bay"
+  details: {
+    id: string; // ID của phương tiện
+    brand: string; // Hãng hàng không, ví dụ: "Vietnam Airlines"
+    price: number; // Giá
+    startTime: string; // Thời gian khởi hành
+    startDay: string; // Ngày khởi hành (ISO date string)
+    endDay: string; // Ngày kết thúc (ISO date string)
+    endTime: string; // Thời gian kết thúc
+    tripTime: string; // Thời gian chuyến đi
+    takePlace: string; // Nơi khởi hành
+    destination: string; // Điểm đến
+    tripTo: string; // Đích đến chuyến đi
+    createdAt: string; // Ngày tạo (ISO date string)
+    updatedAt: string; // Ngày cập nhật (ISO date string)
+    userId: string | null; // ID người dùng hoặc null
+    image: string; // URL hình ảnh
+    numberOfSeatsRemaining: number; // Số ghế còn lại
+    typeTicket: string; // Loại vé, ví dụ: "ECONOMY"
+    baggageWeight: string; // Trọng lượng hành lý, ví dụ: "FREE_7KG"
+  };
 }
