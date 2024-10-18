@@ -1,7 +1,6 @@
 import { bookingHotelApi } from '@/apis/booking-hotel.api'
 import { commentHotelApi } from '@/apis/comment-hotel.api'
 import { hotelApi } from '@/apis/hotel.api'
-import { IconLink } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import HotelDetailAmenities from '@/components/common/hotel/hotel-detail-content/hotel-detail-amenities'
@@ -9,6 +8,7 @@ import HotelDetailMap from '@/components/common/hotel/hotel-detail-content/hotel
 import HotelDetailOverview from '@/components/common/hotel/hotel-detail-content/hotel-detail-overview'
 import HotelDetailReview from '@/components/common/hotel/hotel-detail-content/hotel-detail-review'
 import HotelDetailRoom from '@/components/common/hotel/hotel-detail-content/hotel-detail-room'
+import ShareButtons from '@/components/common/share/share-link'
 import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -85,6 +85,9 @@ export default function HotelDetail() {
   }
 
   const ratingStatus = getRatingStatus(Number(averageRating))
+
+  const hotelUrl = `https://travel-golobe.vercel.app/hotel/${id}`
+  const hotelTitle = getbyId?.description || 'Chia sẻ tour thú vị này!'
   return (
     <div className='w-full'>
       <Header />
@@ -127,9 +130,7 @@ export default function HotelDetail() {
                   Còn {getbyId?.number_of_seats_remaining} chổ ngồi
                 </p>
                 <Favorite idHotel={id} />
-                <div className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <IconLink />
-                </div>
+                <ShareButtons url={hotelUrl} title={hotelTitle} />
                 <div className='flex border rounded border-primary'>
                   <Button
                     onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
