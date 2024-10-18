@@ -21,10 +21,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { IconDelete, IconEdit, IconView } from '@/common/icons'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
-
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { bookingCoachApi } from '@/apis/booking-coach'
 import { BillingCoachResponseAdmin } from '@/shared/ts/interface/booking-coach.interface'
@@ -44,7 +43,6 @@ export function BillingCoach() {
   })
 
   const billing = billiingCoachData?.data || []
-  const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -94,34 +92,6 @@ export function BillingCoach() {
       cell: ({ row }) => (
         <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('roadVehicleQuantity')}</div>
       )
-    },
-    {
-      accessorKey: 'roadVehiclePrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('roadVehiclePrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'ticketCoachId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Ticket Coach Id
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase break-words'>{row.getValue('ticketCoachId')}</div>
     },
     {
       accessorKey: 'totalAmount',
@@ -202,13 +172,15 @@ export function BillingCoach() {
       header: () => <div className='flex justify-center'>Actions</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={handleView}>
-            <IconView />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
+          <Button variant='ghost' className='w-8 h-8 cursor-pointer' >
+            <Link to={`/admin/billing/coach-view/${row.original.id}`}>
+              <IconView />
+            </Link>
+          </Button>
+          <div className='w-8 h-8 cursor-pointer' onClick={() => handleEdit(row.original)}>
             <IconEdit />
           </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
+          <div className='w-8 h-8 cursor-pointer' onClick={() => handleDelete(row.original)}>
             <IconDelete />
           </div>
         </div>
@@ -254,11 +226,7 @@ export function BillingCoach() {
   function handleDelete(payment: BillingCoachResponseAdmin) {
     console.log('Deleting payment:', payment)
   }
-
-  const handleView = () => {
-    navigate(`/admin/billing/coach-view`)
-  }
-
+  
   return (
     <div className="w-full">
     <div className="flex items-center w-full gap-4 py-4">

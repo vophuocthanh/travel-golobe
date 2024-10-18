@@ -1,45 +1,52 @@
+import { bookingCoachApi } from "@/apis/booking-coach";
 import { avatar1, coachdetail1} from "@/assets/images";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeftToLine } from "lucide-react";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function BillingCoachView() {
+  const { id } = useParams();
 
-  const { billingID } = useParams();
-  const navigate = useNavigate();
-  const [billingData, setBillingData] = useState({
-    id: "m5gr84i9",billingTime: "2003-05-21",plan: "Basic", amount: 316, status: "failed",  
-    customerName: "John Doe", customerEmail: "john.doe@example.com",
-    flightAirline: "Vietnam Airlines", flightPlane: "Airbus A350", flightSeat: "12A", flightDeparture: "2024-10-01 08:00", flightArrival: "2024-10-01 10:00"
+  const { data: getBookingDetail } = useQuery({
+    queryKey: ['getBookingDetail', id],
+    queryFn: () => bookingCoachApi.getBookingDetail(id),
+    enabled: !!id,
   });
+
+  const navigate = useNavigate();
 
   const handleBack = () => {
     navigate('/admin/billing');
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setBillingData({ ...billingData, [name]: value });
-  };
-
   const getStatusClass = () => {
-    switch (billingData.status) {
+    switch (getBookingDetail?.status) {
       case "success":
         return "bg-green-300";
       case "processing":
         return "bg-yellow-300";
-      case "failed":
+      case "PENDING":
         return "bg-red-300";
       default:
         return "";
     }
   };
-
+    const formatDateTime = (dateString, timeString) => {
+      if (!dateString || !timeString) return ""; // Return an empty string if any value is missing
+      const date = new Date(dateString);
+      return isNaN(date) ? "" : `${date.toLocaleDateString('vi-VN')} ${timeString}`;
+    };
+  
+  const formattedPrice  = new Intl.NumberFormat('vn-Vn', {
+    style: 'currency',
+    currency: 'VND'
+  }).format(getBookingDetail?.price || 0);
+  
   return (
     <div className="w-full p-2 mb-5">
-      <h1 className="mb-2 text-2xl font-bold">Coach Billing {billingID}</h1>
+      <h1 className="mb-2 text-2xl font-bold">Coach Billing {id}</h1>
       <Button className="flex mb-4 mr-auto text-white" onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
@@ -53,19 +60,9 @@ export default function BillingCoachView() {
             <div className="grid col-span-1 gap-x-6 gap-y-4 ">
               <Input
                 type="text"
-                name="customerName"
-                placeholder="Customer Name"
-                value={billingData.customerName}
-                onChange={handleChange}
-                className="p-2 border rounded "
-                disabled
-              />
-              <Input
-                type="email"
-                name="customerEmail"
-                placeholder="Customer Email"
-                value={billingData.customerEmail}
-                onChange={handleChange}
+                name="customerID"
+                placeholder="Customer ID"
+                value={getBookingDetail?.userId}
                 className="p-2 border rounded "
                 disabled
               />
@@ -76,31 +73,29 @@ export default function BillingCoachView() {
         <div className="p-4 bg-white rounded-lg shadow">
           <h2 className="mb-4 text-xl font-bold">Coach Information</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
-            <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
+            <div className='w-[15rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
                 <img src={coachdetail1} alt='hotel' className='object-cover w-full h-full rounded-full' />
             </div>
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               <div className="col-span-1">
-              <p>Coach</p>
+              <p>Name Coach</p>
               <Input
                 type="text"
-                name="flightAirline"
-                placeholder="Airline"
-                value={billingData.flightAirline}
-                onChange={handleChange}
+                name="Coach Brand"
+                placeholder="Coach Brand"
+                value={getBookingDetail?.brand}
                 className="p-2 border rounded"
                 disabled
               />
             </div>
             <div className="col-span-1">
-              <p>Name Coach</p>
+              <p>Coach ID</p>
               <Input
                 type="text"
-                name="flightPlane"
-                placeholder="Plane"
-                value={billingData.flightPlane}
-                onChange={handleChange}
+                name="coachId"
+                placeholder="Coach ID"
+                value={getBookingDetail?.roadVehicleId}
                 className="p-2 border rounded"
                 disabled
               />
@@ -109,10 +104,20 @@ export default function BillingCoachView() {
               <p>Seat Number</p>
               <Input
                 type="text"
-                name="flightSeat"
+                name="number_of_seat"
                 placeholder="Seat Number"
-                value={billingData.flightSeat}
-                onChange={handleChange}
+                value={getBookingDetail?.number_of_seat || ""}
+                className="p-2 border rounded"
+                disabled
+              />
+            </div>
+            <div className="col-span-1">
+              <p>Road Vehicle Quantity</p>
+              <Input
+                type="text"
+                name="roadVehicleQuantity"
+                placeholder="roadVehicleQuantity"
+                value={getBookingDetail?.roadVehicleQuantity}
                 className="p-2 border rounded"
                 disabled
               />
@@ -121,22 +126,20 @@ export default function BillingCoachView() {
               <p>Departure Time</p>
               <Input
                 type="text"
-                name="flightDeparture"
+                name="start_time"
                 placeholder="Departure Time"
-                value={billingData.flightDeparture}
-                onChange={handleChange}
+                value={formatDateTime(getBookingDetail?.start_day, getBookingDetail?.start_time)}
                 className="p-2 border rounded"
                 disabled
               />
             </div>
             <div className="col-span-1">
-              <p>Arrival Time</p>
+              <p>Departure Time</p>
               <Input
                 type="text"
-                name="flightArrival"
+                name="start_time"
                 placeholder="Arrival Time"
-                value={billingData.flightArrival}
-                onChange={handleChange}
+                value={formatDateTime(getBookingDetail?.end_day, getBookingDetail?.end_time)}
                 className="p-2 border rounded"
                 disabled
               />
@@ -155,8 +158,7 @@ export default function BillingCoachView() {
                 type="text"
                 name="id"
                 placeholder="Billing ID"
-                value={billingData.id}
-                onChange={handleChange}
+                value={id}
                 className="p-2 border rounded"
                 disabled
               />
@@ -167,8 +169,6 @@ export default function BillingCoachView() {
                 type="text"
                 name="billingTime"
                 placeholder="Billing Time"
-                value={billingData.billingTime}
-                onChange={handleChange}
                 className="p-2 border rounded"
                 disabled
               />
@@ -179,8 +179,6 @@ export default function BillingCoachView() {
                 type="text"
                 name="plan"
                 placeholder="Plan"
-                value={billingData.plan}
-                onChange={handleChange}
                 className="p-2 border rounded"
                 disabled
               />
@@ -191,8 +189,7 @@ export default function BillingCoachView() {
                 type="number"
                 name="amount"
                 placeholder="Amount"
-                value={billingData.amount}
-                onChange={handleChange}
+                value={formattedPrice}
                 className="p-2 border rounded"
                 disabled
               />
@@ -203,8 +200,7 @@ export default function BillingCoachView() {
                 type="text"
                 name="status"
                 placeholder="Status"
-                value={billingData.status}
-                onChange={handleChange}
+                value={getBookingDetail?.status}
                 className={`col-span-1 p-2 border rounded ${getStatusClass()}`}
                 disabled
               />
