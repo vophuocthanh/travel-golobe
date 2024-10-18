@@ -33,7 +33,7 @@ export default function BillingCoachView() {
         return "";
     }
   };
-    const formatDateTime = (dateString, timeString) => {
+    const formatDateTime = (dateString:string, timeString:string) => {
       if (!dateString || !timeString) return ""; // Return an empty string if any value is missing
       const date = new Date(dateString);
       return isNaN(date) ? "" : `${date.toLocaleDateString('vi-VN')} ${timeString}`;
