@@ -32,6 +32,12 @@ export interface ListResponseFlight<F> {
   total: number
   currentPage: number
   items_per_page: number
+}
+export interface ListResponseTour<Tour> {
+  data: Tour[]
+  total: number
+  currentPage: number
+  items_per_page: number
 
 }
 export interface HotelParams {

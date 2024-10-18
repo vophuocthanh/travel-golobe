@@ -12,6 +12,7 @@ import { Checkbox } from '@radix-ui/react-checkbox'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   ChevronRight,
+  Link2,
   MapPin,
   MoveLeft,
   MoveRight,
@@ -64,7 +65,7 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-
+  const [loadingBooking, setLoadingBooking] = useState(false)
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
@@ -81,6 +82,7 @@ export default function FlightDetail() {
   })
 
   const handleBookFlight = () => {
+    setLoadingBooking(true)
     if (selectedTicket === '') {
       toast.error('Please select a ticket before booking')
       SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -160,8 +162,16 @@ export default function FlightDetail() {
                     +
                   </Button>
                 </div>
+                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
+                  <Link2 className={`w-4 h-4`} />
+                </p>
+
                 <ShareButtons url={flightUrl} title={flightTitle} />
-                <Button onClick={handleBookFlight} disabled={getbyId?.number_of_seats_remaining === 0}>
+                <Button
+                  onClick={handleBookFlight}
+                  disabled={getbyId?.number_of_seats_remaining === 0}
+                  loading={loadingBooking}
+                >
                   Book now
                 </Button>
               </div>

@@ -22,7 +22,7 @@ export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const roomSectionRef = useRef<HTMLDivElement | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loadingBooking, setLoadingBooking] = useState(false)
 
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
@@ -44,13 +44,11 @@ export default function HotelDetail() {
     },
     onError: () => {
       toast.error('Failed to book flight')
-    },
-    onSettled: () => {
-      setLoading(false)
     }
   })
 
   const handleBookHotel = () => {
+    setLoadingBooking(true)
     if (roomId === '') {
       roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
@@ -163,7 +161,11 @@ export default function HotelDetail() {
                     +
                   </Button>
                 </div>
-                <Button onClick={handleBookHotel} disabled={getbyId?.number_of_seats_remaining === 0} loading={loading}>
+                <Button
+                  onClick={handleBookHotel}
+                  disabled={getbyId?.number_of_seats_remaining === 0}
+                  loading={loadingBooking}
+                >
                   Book now
                 </Button>
               </div>
