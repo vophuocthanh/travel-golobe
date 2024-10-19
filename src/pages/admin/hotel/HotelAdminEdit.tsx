@@ -8,37 +8,33 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function HotelAdminEdit() {
-  const {id} = useParams()
-  console.log(id,"id");
+  const { id } = useParams()
+  console.log(id, "id");
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => hotelApi.getById(id)
   })
-  
-  
+
   const navigate = useNavigate()
   const [hotelData, setHotelData] = useState({
-    id: '',
     hotel_names: '',
     location: '',
-    place: '',
-    createAt: new Date().toISOString(),
-    updateAt: '',
-    star_number: '',
-    price: '',
+    star_number: 0,
+    price: 0,
+    score_hotels: 0,
+    number_rating: 0,
+    received_time: '',
+    giveback_time: '',
     description: '',
-    images: '',
+    hotel_link: '',
+    place: '',
+    image: '',
     image_2: '',
     image_3: '',
     image_4: '',
     image_5: '',
-    score_hotels: '',
-    received_time: '',
-    giveback_time: '',
-    hotel_link:'',
-    number_rating: 1,
-    number_of_seats_remaining:'',
-  })
+    number_of_seats_remaining: 0
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target
@@ -55,64 +51,48 @@ export default function HotelAdminEdit() {
   }
 
   return (
-    <div className='w-full p-2'>
+    <div className='w-full p-4'>
       <h1 className='mb-2 text-2xl font-bold'>EDIT HOTEL {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
-        <ArrowLeftToLine/>
+        <ArrowLeftToLine />
       </Button>
-      <form onSubmit={handleSubmit} className='space-y-4'>
+      <form onSubmit={handleSubmit} className='space-y-6'>
+        {/* Hotel Image Section */}
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='text-xl font-bold '>Hotel Image</h2>
-          <div className='grid grid-cols-4 gap-4 mb-4'>
-            <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-              <img src={hoteldetail1} alt='hotel' className='w-full h-full' />
-            </div>
-            <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-              <img src={hoteldetail1} alt='hotel' className='w-full h-full' />
-            </div>
-            <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-              <div className='flex items-center justify-center h-full cursor-pointer'>
-                <div>
-                  <div className='flex justify-center mb-2'>
-                    <CirclePlus />
+          <h2 className='text-xl font-bold'>Hotel Images</h2>
+          <div className='grid grid-cols-4 gap-4'>
+            {[1, 2, 3, 4].map((_, index) => (
+              <div key={index} className='w-full col-span-1 p-2 bg-white rounded-lg shadow-md h-[20rem] flex flex-col items-center justify-center'>
+                {index < 2 ? (
+                  <img src={hoteldetail1} alt={`hotel-${index}`} className='w-full h-full object-cover' />
+                ) : (
+                  <div className='flex items-center justify-center h-full cursor-pointer'>
+                    <CirclePlus className='mb-2' />
+                    <p className='text-blue-600'>Click to upload or drag and drop</p>
+                    <p className='text-sm'>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
-                  <p className='text-blue-600'>
-                    Click to upload<span className='text-black'>or drag and drop</span>{' '}
-                  </p>
-                  <p>SVG, PNG, or PDF 800 x 400 px</p>
-                </div>
+                )}
               </div>
-            </div>
-            <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-              <div className='flex items-center justify-center h-full cursor-pointer'>
-                <div>
-                  <div className='flex justify-center mb-2'>
-                    <CirclePlus />
-                  </div>
-                  <p className='text-blue-600'>
-                    Click to upload<span className='text-black'>or drag and drop</span>{' '}
-                  </p>
-                  <p>SVG, PNG, or PDF 800 x 400 px</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
+        {/* Hotel Information Section */}
         <div className='p-4 bg-white rounded-lg shadow'>
           <h2 className='mb-4 text-xl font-bold'>Hotel Information</h2>
-          <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
+          <div className='grid grid-cols-2 gap-6'>
             <Input
               type='text'
               name='id'
               placeholder='ID'
               value={id}
               onChange={handleChange}
-              className='col-span-2 p-2 border rounded '
+              className='col-span-2 p-2 border rounded'
+              disabled
             />
             <Input
               type='text'
-              name='name'
+              name='hotel_names'
               placeholder='Hotel Name'
               value={getbyId?.hotel_names}
               onChange={handleChange}
@@ -135,7 +115,7 @@ export default function HotelAdminEdit() {
               className='col-span-1 p-2 border rounded'
             />
             <Input
-              type='text'
+              type='number'
               name='price'
               placeholder='Price'
               value={getbyId?.price}
@@ -143,7 +123,7 @@ export default function HotelAdminEdit() {
               className='col-span-1 p-2 border rounded'
             />
             <Input
-              type='text'
+              type='number'
               name='score_hotels'
               placeholder='Score Hotels'
               value={getbyId?.score_hotels}
@@ -160,30 +140,30 @@ export default function HotelAdminEdit() {
             />
             <Input
               type='text'
-              name='receigiveback_timeved_time'
-              placeholder='Giveback time'
+              name='giveback_time'
+              placeholder='Giveback Time'
               value={getbyId?.giveback_time}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
             />
             <Input
               type='number'
-              name='rating'
-              placeholder='Rating'
+              name='number_rating'
+              placeholder='Number of Ratings'
               value={getbyId?.number_rating}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-              min='1'
-              max='5'
-              step='0.5'
+              min='0'
             />
             <Input
-              type='text'
+              type='number'
               name='star_number'
               placeholder='Star Number'
               value={getbyId?.star_number}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
+              min='1'
+              max='5'
             />
             <Input
               type='text'
@@ -192,15 +172,15 @@ export default function HotelAdminEdit() {
               value={getbyId?.hotel_link}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />      
+            />
             <Input
-              type='text'
+              type='number'
               name='number_of_seats_remaining'
-              placeholder='Number Of Seats Remaining'
+              placeholder='Seats Remaining'
               value={getbyId?.number_of_seats_remaining}
               onChange={handleChange}
               className='col-span-1 p-2 border rounded'
-            />          
+            />
             <textarea
               name='description'
               placeholder='Description'
@@ -211,11 +191,11 @@ export default function HotelAdminEdit() {
           </div>
         </div>
 
-        <div className='flex justify-center text-white'>
-          <Button type='button' className='w-[20rem] flex mx-auto' onClick={handleBack}>
+        <div className='flex justify-between mt-6'>
+          <Button type='button' className='w-[20rem] flex' onClick={handleBack}>
             Cancel
           </Button>
-          <Button type='submit' className='w-[20rem] flex mx-auto'>
+          <Button type='submit' className='w-[20rem] flex'>
             Save
           </Button>
         </div>

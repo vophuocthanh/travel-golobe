@@ -259,3 +259,13 @@ interface Hotel {
   hotel_link: string
 }
 
+export interface HotelAdd {
+  hotel_names: string;
+  location: string;
+  price?: number;
+  image: string;
+  received_time: string;
+  giveback_time: string;
+  description?: string;
+}
+

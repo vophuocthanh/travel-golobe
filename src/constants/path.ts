@@ -43,5 +43,6 @@ export const path = {
   tour_view: '/admin/billing/tour-view/:billingID',
   coach_view: '/admin/billing/coach-view/:id',
   road_vehicleID: '/admin/road-vehicle/:id',
-  payment_view: '/admin/payment/payment-view'
+  payment_view: '/admin/payment/payment-view',
+  hotel_add: '/admin/hotels/add-hotel',
 } as const

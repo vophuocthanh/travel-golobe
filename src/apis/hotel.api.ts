@@ -1,6 +1,6 @@
 import axiosClient from '@/apis/axios-client'
 import { HotelParams, ListResponse } from '@/shared/ts/interface'
-import { HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { HotelAdd, HotelResponseType } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
   getAll(
@@ -46,8 +46,8 @@ export const hotelApi = {
     const url = `/hotel-crawl/crawl/${id}`
     return axiosClient.get(url)
   },
-  addHotel(data: HotelResponseType) {
-    const url = '/hotel'
+  addHotel(data: HotelAdd) {
+    const url = '/hotel-crawl/crawl'
     return axiosClient.post(url, data)
   },
   updateHotel(id: string | undefined, data: HotelResponseType) {
@@ -63,7 +63,7 @@ export const hotelApi = {
     return axiosClient.post(url)
   },
   deleteHotel(id: string) {
-    const url = `/hotel/${id}`
+    const url = `/hotel-crawl/crawl/${id}`
     return axiosClient.delete(url)
   }
 }

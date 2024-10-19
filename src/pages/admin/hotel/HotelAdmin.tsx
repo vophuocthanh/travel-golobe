@@ -23,11 +23,12 @@ import {
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { hotelApi } from '@/apis/hotel.api';
 import { HotelResponseType } from '@/shared/ts/interface/data.interface';
 import { hotel } from '@/assets/images'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 export default function HotelAdmin() {
@@ -38,29 +39,40 @@ export default function HotelAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
   const { data: getAllHotel } = useQuery({
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll()
   })
   const totalDataHotel = getAllHotel?.total || 0
-  console.log(totalDataHotel,"totalDataHotel");
-  
+  console.log(totalDataHotel, "totalDataHotel");
+
   const { data: allHotel } = useQuery({
-    queryKey: ['getAllHotel',totalDataHotel],
-    queryFn: () => hotelApi.getAll(1,totalDataHotel)
+    queryKey: ['getAllHotel', totalDataHotel],
+    queryFn: () => hotelApi.getAll(1, totalDataHotel)
   })
 
-  
-  const hotelData= allHotel?.data || []
-  console.log(hotelData,"dât");
-  
-  const handleEdit = (id: string) =>{
+  const hotelData = allHotel?.data || []
+
+  const handleEdit = (id: string) => {
     navigate(`/admin/hotels/${id}`)
   }
 
+  const mutationDelete = useMutation({
+    mutationFn: (id: string) => hotelApi.deleteHotel(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['getAllHotel'] })
+      toast.success('Xóa khách sạn thành công');
+    },
+    onError: () => {
+      toast.error('Xóa khách sạn thất bại');
+    }
+  })
 
-  const handleDelete = (hotel: HotelResponseType) => {
-    console.log('Deleting hotel:', hotel)
+
+  const handleDelete = (id: string) => {
+    mutationDelete.mutate(id)
   }
 
   const columns: ColumnDef<HotelResponseType>[] = [
@@ -80,8 +92,8 @@ export default function HotelAdmin() {
       accessorKey: 'image',
       header: () => <div className='text-left w-28'>Image </div>,
       cell: () => <div className='flex flex-col items-center justify-center'>
-              <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
-            </div>,
+        <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
+      </div>,
       enableSorting: true
     },
     {
@@ -150,7 +162,7 @@ export default function HotelAdmin() {
       cell: ({ row }) => {
         const price = parseFloat(row.getValue('price'))
         const formatted = new Intl.NumberFormat('vi-VN', {
-          style: 'currency', 
+          style: 'currency',
           currency: 'VND'
         }).format(price)
         return <div className='flex justify-center font-medium'>{formatted}</div>
@@ -163,19 +175,19 @@ export default function HotelAdmin() {
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)} >
-          <IconEdit />
+            <IconEdit />
           </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
+          <div className='cursor-pointer' onClick={() => handleDelete(row.original.id)}>
             <IconDelete />
           </div>
         </div>
       )
     }
   ]
-  
+
 
   const table = useReactTable({
-    data:hotelData,
+    data: hotelData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -243,7 +255,9 @@ export default function HotelAdmin() {
               </div>
             </div>
             <div className='flex items-center gap-4'>
-              <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
+              <Button className='flex items-center justify-center gap-2 ml-auto text-white'
+                onClick={() => navigate(`/admin/hotels/add-hotel`)}
+              >
                 <IconMore />
                 Add Hotel
               </Button>
@@ -289,13 +303,12 @@ export default function HotelAdmin() {
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}> 
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${
-                            cell.column.id === "id" ? "sticky left-0 bg-white z-10" : ""
-                          } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
+                          className={`${cell.column.id === "id" ? "sticky left-0 bg-white z-10" : ""
+                            } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
                           style={{
                             minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
                             maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
