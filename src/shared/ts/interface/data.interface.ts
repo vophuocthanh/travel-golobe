@@ -1,5 +1,5 @@
 export interface HotelResponseType {
-  id: string
+  id?: string
   hotel_names?: string
   location?: string
   price?: number
@@ -8,7 +8,7 @@ export interface HotelResponseType {
   star_number?: number
   received_time?: string
   giveback_time?: string
-  description: string
+  description?: string
   hotel_link?: string
   place?: string
   image?: string
@@ -274,7 +274,7 @@ export interface HotelUpdate {
   received_time: string;
   giveback_time: string;
   description?: string;
-  hotel_link?: string; // Làm cho hotel_link trở thành tùy chọn
+  hotel_link?: string;
   place: string;
   image: string;
   image_2?: string;

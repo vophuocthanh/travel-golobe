@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
+import { Textarea } from '@/components/ui/textarea'
 
 export default function HotelAdminEdit() {
   const { id } = useParams()
@@ -50,23 +51,23 @@ export default function HotelAdminEdit() {
   useEffect(() => {
     if (getbyId) {
       reset({
-        hotel_names: getbyId.hotel_names,
-        location: getbyId.location,
-        star_number: getbyId.star_number,
-        price: getbyId.price,
-        score_hotels: getbyId.score_hotels,
-        number_rating: getbyId.number_rating,
-        received_time: getbyId.received_time,
-        giveback_time: getbyId.giveback_time,
-        description: getbyId.description ?? undefined,
-        hotel_link: getbyId.hotel_link,
-        place: getbyId.place,
-        image: getbyId.image ?? undefined,
-        image_2: getbyId.image_2 ?? undefined,
-        image_3: getbyId.image_3 ?? undefined,
-        image_4: getbyId.image_4 ?? undefined,
-        image_5: getbyId.image_5 ?? undefined,
-        number_of_seats_remaining: getbyId.number_of_seats_remaining
+        hotel_names: getbyId.hotel_names || '', // Default to empty string
+        location: getbyId.location || '',
+        star_number: getbyId.star_number || 0, // Default to 0
+        price: getbyId.price || 0, // Default to 0
+        score_hotels: getbyId.score_hotels || 0, // Default to 0
+        number_rating: getbyId.number_rating || 0, // Default to 0
+        received_time: getbyId.received_time || '', // Default to empty string
+        giveback_time: getbyId.giveback_time || '', // Default to empty string
+        description: getbyId.description || '', // Default to empty string
+        hotel_link: getbyId.hotel_link || '',
+        place: getbyId.place || '',
+        image: getbyId.image || '',
+        image_2: getbyId.image_2 || '',
+        image_3: getbyId.image_3 || '',
+        image_4: getbyId.image_4 || '',
+        image_5: getbyId.image_5 || '',
+        number_of_seats_remaining: getbyId.number_of_seats_remaining || 0, // Default to 0
       })
     }
   }, [getbyId, reset])
@@ -82,9 +83,14 @@ export default function HotelAdminEdit() {
 
     const formattedData = {
       ...data,
-      description: data.description || '',
       price: Number(data.price),
+      score_hotels: Number(data.score_hotels),
+      star_number: Number(data.star_number),
+      number_rating: Number(data.number_rating),
+      number_of_seats_remaining: Number(data.number_of_seats_remaining),
     }
+
+    console.log(formattedData)
 
     mutationUpdateHotel.mutate(formattedData, {
       onSuccess: () => {
@@ -116,6 +122,8 @@ export default function HotelAdminEdit() {
           <div className='p-4 bg-white rounded-lg shadow'>
             <h2 className='text-xl font-bold '>Hotel Image</h2>
             <div className='grid grid-cols-4 gap-4 mb-4'>
+              {/* Image Upload Sections */}
+              {/* You can keep the structure for image uploads as it is */}
               <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
                 <img src={hoteldetail1} alt='hotel' className='w-full h-full' />
               </div>
@@ -129,7 +137,7 @@ export default function HotelAdminEdit() {
                       <CirclePlus />
                     </div>
                     <p className='text-blue-600'>
-                      Click to upload<span className='text-black'> or drag and drop</span>{' '}
+                      Click to upload<span className='text-black'> or drag and drop</span>
                     </p>
                     <p>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
@@ -142,7 +150,7 @@ export default function HotelAdminEdit() {
                       <CirclePlus />
                     </div>
                     <p className='text-blue-600'>
-                      Click to upload<span className='text-black'> or drag and drop</span>{' '}
+                      Click to upload<span className='text-black'> or drag and drop</span>
                     </p>
                     <p>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
@@ -154,6 +162,7 @@ export default function HotelAdminEdit() {
           <div className='p-4 bg-white rounded-lg shadow'>
             <h2 className='mb-4 text-xl font-bold'>Hotel Information</h2>
             <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
+              {/** Form Fields */}
               <FormField
                 control={form.control}
                 name='hotel_names'
@@ -232,17 +241,90 @@ export default function HotelAdminEdit() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name='received_time'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Received Time</FormLabel>
+                    <FormControl>
+                      <Input type='text' placeholder='Received Time' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='giveback_time'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Giveback Time</FormLabel>
+                    <FormControl>
+                      <Input type='text' placeholder='Giveback Time' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='description'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder='Description' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='hotel_link'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Hotel Link</FormLabel>
+                    <FormControl>
+                      <Input type='text' placeholder='Hotel Link' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='place'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Place</FormLabel>
+                    <FormControl>
+                      <Input type='text' placeholder='Place' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='number_of_seats_remaining'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Number of Seats Remaining</FormLabel>
+                    <FormControl>
+                      <Input type='number' placeholder='Number of Seats Remaining' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
 
-          <div className='flex justify-center text-white'>
-            <Button type='button' className='w-[20rem] flex mx-auto' onClick={handleBack}>
-              Cancel
-            </Button>
-            <Button type='submit' className='w-[20rem] flex mx-auto' disabled={loading}>
-              {loading ? 'Saving...' : 'Save'}
-            </Button>
-          </div>
+          <Button type='submit' className='w-full' disabled={loading}>
+            {loading ? 'Loading...' : 'Update Hotel'}
+          </Button>
         </form>
       </Form>
     </div>
