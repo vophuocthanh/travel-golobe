@@ -1,12 +1,26 @@
 import * as React from 'react'
-import { ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable
+import {
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable
 } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger} from '@/components/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import IconEdit from '@/assets/icons/icon-edit'
-import IconDelete from '@/assets/icons/icon-delete'
+
 import { Link } from 'react-router-dom'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
@@ -17,22 +31,23 @@ import { useQuery } from '@tanstack/react-query'
 import { flightApi } from '@/apis/flight.api'
 import { Card } from '@/components/ui/card'
 
-const FlightAdmin: React.FC = () => {
+import DeleteFlightButton from './components/DeleteFlightAdmin'
 
+const FlightAdmin: React.FC = () => {
   const { data: getAllFlights } = useQuery({
     queryKey: ['getAllFlight'],
-    queryFn: () =>flightApi.getAll(1,1,'')
+    queryFn: () => flightApi.getAll(1, 1, '')
   })
-  const totalDataCount = getAllFlights?.total || 0; 
+  const totalDataCount = getAllFlights?.total || 0
 
   const { data: flightData } = useQuery({
     queryKey: ['getFlights', totalDataCount],
-    queryFn: () => flightApi.getAll(1, totalDataCount,''), 
-    enabled: totalDataCount > 0 
-  });
-  
-  const flightsData = flightData?.data || [];  
-  
+    queryFn: () => flightApi.getAll(1, totalDataCount, ''),
+    enabled: totalDataCount > 0
+  })
+
+  const flightsData = flightData?.data || []
+
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -48,7 +63,7 @@ const FlightAdmin: React.FC = () => {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>,
+      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>
     },
     {
       accessorKey: 'brand',
@@ -58,7 +73,7 @@ const FlightAdmin: React.FC = () => {
           <CaretSortIcon className='w-4 h-4 ml-2 ' />
         </Button>
       ),
-      cell: ({ row }) => <div className='uppercase'>{row.getValue('brand')}</div>,
+      cell: ({ row }) => <div className='uppercase'>{row.getValue('brand')}</div>
     },
     {
       accessorKey: 'image',
@@ -103,9 +118,9 @@ const FlightAdmin: React.FC = () => {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('start_day'));
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
-      },
+        const endDate = new Date(row.getValue('start_day'))
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+      }
     },
     {
       accessorKey: 'end_time',
@@ -130,9 +145,9 @@ const FlightAdmin: React.FC = () => {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('end_day'));
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
-      },
+        const endDate = new Date(row.getValue('end_day'))
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+      }
     },
     {
       accessorKey: 'trip_time',
@@ -193,9 +208,9 @@ const FlightAdmin: React.FC = () => {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('createAt'));
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
-      },
+        const endDate = new Date(row.getValue('createAt'))
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+      }
     },
     {
       accessorKey: 'updateAt',
@@ -208,9 +223,9 @@ const FlightAdmin: React.FC = () => {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('updateAt'));
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
-      },
+        const endDate = new Date(row.getValue('updateAt'))
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+      }
     },
     {
       accessorKey: 'price',
@@ -238,16 +253,14 @@ const FlightAdmin: React.FC = () => {
               </Link>
             </Button>
 
-            <Button variant='ghost' className='w-8 h-8 p-0 '>
-              <IconDelete />
-            </Button>
+            <DeleteFlightButton flightId={row.original.id} />
           </div>
         )
       }
     }
   ]
   const table = useReactTable({
-    data:flightsData,
+    data: flightsData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -263,7 +276,7 @@ const FlightAdmin: React.FC = () => {
       columnVisibility,
       rowSelection,
       pagination: {
-        pageIndex ,
+        pageIndex,
         pageSize: entriesPerPage
       }
     }
@@ -275,7 +288,7 @@ const FlightAdmin: React.FC = () => {
   React.useEffect(() => {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
-  
+
   return (
     <div className='w-full p-2'>
       <p className='text-2xl font-bold'>Flight - Admin</p>
@@ -313,7 +326,9 @@ const FlightAdmin: React.FC = () => {
           </div>
           <div className='flex items-center gap-4'>
             <span>Total Flights: {totalDataCount}</span>
-            <Button className='bg-[#624DE3] text-white'>+ Add Flight</Button>
+            <Link to='/admin/flight/create'>
+              <Button className='bg-[#624DE3] text-white'>+ Add Flight</Button>
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='outline' className='ml-auto'>
@@ -338,7 +353,7 @@ const FlightAdmin: React.FC = () => {
             </DropdownMenu>
           </div>
         </div>
-  
+
         <div className='px-4 border rounded-md'>
           <Table>
             <TableHeader>
@@ -372,9 +387,8 @@ const FlightAdmin: React.FC = () => {
           </Table>
         </div>
         <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className="flex-1 text-sm text-muted-foreground">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+          <div className='flex-1 text-sm text-muted-foreground'>
+            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className='pr-4 space-x-2'>
             <Button

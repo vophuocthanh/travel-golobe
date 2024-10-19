@@ -266,7 +266,7 @@ export default function EditTourAdmin() {
                   </FormItem>
                 )}
               />
-              {/* <FormField
+              <FormField
             control={form.control}
             name='start_date'
             
@@ -297,7 +297,7 @@ export default function EditTourAdmin() {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
               <FormField
                 control={form.control}
                 name='starting_gate'

@@ -27,6 +27,7 @@ export const path = {
   admin_create_tour: '/admin/tours/create',
   admin_tourID: '/admin/tours/:id',
   admin_flight: '/admin/flights',
+  admin_create_flight: '/admin/flight/create',
   admin_flightID: '/admin/flights/:id',
   admin_hotel: '/admin/hotels',
   admin_employee: '/admin/employee',

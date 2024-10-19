@@ -118,3 +118,30 @@ export interface TourRequest {
   start_date: string
   end_date: string
 }
+export interface FlightRequest {
+  brand: string;        
+  price: number;        
+  start_time: string;    
+  start_day: string;     
+  end_day: string;       
+  end_time: string;    
+  trip_time: string;    
+  take_place: string;   
+  destination: string;  
+  trip_to: string;       
+  image: string;         
+}
+export interface FlightRespone {
+  brand: string;                    
+  price: number;                     
+  start_time: string;                 
+  start_day: string;                 
+  end_day: string;                  
+  end_time: string;                 
+  trip_time: string;                  
+  take_place: string;                 
+  destination: string;                
+  trip_to: string;                  
+  image: string;                     
+  number_of_seats_remaining: number;  
+}
