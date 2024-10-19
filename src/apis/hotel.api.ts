@@ -1,6 +1,6 @@
 import axiosClient from '@/apis/axios-client'
 import { HotelParams, ListResponse } from '@/shared/ts/interface'
-import { HotelAdd, HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { HotelAdd, HotelResponseType, HotelUpdate } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
   getAll(
@@ -50,7 +50,7 @@ export const hotelApi = {
     const url = '/hotel-crawl/crawl'
     return axiosClient.post(url, data)
   },
-  updateHotel(id: string | undefined, data: HotelResponseType) {
+  updateHotel(id: string | undefined, data: HotelUpdate) {
     const url = `/hotel/${id}`
     return axiosClient.put(url, data)
   },

@@ -3,12 +3,12 @@ export interface HotelResponseType {
   hotel_names?: string
   location?: string
   price?: number
-  score_hotels?: string | number
+  score_hotels?: number
   number_rating?: number
   star_number?: number
   received_time?: string
   giveback_time?: string
-  description?: string
+  description: string
   hotel_link?: string
   place?: string
   image?: string
@@ -27,34 +27,29 @@ export interface TourResponseType {
   userId: string
   description: string
   price: number
-  original_price: number | null
+  original_price: number
   createAt: string
   updateAt: string
   start_date: string
   end_date: string
-  starting_gate: string | null
-  sight_seeing: string | null
-  cuisine: string | null
-  suitable: string | null
-  ideal_time: string | null
+  starting_gate: string
+  sight_seeing: string
+  cuisine: string
+  ideal_time: string
+  image: string
+  image_2: string
+  image_3: string
+  image_4: string
+  image_5: string
+  suitable: string
   road_vehicle: string
-  voucher: string | null
+  voucher: string
   time_trip: string
   baby_price: number
   child_price: number
   adult_price: number
-  image: string
-  image_2: string | null
-  image_3: string | null
-  image_4: string | null
-  image_5: string | null
   rating: number
-  number_of_seats_remaining: number | null
-  totalAmount: number
-  hotelId: string
-  flightId: string
-  roadVehicleId: string | null
-  tour_code: string
+  number_of_seats_remaining: number
 }
 
 export interface FlightResponseType {
@@ -267,5 +262,25 @@ export interface HotelAdd {
   received_time: string;
   giveback_time: string;
   description?: string;
+}
+
+export interface HotelUpdate {
+  hotel_names: string;
+  location: string;
+  star_number: number;
+  price: number;
+  score_hotels?: string | number;
+  number_rating: number;
+  received_time: string;
+  giveback_time: string;
+  description?: string;
+  hotel_link?: string; // Làm cho hotel_link trở thành tùy chọn
+  place: string;
+  image: string;
+  image_2?: string;
+  image_3?: string;
+  image_4?: string;
+  image_5?: string;
+  number_of_seats_remaining: number;
 }
 
