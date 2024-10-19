@@ -50,7 +50,6 @@ export interface TourResponseType {
   image_3: string
   image_4: string
   image_5: string
-  isFavorite: boolean
   suitable: string
   road_vehicle: string
   voucher: string
@@ -58,7 +57,7 @@ export interface TourResponseType {
   baby_price: number
   child_price: number
   adult_price: number
-  rating: string
+  rating: number
   number_of_seats_remaining: number
 }
 

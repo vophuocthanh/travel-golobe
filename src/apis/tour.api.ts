@@ -49,11 +49,11 @@ export const tourApi = {
     const url = '/tour'
     return axiosClient.post(url, data)
   },
-  updateTour(id: string, data: TourResponse) {
+  updateTour(id: string | undefined, data: TourResponse) {
     const url = `/tour/${id}`
     return axiosClient.put(url, data)
   },
-  deleteTour(id: string) {
+  deleteTour(id: string | undefined) {
     const url = `/tour/${id}`
     return axiosClient.delete(url)
   },
