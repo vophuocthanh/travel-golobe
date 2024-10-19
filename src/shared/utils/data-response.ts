@@ -83,28 +83,29 @@ export const unauthorizedListResponse = <T>(data: T[], message: string): DataLis
 })
 
 export interface TourResponse {
-  name: string
-  id?: string
-  image: string
-  description: string
-  location: string
-  price: number
-  quantity?: number
-  count?: string
+  id?:string
+  name?: string
+  image?: string
+  description?: string
+  price?: number
   cuisine?: string
-  suitable_subject?: string
-  vchouer?: string
-  time_out?: string
+  suitable?: string
+  voucher?: string
   ideal_time?: string
-  image2?: string
-  image3?: string
-  image4?: string
-  transport?: string
-  hotel?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
+  image_5?: string
   starting_gate?: string
   sight_seeing?: string
-  created_at?: string
-  updated_at?: string
+  rating?: number
+  end_date?: string
+  start_date?: string
+  time_trip?: string
+  baby_price?:number
+  child_price?: number
+  adult_price?: number
+  number_of_seats_remaining?: number
 }
 
 export interface TourRequest {

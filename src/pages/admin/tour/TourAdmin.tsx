@@ -30,10 +30,12 @@ import { Link } from 'react-router-dom'
 import { tourApi } from '@/apis/tour.api'
 import { IconSearch } from '@/common/icons'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
+import { TourResponse } from '@/shared/utils/data-response'
 import { CaretSortIcon } from '@radix-ui/react-icons'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
+import { toast } from 'react-toastify'
 
 function TourAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -42,6 +44,8 @@ function TourAdmin() {
   const [rowSelection, setRowSelection] = React.useState({})
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
+
+  const queryClient = useQueryClient()
 
   const { data: getAllTour } = useQuery({
     queryKey: ['getAllTour'],
@@ -54,6 +58,35 @@ function TourAdmin() {
     queryFn: () => tourApi.getAll(1, totalTour)
   })
   const tourData = getTour?.data || []
+  const mutationDeleteTour = useMutation({
+    mutationFn: (id: string | undefined) => tourApi.deleteTour(id)
+  })
+
+  const handelete = (id: string | undefined) => {
+    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa tour này không?')
+    if (confirmDelete) {
+      mutationDeleteTour.mutate(id, {
+        onSuccess: () => {
+          console.log(id, 'idqewe')
+
+          queryClient.invalidateQueries({ queryKey: ['getTour'] })
+          queryClient.setQueryData(['getTour'], (deleteTour: TourResponse[] | undefined) => {
+            console.log(id, deleteTour, 'idqewe')
+            if (!deleteTour) {
+              return []
+            }
+            console.log(id, 'idqewe')
+            const updatedTours = deleteTour.filter((item) => item.id !== id)
+            return updatedTours
+          })
+          toast.success('Delete tour success')
+        },
+        onError: () => {
+          toast.error('Delete tour failed')
+        }
+      })
+    }
+  }
 
   const columns: ColumnDef<TourResponseType>[] = [
     {
@@ -210,7 +243,18 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('child_price')}</div>
+      cell: ({ row }) => {
+        {
+          const child_price = parseFloat(row.getValue('child_price'))
+
+          const formatted = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+          }).format(child_price)
+
+          return <div className='font-medium text-right'>{formatted}</div>
+        }
+      }
     },
     {
       accessorKey: 'adult_price',
@@ -222,7 +266,16 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('adult_price')}</div>
+      cell: ({ row }) => {
+        const adult_price = parseFloat(row.getValue('adult_price'))
+
+        const formatted = new Intl.NumberFormat('vi-VN', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(adult_price)
+
+        return <div className='font-medium text-right'>{formatted}</div>
+      }
     },
     {
       accessorKey: 'number_of_seats_remaining',
@@ -261,8 +314,7 @@ function TourAdmin() {
                 <IconEdit />
               </Link>
             </Button>
-
-            <Button variant='ghost' className='w-8 h-8 p-0 '>
+            <Button variant='ghost' className='w-8 h-8 p-0 ' onClick={() => handelete(row.getValue('id'))}>
               <IconDelete />
             </Button>
           </div>

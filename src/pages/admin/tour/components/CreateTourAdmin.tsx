@@ -41,9 +41,15 @@ export default function CreateTourAdmin() {
   const mutationCreateTour = useMutation({
     mutationFn: (data: z.infer<typeof CreateTourSchema>) => tourApi.addTour(data)
   })
+  console.log(mutationCreateTour,"mutationCreateTour");
+  
 
   function onSubmit(data: z.infer<typeof CreateTourSchema>) {
     setLoading(true)
+    console.log("123");
+    console.log(data,"data");
+    
+    
 
     const formattedData = {
       ...data,
@@ -84,7 +90,7 @@ export default function CreateTourAdmin() {
               <FormItem>
                 <FormLabel>Tên tour</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập tên tour' {...field} />
+                  <Input  placeholder='Nhập tên tour' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
