@@ -21,32 +21,28 @@ import {
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { IconDelete, IconEdit, IconView } from '@/common/icons'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
-
-import { FlightBillingResponseType } from '@/shared/ts/interface/data.interface'
 import { CaretSortIcon } from '@radix-ui/react-icons'
-import { bookingFlightApi } from '@/apis/booking-flight'
+import { bookingCoachApi } from '@/apis/booking-coach'
+import { BillingCoachResponseAdmin } from '@/shared/ts/interface/booking-coach.interface'
 
-export function BillingFLight() {
-  const { data: getFlightBilling } = useQuery({
+export function BillingCoach() {
+  const { data: getCoachBilling } = useQuery({
     queryKey: ['getAllBilling'],
-    queryFn: () => bookingFlightApi.getBookingFlight(1, 10)
+    queryFn: () => bookingCoachApi.getBookingCoach(1,1)
   })
 
-  const total = getFlightBilling?.total || 0
+  const totalDataCount = getCoachBilling?.total || 0
 
-  const { data: billiingFLightData } = useQuery({
-    queryKey: ['getBilling', total],
-    queryFn: () => bookingFlightApi.getBookingFlight(1, total),
-    enabled: total > 0
+  const { data: billiingCoachData } = useQuery({
+    queryKey: ['getBilling', totalDataCount],
+    queryFn: () => bookingCoachApi.getBookingCoach(1, totalDataCount),
+    enabled: totalDataCount > 0
   })
 
-  const billing = billiingFLightData?.data || []
-  console.log()
-
-  const navigate = useNavigate()
+  const billing = billiingCoachData?.data || []
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -54,7 +50,7 @@ export function BillingFLight() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
 
-  const columns: ColumnDef<FlightBillingResponseType>[] = [
+  const columns: ColumnDef<BillingCoachResponseAdmin>[] = [
     {
       accessorKey: 'id',
       header: ({ column }) => (
@@ -63,51 +59,38 @@ export function BillingFLight() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
-          {row.getValue('id')}
-        </div>
-      )
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('id')}</div>
     },
-
     {
-      accessorKey: 'flightCrawlId',
+      accessorKey: 'userId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight ID
+          User Id
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('userId')}</div>
+    },
+    {
+      accessorKey: 'roadVehicleId',
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Road Vehicle ID
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className='w-[5rem] lowercase truncate'>{row.getValue('roadVehicleId')}</div>
+    },
+    {
+      accessorKey: 'roadVehicleQuantity',
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Road Vehicle Quantity
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
       cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
-          {row.getValue('flightCrawlId')}
-        </div>
-      )
-    },
-
-    {
-      accessorKey: 'flightQuantity',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Quantity
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='text-center lowercase'>{row.getValue('flightQuantity')}</div>
-    },
-
-    {
-      accessorKey: 'ticketFlighttId',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Ticket Flightt Id
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
-          {row.getValue('ticketFlighttId')}
-        </div>
+        <div className='w-[5rem] lowercase break-words text-center'>{row.getValue('roadVehicleQuantity')}</div>
       )
     },
     {
@@ -165,11 +148,11 @@ export function BillingFLight() {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
 
-        if (status === 'PENDING') {
+        if (status === 'success') {
           statusClass = 'bg-green-100 text-green-800'
-        } else if (status === 'PROCESSING') {
+        } else if (status === 'processing') {
           statusClass = 'bg-yellow-100 text-yellow-800'
-        } else if (status === 'CANCELLED') {
+        } else if (status === 'failed') {
           statusClass = 'bg-red-100 text-red-800'
         }
 
@@ -189,22 +172,21 @@ export function BillingFLight() {
       header: () => <div className='flex justify-center'>Actions</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={() => handleView(row.original)}>
-            {' '}
-            <IconView />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
-            {' '}
+          <Button variant='ghost' className='w-8 h-8 cursor-pointer' >
+            <Link to={`/admin/billing/coach-view/${row.original.id}`}>
+              <IconView />
+            </Link>
+          </Button>
+          <div className='w-8 h-8 cursor-pointer' onClick={() => handleEdit(row.original)}>
             <IconEdit />
           </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
-            {' '}
+          <div className='w-8 h-8 cursor-pointer' onClick={() => handleDelete(row.original)}>
             <IconDelete />
           </div>
         </div>
       )
-    }
-  ]
+    },
+  ];
 
   const table = useReactTable({
     data: billing,
@@ -237,105 +219,120 @@ export function BillingFLight() {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
-  function handleEdit(flight: FlightBillingResponseType) {
-    console.log('Editing payment:', flight)
+  function handleEdit(payment: BillingCoachResponseAdmin) {
+    console.log('Editing payment:', payment)
   }
 
-  function handleDelete(flight: FlightBillingResponseType) {
-    console.log('Deleting payment:', flight)
+  function handleDelete(payment: BillingCoachResponseAdmin) {
+    console.log('Deleting payment:', payment)
   }
-
-  const handleView = (flight: FlightBillingResponseType) => {
-    navigate(`/admin/billing/flight_view/${flight.id}`)
-  }
-
+  
   return (
-    <div className='w-full'>
-      <div className='flex items-center w-full py-4'>
-        <span>Show</span>
+    <div className="w-full">
+    <div className="flex items-center w-full gap-4 py-4">
+      <span>Show</span>
         <select
-          className='p-2 ml-4 border border-gray-300 rounded-lg'
+          className='p-2 border border-gray-300 rounded-lg'
           value={entriesPerPage}
           onChange={(e) => {
             setEntriesPerPage(Number(e.target.value))
             table.setPageIndex(0)
           }}
-        >
+            >
           {[10, 25, 50, 100].map((size) => (
-            <option key={size} value={size}>
-              {size}
-            </option>
+          <option key={size} value={size}>
+            {size}
+          </option>
           ))}
         </select>
-        <Input
-          placeholder='Filter id...'
-          value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
-          className='max-w-sm ml-4'
-        />
-        <div className='flex items-center gap-4 ml-auto'>
-          <span>Total : {total}</span>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className='capitalize'
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      <div className='border rounded-md'>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+      <Input
+        placeholder="Filter id..."
+        value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
+        onChange={(event) =>
+          table.getColumn("id")?.setFilterValue(event.target.value)
+        }
+        className="max-w-sm"
+      />
+      <div className='flex items-center gap-4 ml-auto'>
+        <span>Total Billing Coach: {totalDataCount}</span>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+                <Button variant='outline' className='ml-auto'>
+                  Columns <ChevronDown className='w-4 h-4 ml-2' />
+                </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className='capitalize'
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
                   ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-      <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className='flex-1 text-sm text-muted-foreground'>
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+    </div>
+    <div className="border rounded-md">
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center"
+              >
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+    <div className='flex items-center justify-end py-4 space-x-2'>
+      <div className="flex-1 text-sm text-muted-foreground">
+          Page {table.getState().pagination.pageIndex + 1} of{" "}
+          {table.getPageCount()}
         </div>
         <div className='pr-4 space-x-2'>
           <Button
@@ -354,6 +351,6 @@ export function BillingFLight() {
           </Button>
         </div>
       </div>
-    </div>
+  </div>
   )
 }

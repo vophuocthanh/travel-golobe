@@ -64,7 +64,7 @@ export default function EditTourAdmin() {
       reset({
         name: getbyId?.name,
         ideal_time: getbyId?.ideal_time,
-        voucher: getbyId?.vchouer,
+        voucher: getbyId?.voucher,
         price: getbyId?.price,
         start_date: getbyId?.start_date,
         end_date: getbyId?.end_date,
@@ -91,31 +91,6 @@ export default function EditTourAdmin() {
   const [endDate, setEndDate] = useState<Date>()
 
 
-  // const [tourData, setTourData] = useState({
-  //   id: getbyId?.id,
-    // name: getbyId?.name,
-    // ideal_time: getbyId?.ideal_time,
-    // voucher: getbyId?.vchouer,
-    // price: getbyId?.price,
-    // start_date: getbyId?.start_date,
-    // end_date: getbyId?.end_date,
-    // description: getbyId?.description,
-    // time_trip: getbyId?.time_trip,
-    // baby_price: getbyId?.baby_price,
-    // child_price:getbyId?.child_price,
-    // adult_price:getbyId?.adult_price,
-    // image: getbyId?.image,
-    // image_2: getbyId?.image_2,
-    // image_3: getbyId?.image_3,
-    // image_4: getbyId?.image_4,
-    // image_5: getbyId?.image_5,
-    // starting_gate: getbyId?.starting_gate,
-    // sight_seeing: getbyId?.sight_seeing,
-    // cuisine: getbyId?.cuisine,
-    // suitable: getbyId?.suitable,
-    // rating: getbyId?.rating,
-    // number_of_seats_remaining: getbyId?.number_of_seats_remaining,
-  // })
   const mutationUpdateTour = useMutation({
     mutationFn: (data: z.infer<typeof UpdateTourSchema>) => tourApi.updateTour(id,data)
   })

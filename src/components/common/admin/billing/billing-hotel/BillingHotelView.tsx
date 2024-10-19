@@ -1,45 +1,50 @@
-import { avatar1, hoteldetail1 } from "@/assets/images";
+import { bookingHotelApi } from "@/apis/booking-hotel.api";
+import { meApi } from "@/apis/me";
+import { hoteldetail1 } from "@/assets/images";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeftToLine } from "lucide-react";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function BillingHotelView() {
+  const { userId, id } = useParams<{ userId: string, id: string }>()
 
-  const { billingID } = useParams();
+
+  const { data: getbyIdHotelBiling } = useQuery({
+    queryKey: ['getbyIdHotelBiling', id],
+    queryFn: () => bookingHotelApi.getBookingDetail(id || '')
+  })
+
+  const { data: getbyIdUser } = useQuery({
+    queryKey: ['getbyIdUser', userId],
+    queryFn: () => meApi.getUserById(userId || '')
+  })
+
   const navigate = useNavigate();
-  const [billingData, setBillingData] = useState({
-    id: "m5gr84i9",billingTime: "2003-05-21",plan: "Basic", amount: 316, status: "processing",  
-    customerName: "John Doe", customerEmail: "john.doe@example.com",
-    hotelName: "Sunrise Hotel", hotelLocation: "Hanoi, Vietnam", hotelRooms: 2, hotelCheckIn: "2024-10-01 14:00", hotelCheckOut: "2024-10-07 12:00",
-  });
+
+
 
   const handleBack = () => {
     navigate('/admin/billing');
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setBillingData({ ...billingData, [name]: value });
-  };
-
   const getStatusClass = () => {
-    switch (billingData.status) {
-      case "success":
+    switch (getbyIdHotelBiling?.status) {
+      case "CONFIRMED":
         return "bg-green-300";
-      case "processing":
+      case "PENDING":
         return "bg-yellow-300";
-      case "failed":
+      case "CANCELLED":
         return "bg-red-300";
       default:
         return "";
     }
   };
-  
+
   return (
     <div className="w-full p-2 mb-5">
-      <h1 className="mb-2 text-2xl font-bold">View Billing {billingID}</h1>
+      <h1 className="mb-2 text-2xl font-bold">View Billing {id}</h1>
       <Button className="flex mb-4 mr-auto text-white" onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
@@ -48,15 +53,14 @@ export default function BillingHotelView() {
           <h2 className="mb-4 text-xl font-bold">Customer Information</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto'>
-              <img src={avatar1} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={getbyIdUser?.avatar} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className="grid col-span-1 gap-x-6 gap-y-4 ">
               <Input
                 type="text"
                 name="customerName"
                 placeholder="Customer Name"
-                value={billingData.customerName}
-                onChange={handleChange}
+                value={getbyIdUser?.name}
                 className="p-2 border rounded "
                 disabled
               />
@@ -64,8 +68,7 @@ export default function BillingHotelView() {
                 type="email"
                 name="customerEmail"
                 placeholder="Customer Email"
-                value={billingData.customerEmail}
-                onChange={handleChange}
+                value={getbyIdUser?.email}
                 className="p-2 border rounded "
                 disabled
               />
@@ -77,7 +80,7 @@ export default function BillingHotelView() {
           <h2 className="mb-4 text-xl font-bold">Hotel Information</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
-                <img src={hoteldetail1} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={hoteldetail1} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -87,8 +90,7 @@ export default function BillingHotelView() {
                     type="text"
                     name="hotelName"
                     placeholder="Hotel Name"
-                    value={billingData.hotelName}
-                    onChange={handleChange}
+                    value={getbyIdHotelBiling?.hotel_names}
                     className="p-2 border rounded "
                     disabled
                   />
@@ -99,8 +101,7 @@ export default function BillingHotelView() {
                     type="text"
                     name="hotelLocation"
                     placeholder="Hotel Location"
-                    value={billingData.hotelLocation}
-                    onChange={handleChange}
+                    value={getbyIdHotelBiling?.place}
                     className="p-2 border rounded "
                     disabled
                   />
@@ -111,8 +112,7 @@ export default function BillingHotelView() {
                     type="text"
                     name="hotelCheckIn"
                     placeholder="Check-In Time"
-                    value={billingData.hotelCheckIn}
-                    onChange={handleChange}
+                    value={getbyIdHotelBiling?.giveback_time}
                     className="col-span-1 p-2 border rounded"
                     disabled
                   />
@@ -123,8 +123,7 @@ export default function BillingHotelView() {
                     type="text"
                     name="hotelCheckOut"
                     placeholder="Check-Out Time"
-                    value={billingData.hotelCheckOut}
-                    onChange={handleChange}
+                    value={getbyIdHotelBiling?.received_time}
                     className="col-span-1 p-2 border rounded"
                     disabled
                   />
@@ -135,8 +134,7 @@ export default function BillingHotelView() {
                     type="number"
                     name="hotelRooms"
                     placeholder="Number of Rooms"
-                    value={billingData.hotelRooms}
-                    onChange={handleChange}
+                    value={getbyIdHotelBiling?.hotelQuantity}
                     className="col-span-1 p-2 border rounded"
                     disabled
                   />
@@ -145,7 +143,7 @@ export default function BillingHotelView() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-4 bg-white rounded-lg shadow">
           <h2 className="mb-4 text-xl font-bold">Billing Information</h2>
           <div className="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -155,8 +153,7 @@ export default function BillingHotelView() {
                 type="text"
                 name="id"
                 placeholder="Billing ID"
-                value={billingData.id}
-                onChange={handleChange}
+                value={getbyIdHotelBiling?.id}
                 className="p-2 border rounded"
                 disabled
               />
@@ -167,8 +164,7 @@ export default function BillingHotelView() {
                 type="text"
                 name="billingTime"
                 placeholder="Billing Time"
-                value={billingData.billingTime}
-                onChange={handleChange}
+                value={"Billing Time"}
                 className="p-2 border rounded"
                 disabled
               />
@@ -179,8 +175,7 @@ export default function BillingHotelView() {
                 type="text"
                 name="plan"
                 placeholder="Plan"
-                value={billingData.plan}
-                onChange={handleChange}
+                value={"plan"}
                 className="p-2 border rounded"
                 disabled
               />
@@ -191,8 +186,7 @@ export default function BillingHotelView() {
                 type="number"
                 name="amount"
                 placeholder="Amount"
-                value={billingData.amount}
-                onChange={handleChange}
+                value={getbyIdHotelBiling?.price}
                 className="p-2 border rounded"
                 disabled
               />
@@ -203,8 +197,7 @@ export default function BillingHotelView() {
                 type="text"
                 name="status"
                 placeholder="Status"
-                value={billingData.status}
-                onChange={handleChange}
+                value={getbyIdHotelBiling?.status}
                 className={`col-span-1 p-2 border rounded ${getStatusClass()}`}
                 disabled
               />

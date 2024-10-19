@@ -5,6 +5,7 @@ import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import Favorite from '@/components/common/flight/all-flight/favorite'
 import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
+import ShareButtons from '@/components/common/share/share-link'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@radix-ui/react-checkbox'
@@ -64,7 +65,7 @@ export default function FlightDetail() {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id || '')
   })
-
+  const [loadingBooking, setLoadingBooking] = useState(false)
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
@@ -81,6 +82,7 @@ export default function FlightDetail() {
   })
 
   const handleBookFlight = () => {
+    setLoadingBooking(true)
     if (selectedTicket === '') {
       toast.error('Please select a ticket before booking')
       SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -93,6 +95,10 @@ export default function FlightDetail() {
     setSelectedTicket(id)
     console.log('Ticket đã chọn:', id)
   }
+
+  const flightUrl = `https://travel-golobe.vercel.app/tour/${id}`
+  const flightTitle = 'Chia sẻ chyến bay thú vị này!'
+
   return (
     <>
       <Header />
@@ -159,7 +165,13 @@ export default function FlightDetail() {
                 <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
                   <Link2 className={`w-4 h-4`} />
                 </p>
-                <Button onClick={handleBookFlight} disabled={getbyId?.number_of_seats_remaining === 0}>
+
+                <ShareButtons url={flightUrl} title={flightTitle} />
+                <Button
+                  onClick={handleBookFlight}
+                  disabled={getbyId?.number_of_seats_remaining === 0}
+                  loading={loadingBooking}
+                >
                   Book now
                 </Button>
               </div>

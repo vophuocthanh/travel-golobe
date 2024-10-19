@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { meApi } from '@/apis/me'
 import { logo_flight, logo_hotel } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
@@ -16,13 +15,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Armchair, Calendar, ChevronRight, CirclePlus, Clock4, Cpu, CreditCard, DoorOpen, Minus } from 'lucide-react'
 import { useRef, useState } from 'react'
-
 import Div from './components/div-profile'
 import Input from './components/input-profile'
 
-import { flightApi } from '@/apis/flight.api'
-import { tourApi } from '@/apis/tour.api'
-import { Link } from 'react-router-dom'
+import PaymentHistory from '@/pages/profile/components/payment-history'
 import { toast } from 'react-toastify'
 import ContentAddress from './components/content-adress'
 import ContentCountry from './components/content-country'
@@ -48,16 +44,6 @@ export default function Profile() {
   const { data: getMeProfile } = useQuery({
     queryKey: ['getMe'],
     queryFn: () => meApi.getMe()
-  })
-
-  const { data: getFavoriteTours } = useQuery({
-    queryKey: ['getFavoriteTours'],
-    queryFn: () => tourApi.getFavoriteTours()
-  })
-
-  const { data: getFavoriteFlights } = useQuery({
-    queryKey: ['getFavoriteFlights'],
-    queryFn: () => flightApi.getFavoriteFlights()
   })
 
   const mutationAvatar = useMutation({
@@ -201,81 +187,6 @@ export default function Profile() {
                       <ChevronRight />
                     </Button>
                   </div>
-                  <div className='w-full h-full mt-10'>
-                    <div className='flex flex-col'>
-                      <h1 className='text-2xl font-bold'>Tour yêu thích</h1>
-                      {getFavoriteTours?.data.map(
-                        (tour: { id: string; image: string; name: string; description: string }) => (
-                          <div
-                            key={tour.id}
-                            className='flex items-center justify-between p-4 my-2 bg-white border rounded-lg shadow-md'
-                          >
-                            <div className='flex items-center'>
-                              <img src={tour.image} alt='tour-image' className='w-16 h-16 mr-4' />
-                              <div className='flex flex-col'>
-                                <h1>{tour.name}</h1>
-                                <p>{tour.description}</p>
-                              </div>
-                            </div>
-                            <Link to={`/tour/${tour.id}`}>
-                              <Button className='px-4 py-2 text-white rounded-md bg-primary'>View detail</Button>
-                            </Link>
-                          </div>
-                        )
-                      )}
-                    </div>
-                    <div className='flex flex-col'>
-                      <h1 className='text-2xl font-bold'>Flight yêu thích</h1>
-                      {getFavoriteFlights?.data.map((flight: any) => (
-                        <div
-                          key={flight.id}
-                          className='flex items-center justify-between p-4 my-2 bg-white border rounded-lg shadow-md'
-                        >
-                          <div className='flex items-center'>
-                            <img
-                              src='https://www.vietnamairlines.com/~/media/ContentImage/TravelInfo/ChuyenBayMoUoc.jpg?la=en'
-                              alt='flight-image'
-                              className='w-16 h-16 mr-4'
-                            />
-                            <div className='flex flex-col'>
-                              <h1>{flight.brand}</h1>
-                              <p>{flight.type_ticket}</p>
-                              <p>{flight.price}</p>
-                            </div>
-                          </div>
-                          <Link to={`/flight/${flight.id}`}>
-                            <Button className='px-4 py-2 text-white rounded-md bg-primary'>View detail</Button>
-                          </Link>
-                        </div>
-                      ))}
-                    </div>
-                    <div className='flex flex-col'>
-                      <h1 className='text-2xl font-bold'>Hotel yêu thích</h1>
-                      {/* {getFavoriteHotels?.data.map(
-                        (hotel: { id: string; image: string; hotel_names: string; description: string }) => (
-                          <div
-                            key={hotel.id}
-                            className='flex items-center justify-between p-4 my-2 bg-white border rounded-lg shadow-md'
-                          >
-                            <div className='flex items-center'>
-                              <img
-                                src='https://cf.bstatic.com/xdata/images/hotel/max1024x768/469254471.jpg?k=92a78249a4cd8daaf9525f55e57d6f33d9b98ed4ac8a7d99bdf0ee5833f3c8ca&o=&hp=1'
-                                alt='hotel-image'
-                                className='w-16 h-16 mr-4'
-                              />
-                              <div className='flex flex-col'>
-                                <h1 className='font-medium'>{hotel.hotel_names}</h1>
-                                <p className='hotel-description'>{hotel.description}</p>
-                              </div>
-                            </div>
-                            <Link to={`/hotel/${hotel.id}`}>
-                              <Button className='px-4 py-2 text-white rounded-md bg-primary'>View detail</Button>
-                            </Link>
-                          </div>
-                        )
-                      )} */}
-                    </div>
-                  </div>
                 </TabsContent>
                 <TabsContent value='stays'>
                   <div className='relative flex items-center px-4 bg-white border rounded-lg shadow-md'>
@@ -310,6 +221,7 @@ export default function Profile() {
                   </div>
                 </TabsContent>
               </Tabs>
+              <PaymentHistory />
             </TabsContent>
             <TabsContent value='Payment-methods'>
               <p className='text-xl font-bold'>Payment methods</p>

@@ -1,14 +1,12 @@
 import { IconFlight } from '@/common/icons'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
-import { TourResponseType } from '@/shared/ts/interface/data.interface'
+import { TourInfoResponse } from '@/shared/ts/interface/data.interface'
 
 interface IVehicle {
-  data?: TourResponseType
+  data?: TourInfoResponse
 }
 
 export default function Vehicle({ data }: IVehicle) {
-  console.log(data,"dâtt");
-  
   return (
     <div className='mt-16 '>
       <h2 className='mb-8 text-3xl font-semibold text-center'>LỊCH KHỞI HÀNH </h2>

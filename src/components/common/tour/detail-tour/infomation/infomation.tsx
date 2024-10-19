@@ -1,8 +1,8 @@
 import { IconCuisine, IconEndow, IconIdealTime, IconSightseeing, IconSuitable, IconVehicle } from '@/common/icons'
-import { TourResponseType } from '@/shared/ts/interface/data.interface'
+import { TourInfoResponse } from '@/shared/ts/interface/data.interface'
 
 interface IInformation {
-  dataInfo?: TourResponseType
+  dataInfo?: TourInfoResponse
 }
 
 export default function Information({ dataInfo }: IInformation) {
@@ -35,7 +35,7 @@ export default function Information({ dataInfo }: IInformation) {
       id: 5,
       icon: <IconVehicle />,
       title: 'Phương tiện',
-      text: dataInfo?.road_vehicle
+      text: dataInfo?.road_vehicle?.type
     },
     {
       id: 6,

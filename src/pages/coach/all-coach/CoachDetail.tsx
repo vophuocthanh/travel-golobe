@@ -2,8 +2,8 @@ import { bookingCoachApi } from '@/apis/booking-coach'
 import { coachApi } from '@/apis/coach.api'
 import { commentCoachApi } from '@/apis/comment-coach.api'
 import { bannercoach, coachdetail1, coachdetail2, coachdetail3 } from '@/assets/images'
-import { IconLink } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
+import ShareButtons from '@/components/common/share/share-link'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import {
@@ -103,6 +103,9 @@ export default function CoachDetail() {
     }
   }
 
+  const coachUrl = `https://travel-golobe.vercel.app/hotel/${id}`
+  const coachTitle = 'Chia sẻ chuyến xe thú vị này!'
+
   return (
     <>
       <Header />
@@ -164,9 +167,7 @@ export default function CoachDetail() {
                 >
                   <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
                 </p>
-                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <IconLink />
-                </p>
+                <ShareButtons url={coachUrl} title={coachTitle} />
                 <Button
                   className='flex w-[8rem]'
                   loading={loadingBooking}

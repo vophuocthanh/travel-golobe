@@ -1,179 +1,152 @@
-import { avatar1, tour_into1 } from "@/assets/images";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowLeftToLine } from "lucide-react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { bookingTourApi } from '@/apis/booking-tour.api'
+import { avatar1, tour_into1 } from '@/assets/images'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useQuery } from '@tanstack/react-query'
+import { ArrowLeftToLine } from 'lucide-react'
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function BillingTourView() {
-
-  const { billingID } = useParams();
-  const navigate = useNavigate();
+  const { billingID } = useParams()
+  const navigate = useNavigate()
   const [billingData, setBillingData] = useState({
-    id: "m5gr84i9",billingTime: "2003-05-21",plan: "Basic", amount: 316, status: "success",  
-    customerName: "John Doe", customerEmail: "john.doe@example.com",
-    tour: "Vietnam Adventure", tourLocation: "Hanoi, Vietnam",  
-  });
+    id: 'm5gr84i9',
+    billingTime: '2003-05-21',
+    plan: 'Basic',
+    amount: 316,
+    status: 'success',
+    customerName: 'John Doe',
+    customerEmail: 'john.doe@example.com',
+    tour: 'Vietnam Adventure',
+    tourLocation: 'Hanoi, Vietnam'
+  })
+
+  const { data: billingTourData1 } = useQuery({
+    queryKey: ['getDetailsBilliingTour'],
+    queryFn: () => bookingTourApi.getBookingDetail(billingID ?? '')
+  })
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString || '')
+    return new Intl.DateTimeFormat('vi-VN', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: false // Để sử dụng định dạng 24 giờ
+    }).format(date)
+  }
+
+  console.log('dataaaaaaaaa:', billingTourData1)
 
   const handleBack = () => {
-    navigate('/admin/billing');
-  };
+    navigate('/admin/billing')
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setBillingData({ ...billingData, [name]: value });
-  };
+    const { name, value } = e.target
+    setBillingData({ ...billingData, [name]: value })
+  }
 
-  const getStatusClass = () => {
-    switch (billingData.status) {
-      case "success":
-        return "bg-green-300";
-      case "processing":
-        return "bg-yellow-300";
-      case "failed":
-        return "bg-red-300";
-      default:
-        return "";
-    }
-  };
-  
+  const formatCurrency = (amount: number | bigint) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    }).format(amount)
+  }
+
   return (
-    <div className="w-full p-2 mb-5">
-      <h1 className="mb-2 text-2xl font-bold">View Billing {billingID}</h1>
-      <Button className="flex mb-4 mr-auto text-white" onClick={handleBack}>
-        <ArrowLeftToLine />
+    <div className='w-full p-4 mb-5 bg-gray-100'>
+      <h1 className='mb-2 text-2xl font-bold text-center'>View Billing {billingID}</h1>
+      <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
+        <ArrowLeftToLine className='mr-1' />
+        Quay lại
       </Button>
-      <form className="space-y-4">
-        <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Customer Information</h2>
+      <form className='space-y-6'>
+        <div className='p-6 bg-white rounded-lg shadow-lg'>
+          <h2 className='mb-4 text-xl font-bold border-b'>Customer Information</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
-            <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto'>
-              <img src={avatar1} alt='hotel' className='w-full h-full rounded-full' />
+            <div className='w-[10rem] h-[10rem] col-span-1 flex mx-auto'>
+              <img
+                src={avatar1}
+                alt='customer avatar'
+                className='w-full h-full border-2 border-gray-300 rounded-full'
+              />
             </div>
-            <div className="grid col-span-1 gap-x-6 gap-y-4 ">
+            <div className='grid grid-cols-2 col-span-2 gap-4'>
               <Input
-                type="text"
-                name="customerName"
-                placeholder="Customer Name"
+                type='text'
+                name='customerName'
+                placeholder='Customer Name'
                 value={billingData.customerName}
                 onChange={handleChange}
-                className="p-2 border rounded "
+                className='p-2 border rounded shadow-sm focus:ring focus:ring-blue-300'
                 disabled
               />
               <Input
-                type="email"
-                name="customerEmail"
-                placeholder="Customer Email"
+                type='email'
+                name='customerEmail'
+                placeholder='Customer Email'
                 value={billingData.customerEmail}
                 onChange={handleChange}
-                className="p-2 border rounded "
+                className='p-2 border rounded shadow-sm focus:ring focus:ring-blue-300'
                 disabled
               />
             </div>
-          </div>
-        </div>
-      
-        <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Tour Information</h2>
-          <div className='grid grid-cols-3 gap-4 mb-4'>
-            <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
-                <img src={tour_into1} alt='hotel' className='w-full h-full rounded-full' />
-            </div>
-            <div className="col-span-1">
-            <div className="col-span-1 mb-4">
-              <p>Tour</p>
-              <Input
-                type="text"
-                name="tour"
-                placeholder="Tour"
-                value={billingData.tour}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Tour Location</p>
-              <Input
-                type="text"
-                name="tourLocation"
-                placeholder="Tour Location"
-                value={billingData.tourLocation}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-          </div>
           </div>
         </div>
 
-        <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Billing Information</h2>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-            <div className="col-span-1">
-              <p>Billing ID</p>
-              <Input
-                type="text"
-                name="id"
-                placeholder="Billing ID"
-                value={billingData.id}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Billing Time</p>
-              <Input
-                type="text"
-                name="billingTime"
-                placeholder="Billing Time"
-                value={billingData.billingTime}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Plan</p>
-              <Input
-                type="text"
-                name="plan"
-                placeholder="Plan"
-                value={billingData.plan}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Amount</p>
-              <Input
-                type="number"
-                name="amount"
-                placeholder="Amount"
-                value={billingData.amount}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Status</p>
-              <Input
-                type="text"
-                name="status"
-                placeholder="Status"
-                value={billingData.status}
-                onChange={handleChange}
-                className={`col-span-1 p-2 border rounded ${getStatusClass()}`}
-                disabled
-              />
+        <div className='p-6 bg-white rounded-lg shadow-lg'>
+          <h2 className='mb-4 text-xl font-bold border-b'>Tour Information</h2>
+          <div className='w-[10rem] h-[10rem] col-span-1 flex mx-auto my-auto justify-center items-center'>
+            <img src={tour_into1} alt='tour image' className='w-full h-full border-2 border-gray-300 rounded' />
+          </div>
+          <div className='grid grid-cols-3 gap-4 mb-4'>
+            <div className='grid grid-cols-3 col-span-4 gap-4'>
+              <div className='col-span-1'>
+                <p className='font-semibold'>Tour</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>{billingTourData1?.name}</p>
+                <p className='font-semibold'>Price Tour:</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>
+                  {billingTourData1?.price ? formatCurrency(billingTourData1.price) : ''}
+                </p>
+                <p className='font-semibold'>start_date</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>
+                  {' '}
+                  {billingTourData1?.start_date ? formatDate(billingTourData1.start_date) : 'N/A'}
+                </p>
+                <p className='font-semibold'>end_date</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>
+                  {' '}
+                  {billingTourData1?.end_date ? formatDate(billingTourData1.end_date) : 'N/A'}
+                </p>
+              </div>
+              <div className='col-span-1'>
+                <p className='font-semibold'>Hotel</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>{billingTourData1?.hotelDetails.hotel_names}</p>
+                <p className='font-semibold'>Price Hotel</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>
+                  {billingTourData1?.hotelDetails.price ? formatCurrency(billingTourData1.hotelDetails.price) : ''}
+                </p>
+              </div>
+              <div className='col-span-1 mt-2 '>
+                <p className='font-semibold'>Vehicle:</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>{billingTourData1?.road_vehicle.type}</p>
+                <p className='mt-2 font-semibold'>Branch:</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>{billingTourData1?.road_vehicle.details.brand}</p>
+                <p className='mt-2 font-semibold'>Price Flight:</p>
+                <p className='p-2 text-sm border rounded shadow-sm'>
+                  {billingTourData1?.road_vehicle.details.price
+                    ? formatCurrency(billingTourData1.road_vehicle.details.price)
+                    : ''}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </form>
     </div>
-  );
+  )
 }
