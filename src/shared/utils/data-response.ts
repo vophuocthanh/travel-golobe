@@ -121,7 +121,8 @@ export interface TourRequest {
 export interface CoachRequest {
   brand: string;        
   price: number;
-  number_of_seat: string        
+  number_of_seat: string      
+}  
 export interface FlightRequest {
   brand: string;        
   price: number;        
@@ -156,6 +157,5 @@ export interface FlightRespone {
   location: string
   image?: string;                     
   trip_to: string;                  
-  image: string;                     
   number_of_seats_remaining: number;  
 }
