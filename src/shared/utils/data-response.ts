@@ -122,6 +122,9 @@ export interface CoachRequest {
   brand: string;        
   price: number;
   number_of_seat: string        
+export interface FlightRequest {
+  brand: string;        
+  price: number;        
   start_time: string;    
   start_day: string;     
   end_day: string;       
@@ -137,6 +140,12 @@ export interface CoachRespone {
   brand: string;                    
   price: number;        
   number_of_seat: string                     
+  trip_to: string;       
+  image: string;         
+}
+export interface FlightRespone {
+  brand: string;                    
+  price: number;                     
   start_time: string;                 
   start_day: string;                 
   end_day: string;                  
@@ -146,5 +155,7 @@ export interface CoachRespone {
   destination: string;                
   location: string
   image?: string;                     
+  trip_to: string;                  
+  image: string;                     
   number_of_seats_remaining: number;  
 }
