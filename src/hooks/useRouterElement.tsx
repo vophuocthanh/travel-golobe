@@ -14,6 +14,7 @@ import CreateFlightAdmin from '@/pages/admin/flight/components/CreateFlightAdmin
 import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
+import CreateHotelAdmin from '@/pages/admin/hotel/HotelAdminAdd'
 import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
 import PaymentAdmin from '@/pages/admin/payments/PaymentAdmin'
 import PaymentDetailView from '@/pages/admin/payments/PaymentDetailView'
@@ -89,6 +90,7 @@ export default function useRoutesElements() {
       { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
       { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
       { path: path.admin_create_tour, element: <LayoutMain children={<CreateTourAdmin />} /> },
+      { path: path.hotel_add, element: <LayoutMain children={<CreateHotelAdmin />} /> },
       { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
       { path: path.admin_create_flight, element: <LayoutMain children={<CreateFlightAdmin />} /> },
@@ -101,7 +103,7 @@ export default function useRoutesElements() {
       { path: path.flight_payment, element: <FlightPayment /> },
       { path: path.coach_payment, element: <CoachPayment /> },
       { path: path.tour_payment, element: <TourPayment /> },
-      { path: path.hotel_payment, element: <HotelPayment /> }
+      { path: path.hotel_payment, element: <HotelPayment /> },
     ],
     location
   )
