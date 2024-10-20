@@ -19,7 +19,7 @@ import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
 import PaymentAdmin from '@/pages/admin/payments/PaymentAdmin'
 import PaymentDetailView from '@/pages/admin/payments/PaymentDetailView'
 import RoadVehicleAdmin from '@/pages/admin/road-vehicle/RoadVehicleAdmin'
-import RoadVehicleAdminView from '@/pages/admin/road-vehicle/RoadVehicleAdminView'
+import RoadVehicleAdminView from '@/pages/admin/road-vehicle/components/RoadVehicleAdminView'
 import CreateTourAdmin from '@/pages/admin/tour/components/CreateTourAdmin'
 import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
@@ -44,6 +44,8 @@ import VerifyCode from '@/pages/verify-code/VerifyCode'
 import AdminRoute from '@/routes/AdminRoute'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
+import RoadVehicleAdminCreate from '@/pages/admin/road-vehicle/components/RoadVehicleAdminCreate'
+import RoadVehicleAdmineEdit from '@/pages/admin/road-vehicle/components/RoadVehicleAdmineEdit'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -98,6 +100,8 @@ export default function useRoutesElements() {
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
       { path: path.admin_hotelID, element: <LayoutMain children={<HotelAdminEdit />} /> },
       { path: path.admin_road_vehicle, element: <LayoutMain children={<RoadVehicleAdmin />} /> },
+      { path: path.admin_create_coach, element: <LayoutMain children={<RoadVehicleAdminCreate />} /> },
+      { path: path.admin_edit_coach, element: <LayoutMain children={<RoadVehicleAdmineEdit />} /> },
       { path: path.road_vehicleID, element: <LayoutMain children={<RoadVehicleAdminView />} /> },
       { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },
       { path: path.flight_payment, element: <FlightPayment /> },

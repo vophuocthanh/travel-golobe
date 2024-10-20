@@ -118,6 +118,11 @@ export interface TourRequest {
   start_date: string
   end_date: string
 }
+export interface CoachRequest {
+  brand: string;        
+  price: number;
+  number_of_seat: string      
+}  
 export interface FlightRequest {
   brand: string;        
   price: number;        
@@ -128,6 +133,14 @@ export interface FlightRequest {
   trip_time: string;    
   take_place: string;   
   destination: string;  
+  location: string
+  image?: string;
+  number_of_seats_remaining: string;  
+}
+export interface CoachRespone {
+  brand: string;                    
+  price: number;        
+  number_of_seat: string                     
   trip_to: string;       
   image: string;         
 }
@@ -141,7 +154,8 @@ export interface FlightRespone {
   trip_time: string;                  
   take_place: string;                 
   destination: string;                
+  location: string
+  image?: string;                     
   trip_to: string;                  
-  image: string;                     
   number_of_seats_remaining: number;  
 }
