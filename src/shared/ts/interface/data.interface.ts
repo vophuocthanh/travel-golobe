@@ -1,4 +1,27 @@
 export interface HotelResponseType {
+  id: string
+  hotel_names?: string
+  location?: string
+  price?: number
+  score_hotels?: number
+  number_rating?: number
+  star_number?: number
+  received_time?: string
+  giveback_time?: string
+  description?: string
+  hotel_link?: string
+  place?: string
+  image?: string
+  image_2?: string
+  image_3?: string
+  image_4?: string
+  image_5?: string
+  isFavorite?: boolean
+  rooms?: []
+  number_of_seats_remaining?: number
+}
+
+export interface HotelUpdate {
   id?: string
   hotel_names?: string
   location?: string
@@ -262,25 +285,5 @@ export interface HotelAdd {
   received_time: string;
   giveback_time: string;
   description?: string;
-}
-
-export interface HotelUpdate {
-  hotel_names: string;
-  location: string;
-  star_number: number;
-  price: number;
-  score_hotels?: string | number;
-  number_rating: number;
-  received_time: string;
-  giveback_time: string;
-  description?: string;
-  hotel_link?: string;
-  place: string;
-  image: string;
-  image_2?: string;
-  image_3?: string;
-  image_4?: string;
-  image_5?: string;
-  number_of_seats_remaining: number;
 }
 

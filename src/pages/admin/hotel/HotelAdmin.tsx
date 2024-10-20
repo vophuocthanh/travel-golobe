@@ -6,6 +6,14 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -177,10 +185,38 @@ export default function HotelAdmin() {
           <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)} >
             <IconEdit />
           </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original.id)}>
-            <IconDelete />
-          </div>
+
+
+
+          <Dialog>
+            <DialogTrigger>
+              <div className='cursor-pointer'>
+                <div className=''>
+                  <IconDelete />
+                </div>
+              </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className='mb-4 text-xl font-semibold text-center'>Xác nhận xóa</DialogTitle>
+                <DialogDescription className='flex justify-center space-x-4'>
+                  <p>Bạn có chắc chắn muốn xóa mục này không?</p> {/* Thêm mô tả cho hành động xóa */}
+                </DialogDescription>
+                <DialogDescription className='flex justify-center space-x-4'>
+                  <Button
+                    onClick={() => handleDelete(row.original.id)}
+                    className='bg-red-600 hover:bg-red-700 text-white'
+                  >
+                    Xoá
+                  </Button>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+
+
         </div>
+
       )
     }
   ]

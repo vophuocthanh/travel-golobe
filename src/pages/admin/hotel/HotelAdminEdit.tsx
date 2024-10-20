@@ -51,23 +51,23 @@ export default function HotelAdminEdit() {
   useEffect(() => {
     if (getbyId) {
       reset({
-        hotel_names: getbyId.hotel_names || '', // Default to empty string
-        location: getbyId.location || '',
-        star_number: getbyId.star_number || 0, // Default to 0
-        price: getbyId.price || 0, // Default to 0
-        score_hotels: getbyId.score_hotels || 0, // Default to 0
-        number_rating: getbyId.number_rating || 0, // Default to 0
-        received_time: getbyId.received_time || '', // Default to empty string
-        giveback_time: getbyId.giveback_time || '', // Default to empty string
-        description: getbyId.description || '', // Default to empty string
-        hotel_link: getbyId.hotel_link || '',
-        place: getbyId.place || '',
+        hotel_names: getbyId.hotel_names,
+        location: getbyId.location,
+        star_number: getbyId.star_number,
+        price: getbyId.price,
+        score_hotels: getbyId.score_hotels,
+        number_rating: getbyId.number_rating,
+        received_time: getbyId.received_time,
+        giveback_time: getbyId.giveback_time,
+        description: getbyId.description,
+        hotel_link: getbyId.hotel_link,
+        place: getbyId.place,
         image: getbyId.image || '',
         image_2: getbyId.image_2 || '',
         image_3: getbyId.image_3 || '',
         image_4: getbyId.image_4 || '',
         image_5: getbyId.image_5 || '',
-        number_of_seats_remaining: getbyId.number_of_seats_remaining || 0, // Default to 0
+        number_of_seats_remaining: getbyId.number_of_seats_remaining, // Default to 0
       })
     }
   }, [getbyId, reset])
