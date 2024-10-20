@@ -2,6 +2,7 @@ import axiosClient from '@/apis/axios-client'
 import { ListResponse } from '@/shared/ts/interface'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { ParamsType } from '@/shared/ts/interface/params-type-flight'
+import { FlightRequest, FlightRespone } from '@/shared/utils/data-response'
 
 export const flightApi = {
   getAll(
@@ -56,16 +57,16 @@ export const flightApi = {
     const url = `/flight-crawl/crawl/${id}`
     return axiosClient.get(url)
   },
-  addFlight(data: FlightResponseType) {
-    const url = 'flight'
+  addFlight(data: FlightRequest) {
+    const url = 'flight-crawl/crawl'
     return axiosClient.post(url, data)
   },
-  putFlight(id: string, data: FlightResponseType) {
-    const url = `/flight/${id}`
+  putFlight(id: string| undefined, data: FlightRespone) {
+    const url = `/flight-crawl/crawl/${id}`
     return axiosClient.put(url, data)
   },
   deleteFlight(id: string) {
-    const url = `/flight/${id}`
+    const url = `/flight-crawl/crawl/${id}`
     return axiosClient.delete(url)
   },
   // isFavorite

@@ -10,6 +10,7 @@ import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } 
 import BillingAdmin from '@/pages/admin/billing/BillingAdmin'
 import Dashboard from '@/pages/admin/Dashboard'
 import EmployeeAdmin from '@/pages/admin/employee/EmployeeAdmin'
+import CreateFlightAdmin from '@/pages/admin/flight/components/CreateFlightAdmin'
 import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
 import HotelAdmin from '@/pages/admin/hotel/HotelAdmin'
@@ -90,6 +91,7 @@ export default function useRoutesElements() {
       { path: path.admin_create_tour, element: <LayoutMain children={<CreateTourAdmin />} /> },
       { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
       { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
+      { path: path.admin_create_flight, element: <LayoutMain children={<CreateFlightAdmin />} /> },
       { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
       { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
       { path: path.admin_hotelID, element: <LayoutMain children={<HotelAdminEdit />} /> },

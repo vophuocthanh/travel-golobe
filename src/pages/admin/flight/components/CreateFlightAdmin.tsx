@@ -1,33 +1,49 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
 import { flightApi } from '@/apis/flight.api'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
-import { UpdateFlightSchema } from '@/shared/utils/flight.shema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { useEffect, useState } from 'react'
-// import { format } from 'date-fns'
-import { toast } from 'react-toastify'
-import { Dayjs } from 'dayjs'
-import { ArrowLeftToLine, CalendarIcon } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { cn } from '@/shared/lib/utils'
-import TimePicker from 'antd/es/time-picker'
-// import { Calendar } from '@/components/ui/calendar'
 
-const EditAdminFlight = () => {
-  const { id } = useParams()
-  const { data: getbyId } = useQuery({
-    queryKey: ['getById', id],
-    queryFn: () => flightApi.getById(id)
-  })
+import { cn } from '@/shared/lib/utils'
+import { CreateFlightSchema } from '@/shared/utils/flight.shema'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import TimePicker from 'antd/es/time-picker'
+import { format } from 'date-fns'
+import { CalendarIcon, ChevronLeft } from 'lucide-react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { z } from 'zod'
+import { Dayjs } from 'dayjs'
+export default function CreateFlightAdmin() {
+  const [startTime, setStartTime] = useState<Dayjs | null>(null) // Update type to Dayjs
+  const [endTime, setEndTime] = useState<Dayjs | null>(null) // Update type to Dayjs
+
+  const handleTimeChange = (value: Dayjs | null) => {
+    if (value) {
+      setStartTime(value)
+    }
+  }
+
+  const handleEndTimeChange = (value: Dayjs | null) => {
+    if (value) {
+      setEndTime(value) // Set end time from TimePicker
+    }
+  }
+
+  const [startDay, setStartDay] = useState<Date>()
+  const [endDay, setEndDay] = useState<Date>()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
-  const form = useForm<z.infer<typeof UpdateFlightSchema>>({
-    resolver: zodResolver(UpdateFlightSchema),
+
+  const form = useForm<z.infer<typeof CreateFlightSchema>>({
+    resolver: zodResolver(CreateFlightSchema),
     defaultValues: {
       brand: '',
       price: 0,
@@ -39,91 +55,54 @@ const EditAdminFlight = () => {
       take_place: '',
       destination: '',
       trip_to: '',
-      image: '',
-      number_of_seats_remaining: 0
+      image: ''
     }
   })
-  const { reset } = form
-  useEffect(() => {
-    if (getbyId) {
-      reset({
-        brand: getbyId?.brand,
-        price: getbyId?.price,
-        start_day: getbyId?.start_day,
-        end_day: getbyId?.end_day,
-        start_time: getbyId?.start_time,
-        end_time: getbyId?.end_time,
-        trip_time: getbyId?.trip_time,
-        take_place: getbyId?.take_place,
-        destination: getbyId?.destination,
-        trip_to: getbyId?.trip_to,
-        image: getbyId?.image,
-        number_of_seats_remaining: getbyId?.number_of_seats_remaining ?? 0
-      })
-    }
-  }, [getbyId, reset])
 
-  // const [startDay, setStartDay] = useState<Date>()
-  // const [endDay, setEndDay] = useState<Date>()
-  const [startTime, setStartTime] = useState<Dayjs | null>(null)
-  const [endTime, setEndTime] = useState<Dayjs | null>(null)
-  const handleTimeChange = (value: Dayjs | null) => {
-    if (value) {
-      setStartTime(value)
-    }
-  }
-
-  const handleEndTimeChange = (value: Dayjs | null) => {
-    if (value) {
-      setEndTime(value)
-    }
-  }
-  const mutationUpdateFlight = useMutation({
-    mutationFn: (data: z.infer<typeof UpdateFlightSchema>) => flightApi.putFlight(id, data)
+  const mutationCreateTour = useMutation({
+    mutationFn: (data: z.infer<typeof CreateFlightSchema>) => flightApi.addFlight(data)
   })
-  const queryClient = useQueryClient()
-  function onSubmit(data: z.infer<typeof UpdateFlightSchema>) {
+  console.log(mutationCreateTour, 'mutationCreateTour')
+
+  function onSubmit(data: z.infer<typeof CreateFlightSchema>) {
     setLoading(true)
-    console.log(data, 'dâtta123')
+    console.log('123')
+    console.log(data, 'data')
 
     const formattedData = {
       ...data,
       price: Number(data.price),
-      // start_day: startDay ? format(startDay, 'dd-MM-yyyy') : '',
-      // end_day: endDay ? format(endDay, 'dd-MM-yyyy') : '',
+      start_day: startDay ? format(startDay, 'dd-mm-yyyy') : '',
+      end_day: endDay ? format(endDay, 'dd-mm-yyyy') : '',
       start_time: startTime ? startTime.format('HH:mm') : '',
       end_time: endTime ? endTime.format('HH:mm') : ''
     }
-    console.log(formattedData, 'formattedData')
-
-    mutationUpdateFlight.mutate(formattedData, {
+    mutationCreateTour.mutate(formattedData, {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['getUpdateFlightAll'] })
-        toast.success('Update FLight success')
+        queryClient.invalidateQueries({ queryKey: ['getAllFlight'] })
+        toast.success('Create tour success')
         navigate('/admin/flights')
       },
-      onError: (error) => {
-        console.log(error, 'error')
-
-        toast.error('Update FLight failed')
+      onError: () => {
+        toast.error('Create tour failed')
       },
       onSettled: () => {
         setLoading(false)
       }
     })
   }
-  const handleBack = () => {
-    navigate('/admin/flights')
-  }
-
   return (
-    <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>EDIT FLight {id}</h1>
-      <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
-        <ArrowLeftToLine />
-      </Button>
+    <div className='w-full h-full'>
+      <div className='flex items-center gap-2'>
+        <Link to='/admin/flights' className='flex items-center gap-4 px-4 py-2 bg-gray-200 rounded-md'>
+          <ChevronLeft />
+          <span>Quay lại</span>
+        </Link>
+        <h1 className='ml-6 text-3xl font-bold'>Tạo tour</h1>
+      </div>
+
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='w-full p-2 mb-10 space-y-6'>
           <FormField
             control={form.control}
             name='brand'
@@ -179,19 +158,6 @@ const EditAdminFlight = () => {
           />
           <FormField
             control={form.control}
-            name='number_of_seats_remaining'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nhập số chỗ </FormLabel>
-                <FormControl>
-                  <Input placeholder='Nhâp number_of_seats_remaining' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name='take_place'
             render={({ field }) => (
               <FormItem>
@@ -229,7 +195,7 @@ const EditAdminFlight = () => {
               </FormItem>
             )}
           />
-          {/* <div className='flex items-center gap-2'>
+          <div className='flex items-center gap-2'>
             <FormField
               control={form.control}
               name='start_day'
@@ -288,7 +254,7 @@ const EditAdminFlight = () => {
                 </FormItem>
               )}
             />
-          </div> */}
+          </div>
           <div className='flex items-center gap-2'>
             <FormField
               control={form.control}
@@ -349,18 +315,11 @@ const EditAdminFlight = () => {
               )}
             />
           </div>
-          <div className='flex justify-center text-white'>
-            <Button type='button' className='w-[20rem] flex mx-auto' onClick={handleBack}>
-              Cancel
-            </Button>
-            <Button type='submit' loading={loading} className='w-[20rem] flex mx-auto'>
-              Save
-            </Button>
-          </div>
+          <Button type='submit' loading={loading} className='flex ml-auto'>
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
   )
 }
-
-export default EditAdminFlight
