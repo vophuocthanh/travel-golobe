@@ -1,4 +1,4 @@
-import { IconDelete, IconEdit, IconMore, IconSearch, IconView } from '@/common/icons'
+import { IconEdit, IconMore, IconSearch, IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -25,41 +25,26 @@ import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 import { CaretSortIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
-
-export type RoadVehicle = {
-  id: string;
-  brandName: string;
-  image: string;
-  startTime: string;
-  startDay: string;
-  endTime: string;
-  endDay: string;
-  tripTime: string;
-  takePlace: string;
-  destination: string;
-  tripTo: string;
-  price: number;
-};
-
-const data: RoadVehicle[] = [
-  { id: 'V1001', brandName: 'Nhà xe Phương Trang', image: 'phuong_trang_image_url', startTime: '08:00', startDay: '2023-09-15', endTime: '10:00', endDay: '2023-09-15', tripTime: '2 hours', takePlace: 'Hồ Chí Minh', destination: 'Cần Thơ', tripTo: 'Cần Thơ', price: 200 },
-  { id: 'V1002', brandName: 'Nhà xe Mai Linh', image: 'mai_linh_image_url', startTime: '09:00', startDay: '2023-09-16', endTime: '11:30', endDay: '2023-09-16', tripTime: '2.5 hours', takePlace: 'Hà Nội', destination: 'Hải Phòng', tripTo: 'Hải Phòng', price: 250 },
-  { id: 'V1003', brandName: 'Nhà xe Thành Bưởi', image: 'thanh_buoi_image_url', startTime: '07:30', startDay: '2023-09-17', endTime: '09:45', endDay: '2023-09-17', tripTime: '2.25 hours', takePlace: 'Đà Lạt', destination: 'Nha Trang', tripTo: 'Nha Trang', price: 180 },
-  { id: 'V1004', brandName: 'Nhà xe Hoàng Long', image: 'hoang_long_image_url', startTime: '06:00', startDay: '2023-09-18', endTime: '09:30', endDay: '2023-09-18', tripTime: '3.5 hours', takePlace: 'Hà Nội', destination: 'Thanh Hóa', tripTo: 'Thanh Hóa', price: 220 },
-  { id: 'V1005', brandName: 'Nhà xe Hồng Hà', image: 'hong_ha_image_url', startTime: '08:15', startDay: '2023-09-19', endTime: '10:45', endDay: '2023-09-19', tripTime: '2.5 hours', takePlace: 'Đà Nẵng', destination: 'Huế', tripTo: 'Huế', price: 200 },
-  { id: 'V1006', brandName: 'Nhà xe Thiên Phú', image: 'thien_phu_image_url', startTime: '10:00', startDay: '2023-09-20', endTime: '12:30', endDay: '2023-09-20', tripTime: '2.5 hours', takePlace: 'Nha Trang', destination: 'Quy Nhơn', tripTo: 'Quy Nhơn', price: 240 },
-  { id: 'V1007', brandName: 'Nhà xe Kumho Samco', image: 'kumho_samco_image_url', startTime: '07:00', startDay: '2023-09-21', endTime: '09:45', endDay: '2023-09-21', tripTime: '2.75 hours', takePlace: 'Hồ Chí Minh', destination: 'Vũng Tàu', tripTo: 'Vũng Tàu', price: 180 },
-  { id: 'V1008', brandName: 'Nhà xe Hải Âu', image: 'hai_au_image_url', startTime: '09:30', startDay: '2023-09-22', endTime: '12:00', endDay: '2023-09-22', tripTime: '2.5 hours', takePlace: 'Hà Nội', destination: 'Nam Định', tripTo: 'Nam Định', price: 160 },
-  { id: 'V1009', brandName: 'Nhà xe Hiền Phước', image: 'hien_phuoc_image_url', startTime: '11:00', startDay: '2023-09-23', endTime: '13:30', endDay: '2023-09-23', tripTime: '2.5 hours', takePlace: 'Quảng Ngãi', destination: 'Quy Nhơn', tripTo: 'Quy Nhơn', price: 220 },
-  { id: 'V1010', brandName: 'Nhà xe Tâm Hạnh', image: 'tam_hanh_image_url', startTime: '06:00', startDay: '2023-09-24', endTime: '09:00', endDay: '2023-09-24', tripTime: '3 hours', takePlace: 'Hồ Chí Minh', destination: 'Phan Thiết', tripTo: 'Phan Thiết', price: 210 },
-  { id: 'V1011', brandName: 'Nhà xe Phương Nam', image: 'phuong_nam_image_url', startTime: '08:00', startDay: '2023-09-25', endTime: '11:00', endDay: '2023-09-25', tripTime: '3 hours', takePlace: 'Nha Trang', destination: 'Đà Lạt', tripTo: 'Đà Lạt', price: 230 },
-  { id: 'V1012', brandName: 'Nhà xe Thịnh Phát', image: 'thinh_phat_image_url', startTime: '07:45', startDay: '2023-09-26', endTime: '10:15', endDay: '2023-09-26', tripTime: '2.5 hours', takePlace: 'Hồ Chí Minh', destination: 'Biên Hòa', tripTo: 'Biên Hòa', price: 170 },
-  { id: 'V1013', brandName: 'Nhà xe Cường Lan', image: 'cuong_lan_image_url', startTime: '10:30', startDay: '2023-09-27', endTime: '13:30', endDay: '2023-09-27', tripTime: '3 hours', takePlace: 'Hải Phòng', destination: 'Quảng Ninh', tripTo: 'Quảng Ninh', price: 250 },
-  { id: 'V1014', brandName: 'Nhà xe Hưng Thành', image: 'hung_thanh_image_url', startTime: '06:30', startDay: '2023-09-28', endTime: '10:00', endDay: '2023-09-28', tripTime: '3.5 hours', takePlace: 'Hà Nội', destination: 'Sơn La', tripTo: 'Sơn La', price: 260 },
-  { id: 'V1015', brandName: 'Nhà xe Anh Tuấn', image: 'anh_tuan_image_url', startTime: '12:00', startDay: '2023-09-29', endTime: '15:00', endDay: '2023-09-29', tripTime: '3 hours', takePlace: 'Huế', destination: 'Quảng Trị', tripTo: 'Quảng Trị', price: 210 }
-];
+import { useQuery } from '@tanstack/react-query';
+import { coachApi } from '@/apis/coach.api';
+import { CoachResponseType } from '@/shared/ts/interface/data.interface';
+import { coachdetail1 } from '@/assets/images';
+import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele';
 
 export default function RoadVehicleAdmin() {
+  
+  const { data: getAllCoach } = useQuery({
+    queryKey: ['getAllCoach'],
+    queryFn: () => coachApi.getAll(1, 1,'')
+  })
+  const totalDataCount = getAllCoach?.total || 0
+  const { data: CoachData } = useQuery({
+    queryKey: ['getCoach', totalDataCount],
+    queryFn: () => coachApi.getAll(1, totalDataCount,''),
+    enabled: totalDataCount > 0
+  })
+
+const coachData = CoachData?.data || []
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -67,11 +52,11 @@ export default function RoadVehicleAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
 
-  const handleDelete = (vehicle: RoadVehicle) => {
+  const handleDelete = (vehicle: CoachResponseType) => {
     console.log('Deleting RoadVehicle:', vehicle);
   };
 
-  const columns: ColumnDef<RoadVehicle>[] = [
+  const columns: ColumnDef<CoachResponseType>[] = [
     {
       accessorKey: 'id',
       header: ({ column }) => (
@@ -80,17 +65,17 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='lowercase'>{row.getValue('id')}</div>,
+      cell: ({ row }) => <div className='lowercase truncate'>{row.getValue('id')}</div>,
     },
     {
-      accessorKey: 'brandName',
+      accessorKey: 'brand',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Garage Name
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('brandName')}</div>,
+      cell: ({ row }) => <div className="text-center">{row.getValue('brand')}</div>,
     },
     {
       accessorKey: 'image',
@@ -100,71 +85,90 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => (
-        <div className="text-left">
-          <img src={row.getValue('image')} alt="vehicle" className="object-cover w-12 h-12" />
-        </div>
-      ),
+      cell: () =>
+          <div className="text-left">
+          <img src={coachdetail1} alt="vehicle" className="object-cover h-12 mx-auto w-15" />
+          </div>
     },
     {
-      accessorKey: 'startTime',
+      accessorKey: 'number_of_seat',
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Number Of Seat
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seat')}</div>,
+    },
+    {
+      accessorKey: 'start_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Start Time
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('startTime')}</div>,
+      cell: ({ row }) => <div className="text-center">{row.getValue('start_time')}</div>,
     },
     {
-      accessorKey: 'startDay',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Start Day
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('startDay')}</div>,
+      accessorKey: 'start_day',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Start Day
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => {
+        const endDate = new Date(row.getValue('start_day'));
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
+      },
     },
     {
-      accessorKey: 'endTime',
+      accessorKey: 'end_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           End Time
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('endTime')}</div>,
+      cell: ({ row }) => <div className="text-center">{row.getValue('end_time')}</div>,
     },
     {
-      accessorKey: 'endDay',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          End Day
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('endDay')}</div>,
+      accessorKey: 'end_day',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            End Day
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => {
+        const endDate = new Date(row.getValue('end_day'));
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
+      },
     },
     {
-      accessorKey: 'tripTime',
+      accessorKey: 'trip_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Trip Time
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('tripTime')}</div>,
+      cell: ({ row }) => <div className="text-left">{row.getValue('trip_time')}</div>,
     },
     {
-      accessorKey: 'takePlace',
+      accessorKey: 'take_place',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Take Place
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('takePlace')}</div>,
+      cell: ({ row }) => <div className="text-left line-clamp-2">{row.getValue('take_place')}</div>,
     },
     {
       accessorKey: 'destination',
@@ -174,34 +178,41 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('destination')}</div>,
+      cell: ({ row }) => <div className="text-left line-clamp-2">{row.getValue('destination')}</div>,
     },
     {
-      accessorKey: 'tripTo',
+      accessorKey: 'location',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Trip To
+          Location
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('tripTo')}</div>,
+      cell: ({ row }) => <div className="text-center">{row.getValue('location')}</div>,
     },
     {
       accessorKey: 'price',
+      header: () => <div className='text-center'>Price</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue('price'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+
+        return <div className='font-medium text-right'>{formatted}</div>
+      }
+    },
+    {
+      accessorKey: 'number_of_seats_remaining',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Price
+          Seats Remaining
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => {
-        const price = parseFloat(row.getValue('price'));
-        const formatted = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        }).format(price);
-        return <div className="text-left">{formatted}</div>;
-      },
+      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seats_remaining')}</div>,
     },
     {
       id: 'actions',
@@ -209,15 +220,17 @@ export default function RoadVehicleAdmin() {
       cell: ({ row }) => (
         <div className="flex justify-center space-x-6">
           <div className="cursor-pointer">
-            <Link to={`/admin/road-vehicle/${row.original.id}`}>
+            <Link to={`/admin/road-vehicle-view/${row.original.id}`}>
               <IconView />
             </Link>
           </div>
           <div className="cursor-pointer" onClick={() => handleDelete(row.original)}>
-            <IconEdit />
+            <Link to={`/admin/road-vehicle-edit/${row.original.id}`}>
+              <IconEdit />
+            </Link>
           </div>
           <div className="cursor-pointer" onClick={() => handleDelete(row.original)}>
-            <IconDelete />
+            <RoadVehicleAdminDetele coachId={row.original.id} />
           </div>
         </div>
       ),
@@ -225,7 +238,7 @@ export default function RoadVehicleAdmin() {
   ];
 
   const table = useReactTable({
-    data,
+    data : coachData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -285,18 +298,20 @@ export default function RoadVehicleAdmin() {
                   <IconSearch />
                 </div>
                 <Input
-                  placeholder='Search product...'
-                  value={(table.getColumn('hotelName')?.getFilterValue() as string) ?? ''}
-                  onChange={(event) => table.getColumn('hotelName')?.setFilterValue(event.target.value)}
+                  placeholder='Filter coach brand...'
+                  value={(table.getColumn('brand')?.getFilterValue() as string) ?? ''}
+                  onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
                   className='max-w-sm pl-10 rounded-xl'
                 />
-              </div>
+            </div>
             </div>
             <div className='flex items-center gap-4'>
-              <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
-                <IconMore />
-                Add Road Vehicle
-              </Button>
+              <Link to='/admin/coach/create'>
+                <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
+                  <IconMore />
+                  Add Road Vehicle
+                </Button>
+              </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant='outline' className='ml-auto'>

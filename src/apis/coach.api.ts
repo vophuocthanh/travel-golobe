@@ -38,12 +38,12 @@ export const coachApi = {
   },
 
 
-  favoriteFLightID(id: string | undefined): Promise<void> {
+  favoriteCoachID(id: string | undefined): Promise<void> {
     const url = `/road-vehicle/${id}/favorite`
     return axiosClient.post(url)
   },
 
-  unfavoriteFLightID(id: string | undefined): Promise<void> {
+  unfavoriteCoachID(id: string | undefined): Promise<void> {
     const url = `/road-vehicle/${id}/unfavorite`
     return axiosClient.post(url)
   },
@@ -51,20 +51,20 @@ export const coachApi = {
     const url = `/road-vehicle/crawl/${id}`
     return axiosClient.get(url)
   },
-  addFlight(data: CoachResponseType) {
-    const url = 'coach'
+  addCoach(data: CoachResponseType) {
+    const url = '/road-vehicle/crawl'
     return axiosClient.post(url, data)
   },
-  putFlight(id: string, data: CoachResponseType) {
-    const url = `/coach/${id}`
+  putCoach(id: string, data: CoachResponseType) {
+    const url = `/road-vehicle/crawl/${id}`
     return axiosClient.put(url, data)
   },
-  deleteFlight(id: string) {
-    const url = `/coach/${id}`
+  deleteCoach(id: string) {
+    const url = `/road-vehicle/crawl/${id}`
     return axiosClient.delete(url)
   },
   // isFavorite
-  getFavoriteFlights() {
+  getFavoriteCoach() {
     const url = `/road-vehicle/favorites`
     return axiosClient.get(url)
   }

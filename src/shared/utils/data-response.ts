@@ -118,3 +118,33 @@ export interface TourRequest {
   start_date: string
   end_date: string
 }
+export interface CoachRequest {
+  brand: string;        
+  price: number;
+  number_of_seat: string        
+  start_time: string;    
+  start_day: string;     
+  end_day: string;       
+  end_time: string;    
+  trip_time: string;    
+  take_place: string;   
+  destination: string;  
+  location: string
+  image?: string;
+  number_of_seats_remaining: string;  
+}
+export interface CoachRespone {
+  brand: string;                    
+  price: number;        
+  number_of_seat: string                     
+  start_time: string;                 
+  start_day: string;                 
+  end_day: string;                  
+  end_time: string;                 
+  trip_time: string;                  
+  take_place: string;                 
+  destination: string;                
+  location: string
+  image?: string;                     
+  number_of_seats_remaining: number;  
+}
