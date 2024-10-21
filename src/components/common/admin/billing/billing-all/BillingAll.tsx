@@ -156,78 +156,6 @@ export function BillingAll() {
       )
     },
     {
-      accessorKey: 'flightPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('flightPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'hotelPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('hotelPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'tourPrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('tourPrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
-      accessorKey: 'roadVehiclePrice',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Price
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('roadVehiclePrice'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
-      }
-    },
-    {
       accessorKey: 'roomId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -302,12 +230,14 @@ export function BillingAll() {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
 
-        if (status === 'success') {
+        if (status === 'SUCCESS') {
           statusClass = 'bg-green-100 text-green-800'
-        } else if (status === 'processing') {
+        } else if (status === 'PENDING') {
           statusClass = 'bg-yellow-100 text-yellow-800'
-        } else if (status === 'failed') {
+        } else if (status === 'CANCELED') {
           statusClass = 'bg-red-100 text-red-800'
+        }else if (status === 'CONFIRMED') {
+          statusClass = 'bg-blue-100 text-blue-800'
         }
 
         return (

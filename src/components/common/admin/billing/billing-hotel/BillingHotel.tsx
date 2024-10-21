@@ -96,12 +96,14 @@ export function BillingHotel() {
         const status = row.getValue('status');
         let statusClass = 'bg-gray-200';
 
-        if (status === 'PENDING') {
-          statusClass = 'bg-green-100 text-green-800';
-        } else if (status === 'PROCESSING') {
-          statusClass = 'bg-yellow-100 text-yellow-800';
-        } else if (status === 'CANCELLED') {
-          statusClass = 'bg-red-100 text-red-800';
+        if (status === 'SUCCESS') {
+          statusClass = 'bg-green-100 text-green-800'
+        } else if (status === 'PENDING') {
+          statusClass = 'bg-yellow-100 text-yellow-800'
+        } else if (status === 'CANCELED') {
+          statusClass = 'bg-red-100 text-red-800'
+        }else if (status === 'CONFIRMED') {
+          statusClass = 'bg-blue-100 text-blue-800'
         }
 
         return (

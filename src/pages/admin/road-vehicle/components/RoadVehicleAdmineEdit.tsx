@@ -66,7 +66,18 @@ export default function RoadVehicleAdminEdit() {
   const queryClient = useQueryClient()
 
   const mutationUpdateVehicle = useMutation({
-    mutationFn: (data: z.infer<typeof UpdateCoachSchema>) => coachApi.putCoach(id, data),
+    mutationFn: (data: z.infer<typeof UpdateCoachSchema>) => {
+      if (!id) {
+        throw new Error('Vehicle ID is required');
+      }      
+      const formattedData = {
+        ...data,
+        price: Number(data.price),
+        number_of_seats_remaining: Number(data.number_of_seats_remaining)
+      };
+  
+      return coachApi.putCoach(id, formattedData);
+    }
   })
 
   const onSubmit = (data: z.infer<typeof UpdateCoachSchema>) => {

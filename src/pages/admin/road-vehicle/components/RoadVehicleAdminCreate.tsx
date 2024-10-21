@@ -61,8 +61,9 @@ export default function RoadVehicleAdminCreate() {
 
     const mutationCreateCoach = useMutation({
       mutationFn: (data: z.infer<typeof CreateCoachSchema>) => {
-        return coachApi.addCoach(data)
-    }})
+        return coachApi.addCoach(data);
+    },
+  })
 
     function onSubmit(data: z.infer<typeof CreateCoachSchema>) {
         const formattedData = {
@@ -86,7 +87,7 @@ export default function RoadVehicleAdminCreate() {
     }
 
     return (
-        <div className='w-full h-full p-6 bg-gray-50'>
+        <div className='w-full h-full p-2'>
             <div className='flex items-center gap-2 mb-6'>
                 <Button onClick={() => navigate('/admin/road-vehicle')} className='text-white'>
                     Quay lại
