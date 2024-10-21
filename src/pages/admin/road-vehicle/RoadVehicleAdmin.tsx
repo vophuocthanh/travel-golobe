@@ -52,9 +52,6 @@ const coachData = CoachData?.data || []
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
 
-  const handleDelete = (vehicle: CoachResponseType) => {
-    console.log('Deleting RoadVehicle:', vehicle);
-  };
 
   const columns: ColumnDef<CoachResponseType>[] = [
     {
@@ -215,21 +212,21 @@ const coachData = CoachData?.data || []
       cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seats_remaining')}</div>,
     },
     {
-      id: 'actions',
-      header: () => <div className="flex justify-center">Actions</div>,
+      accessorKey: 'action',
+      header: () => <div className='flex justify-center text-center'>Action</div>,
       cell: ({ row }) => (
         <div className="flex justify-center space-x-6">
-          <div className="cursor-pointer">
+          <div className="">
             <Link to={`/admin/road-vehicle-view/${row.original.id}`}>
               <IconView />
             </Link>
           </div>
-          <div className="cursor-pointer" onClick={() => handleDelete(row.original)}>
+          <div className="">
             <Link to={`/admin/road-vehicle-edit/${row.original.id}`}>
               <IconEdit />
             </Link>
           </div>
-          <div className="cursor-pointer" onClick={() => handleDelete(row.original)}>
+          <div className="" >
             <RoadVehicleAdminDetele coachId={row.original.id} />
           </div>
         </div>
@@ -306,6 +303,7 @@ const coachData = CoachData?.data || []
             </div>
             </div>
             <div className='flex items-center gap-4'>
+            <span>Total Coachs: {totalDataCount}</span>
               <Link to='/admin/coach/create'>
                 <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
                   <IconMore />
