@@ -35,7 +35,7 @@ export default function BillingTourView() {
       hour: 'numeric',
       minute: 'numeric',
       second: 'numeric',
-      hour12: false // Để sử dụng định dạng 24 giờ
+      hour12: false
     }).format(date)
   }
 
