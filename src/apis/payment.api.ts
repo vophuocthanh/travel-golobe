@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosClient from '@/apis/axios-client'
 import { PaymentResponse } from '@/shared/ts/interface/booking-tour.interface'
-import { MoMoPaymentResponse } from '@/shared/ts/interface/momo.interface'
+import { MoMoPaymentResponse, PaymentDetail } from '@/shared/ts/interface/momo.interface'
 
 export const paymentApi = {
   getPaymentStatus(orderId: string, requestId: string): Promise<any> {
@@ -24,7 +24,7 @@ export const paymentApi = {
     const url = '/momo/payment'
     return axiosClient.get(url)
   },
-  getPaymentById(id: string) {
+  getPaymentById(id: string): Promise<PaymentDetail> {
     const url = `/momo/payment/${id}`
     return axiosClient.get(url)
   }

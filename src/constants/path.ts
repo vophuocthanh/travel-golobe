@@ -44,7 +44,7 @@ export const path = {
   tour_view: '/admin/billing/tour-view/:billingID',
   coach_view: '/admin/billing/coach-view/:id',
   road_vehicleID: '/admin/road-vehicle-view/:id',
-  payment_view: '/admin/payment/payment-view',
+  payment_view: '/admin/payment/payment-view/:paymentID',
   admin_create_coach: '/admin/coach/create',
   admin_edit_coach: '/admin/road-vehicle-edit/:id',
   hotel_add: '/admin/hotels/add-hotel',
