@@ -98,7 +98,7 @@ export default function CreateFlightAdmin() {
           <ChevronLeft />
           <span>Quay lại</span>
         </Link>
-        <h1 className='ml-6 text-3xl font-bold'>Tạo tour</h1>
+        <h1 className='ml-6 text-3xl font-bold'>Tạo FLight</h1>
       </div>
 
       <Form {...form}>

@@ -133,9 +133,9 @@ export interface FlightRequest {
   trip_time: string;    
   take_place: string;   
   destination: string;  
-  location: string
+  // location: string
   image?: string;
-  number_of_seats_remaining: string;  
+  // number_of_seats_remaining: number;  
 }
 export interface CoachRespone {
   brand: string;                    
@@ -154,8 +154,8 @@ export interface FlightRespone {
   trip_time: string;                  
   take_place: string;                 
   destination: string;                
-  location: string
+  // location: string
   image?: string;                     
   trip_to: string;                  
-  number_of_seats_remaining: number;  
+  // number_of_seats_remaining: number;  
 }
