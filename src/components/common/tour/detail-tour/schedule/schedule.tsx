@@ -25,7 +25,8 @@ export default function Schedule({data}: IVehicle) {
                             <AccordionItem className="mb-2" value={`item-${item.day}`} key={item.id}>
                                 <AccordionTrigger className="!no-underline bg-slate-100">
                                     <div>
-                                        <div className="flex">
+                                        <div className="flex gap-5">
+                                            <h3 className="text-xl font-medium "> Ngày: {item.day} </h3>
                                             <h3 className="text-xl font-medium ">{moment(item.date).format('DD/MM/YYYY') } </h3>
                                         </div>
                                     </div>
