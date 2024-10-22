@@ -93,7 +93,7 @@ export default function ContentAllFlight() {
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Depart
                   </label>
-                  <div className='flex block text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
+                  <div className='flex  text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
                     <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
                   </div>
                 </div>
@@ -101,7 +101,7 @@ export default function ContentAllFlight() {
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Return
                   </label>
-                  <div className='flex block text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
+                  <div className='flex text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
                   </div>{' '}
                 </div>

@@ -17,6 +17,8 @@ import { useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Favorite from '../components/Favorite'
+import { Space, DatePicker } from 'antd';
+import moment from 'moment'
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>()
@@ -34,9 +36,15 @@ export default function HotelDetail() {
   const handleValueChange = (value: string) => {
     setRoomId(value)
   }
+  const { RangePicker } = DatePicker;
+
+
+  const [checkInDate, setCheckInDate] = useState<string | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<string | null>(null);
+
 
   const mutationHotelBooking = useMutation({
-    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId),
+    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId, checkInDate, checkOutDate),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
@@ -48,11 +56,11 @@ export default function HotelDetail() {
   })
 
   const handleBookHotel = () => {
-    setLoadingBooking(true)
     if (roomId === '') {
       roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
       mutationHotelBooking.mutate()
+      setLoadingBooking(true)
     }
   }
 
@@ -114,13 +122,6 @@ export default function HotelDetail() {
                   <MapPin className='w-4 h-4 mr-2 text-black' />
                   {getbyId?.location}
                 </p>
-                <div className='flex items-center gap-2 mt-5'>
-                  <Button className='text-black bg-white border hover:text-white border-primary'>
-                    {getbyId?.score_hotels}
-                  </Button>
-                  <p className='font-bold'>{ratingStatus}</p>
-                  <p>{getCommentHotel?.total} reviews</p>
-                </div>
               </div>
             </div>
             <div className='flex-1 text-right'>
@@ -169,6 +170,39 @@ export default function HotelDetail() {
                   Book now
                 </Button>
               </div>
+            </div>
+          </div>
+          <div className="flex w-full justify-between items-center">
+            <div className="flex items-center gap-x-4">
+              <Button className="text-black bg-white border hover:bg-primary hover:text-white border-primary">
+                {getbyId?.score_hotels}
+              </Button>
+              <div>
+                <p className="font-bold text-lg text-gray-700">{ratingStatus}</p>
+                <p className="text-gray-500">{getCommentHotel?.total} reviews</p>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="date-range-picker" className="block text-sm font-medium text-gray-700 mb-2">
+                Chọn ngày:
+              </label>
+              <Space direction="vertical" size={12}>
+                <RangePicker
+                  id="date-range-picker"
+                  className="custom-date-picker border border-gray-300 rounded-lg p-2 w-full md:w-auto"
+                  format="DD-MM-YYYY"
+                  onChange={(dates) => {
+                    if (dates && dates.length === 2) {
+                      setCheckInDate(dates[0]?.format('DD-MM-YYYY') || null);
+                      setCheckOutDate(dates[1]?.format('DD-MM-YYYY') || null);
+                    }
+                  }}
+                  disabledDate={(current) =>
+                    current && current < moment().subtract(0, 'days').startOf('day')
+                  }
+                />
+              </Space>
             </div>
           </div>
           <div className='items-start w-full mt-5 mb-8'>

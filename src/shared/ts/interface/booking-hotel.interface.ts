@@ -12,6 +12,8 @@ export interface HotelBookingResponse {
   giveback_time: string
   description: string
   hotel_link: string
+  checkInDate: string,
+  checkOutDate: string,
   place: string
   image: string | undefined
   image_2: string | null
@@ -22,9 +24,17 @@ export interface HotelBookingResponse {
   number_of_seats_remaining: number
   hotelQuantity: number
   status: 'PENDING' | 'CONFIRMED' | 'CANCELLED'
+  user:UserBookingHotel
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   invoice: any[]
 }
+
+type UserBookingHotel={
+  id: string,
+  name: string
+  avatar:string
+}
+
 export type PaymentHotel = {
   id: string;
   tourId: string | null;
