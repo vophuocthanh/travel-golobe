@@ -21,6 +21,9 @@ export default function HotelDetailOverview({ description, averrange, ratingStat
             <p className='absolute flex bottom-4'>{total} reviews</p>
           </div>
         </div>
+        <div>
+          <hr className="my-8 border-2 border-gray" />
+        </div>
       </div>
     </div>
   )
