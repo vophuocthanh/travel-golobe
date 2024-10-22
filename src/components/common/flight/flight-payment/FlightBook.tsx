@@ -1,5 +1,8 @@
+import { bookingFlightApi } from '@/apis/booking-flight'
 import { Button } from '@/components/ui/button'
 import { BookingResponse } from '@/shared/ts/interface/booking-flight.interface'
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router-dom'
 
 interface FlightBookProps {
   data: BookingResponse
@@ -7,19 +10,24 @@ interface FlightBookProps {
   loading?: boolean
 }
 
-export default function FlightBook({  onClick, data, loading }: FlightBookProps) {
+export default function FlightBook({ onClick, data, loading }: FlightBookProps) {
+  const { id } = useParams()
+  const { data: getBookingFlightDetails } = useQuery({
+    queryKey: ['getById', id],
+    queryFn: () => bookingFlightApi.getBookingDetail(id || '')
+  })
   return (
     <div>
       <div>
         <div className='flex items-center mb-4'>
-          <img src={data.image || ''} alt={data.brand} className='object-cover w-32 h-32 rounded-md' />
+          <img src={getBookingFlightDetails?.flightCrawls.image} className='object-cover w-32 h-32 rounded-md' />
           <div className='ml-4'>
-            <p className='text-gray-500'>{data.brand}</p>
+            <p className='text-gray-500'>{getBookingFlightDetails?.brand}</p>
             <h2 className='text-xl font-semibold'>{data.brand}</h2>
             <div className='flex flex-col mt-3'>
-              <span className='ml-1 text-lg text-gray-500'>{data.destination}</span>
+              <span className='ml-1 text-lg text-gray-500'>{getBookingFlightDetails?.flightCrawls.destination}</span>
               <p className='flex items-center justify-center w-20 h-[2.5rem] text-xs font-medium border rounded px-6 border-primary'>
-                {data.baggage_weight}
+                {getBookingFlightDetails?.flightCrawls.baggage_weight}
               </p>
             </div>
           </div>
@@ -55,7 +63,9 @@ export default function FlightBook({  onClick, data, loading }: FlightBookProps)
             {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.price || 0)}
           </p>
         </div>
-        <Button className='w-full mt-5' onClick={onClick} loading={loading}>Thanh Toán</Button>
+        <Button className='w-full mt-5' onClick={onClick} loading={loading}>
+          Thanh Toán
+        </Button>
       </div>
     </div>
   )

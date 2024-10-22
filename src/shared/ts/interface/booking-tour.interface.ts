@@ -41,10 +41,10 @@ export interface TourBookingDetail {
   description: string
   price: number
   original_price: number | null
-  createAt: string // ISO date string
-  updateAt: string // ISO date string
-  start_date: string // ISO date string
-  end_date: string // ISO date string
+  createAt: string 
+  updateAt: string 
+  start_date: string 
+  end_date: string 
   starting_gate: string | null
   sight_seeing: string | null
   cuisine: string | null
@@ -66,12 +66,19 @@ export interface TourBookingDetail {
   tourQuantity: number
   flightQuantity: number
   hotelQuantity: number
-  status: string // Status options
-  invoice: any[] // Adjust the type of `invoice` if you have more details
+  status: string 
+  invoice: any[] 
   hotelDetails:HotelDetails
   road_vehicle:RoadVehicle
+  user: UserTourDetail
 
   
+}
+
+export interface UserTourDetail{
+ id:string
+ name:string
+ avatar:string
 }
 export interface HotelDetails {
   id: string; // ID khách sạn

@@ -1,45 +1,49 @@
+import { bookingFlightApi } from '@/apis/booking-flight'
 import { IconFlight } from '@/common/icons'
 import { BookingResponse } from '@/shared/ts/interface/booking-flight.interface'
+import { useQuery } from '@tanstack/react-query'
 import { MoveLeft, MoveRight, Plane, RockingChair, Timer, UtensilsCrossed, Wifi } from 'lucide-react'
-
+import { useParams } from 'react-router-dom'
+import dayjs from 'dayjs'
 interface FlightInfo {
   data: BookingResponse
 }
 
 export default function FlightInfo({ data }: FlightInfo) {
-  const formatDate = (dateString?: string): string => {
-    if (!dateString) return 'N/A'
-    const date = new Date(dateString)
-    if (isNaN(date.getTime())) return 'N/A'
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const year = date.getFullYear()
+  const { id } = useParams()
+  const { data: getBookingFlightDetails } = useQuery({
+    queryKey: ['getById', id],
+    queryFn: () => bookingFlightApi.getBookingDetail(id || '')
+  })
+  console.log('data', getBookingFlightDetails?.flightCrawls.start_day)
+  const endDate = getBookingFlightDetails?.flightCrawls.end_day
+  const formattedEndDate = endDate ? dayjs(endDate).format('DD-MM-YYYY') : ''
+  const startDate = getBookingFlightDetails?.flightCrawls.start_day
+  const formattedStartDate = startDate ? dayjs(endDate).format('DD-MM-YYYY') : ''
 
-    return `${day}-${month}-${year}`
-  }
-
-  const formatDateTime = formatDate(data.start_day)
   return (
     <div className='gap-6'>
       <div className='mb-[2rem]'>
         <div className='flex items-center justify-between'>
           <div>
-            <h2 className='mb-3 text-2xl font-semibold'>{data.brand}</h2>
-            <p className='font-medium text-gray-500 text-md'>{formatDateTime}</p>
+            <h2 className='mb-3 text-2xl font-semibold'>{getBookingFlightDetails?.flightCrawls.brand}</h2>
+            <p className='font-medium text-gray-500 text-md'>{getBookingFlightDetails?.flightCrawls.type_ticket}</p>
           </div>
           <div>
             <h2 className='mb-3 text-3xl font-bold text-red-500'>
-              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.price || 0)}
+              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+                getBookingFlightDetails?.flightCrawls.price || 0
+              )}
             </h2>
-            <p className='flex font-medium text-md'>{data.start_time}</p>
+            <p className='flex font-medium text-md'>{getBookingFlightDetails?.flightCrawls.destination}</p>
           </div>
         </div>
 
         <div className='flex items-center justify-between my-4'>
           <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
-            <img src={data.image ?? ''} alt='' className='w-20 rounded-md' />
+            <img src={getBookingFlightDetails?.flightCrawls.image} alt='' className='w-full rounded-md' />
             <div>
-              <p className='text-2xl font-bold'>{data.brand}</p>
+              <p className='text-2xl font-bold'>{getBookingFlightDetails?.brand}</p>
             </div>
           </div>
 
@@ -60,16 +64,18 @@ export default function FlightInfo({ data }: FlightInfo) {
 
         <div className='flex items-center justify-center space-x-20'>
           <div className='flex items-center space-x-4'>
-            <p className='text-2xl font-semibold'>{data.start_time}</p>
-            <p className='text-base font-medium'>{data.baggage_weight}</p>
+            <p className='text-2xl font-semibold'>{getBookingFlightDetails?.start_time}</p>
+            <p className='text-base font-medium'>{getBookingFlightDetails?.baggage_weight}</p>
           </div>
 
           <div className='flex items-center space-x-4'>
+            <p className='pr-10'>{formattedStartDate}</p>
             <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
             <div className='flex justify-center w-10'>
               <IconFlight />
             </div>
             <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+            <p className='pl-10'>{formattedEndDate}</p>
           </div>
 
           <div className='flex items-center space-x-4'>

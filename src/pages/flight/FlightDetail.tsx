@@ -4,6 +4,7 @@ import { flightdetail1, flightdetail2, flightdetail3, ticket_economy } from '@/a
 import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import Favorite from '@/components/common/flight/all-flight/favorite'
+import FlightDaySelection from '@/components/common/flight/all-flight/FlightDaySelection'
 import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
 import ShareButtons from '@/components/common/share/share-link'
 
@@ -55,6 +56,9 @@ export default function FlightDetail() {
   const [flightQuantity, setFlightQuantity] = useState(1)
 
   const [selectedTicket, setSelectedTicket] = useState('')
+  const [day, setDay] = useState<string>('')
+
+  console.log('ngay ', day)
 
   const SectionRef = useRef<HTMLDivElement | null>(null)
 
@@ -70,7 +74,7 @@ export default function FlightDetail() {
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   const mutationFlightBooking = useMutation({
-    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity, selectedTicket),
+    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity, selectedTicket, day),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
@@ -83,8 +87,8 @@ export default function FlightDetail() {
 
   const handleBookFlight = () => {
     setLoadingBooking(true)
-    if (selectedTicket === '') {
-      toast.error('Please select a ticket before booking')
+    if (selectedTicket === '' || day === '') {
+      toast.error('Vui lòng chọn vé  và ngày trước khi đặt.')
       SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
       mutationFlightBooking.mutate()
@@ -247,6 +251,7 @@ export default function FlightDetail() {
           </div>
 
           <div ref={SectionRef}>
+            <FlightDaySelection day={day} setDay={setDay}></FlightDaySelection>
             <FlightTicketSelection
               tickets={getbyId?.Ticket || []}
               ticketEconomy={ticket_economy}

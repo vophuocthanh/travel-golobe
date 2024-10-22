@@ -1,5 +1,5 @@
 import { bookingTourApi } from '@/apis/booking-tour.api'
-import { avatar1, tour_into1 } from '@/assets/images'
+import { tour_into1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useQuery } from '@tanstack/react-query'
@@ -70,30 +70,36 @@ export default function BillingTourView() {
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] h-[10rem] col-span-1 flex mx-auto'>
               <img
-                src={avatar1}
+                src={billingTourData1?.user.avatar}
                 alt='customer avatar'
                 className='w-full h-full border-2 border-gray-300 rounded-full'
               />
             </div>
             <div className='grid grid-cols-2 col-span-2 gap-4'>
-              <Input
-                type='text'
-                name='customerName'
-                placeholder='Customer Name'
-                value={billingData.customerName}
-                onChange={handleChange}
-                className='p-2 border rounded shadow-sm focus:ring focus:ring-blue-300'
-                disabled
-              />
-              <Input
-                type='email'
-                name='customerEmail'
-                placeholder='Customer Email'
-                value={billingData.customerEmail}
-                onChange={handleChange}
-                className='p-2 border rounded shadow-sm focus:ring focus:ring-blue-300'
-                disabled
-              />
+              <div className='flex flex-col'>
+                <label className='mb-2 text-sm font-medium text-gray-700'>Name Customer</label>
+                <Input
+                  type='text'
+                  name='customerName'
+                  value={billingTourData1?.user.name}
+                  placeholder='Customer Name'
+                  onChange={handleChange}
+                  className='p-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300 focus:border-blue-500'
+                  disabled
+                />
+              </div>
+              <div className='flex flex-col'>
+                <label className='mb-2 text-sm font-medium text-gray-700'>ID Customer</label>
+                <Input
+                  type='id'
+                  name=''
+                  placeholder='Customer Email'
+                  value={billingTourData1?.user.id}
+                  onChange={handleChange}
+                  className='p-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300 focus:border-blue-500'
+                  disabled
+                />
+              </div>
             </div>
           </div>
         </div>

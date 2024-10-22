@@ -22,8 +22,8 @@ export const bookingFlightApi = {
     const url = `/bookings/flight/${id}`
     return axiosClient.get(url)
   },
-  addBookingFlight(flightCrawlId: string, flightQuantity: number,ticketFlighttId:string): Promise<BookingResponse> {
+  addBookingFlight(flightCrawlId: string, flightQuantity: number,ticketFlighttId:string,flightDate:string): Promise<BookingResponse> {
     const url = '/bookings/book/flight'
-    return axiosClient.post(url, { flightCrawlId, flightQuantity ,ticketFlighttId})
+    return axiosClient.post(url, { flightCrawlId, flightQuantity ,ticketFlighttId,flightDate})
   }
 } 

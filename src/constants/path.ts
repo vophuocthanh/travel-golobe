@@ -40,7 +40,7 @@ export const path = {
   admin_hotelID: '/admin/hotels/:id',
   all_view: '/admin/billing/all-view',
   hotel_view: '/admin/billing/hotel-view',
-  flight_view: '/admin/billing/flight_view/:id',
+  flight_view: '/admin/billing/flight_view/:billingID',
   tour_view: '/admin/billing/tour-view/:billingID',
   coach_view: '/admin/billing/coach-view/:id',
   road_vehicleID: '/admin/road-vehicle-view/:id',
