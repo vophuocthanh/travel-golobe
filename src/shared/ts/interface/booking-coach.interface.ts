@@ -56,5 +56,9 @@ export interface BillingCoachView {
   number_of_seats_remaining?: number
   roadVehicleQuantity?: number
   status?: string 
-  invoice?: any[]
+  user?: {
+    id: string;
+    name: string;
+    avatar?: string | null;
+  };
 }
