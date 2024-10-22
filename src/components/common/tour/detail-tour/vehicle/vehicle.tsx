@@ -1,12 +1,29 @@
+
 import { IconFlight } from '@/common/icons'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourInfoResponse } from '@/shared/ts/interface/data.interface'
+import moment from 'moment'
 
 interface IVehicle {
   data?: TourInfoResponse
 }
 
 export default function Vehicle({ data }: IVehicle) {
+  
+  
+  const startDate = moment(data?.start_date).format('DD/MM/YYYY') 
+  console.log(data?.start_date,startDate,"egsag");
+  const endDate = moment(data?.end_date).format('DD/MM/YYYY') 
+
+  const getAirportCode = (str: string) => {
+    const match = str.match(/\((.*?)\)/);
+    return match ? match[1] : "";
+  };
+
+  const destination: string = (data?.road_vehicle.details.destination) ? getAirportCode(data?.road_vehicle.details.destination) : " ";
+  const takePlace: string = (data?.road_vehicle.details.take_place) ? getAirportCode(data?.road_vehicle.details.take_place) : " ";
+  
+  
   return (
     <div className='mt-16 '>
       <h2 className='mb-8 text-3xl font-semibold text-center'>LỊCH KHỞI HÀNH </h2>
@@ -19,32 +36,26 @@ export default function Vehicle({ data }: IVehicle) {
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
                     <h4 className='text-lg font-medium'>Ngày đi -</h4>
-                    <p className='flex items-center text-center'> 02/10/2024</p>
+                    <p className='flex items-center text-center'> {startDate}</p>
                   </div>
                   <div className='flex'>
                     <IconFlight />
-                    <h3 className='text-lg font-medium text-sky-500'>VN601</h3>
+                    <h3 className='text-lg font-medium text-sky-500'>{data?.time_trip}</h3>
                   </div>
                 </div>
                 <div className='flex justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>08:45</p>
-                  <p className='text-lg font-medium'>10:20</p>
+                  <p className='text-lg font-medium'>{data?.road_vehicle.details.start_time}</p>
+                  <p className='text-lg font-medium'>{data?.road_vehicle.details.end_time}</p>
                 </div>
                 <div className='flex flex-row items-center justify-center'>
                   <div className=' row--transport'></div>
                 </div>
                 <div className='relative flex flex-row justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>SGN</p>
+                  <p className='text-lg font-medium'>{destination}</p>
                   <div>
-                    <img
-                      alt='Vietnam Airlines'
-                      loading='lazy'
-                      decoding='async'
-                      data-nimg='1'
-                      src='https://media.travel.com.vn/ImageAirlines/logo_VietNamAir.jpg'
-                    />
+                    <p>{data?.road_vehicle.details.brand}</p>
                   </div>
-                  <p className='text-lg font-medium'>SGN</p>
+                  <p className='text-lg font-medium'>{takePlace}</p>
                 </div>
               </div>
             </div>
@@ -53,32 +64,26 @@ export default function Vehicle({ data }: IVehicle) {
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
                     <h4 className='text-lg font-medium'>Ngày về -</h4>
-                    <p className='flex items-center text-center'> 02/10/2024</p>
+                    <p className='flex items-center text-center'> {endDate}</p>
                   </div>
                   <div className='flex'>
                     <IconFlight />
-                    <h3 className='text-lg font-medium text-sky-500'>VN601</h3>
+                    <h3 className='text-lg font-medium text-sky-500'>{data?.time_trip}</h3>
                   </div>
                 </div>
                 <div className='flex justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>08:45</p>
-                  <p className='text-lg font-medium'>10:20</p>
+                  <p className='text-lg font-medium'>{data?.road_vehicle.details.start_time}</p>
+                  <p className='text-lg font-medium'>{data?.road_vehicle.details.end_time}</p>
                 </div>
                 <div className='flex flex-row items-center justify-center'>
                   <div className=' row--transport'></div>
                 </div>
                 <div className='relative flex flex-row justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>SGN</p>
+                  <p className='text-lg font-medium'>{takePlace}</p>
                   <div>
-                    <img
-                      alt='Vietnam Airlines'
-                      loading='lazy'
-                      decoding='async'
-                      data-nimg='1'
-                      src='https://media.travel.com.vn/ImageAirlines/logo_VietNamAir.jpg'
-                    />
+                    <p>{data?.road_vehicle.details.brand}</p>
                   </div>
-                  <p className='text-lg font-medium'>SGN</p>
+                  <p className='text-lg font-medium'>{destination}</p>
                 </div>
               </div>
             </div>

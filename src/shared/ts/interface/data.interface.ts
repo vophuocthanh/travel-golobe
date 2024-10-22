@@ -235,6 +235,14 @@ export interface TourInfoResponse {
   roadVehicleId: string | null
   tour_code: string
   hotel: Hotel
+  trip_schedules: [
+    {
+      id: string,
+      day: number,
+      schedule: string,
+      date: string
+    }
+  ]
 }
 
 interface RoadVehicle {
