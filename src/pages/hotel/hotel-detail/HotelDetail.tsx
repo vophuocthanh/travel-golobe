@@ -56,11 +56,11 @@ export default function HotelDetail() {
   })
 
   const handleBookHotel = () => {
-    setLoadingBooking(true)
     if (roomId === '') {
       roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
       mutationHotelBooking.mutate()
+      setLoadingBooking(true)
     }
   }
 
