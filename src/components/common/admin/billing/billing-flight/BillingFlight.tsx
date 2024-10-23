@@ -74,7 +74,7 @@ export function BillingFLight() {
       accessorKey: 'flightCrawlId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight ID
+          Mã chuyến bay
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -89,7 +89,7 @@ export function BillingFLight() {
       accessorKey: 'flightQuantity',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Quantity
+          Số lượng chuyến bay
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -100,7 +100,7 @@ export function BillingFLight() {
       accessorKey: 'ticketFlighttId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Ticket Flightt Id
+          Số lượng chuyến bay
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -114,7 +114,7 @@ export function BillingFLight() {
       accessorKey: 'totalAmount',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Total Amount
+          Tổng số tiền
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -133,7 +133,7 @@ export function BillingFLight() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Created At
+            Ngày tạo
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -148,7 +148,7 @@ export function BillingFLight() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Confirmation Time
+            Thời gian xác nhận
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -160,7 +160,7 @@ export function BillingFLight() {
     },
     {
       accessorKey: 'status',
-      header: () => <div className='flex justify-center'>Status</div>,
+      header: () => <div className='flex justify-center'>Trạng thái</div>,
       cell: ({ row }) => {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
@@ -189,7 +189,7 @@ export function BillingFLight() {
 
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Actions</div>,
+      header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={() => handleView(row.original)}>

@@ -65,7 +65,7 @@ export function BillingCoach() {
       accessorKey: 'userId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          User Id
+          Mã khách hàng
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -75,7 +75,7 @@ export function BillingCoach() {
       accessorKey: 'roadVehicleId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle ID
+          Mã chuyến xe
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -85,7 +85,7 @@ export function BillingCoach() {
       accessorKey: 'roadVehicleQuantity',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Quantity
+          Số lượng chuyến xe
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -97,7 +97,7 @@ export function BillingCoach() {
       accessorKey: 'totalAmount',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Total Amount
+          Tổng số tiền
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -116,7 +116,7 @@ export function BillingCoach() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Created At
+            Ngày tạo
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -131,7 +131,7 @@ export function BillingCoach() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Confirmation Time
+            Thời gian xác nhận
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -143,7 +143,7 @@ export function BillingCoach() {
     },
     {
       accessorKey: 'status',
-      header: () => <div className='flex justify-center'>Status</div>,
+      header: () => <div className='flex justify-center'>Trạng thái</div>,
       cell: ({ row }) => {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'

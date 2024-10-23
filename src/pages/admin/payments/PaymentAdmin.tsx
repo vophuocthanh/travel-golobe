@@ -164,7 +164,7 @@ export default function PaymentAdmin() {
     },
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Actions</div>,
+      header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={() => handleView(row.original)}>

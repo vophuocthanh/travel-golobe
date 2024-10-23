@@ -67,7 +67,7 @@ export function BillingAll() {
       accessorKey: 'tourId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Id
+          Mã chuyến du lịch
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -77,7 +77,7 @@ export function BillingAll() {
       accessorKey: 'userId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          User Id
+          Mã khách hàng
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -87,7 +87,7 @@ export function BillingAll() {
       accessorKey: 'flightCrawlId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight ID
+          Mã chuyến bay
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -97,7 +97,7 @@ export function BillingAll() {
       accessorKey: 'hotelCrawlId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel ID
+          Mã khách sạn
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -107,7 +107,7 @@ export function BillingAll() {
       accessorKey: 'roadVehicleId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle ID
+          Mã chuyến xe
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -117,7 +117,7 @@ export function BillingAll() {
       accessorKey: 'flightQuantity',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Quantity
+          Số lượng chuyến bay
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -127,7 +127,7 @@ export function BillingAll() {
       accessorKey: 'hotelQuantity',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Hotel Quantity
+          Số lượng phòng khách sạn
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -137,7 +137,7 @@ export function BillingAll() {
       accessorKey: 'tourQuantity',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tour Quantity
+          Số lượng chuyến du lịch
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -147,7 +147,7 @@ export function BillingAll() {
       accessorKey: 'roadVehicleQuantity',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle Quantity
+          Số lượng chuyến xe
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -159,7 +159,7 @@ export function BillingAll() {
       accessorKey: 'roomId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Room ID
+          Mã phòng
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -169,7 +169,7 @@ export function BillingAll() {
       accessorKey: 'ticketFlighttId',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Ticket Flightt Id
+          Mã vé chuyến bay
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -179,7 +179,7 @@ export function BillingAll() {
       accessorKey: 'totalAmount',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Total Amount
+          Tổng số tiền
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -198,7 +198,7 @@ export function BillingAll() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Created At
+            Ngày tạo
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -213,7 +213,7 @@ export function BillingAll() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Confirmation Time
+            Thời gian xác nhận
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -225,7 +225,7 @@ export function BillingAll() {
     },
     {
       accessorKey: 'status',
-      header: () => <div className='flex justify-center'>Status</div>,
+      header: () => <div className='flex justify-center'>Trạng thái</div>,
       cell: ({ row }) => {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
@@ -253,7 +253,7 @@ export function BillingAll() {
 
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Actions</div>,
+      header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={handleView}>

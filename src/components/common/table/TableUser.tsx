@@ -77,22 +77,22 @@ export const columns: ColumnDef<UserResponse>[] = [
   },
   {
     accessorKey: 'country',
-    header: () => <div className='text-left'>Country</div>,
+    header: () => <div className='text-left'>Quốc tịch</div>,
     cell: ({ row }) => <div>{row.getValue('country') || 'N/A'}</div>
   },
   {
     accessorKey: 'phone',
-    header: () => <div className='text-left'>Phone</div>,
+    header: () => <div className='text-left'>Số điện thoại</div>,
     cell: ({ row }) => <div>{row.getValue('phone') || 'N/A'}</div>
   },
   {
     accessorKey: 'address',
-    header: () => <div className='text-left'>Address</div>,
+    header: () => <div className='text-left'>Địa chỉ</div>,
     cell: ({ row }) => <div>{row.getValue('address') || 'N/A'}</div>
   },
   {
     id: 'role',
-    header: () => <div className='flex justify-center'>Role</div>,
+    header: () => <div className='flex justify-center'>Vai trò</div>,
     cell: ({ row }) => (
       <div className='flex justify-center'>
         <h1
@@ -105,7 +105,7 @@ export const columns: ColumnDef<UserResponse>[] = [
   },
   {
     accessorKey: 'date_of_birth',
-    header: () => <div className='flex justify-center'>Date of Birth</div>,
+    header: () => <div className='flex justify-center'>Ngày sinh</div>,
     cell: ({ row }) => {
       const formatDate = (dateString?: string): string => {
         if (!dateString) return 'N/A'

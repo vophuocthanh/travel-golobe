@@ -68,7 +68,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'brand',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Garage Name
+          Tên nhà xe
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -78,7 +78,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'image',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Road Vehicle
+          Hình ảnh
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -91,7 +91,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'number_of_seat',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Number Of Seat
+          Số chổ ngồi
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -101,7 +101,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'start_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Start Time
+          Thời gian khởi hành
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -112,7 +112,7 @@ const coachData = CoachData?.data || []
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Start Day
+            Ngày khởi hành
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -126,7 +126,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'end_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          End Time
+          Thời gian kết thúc
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -137,7 +137,7 @@ const coachData = CoachData?.data || []
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            End Day
+            Ngày kết thúc
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -151,7 +151,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'trip_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Trip Time
+          Thời gian chuyến xe
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -161,7 +161,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'take_place',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Take Place
+          Điểm đi
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -171,7 +171,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'destination',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Destination
+          Điểm đến
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -181,7 +181,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'location',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Location
+          Vị trí
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -189,7 +189,7 @@ const coachData = CoachData?.data || []
     },
     {
       accessorKey: 'price',
-      header: () => <div className='text-center'>Price</div>,
+      header: () => <div className='text-center'>Giá</div>,
       cell: ({ row }) => {
         const amount = parseFloat(row.getValue('price'))
 
@@ -205,7 +205,7 @@ const coachData = CoachData?.data || []
       accessorKey: 'number_of_seats_remaining',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Seats Remaining
+          Số ghế còn lại
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
@@ -213,7 +213,7 @@ const coachData = CoachData?.data || []
     },
     {
       accessorKey: 'action',
-      header: () => <div className='flex justify-center text-center'>Action</div>,
+      header: () => <div className='flex justify-center text-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className="flex justify-center space-x-6">
           <div className="">

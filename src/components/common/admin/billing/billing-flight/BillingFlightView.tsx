@@ -30,13 +30,13 @@ export default function BillingFlightView() {
 
   return (
     <div className='w-full p-2 mb-5'>
-      <h1 className='mb-2 text-2xl font-bold'>Flight Billing {billingID}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>Thanh toán chuyến bay {billingID}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
       <form className='space-y-4'>
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Customer Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin khách hàng</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] h-[10rem] col-span-1 flex mx-auto'>
               <img
@@ -47,7 +47,7 @@ export default function BillingFlightView() {
             </div>
             <div className='grid grid-cols-2 col-span-2 gap-4'>
               <div className='flex flex-col'>
-                <label className='mb-2 text-sm font-medium text-gray-700'>Name Customer</label>
+                <label className='mb-2 text-sm font-medium text-gray-700'>Tên khách hàng</label>
                 <Input
                   type='text'
                   name='customerName'
@@ -58,7 +58,7 @@ export default function BillingFlightView() {
                 />
               </div>
               <div className='flex flex-col'>
-                <label className='mb-2 text-sm font-medium text-gray-700'>ID Customer</label>
+                <label className='mb-2 text-sm font-medium text-gray-700'>Mã khách hàng</label>
                 <Input
                   type='id'
                   name=''
@@ -73,7 +73,7 @@ export default function BillingFlightView() {
         </div>
 
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Flight Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin chuyến bay</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
               <img src={flightdetail1} alt='hotel' className='w-full h-full rounded-full' />

@@ -61,19 +61,19 @@ export function BillingHotel() {
     },
     {
       accessorKey: 'userId',
-      header: () => <div className='text-left'>UserId</div>,
+      header: () => <div className='text-left'>Mã khách hàng</div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('userId')}</div>,
       enableSorting: true,
     },
     {
       accessorKey: 'hotelQuantity',
-      header: () => <div className='text-left'>Hotel Quantity</div>,
+      header: () => <div className='text-left'>Số lượng khách sạn</div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('hotelQuantity')}</div>,
       enableSorting: true,
     },
     {
       accessorKey: 'totalAmount',
-      header: () => <div className='text-left'>Total Amount</div>,
+      header: () => <div className='text-left'>Tổng số tiền</div>,
       cell: ({ row }) => {
         const price = row.getValue('totalAmount');
         if (typeof price === 'number') {
@@ -91,7 +91,7 @@ export function BillingHotel() {
     },
     {
       accessorKey: 'status',
-      header: () => <div className='flex justify-center'>Status</div>,
+      header: () => <div className='flex justify-center'>Trạng thái</div>,
       cell: ({ row }) => {
         const status = row.getValue('status');
         let statusClass = 'bg-gray-200';
@@ -118,7 +118,7 @@ export function BillingHotel() {
     },
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Actions</div>,
+      header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={() => handleView(row.original)}> <IconView /></div>

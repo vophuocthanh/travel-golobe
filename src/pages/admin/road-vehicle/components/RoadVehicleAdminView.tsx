@@ -24,13 +24,13 @@ export default function RoadVehicleAdminView() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>Road Vehicle View {id}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>Xe thông tin chuyến xe {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine/>
       </Button>
       <form className='space-y-4'>
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='text-xl font-bold '>Road Vehicle Image</h2>
+          <h2 className='text-xl font-bold '>Hình ảnh chuyến xe</h2>
           <div className='grid grid-cols-4 gap-4 mb-4'>
             <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
               <img src={coachdetail1} alt='hotel' className='w-full h-full' />
@@ -68,7 +68,7 @@ export default function RoadVehicleAdminView() {
         </div>
 
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Road Vehicle Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin chuyến xe</h2>
           <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
             <Input
               type='text'

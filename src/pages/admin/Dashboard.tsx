@@ -27,12 +27,12 @@ export default function Dashboard() {
   ]
 
   const tabs = [
-    { name: 'Overview', label: 'Overview', count: null },
-    { name: 'Tasks', label: 'Tasks', count: 7 },
-    { name: 'Documents', label: 'Documents', count: 2 },
-    { name: 'Team', label: 'Team', count: '99+' },
-    { name: 'Reports', label: 'Reports', count: null },
-    { name: 'Admin', label: 'Admin', count: null },
+    { name: 'Overview', label: 'Tổng quan', count: null },
+    { name: 'Tasks', label: 'Nhiệm vụ', count: 7 },
+    { name: 'Documents', label: 'Tài liệu', count: 2 },
+    { name: 'Team', label: 'Đội ngũ', count: '99+' },
+    { name: 'Reports', label: 'báo cáo', count: null },
+    { name: 'Admin', label: 'Quản trị viên', count: null },
     { name: 'More', label: '...', count: null }
   ]
 

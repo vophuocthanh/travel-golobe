@@ -92,13 +92,13 @@ export default function HotelAdmin() {
     },
     {
       accessorKey: 'hotel_names',
-      header: () => <div className='text-left w-52'>Hotel Name </div>,
+      header: () => <div className='text-left w-52'>Tên khách sạn </div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('hotel_names')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'image',
-      header: () => <div className='text-left w-28'>Image </div>,
+      header: () => <div className='text-left w-28'>Hình ảnh </div>,
       cell: () => <div className='flex flex-col items-center justify-center'>
         <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
       </div>,
@@ -106,67 +106,67 @@ export default function HotelAdmin() {
     },
     {
       accessorKey: 'location',
-      header: () => <div className='text-left w-52'>Location </div>,
+      header: () => <div className='text-left w-52'>Vị trí </div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('location')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'place',
-      header: () => <div className='flex justify-center w-36'>Place</div>,
+      header: () => <div className='flex justify-center w-36'>Địa điểm</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('place')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'score_hotels',
-      header: () => <div className='flex justify-center'>Score Hotels</div>,
+      header: () => <div className='flex justify-center'>Điểm số khách sạn</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('score_hotels')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'number_rating',
-      header: () => <div className='flex justify-center'>Number Rating</div>,
+      header: () => <div className='flex justify-center'>Xếp hạng</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('number_rating')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'star_number',
-      header: () => <div className='flex justify-center'>Star Number</div>,
+      header: () => <div className='flex justify-center'>Số sao</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('star_number')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'received_time',
-      header: () => <div className='flex justify-center w-36'>Received Time</div>,
+      header: () => <div className='flex justify-center w-36'>Thời gian nhận được</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('received_time')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'giveback_time',
-      header: () => <div className='flex justify-center w-36'>Giveback Time</div>,
+      header: () => <div className='flex justify-center w-36'>Thời gian trả lại</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('giveback_time')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'description',
-      header: () => <div className='flex justify-center w-[400px]'>Description</div>,
+      header: () => <div className='flex justify-center w-[400px]'>Mô tả</div>,
       cell: ({ row }) => <div className='overflow-hidden flexjustify-center text-ellipsis line-clamp-3'>{row.getValue('description')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'hotel_link',
-      header: () => <div className='flex justify-center'>Hotel Link</div>,
+      header: () => <div className='flex justify-center'>Đường dẫn</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('hotel_link')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'number_of_seats_remaining',
-      header: () => <div className='flex justify-center'>Remaining</div>,
+      header: () => <div className='flex justify-center'>Còn lại</div>,
       cell: ({ row }) => <div className='flex justify-center'>{row.getValue('number_of_seats_remaining')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'price',
-      header: () => <div className='flex justify-center'>Price Per Night</div>,
+      header: () => <div className='flex justify-center'>Giá mỗi đêm</div>,
       cell: ({ row }) => {
         const price = parseFloat(row.getValue('price'))
         const formatted = new Intl.NumberFormat('vi-VN', {
@@ -179,7 +179,7 @@ export default function HotelAdmin() {
     },
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Action</div>,
+      header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)} >
@@ -205,7 +205,7 @@ export default function HotelAdmin() {
                 <DialogDescription className='flex justify-center space-x-4'>
                   <Button
                     onClick={() => handleDelete(row.original.id)}
-                    className='bg-red-600 hover:bg-red-700 text-white'
+                    className='text-white bg-red-600 hover:bg-red-700'
                   >
                     Xoá
                   </Button>
