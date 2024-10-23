@@ -106,7 +106,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' className='w-56' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Tour Name
+            Tên tour
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -118,7 +118,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Image
+            Hình ảnh
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -138,7 +138,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            User Id
+            Người tạo
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -154,7 +154,7 @@ function TourAdmin() {
             className='w-[400px]'
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Description
+            Mô tả
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -178,7 +178,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Start Date
+            Ngày bắt đầu
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -190,7 +190,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            End Date
+            Ngày kết thúc
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -202,7 +202,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Road Vehicle
+            Phương tiện
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -214,7 +214,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Time Trip
+            Thời gian du lịch
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -226,7 +226,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Baby Price
+            Giá em bé
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -238,7 +238,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Child Price
+            Giá trẻ em
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -261,7 +261,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Adult Price
+            Giá người lớn
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -282,7 +282,7 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Number Of Seats Remaining
+            Số chỗ còn lại
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -291,7 +291,7 @@ function TourAdmin() {
     },
     {
       accessorKey: 'price',
-      header: () => <div className='text-right'>Price</div>,
+      header: () => <div className='text-right'>Giá</div>,
       cell: ({ row }) => {
         const price = parseFloat(row.getValue('price'))
 
@@ -305,7 +305,7 @@ function TourAdmin() {
     },
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Action</div>,
+      header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => {
         return (
           <div className='flex space-x-2'>
