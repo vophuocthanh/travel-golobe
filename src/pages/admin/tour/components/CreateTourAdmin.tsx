@@ -1,18 +1,32 @@
+import { flightApi } from '@/apis/flight.api'
+import { hotelApi } from '@/apis/hotel.api'
 import { tourApi } from '@/apis/tour.api'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/shared/lib/utils'
+import { FlightResponseType, HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { CreateTourSchema } from '@/shared/utils/tour.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { format } from 'date-fns'
+import dayjs from 'dayjs'
 import { CalendarIcon, ChevronLeft } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
@@ -23,6 +37,10 @@ export default function CreateTourAdmin() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
+  const [pageHotel, setPageHotel] = useState(1)
+  const [pageFlight, setPageFlight] = useState(1)
+  const [hotels, setHotels] = useState<HotelResponseType[]>([])
+  const [flights, setFlights] = useState<FlightResponseType[]>([])
 
   const form = useForm<z.infer<typeof CreateTourSchema>>({
     resolver: zodResolver(CreateTourSchema),
@@ -41,15 +59,9 @@ export default function CreateTourAdmin() {
   const mutationCreateTour = useMutation({
     mutationFn: (data: z.infer<typeof CreateTourSchema>) => tourApi.addTour(data)
   })
-  console.log(mutationCreateTour,"mutationCreateTour");
-  
 
   function onSubmit(data: z.infer<typeof CreateTourSchema>) {
     setLoading(true)
-    console.log("123");
-    console.log(data,"data");
-    
-    
 
     const formattedData = {
       ...data,
@@ -71,6 +83,47 @@ export default function CreateTourAdmin() {
       }
     })
   }
+
+  const { data: getAllFlight } = useQuery({
+    queryKey: ['getAllFlightAdmin', pageFlight],
+    queryFn: () => flightApi.getAll(pageFlight, 20)
+  })
+
+  const {
+    data: getAllHotelAdmin,
+    isFetching,
+    isError
+  } = useQuery({
+    queryKey: ['getAllHotelAdmin', pageHotel],
+    queryFn: () => hotelApi.getAll(pageHotel, 20),
+    refetchOnWindowFocus: true // true thì ví dụ qua route, xong vào lại thì nó load lại data, còn mà false là khi vào route thì nó ko load lại data, nó chỉ load từ cái data mà hồi nãy đã fetch truớc khi ra khỏi route khác. lưu ý là trường hợp là dùng staleTime thi true nó vẫn như false.
+    // staleTime: 5 * 60 * 1000 //Là khoảng thời gian mà dữ liệu được coi là mới và sẽ không bị refetch từ server. Ở đây, nó được đặt là 5 phút (5 * 60 * 1000), nghĩa là trong vòng 5 phút kể từ lần fetch gần nhất, dữ liệu sẽ không được fetch lại, thay vào đó nó lấy từ cache.
+  })
+
+  useEffect(() => {
+    if (getAllHotelAdmin?.data) {
+      setHotels((prev) => [...prev, ...getAllHotelAdmin.data])
+    }
+  }, [getAllHotelAdmin])
+
+  useEffect(() => {
+    if (getAllFlight?.data) {
+      setFlights((prev) => [...prev, ...getAllFlight.data])
+    }
+  }, [getAllFlight])
+
+  const loadMore = () => {
+    setPageHotel((prevPage) => prevPage + 1)
+  }
+
+  const loadMoreFlight = () => {
+    setPageFlight((prevPage) => prevPage + 1)
+  }
+
+  if (isError) {
+    return <div>Error loading hotels</div>
+  }
+
   return (
     <div className='w-full h-full'>
       <div className='flex items-center gap-2'>
@@ -90,7 +143,7 @@ export default function CreateTourAdmin() {
               <FormItem>
                 <FormLabel>Tên tour</FormLabel>
                 <FormControl>
-                  <Input  placeholder='Nhập tên tour' {...field} />
+                  <Input placeholder='Nhập tên tour' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,12 +195,66 @@ export default function CreateTourAdmin() {
               <FormItem>
                 <FormLabel>ID của hotel</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập id của hotel' {...field} />
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder='Select a hotel' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Hotel</SelectLabel>
+                        <InfiniteScroll
+                          dataLength={hotels.length}
+                          next={loadMore}
+                          hasMore={!isFetching && getAllHotelAdmin?.data?.length === 20}
+                          loader={<h4>Loading more hotels...</h4>}
+                          height={200}
+                          endMessage={<p>You have seen all hotels</p>}
+                        >
+                          {hotels.map((hotel) => (
+                            <SelectItem key={hotel.id} value={hotel.id || ''}>
+                              {hotel?.hotel_names} - {hotel?.place}
+                            </SelectItem>
+                          ))}
+                        </InfiniteScroll>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+          {/* <FormField
+            control={form.control}
+            name='flightId'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ID của flight</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder='Select a flight' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Flights</SelectLabel>
+                        {getAllFlight?.data
+                          ?.filter((flight) => flight.id)
+                          .map((flight) => (
+                            <SelectItem key={flight.id} value={flight.id || ''}>
+                              {dayjs(flight.start_day).format('DD/MM/YYYY')} -{' '}
+                              {dayjs(flight.end_day).format('DD/MM/YYYY')} - {flight.trip_to}
+                            </SelectItem>
+                          ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          /> */}
+
           <FormField
             control={form.control}
             name='flightId'
@@ -155,12 +262,37 @@ export default function CreateTourAdmin() {
               <FormItem>
                 <FormLabel>ID của flight</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập id của flight' {...field} />
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder='Select a flight' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Flight</SelectLabel>
+                        <InfiniteScroll
+                          dataLength={flights.length}
+                          next={loadMoreFlight}
+                          hasMore={!isFetching && getAllFlight?.data?.length === 20}
+                          loader={<h4>Loading more flight...</h4>}
+                          height={200}
+                          endMessage={<p>You have seen all flight</p>}
+                        >
+                          {flights.map((flight) => (
+                            <SelectItem key={flight.id} value={flight.id || ''}>
+                              {dayjs(flight.start_day).format('DD/MM/YYYY')} -{' '}
+                              {dayjs(flight.end_day).format('DD/MM/YYYY')} - {flight.trip_to}
+                            </SelectItem>
+                          ))}
+                        </InfiniteScroll>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <div className='flex items-center gap-2'>
             <FormField
               control={form.control}

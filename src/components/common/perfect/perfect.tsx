@@ -3,6 +3,43 @@ import SectionInViewRight from '@/components/common/animation/SectionInViewRight
 import { Button } from '@/components/ui/button'
 import { dataPerfect } from '@/shared/lib/data-type'
 import { Link } from 'react-router-dom'
+import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+const dataSlide = [
+  {
+    id: 1,
+    name: 'Flights',
+    title: 'Search Flights & Places Hire to our most popular',
+    image: flight,
+    button: 'Show flight',
+    path: '/vehicle/flight'
+  },
+  {
+    id: 2,
+    name: 'Hotels',
+    title: 'Search hotels & Places Hire to our most popular',
+    image: hotel,
+    button: 'Show hotel',
+    path: '/hotel'
+  },
+  {
+    id: 3,
+    name: 'Tours',
+    title: 'Search Tours & Places Hire to our most popular',
+    image: tour,
+    button: 'Show tour',
+    path: '/tour'
+  },
+  {
+    id: 4,
+    name: 'Coach',
+    title: 'Search Vehicles & Places Hire to our most popular',
+    image: 'https://thacoauto.vn/storage/xe-bus-giuong-nam-thaco-su-dung-dong-co-volvo-resize.jpg',
+    button: 'Show coach',
+    path: '/vehicle/coach'
+  }
+]
 
 export default function Perfect() {
   return (
@@ -33,42 +70,32 @@ export default function Perfect() {
         </div>
 
         <div className='relative flex gap-4'>
-          <div className='w-[28rem]'>
-            <img src={flight} alt='hotel' className='w-[28rem] h-[36rem] rounded-2xl object-cover' />
-            <div className='absolute flex flex-col space-y-4 items-center justify-center bottom-5 w-[28rem]'>
-              <h1 className='text-3xl font-medium text-white'>Flights</h1>
-              <p className='text-center text-white'>
-                Search Flights & Places Hire to our most popular <br /> destinations
-              </p>
-              <Link to='/flight'>
-                <Button className='w-32 text-white'>Show flight</Button>
-              </Link>
-            </div>
-          </div>
-          <div className='w-[28rem]'>
-            <img src={hotel} alt='hotel' className='w-[28rem] h-[36rem] rounded-2xl object-cover' />
-            <div className='absolute flex flex-col space-y-4 items-center justify-center bottom-5 w-[28rem]'>
-              <h1 className='text-3xl font-medium text-white'>Hotels</h1>
-              <p className='text-center text-white'>
-                Search hotels & Places Hire to our most popular <br /> destinations
-              </p>
-              <Link to='/hotel'>
-                <Button className='w-32 text-white'>Show hotel</Button>
-              </Link>
-            </div>
-          </div>
-          <div className='w-[28rem]'>
-            <img src={tour} alt='hotel' className='w-[28rem] h-[36rem] rounded-2xl object-cover' />
-            <div className='absolute flex flex-col space-y-4 items-center justify-center bottom-5 w-[28rem]'>
-              <h1 className='text-3xl font-medium text-white'>Tour</h1>
-              <p className='text-center text-white'>
-                Search Tours & Places Hire to our most popular <br /> destinations
-              </p>
-              <Link to='/tour'>
-                <Button className='w-32 text-white'>Show tour</Button>
-              </Link>
-            </div>
-          </div>
+          <Swiper
+            modules={[Navigation, Pagination, A11y, Autoplay]}
+            spaceBetween={10}
+            slidesPerView={3}
+            pagination={{ clickable: true }}
+            navigation
+            autoplay={{
+              delay: 3000
+            }}
+            loop={true}
+          >
+            {dataSlide.map((slide, index) => (
+              <SwiperSlide key={index} className='flex w-full'>
+                <div className='w-[28rem]'>
+                  <img src={slide.image} alt='hotel' className='w-[28rem] h-[36rem] rounded-2xl object-cover' />
+                  <div className='absolute flex flex-col space-y-4 items-center justify-center bottom-5 w-[28rem]'>
+                    <h1 className='text-3xl font-medium text-white'>{slide.name}</h1>
+                    <p className='text-center text-white'>{slide.title}</p>
+                    <Link to={slide.path}>
+                      <Button className='w-32 text-white'>{slide.button}</Button>
+                    </Link>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </SectionInViewRight>
