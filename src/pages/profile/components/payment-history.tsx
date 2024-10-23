@@ -12,7 +12,10 @@ export default function PaymentHistory() {
   console.log('getPaymentUser:', getPaymentUser)
   return (
     <div className='w-full h-full'>
-      <h1 className='mt-6 text-3xl font-bold'>Lịch sử thanh toán</h1>
+      <div className='flex items-center justify-between'>
+        <h1 className='mt-6 text-3xl font-bold'>Lịch sử thanh toán</h1>
+        <h1 className='mt-6 text-2xl font-bold'>Tổng: {getPaymentUser?.total}</h1>
+      </div>
       {getPaymentUser?.data?.map((item: any) => (
         <div
           key={item.id}

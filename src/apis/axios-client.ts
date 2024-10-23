@@ -1,21 +1,13 @@
 import config from '@/configs'
 import HttpStatusCode from '@/constants/http'
-import { useAppDispatch } from '@/redux/hooks'
-import { appAction } from '@/redux/store/app-slice'
-import { history } from '@/shared/utils/history'
-import { getRefreshTokenFromLS } from '@/shared/utils/storage'
-import axios, { AxiosResponse } from 'axios'
-
-export interface LoginResponse {
-  user: { id: string; name: string; email: string; role: string }
-  access_token: string
-  refresh_token: string
-}
-
-const updateLocalAccessToken = (res: LoginResponse) => {
-  localStorage.setItem('access_token', res.access_token)
-  localStorage.setItem('refresh_token', res.refresh_token)
-}
+import {
+  getAccessTokenFromLS,
+  getRefreshTokenFromLS,
+  removeAccessTokenFromLS,
+  setAccessTokenToLS,
+  setRefreshTokenToLS
+} from '@/shared/utils/storage'
+import axios from 'axios'
 
 const axiosClient = axios.create({
   baseURL: config.baseUrl,
@@ -24,46 +16,49 @@ const axiosClient = axios.create({
   }
 })
 
-// Add a request interceptor
+// Request interceptor
 axiosClient.interceptors.request.use(
-  function (config) {
-    const token = localStorage.getItem('access_token')
+  (config) => {
+    const token = getAccessTokenFromLS()
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },
-  function (error) {
+  (error) => {
     return Promise.reject(error)
   }
 )
 
-// Add a response interceptor
+// Response interceptor
 axiosClient.interceptors.response.use(
-  function (response: AxiosResponse) {
+  (response) => {
     return response.data
   },
-  async function (error) {
-    const originalConfig = error.config
-    const dispatch = useAppDispatch()
-    if (error.response?.status === HttpStatusCode.Forbidden) {
-      await dispatch(appAction.setAPIState(403))
-    }
-    if (error.response?.status === HttpStatusCode.Unauthorized) {
+  async (error) => {
+    const originalRequest = error.config
+    if (error.response && error.response.status === HttpStatusCode.Unauthorized && !originalRequest._retry) {
+      originalRequest._retry = true
+
       try {
-        const url = `${originalConfig.baseURL}/auth/refresh-token`
-        const result = await getRefreshTokenFromLS()
-        const rs = await axios.post(url, {
-          refresh_token: result
+        const refreshToken = getRefreshTokenFromLS()
+        const response = await axios.post(`${config.baseUrl}/auth/refresh-token`, {
+          refresh_token: refreshToken
         })
-        const loginResponse: LoginResponse = rs.data as LoginResponse
-        updateLocalAccessToken(loginResponse)
-        return axiosClient(originalConfig)
-      } catch (_error) {
-        localStorage.clear()
-        history.push('/')
-        return Promise.reject(_error)
+
+        if (response.status === HttpStatusCode.Ok) {
+          const { access_token, refresh_token } = response.data
+          setAccessTokenToLS(access_token)
+          setRefreshTokenToLS(refresh_token)
+          axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+          return axiosClient(originalRequest)
+        }
+      } catch (refreshError) {
+        removeAccessTokenFromLS()
+        return Promise.reject(refreshError)
       }
+    } else if (error.response && error.response.status === HttpStatusCode.Unauthorized) {
+      removeAccessTokenFromLS()
     }
     return Promise.reject(error)
   }

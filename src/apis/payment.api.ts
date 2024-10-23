@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosClient from '@/apis/axios-client'
+import { ListResponse } from '@/shared/ts/interface'
 import { PaymentResponse } from '@/shared/ts/interface/booking-tour.interface'
 import { MoMoPaymentResponse, PaymentDetail } from '@/shared/ts/interface/momo.interface'
 
@@ -16,7 +17,7 @@ export const paymentApi = {
     const url = '/momo/ipn'
     return axiosClient.post(url, data)
   },
-  getPaymentUser() {
+  getPaymentUser(): Promise<ListResponse<any>> {
     const url = '/momo/user'
     return axiosClient.get(url)
   },

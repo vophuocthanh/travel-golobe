@@ -26,6 +26,9 @@ export const getUserFromLocalStorage = (): UserResponseType | null => {
   const user = localStorage.getItem('user')
   return user ? JSON.parse(user) : null
 }
+export const removeAccessTokenFromLS = () => {
+  localStorage.removeItem('access_token')
+}
 
 export const setUserToLS = (user: { id: string; name: string; email: string; role: string }) => {
   localStorage.setItem('user', JSON.stringify(user))
