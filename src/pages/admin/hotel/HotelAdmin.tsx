@@ -1,11 +1,8 @@
+import { hotelApi } from '@/apis/hotel.api'
+import { hotel } from '@/assets/images'
 import { IconDelete, IconEdit, IconMore, IconSearch } from '@/common/icons'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
@@ -14,9 +11,16 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -31,13 +35,8 @@ import {
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { hotelApi } from '@/apis/hotel.api';
-import { HotelResponseType } from '@/shared/ts/interface/data.interface';
-import { hotel } from '@/assets/images'
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function HotelAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -54,7 +53,7 @@ export default function HotelAdmin() {
     queryFn: () => hotelApi.getAll()
   })
   const totalDataHotel = getAllHotel?.total || 0
-  console.log(totalDataHotel, "totalDataHotel");
+  console.log(totalDataHotel, 'totalDataHotel')
 
   const { data: allHotel } = useQuery({
     queryKey: ['getAllHotel', totalDataHotel],
@@ -71,13 +70,12 @@ export default function HotelAdmin() {
     mutationFn: (id: string) => hotelApi.deleteHotel(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['getAllHotel'] })
-      toast.success('Xóa khách sạn thành công');
+      toast.success('Xóa khách sạn thành công')
     },
     onError: () => {
-      toast.error('Xóa khách sạn thất bại');
+      toast.error('Xóa khách sạn thất bại')
     }
   })
-
 
   const handleDelete = (id: string) => {
     mutationDelete.mutate(id)
@@ -87,7 +85,7 @@ export default function HotelAdmin() {
     {
       accessorKey: 'id',
       header: () => <div className='text-left'>ID</div>,
-      cell: ({ row }) => <div className='text-left'>{row.getValue('id')}</div>,
+      cell: ({ row }) => <div className='truncate max-w-[400px]'>{row.getValue('id')}</div>,
       enableSorting: true
     },
     {
@@ -99,15 +97,17 @@ export default function HotelAdmin() {
     {
       accessorKey: 'image',
       header: () => <div className='text-center w-28'>Hình ảnh </div>,
-      cell: () => <div className='flex flex-col items-center justify-center'>
-        <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
-      </div>,
+      cell: () => (
+        <div className='flex flex-col items-center justify-center'>
+          <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
+        </div>
+      ),
       enableSorting: true
     },
     {
       accessorKey: 'location',
       header: () => <div className='text-center w-52'>Vị trí </div>,
-      cell: ({ row }) => <div className='text-left'>{row.getValue('location')}</div>,
+      cell: ({ row }) => <div className='truncate max-w-[500px]'>{row.getValue('location')}</div>,
       enableSorting: true
     },
     {
@@ -149,7 +149,11 @@ export default function HotelAdmin() {
     {
       accessorKey: 'description',
       header: () => <div className='flex justify-center w-[400px]'>Mô tả</div>,
-      cell: ({ row }) => <div className='overflow-hidden flexjustify-center text-ellipsis line-clamp-3'>{row.getValue('description')}</div>,
+      cell: ({ row }) => (
+        <div className='overflow-hidden flexjustify-center text-ellipsis line-clamp-3'>
+          {row.getValue('description')}
+        </div>
+      ),
       enableSorting: true
     },
     {
@@ -176,11 +180,9 @@ export default function HotelAdmin() {
       header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)} >
+          <div className='cursor-pointer' onClick={() => handleEdit(row.original.id)}>
             <IconEdit />
           </div>
-
-
 
           <Dialog>
             <DialogTrigger>
@@ -207,14 +209,10 @@ export default function HotelAdmin() {
               </DialogHeader>
             </DialogContent>
           </Dialog>
-
-
         </div>
-
       )
     }
   ]
-
 
   const table = useReactTable({
     data: hotelData,
@@ -260,8 +258,8 @@ export default function HotelAdmin() {
                   className='p-2 border border-gray-300 rounded-lg'
                   value={entriesPerPage}
                   onChange={(e) => {
-                    setEntriesPerPage(Number(e.target.value));
-                    setPageIndex(0);
+                    setEntriesPerPage(Number(e.target.value))
+                    setPageIndex(0)
                   }}
                 >
                   {[5, 10, 25, 50, 100].map((size) => (
@@ -285,7 +283,8 @@ export default function HotelAdmin() {
               </div>
             </div>
             <div className='flex items-center gap-4'>
-              <Button className='flex items-center justify-center gap-2 ml-auto text-white'
+              <Button
+                className='flex items-center justify-center gap-2 ml-auto text-white'
                 onClick={() => navigate(`/admin/hotels/add-hotel`)}
               >
                 <IconMore />
@@ -311,7 +310,7 @@ export default function HotelAdmin() {
                         >
                           {column.id}
                         </DropdownMenuCheckboxItem>
-                      );
+                      )
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -321,7 +320,7 @@ export default function HotelAdmin() {
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id} >
+                  <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
@@ -337,11 +336,12 @@ export default function HotelAdmin() {
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${cell.column.id === "id" ? "sticky left-0 bg-white z-10" : ""
-                            } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
+                          className={`${cell.column.id === 'id' ? 'sticky left-0 bg-white z-10' : ''} ${
+                            cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
+                          }`}
                           style={{
-                            minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
-                            maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                            minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
+                            maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
                           }}
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}

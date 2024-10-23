@@ -11,6 +11,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
+import { formatDateStandard } from '@/shared/utils/date-utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
@@ -57,15 +58,8 @@ export default function UserAdminDetail() {
     }
   }
 
-  const formatDate = (dateString?: string): string => {
-    if (!dateString) return 'N/A'
-    const date = new Date(dateString)
-    if (isNaN(date.getTime())) return 'N/A'
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const year = date.getFullYear()
-
-    return `${day}-${month}-${year}`
+  const handleSelectRole = (value: string) => {
+    setSelectedRoleId(value)
   }
 
   return (
@@ -86,6 +80,10 @@ export default function UserAdminDetail() {
           <Skeleton className='flex items-center justify-center mx-auto mt-10 rounded-full size-56' />
         )}
 
+        <div className='flex flex-col items-center justify-center gap-2 mt-6'>
+          <h1 className='text-xl font-semibold'>Họ và Tên</h1>
+          <p>{getUserById?.name}</p>
+        </div>
         <div className='flex justify-around w-full max-w-4xl mx-auto mt-10'>
           <div className='flex flex-col space-y-4'>
             <div className='flex flex-col gap-2'>
@@ -94,7 +92,7 @@ export default function UserAdminDetail() {
             </div>
             <div className='flex flex-col gap-2'>
               <h1 className='text-xl font-semibold'>Date of Birth</h1>
-              <p className='text-gray-700'>{formatDate(getUserById?.date_of_birth ?? undefined)}</p>
+              <p className='text-gray-700'>{formatDateStandard(getUserById?.date_of_birth ?? undefined)}</p>
             </div>
             <div className='flex flex-col gap-2'>
               <h1 className='text-xl font-semibold'>Country</h1>
@@ -109,7 +107,7 @@ export default function UserAdminDetail() {
             <div className='flex flex-col gap-2'>
               <h1 className='text-xl font-semibold'>Role</h1>
               {getRoles ? (
-                <Select onValueChange={(value) => setSelectedRoleId(value)}>
+                <Select onValueChange={handleSelectRole}>
                   <SelectTrigger className='w-[180px]'>
                     <SelectValue placeholder={getUserById?.role?.name || 'Select role'} />
                   </SelectTrigger>

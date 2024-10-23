@@ -1,5 +1,4 @@
 import { coachApi } from '@/apis/coach.api'
-import { coachreview } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
@@ -52,7 +51,9 @@ export default function CoachReview1() {
                 <SwiperSlide
                   key={coach.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
-                  style={{ backgroundImage: `url(${coachreview})` }}
+                  style={{
+                    backgroundImage: `url(https://thacohcm.com/wp-content/uploads/2023/05/tong-quan-1-1-scaled.jpg)`
+                  }}
                 >
                   <Link to={`/vehicle/coach/${coach.id}`} key={coach.id}>
                     <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>

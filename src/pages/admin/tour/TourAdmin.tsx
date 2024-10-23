@@ -389,7 +389,7 @@ function TourAdmin() {
         </div>
         <div className='flex items-center gap-4'>
           <Link to='/admin/tours/create'>
-            <Button className='bg-[#624DE3] text-white'>+ Add Tour</Button>
+            <Button className='text-white'>+ Add Tour</Button>
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
