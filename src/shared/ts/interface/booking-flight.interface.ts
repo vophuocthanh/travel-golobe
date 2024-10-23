@@ -14,6 +14,7 @@ export interface BookingResponse {
   destination: string
   trip_to: string
   createAt: string
+  totalAmount:number
   updateAt: string
   userId: string | null
   image: string | null
@@ -21,7 +22,35 @@ export interface BookingResponse {
   type_ticket: string
   baggage_weight: string
   invoice: any[]
+  flightCrawls:FlightCrawls
+  user:UserFlight
 }
+export interface UserFlight{
+  id:string
+  avatar:string
+  name:string
+}
+export interface  FlightCrawls {
+  id: string;
+  brand: string;
+  price: number;
+  start_time: string;
+  start_day: string;
+  end_day: string;
+  end_time: string;
+  trip_time: string;
+  take_place: string;
+  destination: string;
+  trip_to: string;
+  createAt: string;
+  updateAt: string;
+  userId: string | null;
+  image: string;
+  number_of_seats_remaining: number;
+  type_ticket: string;
+  baggage_weight: string;
+}
+
 
 export type FlightAdmin = {
   id: string
