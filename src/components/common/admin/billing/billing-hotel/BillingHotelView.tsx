@@ -1,5 +1,4 @@
 import { bookingHotelApi } from "@/apis/booking-hotel.api";
-import { meApi } from "@/apis/me";
 import { hoteldetail1 } from "@/assets/images";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,17 +7,12 @@ import { ArrowLeftToLine } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function BillingHotelView() {
-  const { userId, id } = useParams<{ userId: string, id: string }>()
+  const { id } = useParams<{ userId: string, id: string }>()
 
 
   const { data: getbyIdHotelBiling } = useQuery({
     queryKey: ['getbyIdHotelBiling', id],
     queryFn: () => bookingHotelApi.getBookingDetail(id || '')
-  })
-
-  const { data: getbyIdUser } = useQuery({
-    queryKey: ['getbyIdUser', userId],
-    queryFn: () => meApi.getUserById(userId || '')
   })
 
   const navigate = useNavigate();
@@ -53,26 +47,38 @@ export default function BillingHotelView() {
           <h2 className="mb-4 text-xl font-bold">Customer Information</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto'>
-              <img src={getbyIdUser?.avatar} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={getbyIdHotelBiling?.user.avatar} alt='hotel' className='w-full h-full rounded-full' />
             </div>
-            <div className="grid col-span-1 gap-x-6 gap-y-4 ">
-              <Input
-                type="text"
-                name="customerName"
-                placeholder="Customer Name"
-                value={getbyIdUser?.name}
-                className="p-2 border rounded "
-                disabled
-              />
-              <Input
-                type="email"
-                name="customerEmail"
-                placeholder="Customer Email"
-                value={getbyIdUser?.email}
-                className="p-2 border rounded "
-                disabled
-              />
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 mb-1">
+                  Customer Name
+                </label>
+                <Input
+                  type="text"
+                  name="customerName"
+                  placeholder="Customer Name"
+                  value={getbyIdHotelBiling?.user.id}
+                  className="p-2 border rounded "
+                  disabled
+                />
+              </div>
+
+              <div>
+                <label htmlFor="customerEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                  Customer Email
+                </label>
+                <Input
+                  type="email"
+                  name="customerName"
+                  placeholder="Customer Name"
+                  value={getbyIdHotelBiling?.user.name}
+                  className="p-2 border rounded "
+                  disabled
+                />
+              </div>
             </div>
+
           </div>
         </div>
 

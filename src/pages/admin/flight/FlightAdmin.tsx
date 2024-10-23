@@ -63,7 +63,11 @@ const FlightAdmin: React.FC = () => {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='w-[5rem] lowercase'>{row.getValue('id')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('id')}
+        </div>
+      )
     },
     {
       accessorKey: 'brand',
@@ -171,7 +175,11 @@ const FlightAdmin: React.FC = () => {
           </Button>
         )
       },
-      cell: ({ row }) => <div className=''>{row.getValue('take_place')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('take_place')}
+        </div>
+      )
     },
     {
       accessorKey: 'destination',
@@ -183,7 +191,11 @@ const FlightAdmin: React.FC = () => {
           </Button>
         )
       },
-      cell: ({ row }) => <div className=''>{row.getValue('destination')}</div>
+      cell: ({ row }) => (
+        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+          {row.getValue('destination')}
+        </div>
+      )
     },
     {
       accessorKey: 'trip_to',

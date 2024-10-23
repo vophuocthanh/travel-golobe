@@ -44,6 +44,7 @@ export default function HotelInfo({ hotel }: hotelBookingType) {
           <div className="text-center">
             <p className="font-medium text-md">{hotel.received_time}</p>
             <p className="text-sm text-gray-500">Check-In</p>
+            <p className="font-medium text-md">{hotel.checkInDate}</p>
           </div>
           <div className="flex items-center space-x-6">
             <MoveLeft className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
@@ -55,6 +56,7 @@ export default function HotelInfo({ hotel }: hotelBookingType) {
           <div className="text-center">
             <p className="font-medium text-md">{hotel.giveback_time}</p>
             <p className="text-sm text-gray-500">Check-Out</p>
+            <p className="font-medium text-md">{hotel.checkOutDate}</p>
           </div>
         </div>
         <hr className="w-full mt-2 border-black border-1" />

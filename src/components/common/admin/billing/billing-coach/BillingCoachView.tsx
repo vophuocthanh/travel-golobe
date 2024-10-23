@@ -1,5 +1,5 @@
 import { bookingCoachApi } from '@/apis/booking-coach'
-import { avatar1, coachdetail1 } from '@/assets/images'
+import { coachdetail1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
@@ -24,14 +24,16 @@ export default function BillingCoachView() {
 
   const getStatusClass = () => {
     switch (getBookingDetail?.status) {
-      case 'success':
-        return 'bg-green-300'
-      case 'processing':
-        return 'bg-yellow-300'
+      case 'SUCCESS':
+        return 'bg-green-100 text-green-800';
       case 'PENDING':
-        return 'bg-red-300'
+        return 'bg-yellow-100 text-yellow-800';
+      case 'CANCELED':
+        return 'bg-red-100 text-red-800';
+      case 'CONFIRMED':
+        return 'bg-blue-100 text-blue-800';
       default:
-        return ''
+        return '';
     }
   }
 
@@ -56,14 +58,22 @@ export default function BillingCoachView() {
           <h2 className='mb-4 text-xl font-bold'>Customer Information</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto'>
-              <img src={avatar1} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={getBookingDetail?.user?.avatar || ''} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className='grid col-span-1 gap-x-6 gap-y-4 '>
               <Input
                 type='text'
-                name='customerID'
+                name='id'
                 placeholder='Customer ID'
-                value={getBookingDetail?.userId}
+                value={getBookingDetail?.user?.id || ''}
+                className='p-2 border rounded '
+                disabled
+              />
+              <Input
+                type='text'
+                name='name'
+                placeholder='Customer Name'
+                value={getBookingDetail?.user?.name || ''}
                 className='p-2 border rounded '
                 disabled
               />
@@ -124,6 +134,17 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
+                  <p>Number Of Seats Remaining</p>
+                  <Input
+                    type='text'
+                    name='number_of_seats_remaining'
+                    placeholder='Number Of Seats Remaining'
+                    value={getBookingDetail?.number_of_seats_remaining}
+                    className='p-2 border rounded'
+                    disabled
+                  />
+                </div>
+                <div className='col-span-1'>
                   <p>Departure Time</p>
                   <Input
                     type='text'
@@ -165,8 +186,20 @@ export default function BillingCoachView() {
               />
             </div>
             <div className='col-span-1'>
-              <p>Billing Time</p>
-              <Input type='text' name='start_time' placeholder='Arrival Time' className='p-2 border rounded' disabled />
+              <p>Trip Time</p>
+              <Input
+                type='text'
+                name='trip_time'
+                placeholder='trip_time'
+                className='p-2 border rounded'
+                value={getBookingDetail?.trip_time}
+                disabled
+              />
+            </div>
+            <div className='col-span-1'>
+              <p>Take Place</p>
+              <Input type='text' value={getBookingDetail?.take_place || ''}
+              name='take_place' placeholder='Take Place' className='p-2 border rounded' disabled />
             </div>
             <div className='col-span-1'>
               <p>Location</p>
@@ -183,8 +216,8 @@ export default function BillingCoachView() {
               <p>Amount</p>
               <Input
                 type='text'
-                name='start_time'
-                placeholder='Arrival Time'
+                name='price'
+                placeholder='Price'
                 value={formatCurrencyVND(getBookingDetail?.price)}
                 className='p-2 border rounded'
                 disabled

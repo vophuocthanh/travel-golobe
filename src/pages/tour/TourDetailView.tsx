@@ -217,12 +217,12 @@ export default function TourDetailView() {
                       />
                     </div>
                   )}
-                  <Vehicle data={getbyId} />
+                  <Vehicle data={getbyId}  />
 
                   {/* Thông tin */}
                   <Information dataInfo={getbyId} />
 
-                  <Schedule />
+                  <Schedule data={getbyId}  />
                 </section>
 
                 <hr className='mb-12 border-t border-gray-300' />

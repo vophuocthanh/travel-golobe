@@ -148,13 +148,16 @@ export function BillingCoach() {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
 
-        if (status === 'success') {
+        if (status === 'SUCCESS') {
           statusClass = 'bg-green-100 text-green-800'
-        } else if (status === 'processing') {
+        } else if (status === 'PENDING') {
           statusClass = 'bg-yellow-100 text-yellow-800'
-        } else if (status === 'failed') {
+        } else if (status === 'CANCELED') {
           statusClass = 'bg-red-100 text-red-800'
+        }else if (status === 'CONFIRMED') {
+          statusClass = 'bg-blue-100 text-blue-800'
         }
+
 
         return (
           <div className='flex items-center justify-center h-10'>

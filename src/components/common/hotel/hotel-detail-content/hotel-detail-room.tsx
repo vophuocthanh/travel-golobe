@@ -32,9 +32,6 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
   return (
     <div className="flex w-full mt-5">
       <div className="w-full">
-        <div>
-          <hr className="my-8 border-2 border-gray" />
-        </div>
         <h1 className="mb-4 text-2xl font-semibold">Available Rooms</h1>
         <div className="space-y-4">
           {Room.map((item: RoomType) => (

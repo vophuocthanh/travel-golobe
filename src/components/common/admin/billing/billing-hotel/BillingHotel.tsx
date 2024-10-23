@@ -96,12 +96,14 @@ export function BillingHotel() {
         const status = row.getValue('status');
         let statusClass = 'bg-gray-200';
 
-        if (status === 'PENDING') {
-          statusClass = 'bg-green-100 text-green-800';
-        } else if (status === 'PROCESSING') {
-          statusClass = 'bg-yellow-100 text-yellow-800';
-        } else if (status === 'CANCELLED') {
-          statusClass = 'bg-red-100 text-red-800';
+        if (status === 'SUCCESS') {
+          statusClass = 'bg-green-100 text-green-800'
+        } else if (status === 'PENDING') {
+          statusClass = 'bg-yellow-100 text-yellow-800'
+        } else if (status === 'CANCELED') {
+          statusClass = 'bg-red-100 text-red-800'
+        } else if (status === 'CONFIRMED') {
+          statusClass = 'bg-blue-100 text-blue-800'
         }
 
         return (
@@ -155,7 +157,7 @@ export function BillingHotel() {
   }
 
   const handleView = (payment: PaymentHotel) => {
-    navigate(`/admin/billing/${payment.userId}/hotel-view/${payment.id}`);
+    navigate(`/admin/billing/hotel-view/${payment.id}`);
   };
 
   return (
@@ -215,7 +217,9 @@ export function BillingHotel() {
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px]">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </div>
                     </TableCell>
                   ))}
                 </TableRow>

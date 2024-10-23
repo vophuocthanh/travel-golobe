@@ -35,7 +35,7 @@ export default function Information({ dataInfo }: IInformation) {
       id: 5,
       icon: <IconVehicle />,
       title: 'Phương tiện',
-      text: dataInfo?.road_vehicle?.type
+      text: dataInfo?.road_vehicle?.type 
     },
     {
       id: 6,
