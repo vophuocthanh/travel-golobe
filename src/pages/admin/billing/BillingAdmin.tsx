@@ -31,17 +31,17 @@ export default function BillingAdmin() {
       <div>
         <Tabs value={selectedTab} onValueChange={handleTabChange} className="w-full">
           <TabsList className="grid w-[35rem] h-[3rem] grid-cols-5 text-black border border-primary">
-            <TabsTrigger className="text-md" value="all">All</TabsTrigger>
-            <TabsTrigger className="text-md" value="tour">Tour</TabsTrigger>
-            <TabsTrigger className="text-md" value="hotel">Hotel</TabsTrigger>
-            <TabsTrigger className="text-md" value="flight">Flight</TabsTrigger>
-            <TabsTrigger className="text-md" value="coach">Road Vehicle</TabsTrigger>
+            <TabsTrigger className="text-md" value="all">Tất cả</TabsTrigger>
+            <TabsTrigger className="text-md" value="tour">Chuyến du lịch</TabsTrigger>
+            <TabsTrigger className="text-md" value="hotel">Khách sạn</TabsTrigger>
+            <TabsTrigger className="text-md" value="flight">Chuyến bay</TabsTrigger>
+            <TabsTrigger className="text-md" value="coach">Chuyến xe</TabsTrigger>
           </TabsList>
           <TabsContent value="all">
             <Card>
               <CardHeader>
                 <CardTitle className="flex w-full h-[3rem] items-center justify-between">
-                  <h1>All</h1>
+                  <h1>Tất cả</h1>
                   <Button>Download</Button>
                 </CardTitle>
                 <CardDescription>
@@ -57,7 +57,7 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex w-full h-[3rem] items-center justify-between">
-                  <h1>Tour</h1>
+                  <h1>Chuyến du lịch</h1>
                   <Button>Download</Button>
                 </CardTitle>
                 <CardDescription>
@@ -73,7 +73,7 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex w-full h-[3rem] items-center justify-between">
-                  <h1>Hotel</h1>
+                  <h1>Khách sạn</h1>
                   <Button>Download</Button>
                 </CardTitle>
                 <CardDescription>
@@ -89,7 +89,7 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex w-full h-[3rem] items-center justify-between">
-                  <h1>Flight</h1>
+                  <h1>Chuyến bay</h1>
                   <Button>Download</Button>
                 </CardTitle>
                 <CardDescription>
@@ -105,7 +105,7 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex w-full h-[3rem] items-center justify-between">
-                  <h1>Road Vehicle</h1>
+                  <h1>Chuyến xe</h1>
                   <Button>Download</Button>
                 </CardTitle>
                 <CardDescription>

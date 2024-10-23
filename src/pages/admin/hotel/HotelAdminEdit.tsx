@@ -113,7 +113,7 @@ export default function HotelAdminEdit() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>EDIT HOTEL {id}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>Sửa thông tin khách sạn {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>

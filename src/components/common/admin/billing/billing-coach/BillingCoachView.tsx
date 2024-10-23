@@ -49,13 +49,13 @@ export default function BillingCoachView() {
 
   return (
     <div className='w-full p-2 mb-5'>
-      <h1 className='mb-2 text-2xl font-bold'>Coach Billing {id}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>Thanh toán chuyến xe {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
       <form className='space-y-4'>
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Customer Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin khách hàng</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto'>
               <img src={getBookingDetail?.user?.avatar || ''} alt='hotel' className='w-full h-full rounded-full' />
@@ -82,7 +82,7 @@ export default function BillingCoachView() {
         </div>
 
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Coach Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin chuyến xe</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[15rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
               <img src={coachdetail1} alt='hotel' className='object-cover w-full h-full rounded-full' />
@@ -90,7 +90,7 @@ export default function BillingCoachView() {
             <div className='col-span-2'>
               <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
                 <div className='col-span-1'>
-                  <p>Name Coach</p>
+                  <p>Tên nhà xe</p>
                   <Input
                     type='text'
                     name='Coach Brand'
@@ -101,7 +101,7 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
-                  <p>Coach ID</p>
+                  <p>Mã chuyến xe</p>
                   <Input
                     type='text'
                     name='coachId'
@@ -112,7 +112,7 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
-                  <p>Seat Number</p>
+                  <p>Số ghế</p>
                   <Input
                     type='text'
                     name='number_of_seat'
@@ -123,7 +123,7 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
-                  <p>Road Vehicle Quantity</p>
+                  <p>Số lượng vé</p>
                   <Input
                     type='text'
                     name='roadVehicleQuantity'
@@ -134,7 +134,7 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
-                  <p>Number Of Seats Remaining</p>
+                  <p>Số ghế còn lại</p>
                   <Input
                     type='text'
                     name='number_of_seats_remaining'
@@ -145,7 +145,7 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
-                  <p>Departure Time</p>
+                  <p>Thời gian khởi hành</p>
                   <Input
                     type='text'
                     name='start_time'
@@ -156,7 +156,7 @@ export default function BillingCoachView() {
                   />
                 </div>
                 <div className='col-span-1'>
-                  <p>Arrival Time</p>
+                  <p>Thời gian đến</p>
                   <Input
                     type='text'
                     name='start_time'
@@ -172,10 +172,10 @@ export default function BillingCoachView() {
         </div>
 
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Billing Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin thanh toán</h2>
           <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
             <div className='col-span-1'>
-              <p>Billing ID</p>
+              <p>Mã số thanh toán</p>
               <Input
                 type='text'
                 name='id'
@@ -186,7 +186,7 @@ export default function BillingCoachView() {
               />
             </div>
             <div className='col-span-1'>
-              <p>Trip Time</p>
+              <p>Thời gian chuyến đi</p>
               <Input
                 type='text'
                 name='trip_time'
@@ -197,12 +197,12 @@ export default function BillingCoachView() {
               />
             </div>
             <div className='col-span-1'>
-              <p>Take Place</p>
+              <p>Diễn ra</p>
               <Input type='text' value={getBookingDetail?.take_place || ''}
               name='take_place' placeholder='Take Place' className='p-2 border rounded' disabled />
             </div>
             <div className='col-span-1'>
-              <p>Location</p>
+              <p>Vị trí</p>
               <Input
                 type='text'
                 name='plan'
@@ -213,7 +213,7 @@ export default function BillingCoachView() {
               />
             </div>
             <div className='col-span-1'>
-              <p>Amount</p>
+              <p>Số tiền</p>
               <Input
                 type='text'
                 name='price'
@@ -224,7 +224,7 @@ export default function BillingCoachView() {
               />
             </div>
             <div className='col-span-1'>
-              <p>Status</p>
+              <p>Trạng thái</p>
               <Input
                 type='text'
                 name='status'

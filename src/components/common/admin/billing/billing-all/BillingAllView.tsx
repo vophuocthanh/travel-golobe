@@ -41,13 +41,13 @@ export default function BillingAllView() {
   
   return (
     <div className="w-full p-2 mb-5">
-      <h1 className="mb-2 text-2xl font-bold">View Billing {billingID}</h1>
+      <h1 className="mb-2 text-2xl font-bold">Xem thanh toán {billingID}</h1>
       <Button className="flex mb-4 mr-auto text-white" onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
       <form className="space-y-4">
         <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Customer Information</h2>
+          <h2 className="mb-4 text-xl font-bold">Thông tin khách hàng</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto'>
               <img src={avatar1} alt='hotel' className='w-full h-full rounded-full' />
@@ -76,14 +76,14 @@ export default function BillingAllView() {
         </div>
       
         <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Tour Information</h2>
+          <h2 className="mb-4 text-xl font-bold">Thông tin chuyến du lịch</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
                 <img src={tour_into1} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className="col-span-1">
             <div className="col-span-1 mb-4">
-              <p>Tour</p>
+              <p>Chuyến du lịch</p>
               <Input
                 type="text"
                 name="tour"
@@ -95,7 +95,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Tour Location</p>
+              <p>Địa điểm tham quan</p>
               <Input
                 type="text"
                 name="tourLocation"
@@ -112,7 +112,7 @@ export default function BillingAllView() {
         </div>
 
         <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Hotel Information</h2>
+          <h2 className="mb-4 text-xl font-bold">Thông tin khách sạn</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
                 <img src={hoteldetail1} alt='hotel' className='w-full h-full rounded-full' />
@@ -120,7 +120,7 @@ export default function BillingAllView() {
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                 <div className="col-span-1">
-                  <p>Hotel Name</p>
+                  <p>Tên khách sạn </p>
                   <Input
                     type="text"
                     name="hotelName"
@@ -132,7 +132,7 @@ export default function BillingAllView() {
                   />
                 </div>
                 <div className="col-span-1">
-                  <p>Hotel Location</p>
+                  <p>Địa điểm khách sạn </p>
                   <Input
                     type="text"
                     name="hotelLocation"
@@ -144,7 +144,7 @@ export default function BillingAllView() {
                   />
                 </div>
                 <div className="col-span-1">
-                  <p>Hotel Checkin</p>
+                  <p>Nhận phòng khách sạn</p>
                   <Input
                     type="text"
                     name="hotelCheckIn"
@@ -156,7 +156,7 @@ export default function BillingAllView() {
                   />
                 </div>
                 <div className="col-span-1">
-                  <p>Hotel Checkout</p>
+                  <p>Trả phòng khách sạn</p>
                   <Input
                     type="text"
                     name="hotelCheckOut"
@@ -168,7 +168,7 @@ export default function BillingAllView() {
                   />
                 </div>
                 <div className="col-span-1">
-                  <p>Room</p>
+                  <p>Phòng</p>
                   <Input
                     type="number"
                     name="hotelRooms"
@@ -185,7 +185,7 @@ export default function BillingAllView() {
         </div>
         
         <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Flight Information</h2>
+          <h2 className="mb-4 text-xl font-bold">Thông tin chuyến bay</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
                 <img src={flightdetail1} alt='hotel' className='w-full h-full rounded-full' />
@@ -193,7 +193,7 @@ export default function BillingAllView() {
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               <div className="col-span-1">
-              <p>Airline</p>
+              <p>Hãng hàng không</p>
               <Input
                 type="text"
                 name="flightAirline"
@@ -205,7 +205,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Plane</p>
+              <p>Máy bay</p>
               <Input
                 type="text"
                 name="flightPlane"
@@ -217,7 +217,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Seat Number</p>
+              <p>Số ghế</p>
               <Input
                 type="text"
                 name="flightSeat"
@@ -229,7 +229,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Departure Time</p>
+              <p>Thời gian khởi hành</p>
               <Input
                 type="text"
                 name="flightDeparture"
@@ -241,7 +241,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Arrival Time</p>
+              <p>Thời gian đến</p>
               <Input
                 type="text"
                 name="flightArrival"
@@ -258,10 +258,10 @@ export default function BillingAllView() {
         </div>
 
         <div className="p-4 bg-white rounded-lg shadow">
-          <h2 className="mb-4 text-xl font-bold">Billing Information</h2>
+          <h2 className="mb-4 text-xl font-bold">Thông tin thanh toán</h2>
           <div className="grid grid-cols-2 gap-x-6 gap-y-4">
             <div className="col-span-1">
-              <p>Billing ID</p>
+              <p>Mã số thanh toán</p>
               <Input
                 type="text"
                 name="id"
@@ -273,7 +273,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Billing Time</p>
+              <p>Thời gian thanh toán</p>
               <Input
                 type="text"
                 name="billingTime"
@@ -285,7 +285,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Plan</p>
+              <p>Kế hoạch</p>
               <Input
                 type="text"
                 name="plan"
@@ -297,7 +297,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Amount</p>
+              <p>Số lượng</p>
               <Input
                 type="number"
                 name="amount"
@@ -309,7 +309,7 @@ export default function BillingAllView() {
               />
             </div>
             <div className="col-span-1">
-              <p>Status</p>
+              <p>Trạng thái</p>
               <Input
                 type="text"
                 name="status"

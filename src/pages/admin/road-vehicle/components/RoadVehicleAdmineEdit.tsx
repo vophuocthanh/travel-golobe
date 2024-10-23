@@ -91,11 +91,11 @@ export default function RoadVehicleAdminEdit() {
     mutationUpdateVehicle.mutate(formattedData, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['getUpdateTourAll'] })
-        toast.success('Update road vehicle success')
+        toast.success('Cập nhật chuyến xe thành công')
         navigate('/admin/road-vehicle')
       },
       onError: () => {
-        toast.error('Update road vehicle failed')
+        toast.error('Cập nhật chuyến xe thất bại')
       },
       onSettled: () => {
         setLoading(false)
@@ -109,13 +109,13 @@ export default function RoadVehicleAdminEdit() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>Road Vehicle Edit {id}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>Sửa thông tin chuyến xe {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
       <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='text-xl font-bold'>Road Vehicle Image</h2>
+          <h2 className='text-xl font-bold'>Hình ảnh chuyến xe</h2>
           <div className='grid grid-cols-4 gap-4 mb-4'>
             <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
               <img src={coachdetail1} alt='vehicle' className='w-full h-full' />
@@ -153,68 +153,68 @@ export default function RoadVehicleAdminEdit() {
         </div>
 
         <div className='p-4 bg-white rounded-lg shadow'>
-          <h2 className='mb-4 text-xl font-bold'>Road Vehicle Information</h2>
+          <h2 className='mb-4 text-xl font-bold'>Thông tin chuyến xe</h2>
           <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
             <Input
               {...register('brand')}
-              placeholder='Brand Name'
+              placeholder='Tên nhà xe'
               className='col-span-2 p-2 border rounded'
             />
             <Input
               {...register('number_of_seat')}
-              placeholder='Number Of Seat'
+              placeholder='Số chổ ngồi'
               className='col-span-2 p-2 border rounded'
             />
             <Input
               {...register('start_time')}
-              placeholder='Start Time'
+              placeholder='Thời gian khởi hành'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('start_day')}
-              placeholder='Start Day'
+              placeholder='Ngày khởi hành'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('end_time')}
-              placeholder='End Time'
+              placeholder='Thời gian kết thúc'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('end_day')}
-              placeholder='End Day'
+              placeholder='Ngày kết thúc'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('trip_time')}
-              placeholder='Trip Time'
+              placeholder='Thời gian chuyến xe'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('take_place')}
-              placeholder='Take Place'
+              placeholder='Điểm đi'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('destination')}
-              placeholder='Destination'
+              placeholder='Điểm đến'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('location')}
-              placeholder='Location'
+              placeholder='Vị trí'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('number_of_seats_remaining')}
               type='number'
-              placeholder='Number Of Seats Remaining'
+              placeholder='Số chổ còn lại'
               className='col-span-1 p-2 border rounded'
             />
             <Input
               {...register('price')}
               type='number'
-              placeholder='Price'
+              placeholder='Giá'
               className='col-span-1 p-2 border rounded'
             />
           </div>
@@ -222,10 +222,10 @@ export default function RoadVehicleAdminEdit() {
       </form>
       <div className='flex justify-center mt-5 space-x-[30%]'>
           <Button type='button' className='w-[20rem]' onClick={handleBack}>
-            Cancel
+            Hủy bỏ 
           </Button>
           <Button type='submit' className='w-[20rem]' disabled={loading} onClick={handleSubmit(onSubmit)}>
-            Save
+            Lưu
           </Button>
       </div>
     </div>

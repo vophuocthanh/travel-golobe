@@ -73,7 +73,7 @@ const FlightAdmin: React.FC = () => {
       accessorKey: 'brand',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Flight Name
+          Tên hãng
           <CaretSortIcon className='w-4 h-4 ml-2 ' />
         </Button>
       ),
@@ -84,7 +84,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Flight
+            Hình ảnh
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -104,7 +104,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Start Time
+            Thời gian khởi hành
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -116,7 +116,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Start Day
+            Ngày khởi hành
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -131,7 +131,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            End Time
+            Thời gian kết thúc
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -143,7 +143,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            End Day
+            Ngày kết thúc
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -158,7 +158,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Trip Time
+            Thòi gian chuyến bay
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -170,7 +170,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Take Place
+            Điểm đi
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -186,7 +186,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Destination
+            Điểm đến
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -202,7 +202,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Trip To
+            Vị trí đến
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -214,7 +214,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            CreateAt
+            Ngày tạo
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -229,7 +229,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            UpdateAt
+            Ngày cập nhật
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
@@ -241,7 +241,7 @@ const FlightAdmin: React.FC = () => {
     },
     {
       accessorKey: 'price',
-      header: () => <div className='text-center'>Price</div>,
+      header: () => <div className='text-center'>Giá</div>,
       cell: ({ row }) => {
         const amount = parseFloat(row.getValue('price'))
 
@@ -255,7 +255,7 @@ const FlightAdmin: React.FC = () => {
     },
     {
       accessorKey: 'Action',
-      header: () => <div className='text-center'>Action</div>,
+      header: () => <div className='text-center'>Hành động</div>,
       cell: ({ row }) => {
         return (
           <div className='flex space-x-2'>
