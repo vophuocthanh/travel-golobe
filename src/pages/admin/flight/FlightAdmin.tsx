@@ -104,7 +104,7 @@ const FlightAdmin: React.FC = () => {
       header: ({ column }) => {
         return (
           <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Thười gian khởi hành
+            Thời gian khởi hành
             <CaretSortIcon className='w-4 h-4 ml-2' />
           </Button>
         )
