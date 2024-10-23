@@ -31,7 +31,7 @@ export default function Dashboard() {
     { name: 'Tasks', label: 'Nhiệm vụ', count: 7 },
     { name: 'Documents', label: 'Tài liệu', count: 2 },
     { name: 'Team', label: 'Đội ngũ', count: '99+' },
-    { name: 'Reports', label: 'báo cáo', count: null },
+    { name: 'Reports', label: 'Báo cáo', count: null },
     { name: 'Admin', label: 'Quản trị viên', count: null },
     { name: 'More', label: '...', count: null }
   ]
