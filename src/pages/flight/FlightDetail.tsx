@@ -86,11 +86,11 @@ export default function FlightDetail() {
   })
 
   const handleBookFlight = () => {
-    setLoadingBooking(true)
     if (selectedTicket === '' || day === '') {
       toast.error('Vui lòng chọn vé  và ngày trước khi đặt.')
       SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
+      setLoadingBooking(true)
       mutationFlightBooking.mutate()
     }
   }
