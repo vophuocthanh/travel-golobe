@@ -10,7 +10,7 @@ import { UpdateTourSchema } from '@/shared/utils/tour.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { ArrowLeftToLine, CalendarIcon, CirclePlus } from 'lucide-react'
+import { ArrowLeftToLine, CalendarIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -88,12 +88,10 @@ export default function EditTourAdmin() {
   const mutationUpdateTour = useMutation({
     mutationFn: (data: z.infer<typeof UpdateTourSchema>) => tourApi.updateTour(id, data)
   })
-  console.log(mutationUpdateTour, 'mutationUpdateTour')
 
   const queryClient = useQueryClient()
   function onSubmit(data: z.infer<typeof UpdateTourSchema>) {
     setLoading(true)
-    console.log(data, 'dâtta123')
 
     const formattedData = {
       ...data,
@@ -101,7 +99,6 @@ export default function EditTourAdmin() {
       start_date: startDate ? format(startDate, 'dd-MM-yyyy') : '',
       end_date: endDate ? format(endDate, 'dd-MM-yyyy') : ''
     }
-    console.log(formattedData, 'formattedData')
 
     mutationUpdateTour.mutate(formattedData, {
       onSuccess: () => {
@@ -128,14 +125,16 @@ export default function EditTourAdmin() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>EDIT Tour {id}</h1>
-      <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
-        <ArrowLeftToLine />
-      </Button>
+      <div className='flex items-center gap-4'>
+        <Button className='flex mb-4 text-white' onClick={handleBack}>
+          <ArrowLeftToLine />
+        </Button>
+        <h1 className='mb-2 text-2xl font-bold'>Chỉnh sửa tour {id}</h1>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
           <div className='p-4 bg-white rounded-lg shadow'>
-            <h2 className='text-xl font-bold '>Tour Image</h2>
+            <h2 className='text-xl font-bold '>Ảnh tour</h2>
             <div className='grid grid-cols-4 gap-4 mb-4'>
               <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
                 <img src={getbyId?.image} alt='hotel' className='w-full h-full' />
@@ -144,36 +143,16 @@ export default function EditTourAdmin() {
                 <img src={getbyId?.image_2 ?? undefined} alt='hotel' className='w-full h-full' />
               </div>
               <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-                <div className='flex items-center justify-center h-full cursor-pointer'>
-                  <div>
-                    <div className='flex justify-center mb-2'>
-                      <CirclePlus />
-                    </div>
-                    <p className='text-blue-600'>
-                      Click to upload<span className='text-black'>or drag and drop</span>{' '}
-                    </p>
-                    <p>SVG, PNG, or PDF 800 x 400 px</p>
-                  </div>
-                </div>
+                <img src={getbyId?.image_3 ?? undefined} alt='hotel' className='w-full h-full' />
               </div>
               <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-                <div className='flex items-center justify-center h-full cursor-pointer'>
-                  <div>
-                    <div className='flex justify-center mb-2'>
-                      <CirclePlus />
-                    </div>
-                    <p className='text-blue-600'>
-                      Click to upload<span className='text-black'>or drag and drop</span>{' '}
-                    </p>
-                    <p>SVG, PNG, or PDF 800 x 400 px</p>
-                  </div>
-                </div>
+                <img src={getbyId?.image_4 ?? undefined} alt='hotel' className='w-full h-full' />
               </div>
             </div>
           </div>
 
           <div className='p-4 bg-white rounded-lg shadow'>
-            <h2 className='mb-4 text-xl font-bold'>Hotel Information</h2>
+            <h2 className='mb-4 text-xl font-bold'>Thông tin tour</h2>
             <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
               <FormField
                 control={form.control}
@@ -206,9 +185,9 @@ export default function EditTourAdmin() {
                 name='image'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image</FormLabel>
+                    <FormLabel>Ảnh</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Image' {...field} />
+                      <Input type='text' placeholder='Ảnh 1' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -219,9 +198,9 @@ export default function EditTourAdmin() {
                 name='image_2'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image 2</FormLabel>
+                    <FormLabel>Ảnh 2</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Image' {...field} />
+                      <Input type='text' placeholder='Ảnh 2' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -232,9 +211,9 @@ export default function EditTourAdmin() {
                 name='image_3'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image 3</FormLabel>
+                    <FormLabel>Ảnh 3</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Image' {...field} />
+                      <Input type='text' placeholder='Ảnh 3' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -245,9 +224,9 @@ export default function EditTourAdmin() {
                 name='image_4'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image 4</FormLabel>
+                    <FormLabel>Ảnh 4</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Image' {...field} />
+                      <Input type='text' placeholder='Ảnh 4' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -258,46 +237,40 @@ export default function EditTourAdmin() {
                 name='image_5'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image 5</FormLabel>
+                    <FormLabel>Ảnh 5</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Image' {...field} />
+                      <Input type='text' placeholder='Ảnh 5' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
-            control={form.control}
-            name='start_date'
-            
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ngày bắt đầu</FormLabel>
-                <FormControl>
-                  <Input 
-                  type='text'
-                  placeholder='start_date' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-            <FormField
-            control={form.control}
-            name='end_date'
-            
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ngày kết thúc</FormLabel>
-                <FormControl>
-                  <Input 
-                  type='text'
-                  placeholder='End date' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                control={form.control}
+                name='start_date'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ngày bắt đầu</FormLabel>
+                    <FormControl>
+                      <Input type='text' placeholder='Ngày bắt đầu' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='end_date'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ngày kết thúc</FormLabel>
+                    <FormControl>
+                      <Input type='text' placeholder='Ngày kết thúc' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name='starting_gate'
@@ -305,7 +278,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Nơi khởi hành</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Starting Gate' {...field} />
+                      <Input type='text' placeholder='Nhập nơi khởi hành' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -316,7 +289,7 @@ export default function EditTourAdmin() {
                 name='sight_seeing'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Tham quan</FormLabel>
+                    <FormLabel>Địa điểm tham quan</FormLabel>
                     <FormControl>
                       <Input type='text' placeholder='Sight Seeing' {...field} />
                     </FormControl>
@@ -332,7 +305,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Ẩm thực</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Cuisine' {...field} />
+                      <Input type='text' placeholder='Nhập ẩm thực' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -344,9 +317,9 @@ export default function EditTourAdmin() {
                 name='suitable'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Thích hợp</FormLabel>
+                    <FormLabel>Đối tượng thích hợp</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Suitable' {...field} />
+                      <Input type='text' placeholder='Nhập đối tượng thích hợp' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -360,7 +333,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Thời gian lý tưởng</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Ideal time' {...field} />
+                      <Input type='text' placeholder='Nhập thời gian lý tưởng' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -373,7 +346,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Giảm giá</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Voucher' {...field} />
+                      <Input type='text' placeholder='Nhập vchouer' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -386,7 +359,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Thời gian chuyến đi</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Time Trip' {...field} />
+                      <Input type='text' placeholder='Nhập thời gian chuyến đi' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -399,7 +372,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Giá trẻ em</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Baby price' {...field} />
+                      <Input type='text' placeholder='Nhập giá em bé' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -412,7 +385,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Giá trẻ em từ 2 - 12 tuổi</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Child price' {...field} />
+                      <Input type='text' placeholder='Mhập giá trẻ em' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -438,7 +411,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Đánh giá</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Rating' {...field} />
+                      <Input type='text' placeholder='Nhập số lượng đánh giá' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -451,7 +424,7 @@ export default function EditTourAdmin() {
                   <FormItem>
                     <FormLabel>Số chỗ còn lại</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Number of seats remaining' {...field} />
+                      <Input type='text' placeholder='Nhập số chỗ còn lại' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

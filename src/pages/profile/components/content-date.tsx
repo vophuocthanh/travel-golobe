@@ -14,6 +14,7 @@ import { meApi } from '@/apis/me'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { MeResponse } from '@/shared/ts/types/meresponse'
+import { formatDateStandard } from '@/shared/utils/date-utils'
 import { DateOfBirthSchema } from '@/shared/utils/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -66,9 +67,7 @@ export default function ContentDate({ title, content }: Props) {
         </label>
         <div className='flex items-center justify-between'>
           <div>
-            <p className='text-xl font-semibold'>
-              {profileData.name || profileData.phone || profileData.date_of_birth || profileData.country || content}
-            </p>
+            <p className='text-xl font-semibold'>{formatDateStandard(profileData.date_of_birth)}</p>
           </div>
           <div className='flex space-x-2'>
             <Dialog open={openDateOfBirthDialog} onOpenChange={setOpenDateOfBirthDialog}>

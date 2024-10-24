@@ -19,7 +19,7 @@ export default function Perfect() {
           {t('see')}
           </Button>
         </div>
-        <div className='flex flex-wrap w-full gap-8 mt-10 mb-20'>
+        <div className='flex flex-wrap justify-center w-full gap-8 mt-10 mb-20'>
           {dataPerfect.map((item) => (
             <div
               key={item.id}
