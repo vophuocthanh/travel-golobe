@@ -1,52 +1,54 @@
 import { IconCuisine, IconEndow, IconIdealTime, IconSightseeing, IconSuitable, IconVehicle } from '@/common/icons'
 import { TourInfoResponse } from '@/shared/ts/interface/data.interface'
+import { useTranslation } from 'react-i18next';
 
 interface IInformation {
   dataInfo?: TourInfoResponse
 }
 
 export default function Information({ dataInfo }: IInformation) {
+  const { t } = useTranslation();
   const data = [
     {
       id: 1,
       icon: <IconSightseeing />,
-      title: 'Điểm tham quan',
+      title: t('Attractions'),
       text: dataInfo?.sight_seeing
     },
     {
       id: 2,
       icon: <IconCuisine />,
-      title: 'Ẩm thực',
+      title: t('Cuisine'),
       text: dataInfo?.cuisine
     },
     {
       id: 3,
       icon: <IconSuitable />,
-      title: 'Đối tượng thích hợp',
+      title: t('Suitable'),
       text: dataInfo?.suitable
     },
     {
       id: 4,
       icon: <IconIdealTime />,
-      title: 'Thời gian lý tưởng',
+      title: t('Ideal'),
       text: dataInfo?.ideal_time
     },
     {
       id: 5,
       icon: <IconVehicle />,
-      title: 'Phương tiện',
+      title: t('Transportation'),
       text: dataInfo?.road_vehicle?.type 
     },
     {
       id: 6,
       icon: <IconEndow />,
-      title: 'Ưu đãi',
+      title: t('vehicle'),
       text: dataInfo?.voucher
     }
   ]
   return (
     <div className='mt-16 '>
-      <h2 className='mb-8 text-3xl font-semibold text-center'>THÔNG TIN THÊM VỀ CHUYẾN ĐI </h2>
+      <h2 className='mb-8 text-3xl font-semibold text-center'>{t('ADDITIONAL')} </h2>
       <div className='grid grid-cols-3 grid-rows-2 gap-4'>
         {data.map((item) => (
           <div key={item.id}>

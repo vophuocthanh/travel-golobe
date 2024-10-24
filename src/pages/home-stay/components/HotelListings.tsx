@@ -3,9 +3,10 @@ import HotelCard from './HotelCart';
 import { Button } from '@/components/ui/button';
 import { Dropdown, MenuProps, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-
+import { useTranslation } from 'react-i18next';
 
 const HotelListings: React.FC = () => {
+  const { t } = useTranslation();
 
   const [priceRange, setPriceRange] = useState<[number | undefined, number | undefined]>([undefined, undefined]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
@@ -13,6 +14,7 @@ const HotelListings: React.FC = () => {
   const [starNumber, setStarNumber] = useState<number | undefined>(undefined);
 
   const handlePriceRangeChange = () => {
+    
     const newMinPrice = Number(minPrice);
     const newMaxPrice = Number(maxPrice);
     setPriceRange([newMinPrice, newMaxPrice]);
@@ -21,7 +23,7 @@ const HotelListings: React.FC = () => {
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Sắp xếp theo giá',
+      label: t('Sortby'),
       disabled: true,
       onClick: () => setSortByPrice(''),
     },
@@ -30,17 +32,17 @@ const HotelListings: React.FC = () => {
     },
     {
       key: '2',
-      label: 'Không sắp xếp',
+      label: t('sorting'),
       onClick: () => setSortByPrice(''),
     },
     {
       key: '3',
-      label: 'Từ cao đến thấp',
+      label: t('High'),
       onClick: () => setSortByPrice('desc'),
     },
     {
       key: '4',
-      label: 'Từ thấp đến cao',
+      label: t('Low'),
       onClick: () => setSortByPrice('asc'),
     },
   ];
@@ -54,7 +56,7 @@ const HotelListings: React.FC = () => {
         <div className="flex space-x-10">
           <div className="flex flex-col w-1/3 gap-6 pt-10">
             <div className="pb-4 border-b-2 border-gray-300">
-              <h2 className="text-xl font-semibold text-gray-700">Price Range</h2>
+              <h2 className="text-xl font-semibold text-gray-700">{t('PriceRange')}</h2>
               <div className="p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md">
                 <div className="flex items-center w-full space-x-4">
                   <input
@@ -75,7 +77,7 @@ const HotelListings: React.FC = () => {
                   onClick={handlePriceRangeChange}
                   className="w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
                 >
-                  Lọc
+                  {t('Filter')}
                 </Button>
                 <Button
                   className="w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500"
@@ -85,14 +87,14 @@ const HotelListings: React.FC = () => {
                     setPriceRange([undefined, undefined])
                   }}
                 >
-                  Hủy Lọc
+                  {t('CancelFilter')}
                 </Button>
               </div>
             </div>
 
             {isRatingVisible && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
+                <h2 className="text-xl font-semibold text-gray-700">{t('Rating')}</h2>
                 <div className="flex gap-3 mt-4">
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <Button
@@ -125,14 +127,14 @@ const HotelListings: React.FC = () => {
               <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    Sắp xếp theo giá
+                    {t('Sortby')}
                     <DownOutlined />
                   </Space>
                 </a>
               </Dropdown>
             </div>
 
-            <div className="flex flex-col gap-8 flex-1">
+            <div className="flex flex-col flex-1 gap-8">
               <HotelCard
                 starNumber={starNumber}
                 sortByPrice={sortByPrice}

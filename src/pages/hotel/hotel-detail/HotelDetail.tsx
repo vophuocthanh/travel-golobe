@@ -19,8 +19,10 @@ import { toast } from 'react-toastify'
 import Favorite from '../components/Favorite'
 import { Space, DatePicker } from 'antd';
 import moment from 'moment'
+import { useTranslation } from 'react-i18next';
 
 export default function HotelDetail() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const roomSectionRef = useRef<HTMLDivElement | null>(null)
@@ -128,7 +130,7 @@ export default function HotelDetail() {
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
               <div className='flex items-center justify-end gap-2 space-x-2'>
                 <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>
-                  Còn {getbyId?.number_of_seats_remaining} chổ ngồi
+                  {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
                 </p>
                 <Favorite idHotel={id} />
                 <ShareButtons url={hotelUrl} title={hotelTitle} />
@@ -167,30 +169,30 @@ export default function HotelDetail() {
                   disabled={getbyId?.number_of_seats_remaining === 0}
                   loading={loadingBooking}
                 >
-                  Book now
+                  {t('BookHotel')}
                 </Button>
               </div>
             </div>
           </div>
-          <div className="flex w-full justify-between items-center">
+          <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-x-4">
               <Button className="text-black bg-white border hover:bg-primary hover:text-white border-primary">
                 {getbyId?.score_hotels}
               </Button>
               <div>
-                <p className="font-bold text-lg text-gray-700">{ratingStatus}</p>
+                <p className="text-lg font-bold text-gray-700">{ratingStatus}</p>
                 <p className="text-gray-500">{getCommentHotel?.total} reviews</p>
               </div>
             </div>
 
             <div className="mb-4">
-              <label htmlFor="date-range-picker" className="block text-sm font-medium text-gray-700 mb-2">
-                Chọn ngày:
+              <label htmlFor="date-range-picker" className="block mb-2 text-sm font-medium text-gray-700">
+                {t('Select')}:
               </label>
               <Space direction="vertical" size={12}>
                 <RangePicker
                   id="date-range-picker"
-                  className="custom-date-picker border border-gray-300 rounded-lg p-2 w-full md:w-auto"
+                  className="w-full p-2 border border-gray-300 rounded-lg custom-date-picker md:w-auto"
                   format="DD-MM-YYYY"
                   onChange={(dates) => {
                     if (dates && dates.length === 2) {

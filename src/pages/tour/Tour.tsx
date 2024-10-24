@@ -1,8 +1,10 @@
 import { banner_tour } from '@/assets/images'
-import { IconAdd, IconPlaces } from '@/common/icons'
+import {  IconPlaces } from '@/common/icons'
 import { BannerTour, Footer, Header, IntoTour, LocationTour, SearchTour } from '@/components/common'
+import { useTranslation } from 'react-i18next';
 
 export default function Tour() {
+  const { t } = useTranslation();
   return (
     <div className='w-full'>
       <Header />
@@ -16,7 +18,7 @@ export default function Tour() {
         </div>
         <div className='absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl shadow-2xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px]'>
           <div className='relative w-full '>
-            <p className='p-4 text-3xl'>Where are you flying ?</p>
+            <p className='p-4 text-3xl'>{t('whereTour')}</p>
             <BannerTour
               returnDate={new Date()}
               departDate={new Date()}
@@ -25,14 +27,8 @@ export default function Tour() {
             />
             <div className='flex justify-end p-4'>
               <div className='flex gap-4'>
-                <div className='flex items-center px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
-                  <div className='mr-1'>
-                    <IconAdd />
-                  </div>{' '}
-                  Add Promo Code
-                </div>
                 <div className='flex items-center gap-2 px-4 py-2 text-white rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
-                  <IconPlaces /> Show places
+                  <IconPlaces /> {t('places')}
                 </div>
               </div>
             </div>

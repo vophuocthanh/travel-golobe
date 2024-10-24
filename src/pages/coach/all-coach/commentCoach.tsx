@@ -8,7 +8,7 @@ import BasicRating from '@/pages/home-stay/components/StarRating'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { CommenCoach } from '@/shared/ts/interface/comment-coach.interface'
 //import ReadOnlyRating from '../home-stay/components/ReadOnlyRating'
-
+import { useTranslation } from 'react-i18next';
 const reviewsPerPage = 5
 
 interface CoachDetailReviewProps {
@@ -20,6 +20,7 @@ interface CoachDetailReviewProps {
 
 export default function CoachDetailReview({ data }: CoachDetailReviewProps) {
     const [currentPage, setCurrentPage] = useState(1)
+    const { t } = useTranslation();
 
     const totalPages = Math.ceil(data.length / reviewsPerPage)
 
@@ -62,7 +63,7 @@ export default function CoachDetailReview({ data }: CoachDetailReviewProps) {
                     <hr className='my-8 border-2 border-gray ' />
                 </div>
                 <div className='items-center'>
-                    <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
+                    <h1 className='mb-2 text-2xl font-semibold'>{t('Reviews')}</h1>
                     <form onSubmit={handleSubmit} className="flex items-center space-x-4">
                         <div className="w-full p-2 border border-gray-300 rounded-md">
                             <textarea
@@ -74,7 +75,7 @@ export default function CoachDetailReview({ data }: CoachDetailReviewProps) {
                                     <BasicRating setRating={setRating} />
                                 </div>
                                 <Button className="px-4 py-2 text-black rounded-md w-[10rem] h-[3rem]">
-                                    Give your review
+                                    {t('Reviews')}
                                 </Button>
                             </div>
                         </div>

@@ -1,17 +1,18 @@
 import { flightreview3, flightreview4, flightreview5, flightreview6 } from '@/assets/images'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next';
 
 export default function FlightReview2() {
+  const { t } = useTranslation();
   return (
     <SectionInViewUp>
       <div className='mt-[5rem] mb-[12rem]'>
         <div className='relative mx-36'>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'> Fall intro travel</h1>
+          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'> {t('travelFlight')}</h1>
           <div className='flex flex-wrap justify-between '>
             <p className='w-[970px] text-xl mb-8 font-light'>
-              Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
-              travel tools to get you to your destination.
+            {t('textTravelFlight')}
             </p>
           </div>
         </div>
@@ -33,7 +34,7 @@ export default function FlightReview2() {
               living.
             </p>
 
-            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-white'>Book Flight</Button>
+            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-white'>{t('BookFlight')}</Button>
           </div>
           <div className='flex flex-col gap-4 h-[30rem] w-[50rem] '>
             <div className='flex gap-4 '>

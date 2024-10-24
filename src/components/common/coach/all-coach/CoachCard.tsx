@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
 import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
-
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
 
 interface CoachCardProps {
@@ -29,11 +29,12 @@ const CoachCard: React.FC<CoachCardProps> = ({
   departDate
 }) => {
   const [page, setPage] = useState(1)
+  const { t } = useTranslation();
   const [sortByPrice, setSortByPrice] = useState('')
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Sắp theo giá',
+      label: t('Sortby'),
       disabled: true
     },
     {
@@ -41,17 +42,17 @@ const CoachCard: React.FC<CoachCardProps> = ({
     },
     {
       key: '2',
-      label: 'Từ cao đến thấp',
+      label: t('High'),
       onClick: () => setSortByPrice('desc')
     },
     {
       key: '3',
-      label: 'Từ thấp đến cao',
+      label: t('Low'),
       onClick: () => setSortByPrice('asc')
     },
     {
       key: '4',
-      label: 'Không sắp xếp',
+      label: t('sorting'),
       onClick: () => setSortByPrice('')
     }
   ]
@@ -73,13 +74,14 @@ const CoachCard: React.FC<CoachCardProps> = ({
       ? 'N/A'
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
+
   return (
     <>
       <div className='flex items-center justify-between mt-8'>
         <Dropdown menu={{ items }}>
           <a onClick={(e) => e.preventDefault()} className='ml-auto'>
             <Space>
-              Sort By Price
+              {t('Sortby')}
               <DownOutlined />
             </Space>
           </a>
@@ -149,7 +151,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
                     <Heart />
                   </Button>
                   <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
-                    <Button className='w-full mx-4 '>View Deals</Button>
+                    <Button className='w-full mx-4 '>{t('ViewDeals')}</Button>
                   </Link>
                 </div>
               </div>

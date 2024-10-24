@@ -8,9 +8,11 @@ import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SectionInViewUp from '../../animation/SectionInViewUp'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { useTranslation } from 'react-i18next';
 
 
 export default function FallIntroTravel() {
+  const { t } = useTranslation();
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel'],
     queryFn: () => hotelApi.getAll(1, 6)
@@ -26,14 +28,13 @@ export default function FallIntroTravel() {
     <SectionInViewUp>
       <div className='mt-32'>
         <div className='mx-32 '>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl'> Fall intro travel</h1>
+          <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl'> {t('travelHotel')}</h1>
           <div className='flex flex-wrap justify-between '>
             <p className='w-[970px] text-xl mb-8'>
-              Going somewhere to celebrate this season? Whether you’re gng home or somewhere to roam, we’ve got the
-              travel tools to get you to your destination.
+            {t('textTravelHotel')}
             </p>
             <Link to='/hotel/home-stay'>
-              <Button className='text-black bg-white border border-primary'>See All</Button>
+              <Button className='text-black bg-white border border-primary'>{t('see')}</Button>
             </Link>
           </div>
           <Link to='/hotel/home-stay'>
@@ -65,7 +66,7 @@ export default function FallIntroTravel() {
                     <p className='flex items-center justify-center text-3xl text-white'>{formatCurrency(travel.price?.toString())}</p>
                   </div>
 
-                  <Button className='relative text-white hover:border-spacing-3'>Book a Hotel</Button>
+                  <Button className='relative text-white hover:border-spacing-3'>{t('BookHotel')}</Button>
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -4,12 +4,13 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import ReactSlider from 'react-slider'
-
+import { useTranslation } from 'react-i18next';
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
 }
 
 const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
+  const { t } = useTranslation();
   const [isRatingVisible, setIsRatingVisible] = useState<boolean>(true)
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
 
@@ -51,7 +52,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       {/* <p className='text-3xl text-black bg-white w-[15rem] h-[3rem] flex items-center justify-center rounded-lg shadow-lg'>COACH ALL</p> */}
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
-          <p>Price</p>
+          <p>{t('Price')}</p>
           <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleVisibility}>
             {isVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
@@ -87,7 +88,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
                     onApplyFilter(tempMinPrice, tempMaxPrice)
                   }}
                 >
-                  Lọc
+                  {t('Filter')}
                 </Button>
                 <Button
                   className='w-full mt-4 transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
@@ -97,7 +98,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
                     onApplyFilter(undefined, undefined)
                   }}
                 >
-                  Hủy Lọc
+                  {t('CancelFilter')}
                 </Button>
               </div>
             </div>
@@ -106,7 +107,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       </div>
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>
-          <p>Departure Time</p>
+          <p>{t('DepartureTime')}</p>
           <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleTimeVisibility}>
             {isTimeVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
@@ -139,7 +140,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
         )}
       </div>
       <div className='flex justify-between w-full mt-10 mb-6'>
-        <p>Rating</p>
+        <p>{t('Rating')}</p>
         <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleRatingVisibility}>
           {isRatingVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>
@@ -165,7 +166,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
       )}
 
       <div className='flex justify-between w-full mt-10 mb-6'>
-        <p>Coach</p>
+        <p>{t('Coach')}</p>
         <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleAirlinesVisibility}>
           {isAirlinesVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>

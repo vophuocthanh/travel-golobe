@@ -2,13 +2,14 @@ import { room1 } from "@/assets/images";
 import { Button } from "@/components/ui/button";
 import { RoomType } from "@/shared/ts/interface/roomtype";
 import { useState } from "react";
-
+import { useTranslation } from 'react-i18next';
 interface Rom {
   Room: RoomType[];
   onValueChange: (value: string) => void; // Hàm callback truyền dữ liệu lên cha
 }
 
 export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
+  const { t } = useTranslation();
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A';
     const numberValue = parseFloat(value);
@@ -32,7 +33,7 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
   return (
     <div className="flex w-full mt-5">
       <div className="w-full">
-        <h1 className="mb-4 text-2xl font-semibold">Available Rooms</h1>
+        <h1 className="mb-4 text-2xl font-semibold">{t('Rooms')}</h1>
         <div className="space-y-4">
           {Room.map((item: RoomType) => (
             <div key={item.id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
@@ -51,7 +52,7 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
                   onClick={() => handleClick(item.id)}
                   disabled={idTypeRoom !== null && idTypeRoom !== item.id}
                 >
-                  {idTypeRoom === item.id ? "Đã chọn" : "Chọn"}
+                  {idTypeRoom === item.id ? t('Selected') : t('select')}
                 </Button>
               </div>
             </div>

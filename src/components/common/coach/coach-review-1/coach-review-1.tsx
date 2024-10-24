@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
+import { useTranslation } from 'react-i18next';
 export default function CoachReview1() {
+  const { t } = useTranslation();
   const { data: getAll } = useQuery({
     queryKey: ['getAllCoach'],
     queryFn: () => coachApi.getAll(1, 4, '', 500000, 20000000, '', '')
@@ -25,14 +26,13 @@ export default function CoachReview1() {
     <SectionInViewRight>
       <div className='mt-[5rem]'>
         <div className='relative mx-36'>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'> Fall intro travel</h1>
+          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'>{t('travelCoach')} </h1>
           <div className='flex flex-wrap justify-between '>
             <p className='w-[970px] text-xl mb-8 font-light'>
-              Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
-              travel tools to get you to your destination.
+            {t('textTravelCoach')}
             </p>
             <Link to='/vehicle/coach/all-coach' className=''>
-              <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
+              <Button className='absolute right-0 text-black bg-white border border-primary top-8'>{t('see')}</Button>
             </Link>
           </div>
           <div className='w-full ]'>
@@ -76,7 +76,7 @@ export default function CoachReview1() {
                     </div>
                   </Link>
                   <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
-                    <Button className='relative w-full hover:border-spacing-3'>Book a Coach</Button>
+                    <Button className='relative w-full hover:border-spacing-3'>{t('BookCoach')}</Button>
                   </Link>
                 </SwiperSlide>
               ))}

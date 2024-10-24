@@ -1,6 +1,7 @@
 import { Banner, Footer, Header, Perfect, Review } from '@/components/common'
 import CrispProvider from '@/components/crips/crisp-provirde'
 import { getAccessTokenFromLS } from '@/shared/utils/storage'
+import '@/components/common/i18n/i18n'
 
 export default function Home() {
   const token = getAccessTokenFromLS()

@@ -8,8 +8,10 @@ import { Link } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useTranslation } from 'react-i18next';
 
 export default function IntoTour() {
+  const { t } = useTranslation();
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1, 5)
@@ -21,14 +23,13 @@ export default function IntoTour() {
         <div className='w-full '>
           <div className='flex items-center justify-between mb-5'>
             <div>
-              <h2 className='mb-3 text-2xl font-medium'>Fall into travel</h2>
+              <h2 className='mb-3 text-2xl font-medium'>{t('travel')}</h2>
               <p className='w-[70%]'>
-                Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
-                travel tools to get you to your destination.
+              {t('textTravel')}
               </p>
             </div>
             <Link to='/tour/all-tour'>
-              <Button className='text-black bg-white border border-primary'>Xem tất cả</Button>
+              <Button className='text-black bg-white border border-primary'>{t('see')}</Button>
             </Link>
           </div>
           <div className='flex justify-between '>
@@ -65,7 +66,7 @@ export default function IntoTour() {
                         {formatCurrencyVND(item.totalAmount)}
                       </p>
                     </div>
-                    <Button className='relative w-full text-white hover:border-spacing-3'>Đặt tour</Button>
+                    <Button className='relative w-full text-white hover:border-spacing-3'>{t('Booktour')}</Button>
                   </Link>
                 </SwiperSlide>
               ))}

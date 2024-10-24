@@ -17,8 +17,10 @@ import { ChevronRight, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next';
 
 export default function TourDetailView() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
@@ -229,7 +231,7 @@ export default function TourDetailView() {
 
                 <section>
                   <div className='mb-8'>
-                    <p className='mb-4 text-2xl font-bold'>Overview</p>
+                    <p className='mb-4 text-2xl font-bold'>{t('Overview')}</p>
                     <p className='text-base font-medium text-gray-700'>{getbyId?.description}</p>
                   </div>
 
@@ -312,16 +314,16 @@ export default function TourDetailView() {
               <div className='w-[30%] shadow-2xl h-[420px] sticky top-[10rem] rounded-lg'>
                 <div className='p-5'>
                   <div className='flex items-center justify-between '>
-                    <div className='text-2xl font-semibold'>Giá:</div>
+                    <div className='text-2xl font-semibold'>{t('Price')}:</div>
                     <div>
-                      <span className='text-2xl font-semibold text-red-500'>{formattedPrice} </span>/ Khách
+                      <span className='text-2xl font-semibold text-red-500'>{formattedPrice} </span>/ {t('Guests')}
                     </div>
                   </div>
                   <div className='flex py-4'>
                     <div className='mr-2'>
                       <IconTourCode />
                     </div>
-                    <div className='mr-2 text-xl'>Mã tour:</div>
+                    <div className='mr-2 text-xl'>{t('Code')}:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
                       {getbyId?.tour_code}
                     </div>
@@ -330,7 +332,7 @@ export default function TourDetailView() {
                     <div className='mr-2'>
                       <IconDeparture />
                     </div>
-                    <div className='mr-2 text-xl'>Khởi hành:</div>
+                    <div className='mr-2 text-xl'>{t('Departure')}:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
                       {getbyId?.starting_gate}
                     </div>
@@ -339,7 +341,7 @@ export default function TourDetailView() {
                     <div className='mr-2'>
                       <IconDepartureDate />
                     </div>
-                    <div className='mr-2 text-xl'>Ngày khởi hành:</div>
+                    <div className='mr-2 text-xl'>{t('Date')}:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
                       {formatDateTime}
                     </div>
@@ -348,7 +350,7 @@ export default function TourDetailView() {
                     <div className='mr-2'>
                       <IconTime />
                     </div>
-                    <div className='mr-2 text-xl'>Thời gian:</div>
+                    <div className='mr-2 text-xl'>{t('Duration')}:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
                       {getbyId?.time_trip}
                     </div>
@@ -357,9 +359,9 @@ export default function TourDetailView() {
                     <div className='mr-2'>
                       <IconNumberSeats />
                     </div>
-                    <div className='mr-2 text-xl'>Số chỗ còn:</div>
+                    <div className='mr-2 text-xl'>{t('Available')}:</div>
                     <div className='flex items-center justify-center font-medium text-center text-sky-500'>
-                      {getbyId?.number_of_seats_remaining} chỗ
+                      {getbyId?.number_of_seats_remaining} {t('seats')}
                     </div>
                   </div>
                   <Button
@@ -368,7 +370,7 @@ export default function TourDetailView() {
                     onClick={handleBookingTour}
                     disabled={getbyId?.number_of_seats_remaining === 0}
                   >
-                    Đặt tour
+                    {t('Booktour')}
                   </Button>
                 </div>
               </div>

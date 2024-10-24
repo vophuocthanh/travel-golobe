@@ -1,19 +1,19 @@
 import { flightreview3, flightreview4, flightreview5, flightreview6 } from '@/assets/images'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
-
+import { useTranslation } from 'react-i18next';
 export default function CoachReview2() {
+  const { t } = useTranslation();
   return (
     <SectionInViewUp>
       <div className='w-full mt-[5rem] mb-[12rem]'>
         <div className='relative mx-36'>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'> Fall intro travel</h1>
+          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'>{t('travelCoach')}</h1>
           <div className='flex flex-wrap justify-between '>
             <p className='w-[970px] text-xl mb-8 font-light'>
-              Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
-              travel tools to get you to your destination.
+            {t('textTravelCoach')}
             </p>
-            <Button className='absolute right-0 text-black bg-white border border-primary top-8'>See All</Button>
+            <Button className='absolute right-0 text-black bg-white border border-primary top-8'>{t('see')}</Button>
           </div>
         </div>
         <div className='flex gap-4 mx-36'>
@@ -34,7 +34,7 @@ export default function CoachReview2() {
               living.
             </p>
 
-            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-slate-300'>Book Coach</Button>
+            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-slate-300'>{t('BookCoach')}</Button>
           </div>
           <div className='flex flex-col gap-4 h-[30rem] w-[50rem] '>
             <div className='flex gap-4 '>

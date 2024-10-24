@@ -4,8 +4,10 @@ import BookingForm from '@/components/common/hotel/booking-form/booking-form'
 import FallIntroTravel2 from '@/components/common/hotel/fall-intro-travel-2/fall-intro-travel2'
 import { Button } from '@/components/ui/button'
 import { HotelIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next';
 
 export default function Hotel() {
+  const { t } = useTranslation();
   return (
     <div className='w-full bg-[#F5F5F5]'>
       <Header />
@@ -19,15 +21,15 @@ export default function Hotel() {
         </div>
         <div className='absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px]'>
           <div className='relative w-full '>
-            <p className='p-4 text-3xl'>Where are you flying ?</p>
+            <p className='p-4 text-3xl'>{t('wherehotel')}</p>
             <BookingForm />
             <div className='flex justify-end p-4'>
               <div className='flex gap-4'>
                 <Button className='px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
-                  + Add Promo Code
+                  + {t('Promo')}
                 </Button>
                 <Button className='flex items-center gap-2 px-4 py-2 text-white rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
-                  <HotelIcon className='size-4' /> Show places
+                  <HotelIcon className='size-4' /> {t('places')}
                 </Button>
               </div>
             </div>

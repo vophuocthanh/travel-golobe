@@ -8,7 +8,7 @@ import { Coffee, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReadOnlyRating from './ReadOnlyRating'
-
+import { useTranslation } from 'react-i18next';
 interface HotelCardProps {
   priceRangeMax: number | undefined
   priceRangeMin: number | undefined
@@ -17,6 +17,7 @@ interface HotelCardProps {
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sortByPrice, starNumber }) => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1)
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, starNumber],
@@ -82,7 +83,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
               <div className='flex w-full mt-2'>
                 <div className='flex items-center justify-center w-full gap-4'>
                   <Link to={`/hotel/${item.id}`} className='w-full'>
-                    <Button className='w-full text-white bg-primary'>View Place</Button>
+                    <Button className='w-full text-white bg-primary'>{t('ViewDeals')}</Button>
                   </Link>
                 </div>
               </div>

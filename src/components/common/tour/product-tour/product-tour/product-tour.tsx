@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
+import { useTranslation } from 'react-i18next';
 
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
@@ -32,10 +33,11 @@ const ProductTour: React.FC<TourlCardProps> = ({
 }) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
+  const { t } = useTranslation();
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Sắp xếp theo giá',
+      label: t('Sortby'),
       disabled: true
     },
     {
@@ -43,17 +45,17 @@ const ProductTour: React.FC<TourlCardProps> = ({
     },
     {
       key: '2',
-      label: 'Từ cao đến thấp',
+      label: t('High'),
       onClick: () => setSortByPrice('desc')
     },
     {
       key: '3',
-      label: 'Từ thấp đến cao',
+      label: t('Low'),
       onClick: () => setSortByPrice('asc')
     },
     {
       key: '4',
-      label: 'Không sắp xếp',
+      label: t('sorting'),
       onClick: () => setSortByPrice('')
     }
   ]
@@ -87,7 +89,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
           <Dropdown menu={{ items }}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                Sắp xếp theo giá
+                {t('Sortby')}
                 <DownOutlined />
               </Space>
             </a>
@@ -145,7 +147,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
                     <div className='w-full h-[25%] flex mb-10'>
                       <div className='flex flex-row items-center justify-between w-full '>
                         <Favorite id={item.id} />
-                        <Button className='w-full text-white '>View Deals</Button>
+                        <Button className='w-full text-white '>{t('ViewDeals')}</Button>
                       </div>
                     </div>
                   </div>
@@ -153,7 +155,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
               </Link>
             ))
           ) : (
-            <p className='text-center'>Không có tour nào phù hợp.</p>
+            <p className='text-center'>{t('available')}</p>
           )}
         </div>
       </div>
