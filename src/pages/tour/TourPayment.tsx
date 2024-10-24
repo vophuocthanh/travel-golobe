@@ -2,9 +2,9 @@ import { bookingTourApi } from '@/apis/booking-tour.api'
 import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
+import PaymentOptions from '@/components/common/payment/payment-option'
 import TourBook from '@/components/common/tour/tour-payment/TourBook'
 import TourInfo from '@/components/common/tour/tour-payment/TourInfo'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radiobutton'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
@@ -15,6 +15,7 @@ export default function TourPayment() {
   const { id } = useParams<{ id: string }>()
   const [loading, setLoading] = useState<boolean>(false)
   const [paymentOption, setPaymentOption] = useState('full')
+  console.log('paymentOption:', paymentOption)
   const navigate = useNavigate()
 
   const { data: getBookingDetailTour } = useQuery({
@@ -92,43 +93,7 @@ export default function TourPayment() {
                 />
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <RadioGroup value={paymentOption} onValueChange={(value) => setPaymentOption(value)}>
-                  <h1 className='mb-4 text-xl font-semibold'>Chọn phương thức thanh toán</h1>
-                  <div className='space-y-4'>
-                    <div
-                      className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
-                        paymentOption === 'full' ? 'bg-primary border-primary' : 'border-gray-500'
-                      }`}
-                      onClick={() => setPaymentOption('full')}
-                    >
-                      <div>
-                        <h4 className='font-semibold'>Thanh toán tiền mặt</h4>
-                        <p className='text-sm text-gray-500'>
-                          Với phương thức thanh toán tiền mặt, bạn sẽ trả toàn bộ chi phí của tour ngay lập tức tại điểm
-                          bán hoặc văn phòng.
-                        </p>
-                      </div>
-                      <RadioGroupItem className='flex items-center justify-center' value='full' id='option-one' />
-                    </div>
-
-                    <div
-                      className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
-                        paymentOption === 'part' ? 'bg-primary border-primary' : 'border-gray-500'
-                      }`}
-                      onClick={() => setPaymentOption('part')}
-                    >
-                      <div className='w-[32rem]'>
-                        <h4 className='font-semibold'>Thanh toán qua MOMO</h4>
-                        <p className='text-sm text-gray-500'>
-                          Với phương thức thanh toán qua ví điện tử MOMO, bạn có thể thanh toán một phần ngay bây giờ và
-                          phần còn lại sẽ tự động được trừ từ tài khoản của bạn vào một ngày cụ thể, mà không mất thêm
-                          phí phát sinh.
-                        </p>
-                      </div>
-                      <RadioGroupItem className='flex items-center justify-center' value='part' id='option-two' />
-                    </div>
-                  </div>
-                </RadioGroup>
+                <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption} />
               </div>
             </div>
           </section>
