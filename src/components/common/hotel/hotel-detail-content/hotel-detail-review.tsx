@@ -12,7 +12,7 @@ import { CornerRightDown, TableOfContents } from 'lucide-react'
 import { SetStateAction, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-
+import { useTranslation } from 'react-i18next';
 const reviewsPerPage = 5
 
 interface HotelDetailReviewProps {
@@ -23,6 +23,7 @@ interface HotelDetailReviewProps {
 
 export default function HotelDetailReview({ data, hotelId, total }: HotelDetailReviewProps) {
   const [currentPage, setCurrentPage] = useState(1)
+  const { t } = useTranslation();
   const { isAuthenticated } = useAuth()
 
   const totalPages = Math.ceil(data.length / reviewsPerPage)
@@ -135,7 +136,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
           <hr className='my-8 border-2 border-gray ' />
         </div>
         <div className='items-center '>
-          <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
+          <h1 className='mb-2 text-2xl font-semibold'>{t('Reviews')}</h1>
           {isAuthenticated ? (
             <form onSubmit={handleSubmit} className='flex items-center space-x-4 '>
               <div className='w-full p-2 border border-gray-300 rounded-md'>
@@ -151,7 +152,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                     <BasicRating setRating={setRating} />
                   </div>
                   <Button className='px-4 py-1 text-white rounded-md w-[10rem]' loading={loading}>
-                    Đánh giá
+                    {t('Reviews')}
                   </Button>
                 </div>
               </div>
@@ -184,7 +185,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                         <TableOfContents className='w-6 h-6 cursor-pointer' />
                       </PopoverTrigger>
                       <PopoverContent className='w-24'>
-                        <Button onClick={() => handleDeleteComment(item.id)}>Xoá</Button>
+                        <Button onClick={() => handleDeleteComment(item.id)}>{t('Delete')}</Button>
                       </PopoverContent>
                     </Popover>
                   </div>
@@ -194,7 +195,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
 
                   <div className='absolute bottom-1 right-2'>
                     <p onClick={() => handleReplyClick(item.id)} className='text-blue-500 cursor-pointer'>
-                      Trả lời
+                      {t('Reply')}
                     </p>
                   </div>
                 </div>
@@ -208,7 +209,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                       placeholder='Type your reply here...'
                     />
                     <Button type='submit' className='flex px-4 py-2 mt-2 ml-auto text-white rounded-md'>
-                      Gửi
+                      {t('Send')}
                     </Button>
                   </form>
                 )}

@@ -31,8 +31,9 @@ import { toast } from 'react-toastify'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
+import { useTranslation } from 'react-i18next';
 export default function FlightDetail() {
+  const { t } = useTranslation();
   const slides = [
     { content: flightdetail1 },
     { content: flightdetail2 },
@@ -135,7 +136,7 @@ export default function FlightDetail() {
             <div className='space-y-2'>
               <p className='text-[32px] font-bold text-[#FF8682] text-right'>{formattedPrice} </p>
               <div className='flex space-x-2'>
-                <p className='mt-2 text-lg font-bold text-black'>Còn {getbyId?.number_of_seats_remaining} Vé</p>
+                <p className='mt-2 text-lg font-bold text-black'>{t('Availab')} {getbyId?.number_of_seats_remaining} {t('Ticket')}</p>
                 <Favorite id={getbyId?.id} />
                 <div className='flex border rounded border-primary'>
                   <Button
@@ -176,7 +177,7 @@ export default function FlightDetail() {
                   disabled={getbyId?.number_of_seats_remaining === 0}
                   loading={loadingBooking}
                 >
-                  Book now
+                  {t('BookFlight')}
                 </Button>
               </div>
             </div>
@@ -189,19 +190,19 @@ export default function FlightDetail() {
 
         <section className='mb-8'>
           <div className='flex justify-between p-4'>
-            <p className='text-2xl font-bold text-gray-800'>Basic Economy Features</p>
+            <p className='text-2xl font-bold text-gray-800'>{t('Economy')}</p>
             <div className='flex space-x-6'>
               <label className='flex items-center space-x-2'>
                 <Checkbox />
-                <span className='text-lg font-medium'>Economy</span>
+                <span className='text-lg font-medium'>{t('economy')}</span>
               </label>
               <label className='flex items-center space-x-2'>
                 <Checkbox />
-                <span className='text-lg font-medium'>First Class</span>
+                <span className='text-lg font-medium'>{t('First')}</span>
               </label>
               <label className='flex items-center space-x-2'>
                 <Checkbox />
-                <span className='text-lg font-medium'>Business Class</span>
+                <span className='text-lg font-medium'>{t('Business')}</span>
               </label>
             </div>
           </div>
@@ -237,15 +238,15 @@ export default function FlightDetail() {
           </div>
 
           <div className='h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary'>
-            <p className='text-2xl font-bold '>Emirates Airlines Policies</p>
+            <p className='text-2xl font-bold '>{t('Emirates')}</p>
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-flight cleaning, installation of cabin HEPA filters.</p>
+                <p className='text-sm text-gray-200'>{t('installation')}</p>
               </div>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-flight health screening questions.</p>
+                <p className='text-sm text-gray-200'>{t('screening')}</p>
               </div>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { Dropdown, MenuProps, Space } from 'antd'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Favorite from './favorite'
+import { useTranslation } from 'react-i18next';
 
 interface FlightCardProps {
   minPrice?: number
@@ -18,13 +19,14 @@ interface FlightCardProps {
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandFlight }) => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
 
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: 'Sắp theo giá',
+      label: t('Sortby'),
       disabled: true
     },
     {
@@ -32,17 +34,17 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
     },
     {
       key: '2',
-      label: 'Từ cao đến thấp',
+      label: t('High'),
       onClick: () => setSortByPrice('desc')
     },
     {
       key: '3',
-      label: 'Từ thấp đến cao',
+      label: t('Low'),
       onClick: () => setSortByPrice('asc')
     },
     {
       key: '4',
-      label: 'Không sắp xếp',
+      label: t('sorting'),
       onClick: () => setSortByPrice('')
     }
   ]
@@ -73,7 +75,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
         <Dropdown menu={{ items }}>
           <a onClick={(e) => e.preventDefault()} className='ml-auto'>
             <Space>
-              Sort By Price
+            {t('Sortby')}
               <DownOutlined />
             </Space>
           </a>
@@ -138,7 +140,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
                   <div className='flex flex-row items-center w-full gap-4'>
                     <Favorite id={flight.id} />
                     <Link to={`/vehicle/flight/${flight.id}`} className='w-full pr-6'>
-                      <Button className='w-full mx-4 text-white'>View Deals</Button>
+                      <Button className='w-full mx-4 text-white'>{t('ViewDeals')}</Button>
                     </Link>
                   </div>
                 </div>
@@ -147,7 +149,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
           </div>
         ))
       ) : (
-        <p className='text-center'>Không có chuyến bay nào phù hợp.</p>
+        <p className='text-center'>{t('availableFlight')}</p>
       )}
 
       <div className='flex justify-around mt-6'>

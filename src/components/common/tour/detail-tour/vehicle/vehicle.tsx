@@ -3,12 +3,14 @@ import { IconFlight } from '@/common/icons'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourInfoResponse } from '@/shared/ts/interface/data.interface'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next';
 
 interface IVehicle {
   data?: TourInfoResponse
 }
 
 export default function Vehicle({ data }: IVehicle) {
+  const { t } = useTranslation();
   
   
   const startDate = moment(data?.start_date).format('DD/MM/YYYY') 
@@ -26,16 +28,16 @@ export default function Vehicle({ data }: IVehicle) {
   
   return (
     <div className='mt-16 '>
-      <h2 className='mb-8 text-3xl font-semibold text-center'>LỊCH KHỞI HÀNH </h2>
+      <h2 className='mb-8 text-3xl font-semibold text-center'>{t('DEPARTURE')} </h2>
       <div className='px-5 py-10 rounded-md shadow-2xl'>
         <div className=''>
-          <h2 className='text-2xl font-medium text-center text-sky-500'>PHƯƠNG TIỆN DI CHUYỂN</h2>
+          <h2 className='text-2xl font-medium text-center text-sky-500'>{t('TRANSPORTATION')}</h2>
           <div className='flex justify-between gap-20 py-4'>
             <div className='w-full'>
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
-                    <h4 className='text-lg font-medium'>Ngày đi -</h4>
+                    <h4 className='text-lg font-medium'>{t('DepartureDate')} -</h4>
                     <p className='flex items-center text-center'> {startDate}</p>
                   </div>
                   <div className='flex'>
@@ -63,7 +65,7 @@ export default function Vehicle({ data }: IVehicle) {
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
-                    <h4 className='text-lg font-medium'>Ngày về -</h4>
+                    <h4 className='text-lg font-medium'>{t('ReturnDate')} -</h4>
                     <p className='flex items-center text-center'> {endDate}</p>
                   </div>
                   <div className='flex'>
@@ -90,14 +92,14 @@ export default function Vehicle({ data }: IVehicle) {
           </div>
         </div>
         <div>
-          <h2 className='py-8 text-2xl font-medium text-center border-t-2 text-sky-500 '>GIÁ TOUR</h2>
+          <h2 className='py-8 text-2xl font-medium text-center border-t-2 text-sky-500 '>{t('TOURPRICE')}</h2>
           <div className='flex justify-between gap-20 py-4'>
             <div className='w-full'>
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Người lớn</h4>
-                    <p className='flex items-center text-center'> (Từ 12 tuổi trở lên)</p>
+                    <h4 className='text-lg font-medium'>{t('Adults')}</h4>
+                    <p className='flex items-center text-center'> ({t('older')})</p>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.adult_price)}</h3>
@@ -105,8 +107,8 @@ export default function Vehicle({ data }: IVehicle) {
                 </div>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Trẻ em</h4>
-                    <p className='flex items-center text-center'> (Từ 2 tuổi đến 12 tuổi)</p>
+                    <h4 className='text-lg font-medium'>{t('Children')}</h4>
+                    <p className='flex items-center text-center'> ({t('Ages')})</p>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.child_price)}</h3>
@@ -118,8 +120,8 @@ export default function Vehicle({ data }: IVehicle) {
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Em bé</h4>
-                    <p className='flex items-center text-center'> (Dưới 2 tuổi)</p>
+                    <h4 className='text-lg font-medium'>{t('Infants')}</h4>
+                    <p className='flex items-center text-center'> ({t('Under')})</p>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.baby_price)}</h3>
@@ -127,7 +129,7 @@ export default function Vehicle({ data }: IVehicle) {
                 </div>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Phụ thu phòng đơn</h4>
+                    <h4 className='text-lg font-medium'>{t('Room')}</h4>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.baby_price)}</h3>

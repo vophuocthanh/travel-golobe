@@ -6,8 +6,10 @@ import FlightReview2 from '@/components/common/flight/flight-review-2/flight-rev
 import PlacesTogether from '@/components/common/flight/places-together/places-together'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useTranslation } from 'react-i18next';
 
 export default function Flight() {
+  const { t } = useTranslation();
   return (
     <div className='w-full'>
       <Header />
@@ -24,7 +26,7 @@ export default function Flight() {
             </div>
             {/* banner-search */}
             <div className='absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem]'>
-              <p className='mt-4 ml-5 text-lg font-semibold'>Where are you flying?</p>
+              <p className='mt-4 ml-5 text-lg font-semibold'>{t('flying')}</p>
               <div className='grid grid-cols-7 gap-4 mt-[2rem] mr-[2.8rem]'>
                 <div className='relative w-full col-span-2 ml-5 '>
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
@@ -76,10 +78,10 @@ export default function Flight() {
               <div className='absolute flex p-4 jstify-end right-[1.6rem]'>
                 <div className='flex gap-4 '>
                   <Button className='px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
-                    + Add Promo Code
+                    + {t('Promo')}
                   </Button>
                   <Button className='flex items-center gap-2 px-4 py-2 text-black rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
-                    <IconVectorFlight /> Show Flights
+                    <IconVectorFlight /> {t('places')}
                   </Button>
                 </div>
               </div>

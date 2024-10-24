@@ -2,9 +2,11 @@ import { google } from '@/assets/icons'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import 'swiper/css'
-import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
+import { useTranslation } from 'react-i18next';
+
 
 const slide = [
   {
@@ -49,16 +51,17 @@ const slide = [
 ]
 
 export default function Review() {
+  const { t } = useTranslation();
   return (
     <SectionInViewRight>
       <div className='mb-64 max-w-7xl'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col space-y-2'>
-            <h1 className='text-3xl font-medium'>Reviews</h1>
-            <p className='text-[#112211]'>What people says about Golobe facilities</p>
+            <h1 className='text-3xl font-medium'>{t('Reviews')}</h1>
+            <p className='text-[#112211]'>{t('textReviews')}</p>
           </div>
           <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all'>
-            See all
+            {t('see')}
           </Button>
         </div>
         <Swiper

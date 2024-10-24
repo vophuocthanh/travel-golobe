@@ -1,21 +1,22 @@
 import { tour_location1 } from '@/assets/images'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next';
 
 export default function LocationTour() {
+  const { t } = useTranslation();
   return (
     <SectionInViewRight>
       <div className='px-32 py-3 rounded-2xl mb-52'>
         <div className='w-full '>
           <div className='flex items-center justify-between mb-5'>
             <div>
-              <h2 className='mb-3 text-2xl font-medium'>Fall into travel</h2>
+              <h2 className='mb-3 text-2xl font-medium'>{t('travel')}</h2>
               <p className='w-[88%]'>
-                Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
-                travel tools to get you to your destination.
+              {t('textTravel')}
               </p>
             </div>
-            <Button className='text-black bg-white border border-primary'>See All</Button>
+            <Button className='text-black bg-white border border-primary'>{t('see')}</Button>
           </div>
           <div className='flex justify-between'>
             <div className='p-4 mr-4 bg-primary w-[50%] rounded-lg'>
@@ -33,7 +34,7 @@ export default function LocationTour() {
                   of living.
                 </p>
               </div>
-              <Button className='w-full mt-32 bg-white hover:bg-slate-100'>Book Flight</Button>
+              <Button className='w-full mt-32 bg-white hover:bg-slate-100'>{t('Booktour')}</Button>
             </div>
             <div className='grid grid-cols-2 gap-4'>
               <img className='w-full h-full' src={tour_location1} alt='' />

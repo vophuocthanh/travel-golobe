@@ -1,54 +1,55 @@
 import { IconBar, IconBell, IconEat, IconGym, IconPool, IconSpa, IconTea, IconWifi } from '@/common/icons'
-
+import { useTranslation } from 'react-i18next';
 export default function HotelDetailAmenities() {
+  const { t } = useTranslation();
   return (
     <div className='flex w-full mt-5'>
       <div className='w-full'>
         <div>
           <hr className='my-8 border-2 border-gray ' />
         </div>
-        <h1 className='mb-4 text-2xl font-semibold '>Amenities</h1>
+        <h1 className='mb-4 text-2xl font-semibold '>{t('Amenities')}</h1>
         <div className='grid grid-cols-3 gap-4 text-black'>
           <div>
             <p className='flex items-center gap-3 mb-5'>
               <IconPool />
-              Outdoor pool
+              {t('Outdoor')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconPool />
-              Indoor pool
+              {t('Indoor')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconSpa />
-              Spa and wellness center
+              {t('Spa')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconEat />
-              Restaurant
+              {t('Restaurant')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconBell />
-              Room service
+              {t('service')}
             </p>
           </div>
           <div>
             <p className='flex items-center gap-3 mb-5'>
               <IconGym />
-              Fitness center
+              {t('Fitness')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconBar />
-              Bar/Lounge
+              {t('Bar')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconWifi />
-              Free Wi-Fi
+              {t('Free')}
             </p>
             <p className='flex items-center gap-3 mb-5'>
               <IconTea />
-              Tea/coffee machine
+              {t('Tea')}
             </p>
-            <p className='flex items-center text-red-600'>+24 more</p>
+            <p className='flex items-center text-red-600'>+24 {t('more')}</p>
           </div>
         </div>
       </div>
