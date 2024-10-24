@@ -1,20 +1,22 @@
 import { bookingHotelApi } from '@/apis/booking-hotel.api'
+import { bookingTourApi } from '@/apis/booking-tour.api'
 import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import HotelBook from '@/components/common/hotel/hotel-payment/HotelBook'
-import HotelForm from '@/components/common/hotel/hotel-payment/HotelForm'
 import HotelInfo from '@/components/common/hotel/hotel-payment/HotelInfo'
-import HotelOptions from '@/components/common/hotel/hotel-payment/HotelOptions'
+import PaymentOptions from '@/components/common/payment/payment-option'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function HotelPayment() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
-
+  const [paymentOption, setPaymentOption] = useState('full')
 
   const { data: getBookingHotelDetails } = useQuery({
     queryKey: ['getBookedHotelDetails', id],
@@ -31,7 +33,27 @@ export default function HotelPayment() {
         window.location.href = paymentUrl
       },
       onError: (error) => {
-        console.log(error)
+        toast.error(error.message)
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
+
+  const mutationAddBookingCashPayment = useMutation({
+    mutationFn: () => bookingTourApi.addBookingCashPayment(id || '')
+  })
+
+  const handleAddBookingCashPayment = () => {
+    setLoading(true)
+    mutationAddBookingCashPayment.mutate(undefined, {
+      onSuccess: () => {
+        navigate('/')
+        toast.success('Booking successfully')
+      },
+      onError: (error) => {
+        toast.error(error.message)
       },
       onSettled: () => {
         setLoading(false)
@@ -63,13 +85,16 @@ export default function HotelPayment() {
                 {getBookingHotelDetails && <HotelInfo hotel={getBookingHotelDetails} />}
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                {getBookingHotelDetails && <HotelBook loading={loading} onClick={handleAddMomoBooking} hotel={getBookingHotelDetails} />}
+                {getBookingHotelDetails && (
+                  <HotelBook
+                    loading={loading}
+                    onClick={paymentOption === 'full' ? handleAddBookingCashPayment : handleAddMomoBooking}
+                    hotel={getBookingHotelDetails}
+                  />
+                )}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <HotelOptions />
-              </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <HotelForm />
+                <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption} />
               </div>
             </div>
           </section>

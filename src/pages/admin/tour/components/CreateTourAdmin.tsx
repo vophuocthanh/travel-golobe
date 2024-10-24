@@ -21,7 +21,6 @@ import { FlightResponseType, HotelResponseType } from '@/shared/ts/interface/dat
 import { CreateTourSchema } from '@/shared/utils/tour.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { format } from 'date-fns'
 import dayjs from 'dayjs'
 import { CalendarIcon, ChevronLeft } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -32,8 +31,8 @@ import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 export default function CreateTourAdmin() {
-  const [startDate, setDatrtDate] = useState<Date>()
-  const [endDate, setEndDate] = useState<Date>()
+  const [startDate, setStartDate] = useState<dayjs.Dayjs | null>(null)
+  const [endDate, setEndDate] = useState<dayjs.Dayjs | null>(null)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
@@ -66,9 +65,10 @@ export default function CreateTourAdmin() {
     const formattedData = {
       ...data,
       price: Number(data.price),
-      start_date: startDate ? format(startDate, 'dd-mm-yyyy') : '',
-      end_date: endDate ? format(endDate, 'dd-mm-yyyy') : ''
+      start_date: startDate ? startDate.startOf('day').format('DD-MM-YYYY') : '',
+      end_date: endDate ? endDate.startOf('day').format('DD-MM-YYYY') : ''
     }
+
     mutationCreateTour.mutate(formattedData, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['getTourAll'] })
@@ -224,37 +224,6 @@ export default function CreateTourAdmin() {
               </FormItem>
             )}
           />
-          {/* <FormField
-            control={form.control}
-            name='flightId'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>ID của flight</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className='w-full'>
-                      <SelectValue placeholder='Select a flight' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Flights</SelectLabel>
-                        {getAllFlight?.data
-                          ?.filter((flight) => flight.id)
-                          .map((flight) => (
-                            <SelectItem key={flight.id} value={flight.id || ''}>
-                              {dayjs(flight.start_day).format('DD/MM/YYYY')} -{' '}
-                              {dayjs(flight.end_day).format('DD/MM/YYYY')} - {flight.trip_to}
-                            </SelectItem>
-                          ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-
           <FormField
             control={form.control}
             name='flightId'
@@ -297,28 +266,27 @@ export default function CreateTourAdmin() {
             <FormField
               control={form.control}
               name='start_date'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='mr-6'>Nhập ngày bắt đầu</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[280px] justify-start text-left font-normal',
-                            !startDate && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className='w-4 h-4 mr-2' />
-                          {startDate ? format(startDate, 'dd-MM-yyyy') : <span>Pick a startDate</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={startDate} onSelect={setDatrtDate} initialFocus {...field} />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
+              render={() => (
+                <FormItem className='flex flex-col w-full'>
+                  <FormLabel>Ngày bắt đầu</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={'outline'}
+                        className={cn('w-[240px] pl-3 text-left font-normal', !startDate && 'text-muted-foreground')}
+                      >
+                        {startDate ? dayjs(startDate).format('DD/MM/YYYY') : <span>Pick a date</span>}
+                        <CalendarIcon className='w-4 h-4 ml-auto opacity-50' />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-auto p-0'>
+                      <Calendar
+                        mode='single'
+                        selected={startDate?.toDate()}
+                        onSelect={(date) => setStartDate(dayjs(date).startOf('day'))}
+                      />
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
@@ -326,28 +294,27 @@ export default function CreateTourAdmin() {
             <FormField
               control={form.control}
               name='end_date'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='mr-6'>Nhập ngày kết thúc</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[280px] justify-start text-left font-normal',
-                            !endDate && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className='w-4 h-4 mr-2' />
-                          {endDate ? format(endDate, 'dd-MM-yyyy') : <span>Pick a endDate</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={endDate} onSelect={setEndDate} initialFocus {...field} />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
+              render={() => (
+                <FormItem className='flex flex-col w-full'>
+                  <FormLabel>Ngày kết thúc</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={'outline'}
+                        className={cn('w-[240px] pl-3 text-left font-normal', !endDate && 'text-muted-foreground')}
+                      >
+                        {endDate ? dayjs(endDate).format('DD/MM/YYYY') : <span>Pick a date</span>}
+                        <CalendarIcon className='w-4 h-4 ml-auto opacity-50' />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-auto p-0'>
+                      <Calendar
+                        mode='single'
+                        selected={endDate?.toDate()}
+                        onSelect={(date) => setEndDate(dayjs(date).startOf('day'))}
+                      />
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}

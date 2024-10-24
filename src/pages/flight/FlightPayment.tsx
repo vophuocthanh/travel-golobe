@@ -1,24 +1,27 @@
 import { bookingFlightApi } from '@/apis/booking-flight'
+import { bookingTourApi } from '@/apis/booking-tour.api'
 import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import FlightBook from '@/components/common/flight/flight-payment/FlightBook'
-import FlightForm from '@/components/common/flight/flight-payment/FlightForm'
 import FlightInfo from '@/components/common/flight/flight-payment/FlightInfo'
-import FlightOptions from '@/components/common/flight/flight-payment/FlightOptions'
+import PaymentOptions from '@/components/common/payment/payment-option'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function FlightPayment() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
+  const [paymentOption, setPaymentOption] = useState('full')
+
   const { data: getBookingFlightDetails } = useQuery({
     queryKey: ['getBookedFlightDetails', id],
     queryFn: () => bookingFlightApi.getBookingDetail(id || '')
   })
-  console.log('getBookingFlightDetails:', getBookingFlightDetails)
 
   const mutationAddMomoBooking = useMutation({
     mutationFn: () => paymentApi.addMomo(id || '')
@@ -38,6 +41,27 @@ export default function FlightPayment() {
       }
     })
   }
+
+  const mutationAddBookingCashPayment = useMutation({
+    mutationFn: () => bookingTourApi.addBookingCashPayment(id || '')
+  })
+
+  const handleAddBookingCashPayment = () => {
+    setLoading(true)
+    mutationAddBookingCashPayment.mutate(undefined, {
+      onSuccess: () => {
+        navigate('/')
+        toast.success('Booking successfully')
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
+
   return (
     <div className='w-full bg-gray-100'>
       <Header />
@@ -62,14 +86,15 @@ export default function FlightPayment() {
               </div>
               <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 {getBookingFlightDetails && (
-                  <FlightBook data={getBookingFlightDetails} loading={loading} onClick={handleAddMomoBooking} />
+                  <FlightBook
+                    data={getBookingFlightDetails}
+                    loading={loading}
+                    onClick={paymentOption === 'full' ? handleAddBookingCashPayment : handleAddMomoBooking}
+                  />
                 )}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <FlightOptions />
-              </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <FlightForm />
+                <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption} />
               </div>
             </div>
           </section>

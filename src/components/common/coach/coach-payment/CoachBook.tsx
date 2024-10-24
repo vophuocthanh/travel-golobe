@@ -1,10 +1,11 @@
 import { imgcoach } from '@/assets/images'
 import { Button } from '@/components/ui/button'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface'
 
 interface CoachBookProps {
   onClick?: () => void
-  data: BookingCoachResponse
+  data?: BookingCoachResponse
   loading?: boolean
 }
 
@@ -34,27 +35,25 @@ export default function CoachBook({ onClick, data, loading }: CoachBookProps) {
       <div className='mt-4'>
         <h3 className='text-lg font-semibold'>Price Details</h3>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>Base Fare</p>
-          <p className='text-lg font-semibold'>$400</p>
+          <p className='text-lg text-gray-500'>Price</p>
+          <p className='text-lg font-semibold'> {formatCurrencyVND(data?.price || 0)}</p>
         </div>
         <div className='flex justify-between mt-2'>
           <p className='text-lg text-gray-500'>Discount</p>
-          <p className='text-lg font-semibold'>$400</p>
+          <p className='text-lg font-semibold'>0</p>
         </div>
         <div className='flex justify-between mt-2'>
           <p className='text-lg text-gray-500'>Taxes</p>
-          <p className='text-lg font-semibold'>$400</p>
+          <p className='text-lg font-semibold'>0</p>
         </div>
         <div className='flex justify-between mt-2'>
           <p className='text-lg text-gray-500'>Service Fee</p>
-          <p className='text-lg font-semibold'>$400</p>
+          <p className='text-lg font-semibold'>0</p>
         </div>
         <div className='mt-4 border-t'></div>
         <div className='flex justify-between mt-4'>
           <p className='text-lg font-semibold'>Total</p>
-          <p className='text-lg font-bold'>
-            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.price || 0)}
-          </p>
+          <p className='text-lg font-bold'>{formatCurrencyVND(data?.price || 0)}</p>
         </div>
         <Button onClick={onClick} loading={loading} className='w-full mt-4 text-md'>
           Thanh toán

@@ -1,5 +1,7 @@
 import { imgcoach } from '@/assets/images'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface'
+import { formatDateStandard } from '@/shared/utils/date-utils'
 import { Bus, MoveLeft, MoveRight, RockingChair, Timer, UtensilsCrossed, Wifi } from 'lucide-react'
 
 interface CoachInfo {
@@ -7,31 +9,16 @@ interface CoachInfo {
 }
 
 export default function CoachInfo({ data }: CoachInfo) {
-  const formatDate = (dateString?: string): string => {
-    if (!dateString) return 'N/A'
-    const date = new Date(dateString)
-    if (isNaN(date.getTime())) return 'N/A'
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const year = date.getFullYear()
-
-    return `${day}-${month}-${year}`
-  }
-
-  const formatDateTime = formatDate(data?.start_day)
-
   return (
     <div className='gap-6'>
       <div className='mb-[2rem]'>
         <div className='flex items-center justify-between'>
           <div>
             <h2 className='mb-3 text-2xl font-semibold'>{data?.brand}</h2>
-            <p className='font-medium text-gray-500 text-md'>{formatDateTime}</p>
+            <p className='font-medium text-gray-500 text-md'>{formatDateStandard(data?.start_day)}</p>
           </div>
           <div>
-            <h2 className='mb-3 text-3xl font-bold text-red-500'>
-              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data?.price || 0)}
-            </h2>
+            <h2 className='mb-3 text-3xl font-bold text-red-500'>{formatCurrencyVND(data?.price || 0)}</h2>
             <p className='flex font-medium text-md'>{data?.start_time}</p>
           </div>
         </div>

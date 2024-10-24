@@ -1,19 +1,17 @@
 import { male_madvies, sydney_australia } from '@/assets/images'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next'
 import SectionInViewRight from '../../animation/SectionInViewRight'
-import { useTranslation } from 'react-i18next';
 
 export default function FallIntroTravel2() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <SectionInViewRight>
       <div className='mt-32'>
         <div className='mx-32 '>
           <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl'> {t('travelHotel')}</h1>
           <div className='flex flex-wrap justify-between '>
-            <p className='mb-8 text-lg w-[970px]'>
-            {t('textTravelHotel')}
-            </p>
+            <p className='mb-8 text-lg w-[970px]'>{t('textTravelHotel')}</p>
             <Button className='text-black bg-white border border-primary'>{t('see')}</Button>
           </div>
 
@@ -35,7 +33,7 @@ export default function FallIntroTravel2() {
                 living.
               </p>
 
-              <Button className='mt-20 mb-4 bg-white mx-11 hover:bg-gray-200'>{t('BookHotel')}</Button>
+              <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-gray-200'>{t('BookHotel')}</Button>
             </div>
             <div className='flex flex-col gap-4 h-[30rem] w-[50rem] '>
               <div className='flex gap-4 '>
