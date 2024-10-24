@@ -51,7 +51,7 @@ export default function CoachReview1() {
               {getAll?.data.slice(0, 6).map((coach: CoachResponseType) => (
                 <SwiperSlide
                   key={coach.id}
-                  className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
+                  className='dark:border-white dark:border hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
                   style={{ backgroundImage: `url(${coachreview})` }}
                 >
                   <Link to={`/vehicle/coach/${coach.id}`} key={coach.id}>

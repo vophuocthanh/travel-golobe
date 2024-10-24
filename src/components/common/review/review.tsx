@@ -51,10 +51,10 @@ export default function Review() {
       <div className='mb-64 max-w-7xl'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col space-y-2'>
-            <h1 className='text-3xl font-medium'>Reviews</h1>
-            <p className='text-[#112211]'>What people says about Golobe facilities</p>
+            <h1 className='text-3xl font-medium dark:text-white'>Reviews</h1>
+            <p className='text-[#112211] dark:text-white'>What people says about Golobe facilities</p>
           </div>
-          <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all'>
+          <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all dark:hover:text-slate-700 dark:border-white'>
             See all
           </Button>
         </div>
@@ -72,7 +72,7 @@ export default function Review() {
         >
           {slide.map((slide, index) => (
             <SwiperSlide key={index} className='flex w-full mt-20'>
-              <div className='p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300'>
+              <div className='p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300 dark:bg-slate-900 dark:text-white'>
                 <h1 className='text-3xl'>{slide.title}</h1>
                 <p className='text-gray-400 textContainer'>
                   {slide.content}

@@ -22,12 +22,12 @@ export default function HotelDetailMap() {
         </div>
         <div className="flex items-center justify-between mb-8">
           <h1 className="mb-2 text-2xl font-semibold">Location/Map</h1>
-          <Button className="px-4 py-2 text-white rounded-md w-[12rem] h-[3rem]">View on google maps</Button>
+          <Button className="px-4 py-2 text-white dark:text-white rounded-md w-[12rem] h-[3rem]">View on google maps</Button>
         </div>
-        <img src={hoteldetailmap} alt="HotelMap" className="object-cover w-full rounded-md" />
+        <img src={hoteldetailmap} alt="HotelMap" className="object-cover w-full rounded-md dark:border dark:border-white" />
         <div className="mt-3">
-          <p className="flex text-gray-500 text-md items-center">
-            <MapPin className="w-4 h-4 mr-2 text-black" />
+          <p className="flex text-gray-500 text-md items-center dark:text-white">
+            <MapPin className="w-4 h-4 mr-2 text-black dark:text-white" />
             {getbyId?.location}
           </p>
         </div>

@@ -25,10 +25,10 @@ export default function FallIntroTravel() {
   return (
     <SectionInViewUp>
       <div className='mt-32'>
-        <div className='mx-32 '>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl'> Fall intro travel</h1>
+        <div className='mx-32'>
+          <h1 className='flex items-start justify-start pt-0 mb-4 text-4xl dark:text-white'> Fall intro travel</h1>
           <div className='flex flex-wrap justify-between '>
-            <p className='w-[970px] text-xl mb-8'>
+            <p className='w-[970px] text-xl mb-8 dark:text-white'>
               Going somewhere to celebrate this season? Whether you’re gng home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
@@ -52,7 +52,7 @@ export default function FallIntroTravel() {
               {getAll?.data.map((travel: HotelResponseType) => (
                 <SwiperSlide
                   key={travel.id}
-                  className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'
+                  className='hover:transform dark:border-white dark:border relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'
                   style={{ backgroundImage: `url(${hoteldetail3})` }}
                 >
                   <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent'></div>

@@ -57,12 +57,12 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
           </Button>
         </div>
         {isVisible && (
-          <div className='w-full pb-12 border-b-2'>
-            <div className='w-full p-4 bg-white rounded-lg shadow-md '>
+          <div className='w-full pb-12 border-b-2 '>
+            <div className='w-full p-4 bg-white rounded-lg shadow-md dark:bg-gray-900'>
               <div className='flex flex-row gap-4 '>
                 <div className='items-center w-full '>
                   <input
-                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-white dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     value={tempMinPrice || ''}
                     onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                     placeholder='Giá tối thiểu'
@@ -71,7 +71,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
                 <p className='flex items-center justify-center'>-</p>
                 <div className='items-center w-full '>
                   <input
-                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-white dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     value={tempMaxPrice || ''}
                     onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
                     placeholder='Giá tối đa'
@@ -105,7 +105,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
         )}
       </div>
       <div className='flex flex-col items-center mt-8'>
-        <div className='flex justify-between w-full mb-6'>
+        <div className='flex justify-between w-full mb-6 dark:text-white'>
           <p>Departure Time</p>
           <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleTimeVisibility}>
             {isTimeVisible ? <ChevronUp /> : <ChevronDown />}
@@ -114,7 +114,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
         {isTimeVisible && (
           <div className='w-[95%] pb-12 border-b-2 mr-5'>
             <ReactSlider
-              className='w-full h-1 bg-black rounded-lg'
+              className='w-full h-1 bg-black rounded-lg dark:bg-white'
               thumbClassName='w-6 h-6 bg-black-800 rounded-full cursor-pointer'
               trackClassName='bg-black-900 h-2 rounded-lg'
               value={time}
@@ -131,7 +131,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter }) => {
               pearling
               minDistance={1000}
             />
-            <div className='flex justify-between w-full mt-4 text-xl text-black'>
+            <div className='flex justify-between dark:text-white w-full mt-4 text-xl text-black'>
               <div>{formatTime(time[0])}</div>
               <div>{formatTime(time[1])}</div>
             </div>

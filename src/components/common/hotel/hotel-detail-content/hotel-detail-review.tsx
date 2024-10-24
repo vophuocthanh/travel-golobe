@@ -138,7 +138,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
           <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
           {isAuthenticated ? (
             <form onSubmit={handleSubmit} className='flex items-center space-x-4 '>
-              <div className='w-full p-2 border border-gray-300 rounded-md'>
+              <div className='w-full p-2 border border-gray-300 rounded-md dark:rounded-md dark:border dark:border-white dark:bg-slate-900 dark:text-white'>
                 <textarea
                   className='w-full p-2 border border-gray-300 rounded-md'
                   value={comment}
@@ -150,7 +150,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                     <label htmlFor=''>Satisfaction Level.</label>
                     <BasicRating setRating={setRating} />
                   </div>
-                  <Button className='px-4 py-1 text-white rounded-md w-[10rem]' loading={loading}>
+                  <Button className='px-4 py-1 dark:text-white rounded-md w-[10rem]' loading={loading}>
                     Đánh giá
                   </Button>
                 </div>
@@ -158,7 +158,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
             </form>
           ) : null}
         </div>
-        <div className='relative flex text-black w-[14rem] pt-5'>
+        <div className='relative flex text-black w-[14rem] pt-5  dark:text-white'>
           <p className='absolute left-0 text-5xl font-semibold'>{averageRating}</p>
           <div className='absolute right-0'>
             <p>{ratingStatus}</p>
@@ -168,7 +168,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
         <div className='w-full py-2'>
           <ul className='py-6 mx-auto mt-10 space-y-4 '>
             {data?.map((item, index) => (
-              <li className='p-4 bg-white rounded shadow ' key={index}>
+              <li className='p-4 bg-white rounded shadow dark:border-white dark:border dark:bg-slate-900 dark:text-white' key={index}>
                 <div className='relative flex items-center space-x-4'>
                   <img src={item.user.avatar} alt='avatar' className='w-12 h-12 mr-2 rounded-full' />
                   <div>

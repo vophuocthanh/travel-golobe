@@ -46,17 +46,18 @@ export default function ContentAllCoach() {
     }
   }, [getAll])
   return (
-    <div className='flex-none w-full p-4 ml-2'>
-      <div className='flex items-center justify-center w-[70%] h-[10rem] overflow-hidden relative bg-gray-100 mx-auto'>
-        <div className='flex items-center justify-center bg-white rounded-lg shadow-md shadow-slate-300 w-full h-[8rem]'>
-          <div className='grid items-center grid-cols-10 gap-4'>
+    <div className='flex-none w-full p-4 pl-2 dark:bg-slate-700'>
+      <div className='flex items-center justify-center w-[70%] h-[10rem] overflow-hidden relative bg-gray-100 dark:bg-slate-900 mx-auto '>
+        <div className='flex items-center justify-center bg-white rounded-lg dark:bg-slate-900 dark:text-white shadow-slate-300 w-full h-[8rem] '>
+          <div className='grid items-center grid-cols-10 gap-4 '>
             <div className='relative w-full col-span-3 ml-4'>
-              <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+              <label
+                className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
                 From - To
               </label>
               <Input
                 type='text'
-                className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                className='block w-full dark:bg-gray-800 dark:text-white text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                 value='Lahore - Karachi'
               />
               <div className='absolute right-3 top-4'>
@@ -64,12 +65,13 @@ export default function ContentAllCoach() {
               </div>
             </div>
             <div className='relative w-full col-span-2 ml-5'>
-              <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+              <label
+                className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
                 Trip
               </label>
               <Input
                 type='text'
-                className='block text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                className='block w-full dark:bg-gray-800 dark:text-white text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                 value='Return'
               />
               <div className='absolute right-3 top-6'>
@@ -77,7 +79,8 @@ export default function ContentAllCoach() {
               </div>
             </div>
             <div className='relative z-10 w-full col-span-2 ml-5'>
-              <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm '>
+              <label
+                className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
                 Depart
               </label>
               <div className='text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
@@ -85,7 +88,8 @@ export default function ContentAllCoach() {
               </div>
             </div>
             <div className='relative z-10 w-full col-span-2 ml-5'>
-              <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+              <label
+                className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
                 Return
               </label>
               <div className=' text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>

@@ -100,15 +100,15 @@ export default function HotelDetail() {
     <div className='w-full'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
-          <div className='flex items-center space-x-4'>
+        <main className='pt-20 px-[5rem] dark:bg-slate-700 dark:text-white '>
+          <div className='flex items-center space-x-4 '>
             <div className='items-start flex-1 w-full mt-8 mb-8'>
               <div className='flex items-center space-x-2 text-gray-800 text-md'>
                 <p className='text-red-400'>Turkey</p>
                 <ChevronRight className='w-4 h-4' />
                 <p className='text-red-400'>Istanbul</p>
                 <ChevronRight className='w-4 h-4' />
-                <p>{getbyId?.hotel_names}</p>
+                <p className='dark:text-white'>{getbyId?.hotel_names}</p>
               </div>
               <div className='flex mt-8 '>
                 <h1 className='mr-5 text-3xl font-bold'>{getbyId?.hotel_names}</h1>
@@ -118,8 +118,8 @@ export default function HotelDetail() {
                 </div>
               </div>
               <div className='mt-5'>
-                <p className='flex text-gray-500 text-md'>
-                  <MapPin className='w-4 h-4 mr-2 text-black' />
+                <p className='flex text-gray-500 text-md dark:text-gray-300'>
+                  <MapPin className='w-4 h-4 mr-2 text-black dark:text-white' />
                   {getbyId?.location}
                 </p>
               </div>
@@ -127,12 +127,12 @@ export default function HotelDetail() {
             <div className='flex-1 text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
               <div className='flex items-center justify-end gap-2 space-x-2'>
-                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>
+                <p className='flex items-center px-2 py-1 text-lg text-black border rounded dark:border dark:border-white dark:bg-slate-900 dark:text-white border-primary '>
                   Còn {getbyId?.number_of_seats_remaining} chổ ngồi
                 </p>
                 <Favorite idHotel={id} />
                 <ShareButtons url={hotelUrl} title={hotelTitle} />
-                <div className='flex border rounded border-primary'>
+                <div className='flex border rounded dark:rounded border-primary dark:border-white dark:border dark:bg-slate-900 dark:text-white'>
                   <Button
                     onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
                     className='px-4 py-2 m-[1px] text-white'
@@ -148,7 +148,7 @@ export default function HotelDetail() {
                       )
                     }
                     min='1'
-                    className='w-16 text-center focus:outline-none'
+                    className='w-16 text-center focus:outline-none dark:border-white dark:border dark:bg-slate-900 dark:text-white'
                   />
                   <Button
                     onClick={() =>
@@ -173,18 +173,18 @@ export default function HotelDetail() {
             </div>
           </div>
           <div className="flex w-full justify-between items-center">
-            <div className="flex items-center gap-x-4">
-              <Button className="text-black bg-white border hover:bg-primary hover:text-white border-primary">
+            <div className="flex items-center justify-around">
+              <Button className="text-black bg-white border hover:bg-primary dark:bg-slate-800 dark:border dark:border-white dark:text-white hover:text-white border-primary">
                 {getbyId?.score_hotels}
               </Button>
-              <div>
+              <div className='flex items-center'>
                 <p className="font-bold text-lg text-gray-700">{ratingStatus}</p>
-                <p className="text-gray-500">{getCommentHotel?.total} reviews</p>
+                <p className="text-gray-500 dark:text-white">{getCommentHotel?.total} reviews</p>
               </div>
             </div>
 
             <div className="mb-4">
-              <label htmlFor="date-range-picker" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="date-range-picker" className="block text-sm dark:text-white font-medium text-gray-700 mb-2">
                 Chọn ngày:
               </label>
               <Space direction="vertical" size={12}>
@@ -211,31 +211,31 @@ export default function HotelDetail() {
                 <img
                   src='https://ik.imagekit.io/tvlk/blog/2023/09/khach-san-view-bien-da-nang-1.jpg?tr=dpr-2,w-675'
                   alt='hotel'
-                  className='w-full h-[41rem]'
+                  className='w-full h-[41rem] dark:bg-slate-800 dark:border dark:border-white dark:text-white'
                 />
               </div>
               <div className='grid col-span-1 gap-4'>
                 <img
                   src='https://www.kkday.com/vi/blog/wp-content/uploads/khach-san-Da-Nang-ft.jpg'
                   alt='hotel'
-                  className='w-full h-[20rem]'
+                  className='w-full h-[20rem] dark:border dark:border-white'
                 />
                 <img
                   src='https://owa.bestprice.vn/images/combos/658_370/combo-da-nang-3n2d-minh-toan-ocean-hotel-4-ve-may-bay-khu-hoi-5fce0306ee446.jpg'
                   alt='hotel'
-                  className='w-full h-[20rem]'
+                  className='w-full h-[20rem] dark:border dark:border-white'
                 />
               </div>
               <div className='grid col-span-1 gap-4'>
                 <img
                   src='https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10039783-066fe52d5f3ccb8e0aebb2dba564747b.jpeg'
                   alt='hotel'
-                  className='w-full h-[20rem]'
+                  className='w-full h-[20rem] dark:border dark:border-white'
                 />
                 <img
                   src='https://reviewvilla.vn/wp-content/uploads/2022/05/TOP-20-NHA-NGHI-DA-NANG-CHAT-LUONG-TOT-NHAT-2022-2.3.jpg'
                   alt='hotel'
-                  className='w-full h-[20rem]'
+                  className='w-full h-[20rem] dark:border dark:border-white'
                 />
               </div>
             </div>
@@ -258,7 +258,7 @@ export default function HotelDetail() {
           />
         </main>
       </SectionInViewRight>
-      <div className='mt-[15rem] bottom-0'>
+      <div className='pt-[15rem] dark:bg-slate-700 bottom-0'>
         <Footer />
       </div>
     </div>

@@ -31,13 +31,13 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
 
   return (
     <div className="flex w-full mt-5">
-      <div className="w-full">
+      <div className="w-full ">
         <h1 className="mb-4 text-2xl font-semibold">Available Rooms</h1>
         <div className="space-y-4">
           {Room.map((item: RoomType) => (
-            <div key={item.id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
+            <div key={item.id} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md dark:bg-slate-800 dark:border dark:border-white dark:text-white">
               <div className="flex items-center">
-                <img src={room1} alt="Superior room" className="object-cover w-20 h-20 rounded-md" />
+                <img src={room1} alt="Superior room" className="object-cover w-20 h-20 rounded-md dark:border dark:border-white " />
                 <div className="ml-4">
                   <h1 className="text-lg">{item.type}</h1>
                 </div>
@@ -47,7 +47,7 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
                   <p className="text-3xl font-semibold">{formatCurrency(item.pricePerDay.toString())}</p>
                 </div>
                 <Button
-                  className="px-4 py-2 mt-2 text-white rounded-md w-[7rem] h-[3rem]"
+                  className="px-4 py-2 mt-2 text-white dark:text-white rounded-md w-[7rem] h-[3rem]"
                   onClick={() => handleClick(item.id)}
                   disabled={idTypeRoom !== null && idTypeRoom !== item.id}
                 >

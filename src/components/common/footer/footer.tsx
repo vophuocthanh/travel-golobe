@@ -33,24 +33,26 @@ export default function Footer() {
   return (
     <>
       <SectionInViewUp>
-        <div className='w-full h-96 bg-primary'>
+        <div className='w-full h-96 bg-primary dark:bg-gray-900'>
           <div className='mx-auto max-w-7xl'>
             {/* Absolute */}
             <div className='relative'>
               <div className='absolute inset-0 flex items-center justify-center'>
-                <div className='w-[1000px] flex justify-center h-64 rounded-xl bg-[#CDEAE1]'>
+                <div className='w-[1000px] flex justify-center h-64 rounded-xl bg-[#CDEAE1] dark:bg-gray-800'>
                   <div className='flex justify-between w-full p-0'>
                     <div className='p-6 space-y-4'>
-                      <h1 className='text-3xl font-bold'>
+                      <h1 className='text-3xl font-bold dark:text-white'>
                         Subscribe <br /> Newsletter
                       </h1>
                       <div className='flex flex-col'>
-                        <span>The Travel</span>
-                        <p>Get inspired! Receive travel discounts, tips and behind the scenes stories.</p>
+                        <span className='dark:text-white'>The Travel</span>
+                        <p className='dark:text-gray-300'>
+                          Get inspired! Receive travel discounts, tips and behind the scenes stories.
+                        </p>
                       </div>
                       <div className='flex gap-4'>
-                        <Input placeholder='Your email address' />
-                        <Button className='text-white bg-black hover:bg-white hover:text-black hover:transition-all hover:shadow-md'>
+                        <Input placeholder='Your email address' className='dark:bg-gray-600 dark:text-white' />
+                        <Button className='text-white bg-black hover:bg-white hover:text-black hover:transition-all hover:shadow-md dark:bg-gray-600 dark:hover:bg-white dark:hover:text-black'>
                           Subscribe
                         </Button>
                       </div>
@@ -75,7 +77,7 @@ export default function Footer() {
                         key={icon.id}
                         to={icon.link}
                         target='_blank'
-                        className='hover:scale-105 hover:transition-all'
+                        className='hover:scale-105 hover:transition-all dark:text-white'
                       >
                         {icon.icon}
                       </Link>
@@ -83,39 +85,39 @@ export default function Footer() {
                   </div>
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Our Destinations</h1>
+                  <h1 className='text-xl font-medium dark:text-white'>Our Destinations</h1>
                   {dataDestinations.map((destination) => (
-                    <div key={destination.id} className='flex flex-col gap-2 text-[#112211]'>
+                    <div key={destination.id} className='flex flex-col gap-2 text-[#112211] dark:text-gray-300'>
                       <p className='cursor-pointer hover:underline'>{destination.name}</p>
                     </div>
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Our Activities</h1>
+                  <h1 className='text-xl font-medium dark:text-white'>Our Activities</h1>
                   {dataActivities.map((activity) => (
-                    <div key={activity.id} className='flex flex-col gap-2 text-[#112211]'>
+                    <div key={activity.id} className='flex flex-col gap-2 text-[#112211] dark:text-gray-300'>
                       <p className='cursor-pointer hover:underline'>{activity.name}</p>
                     </div>
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Travel Blogs</h1>
+                  <h1 className='text-xl font-medium dark:text-white'>Travel Blogs</h1>
                   {dataTravel.map((travel) => (
-                    <div key={travel.id} className='flex flex-col gap-2 text-[#112211]'>
+                    <div key={travel.id} className='flex flex-col gap-2 text-[#112211] dark:text-gray-300'>
                       <p className='cursor-pointer hover:underline'>{travel.name}</p>
                     </div>
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>About Us</h1>
-                  <div className='flex flex-col gap-2 text-[#112211]'>
+                  <h1 className='text-xl font-medium dark:text-white'>About Us</h1>
+                  <div className='flex flex-col gap-2 text-[#112211] dark:text-gray-300'>
                     <p>Our Story</p>
                     <p>Work with us</p>
                   </div>
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Contact Us</h1>
-                  <div className='flex flex-col gap-2 text-[#112211]'>
+                  <h1 className='text-xl font-medium dark:text-white'>Contact Us</h1>
+                  <div className='flex flex-col gap-2 text-[#112211] dark:text-gray-300'>
                     <p>Our Story</p>
                     <p>Work with us</p>
                   </div>
@@ -125,8 +127,8 @@ export default function Footer() {
           </div>
         </div>
       </SectionInViewUp>
-      <div className='bg-[#a1f4d9] w-full h-20'>
-        <p className='text-center pt-7'>Bản quyền © 2024 Travel Globe.</p>
+      <div className='bg-[#a1f4d9] dark:bg-gray-600 w-full h-20'>
+        <p className='text-center pt-7 dark:text-white'>Bản quyền © 2024 Travel Globe.</p>
       </div>
     </>
   )

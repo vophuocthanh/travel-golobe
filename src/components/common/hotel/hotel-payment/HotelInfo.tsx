@@ -16,14 +16,14 @@ export default function HotelInfo({ hotel }: hotelBookingType) {
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
   return (
-    <div className="gap-6">
-      <div key={hotel.id} className="mb-6">
-        <div className="flex items-center justify-between mb-4">
+    <div className="gap-6 ">
+      <div key={hotel.id} className="mb-6 ">
+        <div className="flex items-center justify-between mb-4 ">
           <h2 className="text-3xl font-semibold">{hotel.status}</h2>
           <h2 className="text-2xl font-bold text-red-500">{formatCurrency(hotel.price?.toString())}</h2>
         </div>
 
-        <div className="p-4 border rounded-lg bg-gray-50">
+        <div className="p-4 border rounded-lg bg-gray-50 dark:border dark:border-white dark:bg-slate-900 dark:text-white">
           <div className="flex items-center space-x-4">
             <img
               src={hoteldetail1}
@@ -33,7 +33,7 @@ export default function HotelInfo({ hotel }: hotelBookingType) {
             <div>
               <h3 className="text-lg font-semibold">{hotel.hotel_names}</h3>
               <div className="flex">
-                <MapPin className='w-4 h-4 mr-2 text-black' />
+                <MapPin className='w-4 h-4 mr-2 text-black dark:text-white' />
                 <p className="text-sm text-gray-500">{hotel.location}</p>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function HotelInfo({ hotel }: hotelBookingType) {
           </div>
           <div className="text-center">
             <p className="font-medium text-md">{hotel.giveback_time}</p>
-            <p className="text-sm text-gray-500">Check-Out</p>
+            <p className="text-sm text-gray-400">Check-Out</p>
             <p className="font-medium text-md">{hotel.checkOutDate}</p>
           </div>
         </div>

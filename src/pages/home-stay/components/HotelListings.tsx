@@ -4,13 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Dropdown, MenuProps, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-
 const HotelListings: React.FC = () => {
-
   const [priceRange, setPriceRange] = useState<[number | undefined, number | undefined]>([undefined, undefined]);
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
   const [starNumber, setStarNumber] = useState<number | undefined>(undefined);
+  const [sortByPrice, setSortByPrice] = useState('');
 
   const handlePriceRangeChange = () => {
     const newMinPrice = Number(minPrice);
@@ -45,27 +44,28 @@ const HotelListings: React.FC = () => {
     },
   ];
 
-  const [sortByPrice, setSortByPrice] = useState('');
-
   const isRatingVisible = true;
+
   return (
     <>
       <div className="container mx-auto mt-8">
-        <div className="flex space-x-10">
-          <div className="flex flex-col w-1/3 gap-6 pt-10">
-            <div className="pb-4 border-b-2 border-gray-300">
-              <h2 className="text-xl font-semibold text-gray-700">Price Range</h2>
-              <div className="p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md">
+        <div className="flex space-x-10 ">
+          <div className="flex flex-col w-1/3 gap-6 pt-10 ">
+            <div className="pb-4 border-b-2 border-gray-300 dark:border-gray-600">
+              <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Price Range</h2>
+              <div className="p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md dark:bg-gray-900">
                 <div className="flex items-center w-full space-x-4">
                   <input
-                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    type='number'
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     placeholder="Min Price"
                     value={minPrice !== undefined ? minPrice : ''}
                     onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                   />
-                  <span className="text-lg text-gray-600">-</span>
+                  <span className="text-lg text-gray-600 dark:text-gray-300">-</span>
                   <input
-                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    type='number'
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     placeholder="Max Price"
                     value={maxPrice !== undefined ? maxPrice : ''}
                     onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
@@ -73,16 +73,16 @@ const HotelListings: React.FC = () => {
                 </div>
                 <Button
                   onClick={handlePriceRangeChange}
-                  className="w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
+                  className="w-full px-4 py-2 text-white dark:text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
                 >
                   Lọc
                 </Button>
                 <Button
-                  className="w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500"
+                  className="w-full mt-4 text-white transition duration-200 bg-gray-400 dark:text-white rounded hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500"
                   onClick={() => {
-                    setMaxPrice(undefined)
-                    setMinPrice(undefined)
-                    setPriceRange([undefined, undefined])
+                    setMaxPrice(undefined);
+                    setMinPrice(undefined);
+                    setPriceRange([undefined, undefined]);
                   }}
                 >
                   Hủy Lọc
@@ -92,7 +92,7 @@ const HotelListings: React.FC = () => {
 
             {isRatingVisible && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-700">Freebies</h2>
+                <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Freebies</h2>
                 <div className="flex gap-3 mt-4">
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <Button
@@ -118,11 +118,11 @@ const HotelListings: React.FC = () => {
           <div className="w-2/3">
             <div className="flex items-center justify-between w-full h-10 mb-2">
               <div>
-                <p className="hover:cursor-pointer">
-                  Showing 4 of <span className="text-[#FF8682]">257 places</span>
+                <p className="hover:cursor-pointer dark:text-white">
+                  Showing 4 of <span className="text-[#FF8682]"> - 257 places</span>
                 </p>
               </div>
-              <Dropdown menu={{ items }}>
+              <Dropdown menu={{ items }} className='dark:text-white'>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
                     Sắp xếp theo giá

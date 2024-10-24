@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className='w-full'>
       <Header />
-      <main className='pt-20'>
+      <main className='pt-20 dark:bg-gray-700'>
         <Banner />
         <div className='items-center justify-center mx-auto max-w-7xl'>
           <Perfect />

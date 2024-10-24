@@ -44,9 +44,9 @@ export default function HotelPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
+        <main className='pt-20 px-[5rem] dark:bg-slate-700 dark:text-white'>
           <section>
-            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>Hotel Payment</h1>
+            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold '>Hotel Payment</h1>
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>
@@ -54,28 +54,28 @@ export default function HotelPayment() {
                   <ChevronRight className='w-4 h-4' />
                   <p className='text-red-400'>Istanbul</p>
                   <ChevronRight className='w-4 h-4' />
-                  <p>{getBookingHotelDetails?.hotel_names}</p>
+                  <p className='d dark:text-white'>{getBookingHotelDetails?.hotel_names}</p>
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+            <div className='grid grid-cols-3 gap-6 '>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:border dark:border-white dark:bg-slate-900 dark:text-white'>
                 {getBookingHotelDetails && <HotelInfo hotel={getBookingHotelDetails} />}
               </div>
-              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md dark:border dark:border-white dark:bg-slate-900 dark:text-white'>
                 {getBookingHotelDetails && <HotelBook loading={loading} onClick={handleAddMomoBooking} hotel={getBookingHotelDetails} />}
               </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:border dark:border-white dark:bg-slate-900 dark:text-white'>
                 <HotelOptions />
               </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:border dark:border-white dark:bg-slate-900 dark:text-white'>
                 <HotelForm />
               </div>
             </div>
           </section>
         </main>
       </SectionInViewRight>
-      <div className='mt-[15rem]'>
+      <div className='pt-[15rem] dark:bg-slate-700'>
         <Footer />
       </div>
     </div>

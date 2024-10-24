@@ -12,9 +12,9 @@ export default function Coach() {
   return (
     <div className='w-full'>
       <Header />
-      <main className='pt-20'>
+      <main className='pt-20 dark:bg-slate-700 dark:text-white'>
         <section>
-          <div className='flex items-center justify-center w-full h-[50rem] overflow-hidden relative'>
+          <div className='flex items-center justify-center w-full h-[50rem] overflow-hidden relative '>
             {/* banner */}
             <div className='top-0 w-full h-full'>
               <img src={banner_coach} alt='coach' className='object-cover w-full h-[40.5rem]' />
@@ -24,16 +24,17 @@ export default function Coach() {
               </div>
             </div>
             {/* banner-search */}
-            <div className='absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem]'>
+            <div className='absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem] dark:bg-gray-900 dark:text-white'>
               <p className='mt-4 ml-5 text-lg font-semibold'>Where are you coach?</p>
               <div className='grid grid-cols-7 gap-4 mt-[2rem] mr-[2.8rem]'>
                 <div className='relative w-full col-span-2 ml-5 '>
-                  <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label
+                    className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
                     From - To
                   </label>
                   <Input
                     type='text'
-                    className='block w-full text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block w-full dark:bg-gray-800 dark:text-white text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='Lahore - Karachi'
                   />
                   <div className='absolute right-3 top-4'>
@@ -41,12 +42,14 @@ export default function Coach() {
                   </div>
                 </div>
                 <div className='relative w-full col-span-1 ml-5 '>
-                  <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label
+                    className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
+
                     Trip
                   </label>
                   <Input
                     type='text'
-                    className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block text-lg w-full dark:bg-gray-800 dark:text-white p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='Return'
                   />
                   <div className='absolute right-3 top-6'>
@@ -54,22 +57,25 @@ export default function Coach() {
                   </div>
                 </div>
                 <div className='relative w-full col-span-2 ml-5 '>
-                  <label className='absolute p-1.5 z-10 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label
+                    className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'>
                     Depart - Return
                   </label>
                   <Input
                     type='text'
-                    className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block text-lg w-full p-2 dark:bg-gray-800 dark:text-white pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='13 Nov 24 - 16 Nov 24'
                   />
                 </div>
                 <div className='relative w-full col-span-2 ml-5'>
-                  <label className='absolute p-1.5 z-10 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
+                  <label
+                    className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 bg-white transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'        >
+
                     Passenger - Class
                   </label>
                   <Input
                     type='text'
-                    className='block w-full text-lg p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
+                    className='block w-full text-lg p-2 dark:bg-gray-800 dark:text-white pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
                     value='1 Passenger, Economy'
                   />
                 </div>
@@ -88,9 +94,9 @@ export default function Coach() {
           </div>
         </section>
         <div>
-          <PlacesTogether/>
-          <CoachReview1/>
-          <CoachReview2/>
+          <PlacesTogether />
+          <CoachReview1 />
+          <CoachReview2 />
         </div>
 
         <div className='mt-auto'>
