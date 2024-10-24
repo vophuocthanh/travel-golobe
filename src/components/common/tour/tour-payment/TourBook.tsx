@@ -10,7 +10,7 @@ interface ITourBook {
 
 export default function TourBook({ onClick, data, loading }: ITourBook) {
   return (
-    <div>
+    <div className=''>
       <div>
         <div key={data?.id} className='flex items-center mb-4'>
           <img src={data?.image} alt={data?.name} className='object-cover h-20 rounded-md w-25' />

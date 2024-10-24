@@ -22,12 +22,14 @@ export default function FlightInfo({ data }: FlightInfo) {
   const formattedStartDate = startDate ? dayjs(endDate).format('DD-MM-YYYY') : ''
 
   return (
-    <div className='gap-6'>
+    <div className='gap-6 '>
       <div className='mb-[2rem]'>
         <div className='flex items-center justify-between'>
           <div>
-            <h2 className='mb-3 text-2xl font-semibold'>{getBookingFlightDetails?.flightCrawls.brand}</h2>
-            <p className='font-medium text-gray-500 text-md'>{getBookingFlightDetails?.flightCrawls.type_ticket}</p>
+            <h2 className='mb-3 text-2xl font-semibold '>{getBookingFlightDetails?.flightCrawls.brand}</h2>
+            <p className='font-medium text-gray-500 text-md dark:text-white'>
+              {getBookingFlightDetails?.flightCrawls.type_ticket}
+            </p>
           </div>
           <div>
             <h2 className='mb-3 text-3xl font-bold text-red-500'>
@@ -62,7 +64,7 @@ export default function FlightInfo({ data }: FlightInfo) {
           </div>
         </div>
 
-        <div className='flex items-center justify-center space-x-20'>
+        <div className='flex items-center justify-center space-x-20 '>
           <div className='flex items-center space-x-4'>
             <p className='text-2xl font-semibold'>{getBookingFlightDetails?.start_time}</p>
             <p className='text-base font-medium'>{getBookingFlightDetails?.baggage_weight}</p>
@@ -83,7 +85,7 @@ export default function FlightInfo({ data }: FlightInfo) {
             <p className='text-base font-medium'>{data.brand}</p>
           </div>
         </div>
-        <hr className='w-full mt-2 border-black border-1' />
+        <hr className='w-full mt-2 border-black border-1 dark:border-white dark:border-1' />
       </div>
     </div>
   )

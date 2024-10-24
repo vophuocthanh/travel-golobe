@@ -63,28 +63,28 @@ export default function TourPayment() {
   }
 
   return (
-    <div className='w-full bg-gray-100'>
+    <div className='w-full bg-gray-100 dark:bg-gray-700'>
       <Header />
       <SectionInViewRight>
         <main className='pt-20 px-[5rem]'>
           <section>
-            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>Tour Payment</h1>
+            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold dark:text-white'>Tour Payment</h1>
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>
                   <p className='text-red-400'>Turkey</p>
-                  <ChevronRight className='w-4 h-4' />
+                  <ChevronRight className='w-4 h-4 dark:text-white' />
                   <p className='text-red-400'>Istanbul</p>
-                  <ChevronRight className='w-4 h-4' />
-                  <p>{getBookingDetailTour?.name}</p>
+                  <ChevronRight className='w-4 h-4 dark:text-white' />
+                  <p className='dark:text-white'>{getBookingDetailTour?.name}</p>
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+            <div className='grid grid-cols-3 gap-6 '>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-900'>
                 <TourInfo data={getBookingDetailTour} />
               </div>
-              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-900'>
                 <TourBook
                   loading={loading}
                   onClick={paymentOption === 'full' ? handleAddBookingCashPayment : handleAddMomoBooking}

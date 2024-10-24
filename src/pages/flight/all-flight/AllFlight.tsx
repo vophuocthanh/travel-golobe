@@ -7,7 +7,7 @@ export default function AllFlight() {
   return (
     <div className='w-full bg-gray-100'>
       <Header />
-      <main className='pt-20'>
+      <main className='pt-20 dark:bg-gray-700'>
         <section>
           <div className=''>
             <ContentAllFlight />

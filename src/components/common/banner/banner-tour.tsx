@@ -43,16 +43,16 @@ export default function BannerTour({
       <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
-          className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'
+          className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800  dark:bg-white top-0 left-4 z-10 text-sm rounded'
         >
           Enter Destination
         </Label>
         <Input
-          className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
+          className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12 dark:bg-gray-800 dark:border dark:border-white dark:text-white'
           placeholder='Istanbul, Turkey'
           onChange={(e) => setSearchTour(e.target.value)}
         />
-        <Sofa className='absolute left-3 top-[1rem] z-20 ' />
+        <Sofa className='absolute left-3 top-[1rem] z-20 dark:text-white' />
         {isLoading ? (
           <div className='absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md'>
             Loading...
@@ -77,7 +77,7 @@ export default function BannerTour({
       <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
-          className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
+          className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'
         >
           Check In
         </Label>
@@ -87,7 +87,7 @@ export default function BannerTour({
             <Button
               variant={'outline'}
               className={cn(
-                'w-full justify-start text-left font-normal h-full',
+                'w-full justify-start text-left font-normal h-full dark:bg-gray-800 dark:text-white dark:border dark:border-white',
                 !departDate && 'text-muted-foreground'
               )}
             >
@@ -105,7 +105,7 @@ export default function BannerTour({
       <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
-          className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
+          className='absolute p-1.5 dark:p-0 text-gray-800 dark:text-gray-300 transform -translate-y-1/2 bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 top-1 left-4 z-10 text-sm rounded'
         >
           Check Out
         </Label>
@@ -114,7 +114,7 @@ export default function BannerTour({
             <Button
               variant={'outline'}
               className={cn(
-                'w-full justify-start text-left font-normal h-full',
+                'w-full justify-start text-left font-normal h-full dark:bg-gray-800 dark:text-white dark:border dark:border-white',
                 !returnDate && 'text-muted-foreground'
               )}
             >

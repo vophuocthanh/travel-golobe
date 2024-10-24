@@ -46,7 +46,7 @@ export default function BasicRating({ setRating }: BasicRatingProps) {
           onChangeActive={(_event, newHover) => {
             setHover(newHover);
           }}
-          emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />}
+          emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize='inherit' className=' dark:text-white'/> }
         />
         {value !== null && <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>}
       </Box>

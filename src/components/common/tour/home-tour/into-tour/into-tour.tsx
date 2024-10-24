@@ -21,8 +21,8 @@ export default function IntoTour() {
         <div className='w-full '>
           <div className='flex items-center justify-between mb-5'>
             <div>
-              <h2 className='mb-3 text-2xl font-medium'>Fall into travel</h2>
-              <p className='w-[70%]'>
+              <h2 className='mb-3 text-2xl font-medium dark:text-white'>Fall into travel</h2>
+              <p className='w-[70%] dark:text-white'>
                 Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
                 travel tools to get you to your destination.
               </p>
@@ -47,7 +47,7 @@ export default function IntoTour() {
               {getAll?.data.map((item: TourResponseType) => (
                 <SwiperSlide
                   key={item.id}
-                  className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'
+                  className='dark:border  dark:border-white dark:hover:transform hover:transform hover:-translate-y-1 dark:hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg dark:rounded-lg'
                   style={{ backgroundImage: `url(${item.image})` }}
                 >
                   <Link to={`/tour/${item.id}`}>
@@ -65,7 +65,7 @@ export default function IntoTour() {
                         {formatCurrencyVND(item.totalAmount)}
                       </p>
                     </div>
-                    <Button className='relative w-full text-white hover:border-spacing-3'>Đặt tour</Button>
+                    <Button className='relative w-full text-white hover:border-spacing-3 dark:bg-primary dark:hover:bg-gray-500 dark:hover:text-white'>Đặt tour</Button>
                   </Link>
                 </SwiperSlide>
               ))}

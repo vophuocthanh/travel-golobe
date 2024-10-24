@@ -7,20 +7,20 @@ export default function FlightReview2() {
     <SectionInViewUp>
       <div className='mt-[5rem] mb-[12rem]'>
         <div className='relative mx-36'>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'> Fall intro travel</h1>
+          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium dark:text-white'> Fall intro travel</h1>
           <div className='flex flex-wrap justify-between '>
-            <p className='w-[970px] text-xl mb-8 font-light'>
+            <p className='w-[970px] text-xl mb-8 font-light dark:text-white'>
               Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the
               travel tools to get you to your destination.
             </p>
           </div>
         </div>
         <div className='flex gap-4 mx-36'>
-          <div className='flex flex-col  h-[31rem] w-[50rem] bg-primary justify-between border border-primary rounded-2xl '>
+          <div className='flex flex-col  h-[31rem] w-[50rem] bg-primary justify-between border border-primary rounded-2xl dark:bg-gray-900 dark:text-white dark:border dark:border-white '>
             <div className='flex justify-between mx-10 mt-5'>
               {' '}
               <p className='h-20 text-5xl w-[20rem]'>Backpacking Sri Lanka</p>
-              <div className='flex flex-col items-center justify-center w-16 h-16 text-xl bg-white border rounded-lg border-primary'>
+              <div className='flex flex-col items-center justify-center w-16 h-16 text-xl bg-white border rounded-lg border-primary dark:text-white dark:border dark:border-white dark:bg-gray-700'>
                 <p> From</p>
                 <p className='font-bold'>$700</p>
               </div>
@@ -33,12 +33,12 @@ export default function FlightReview2() {
               living.
             </p>
 
-            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-white'>Book Flight</Button>
+            <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-white dark:bg-primary dark:hover:bg-gray-500 dark:hover:text-white'>Book Flight</Button>
           </div>
           <div className='flex flex-col gap-4 h-[30rem] w-[50rem] '>
             <div className='flex gap-4 '>
-              <img src={flightreview3} className='w-1/2 h-[15rem] object-cover rounded-lg border border-primary' />
-              <img src={flightreview4} className='w-1/2 h-[15rem]object-cover rounded-lg border border-primary' />
+              <img src={flightreview3} className='w-1/2 h-[15rem] object-cover rounded-lg border border-primary dark:border dark:border-white dark:rounded-lg ' />
+              <img src={flightreview4} className='w-1/2 h-[15rem] object-cover rounded-lg border border-primary' />
             </div>
             <div className='flex gap-4'>
               <img src={flightreview5} className='w-1/2 h-[15rem] object-cover rounded-lg border border-primary' />

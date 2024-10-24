@@ -106,230 +106,237 @@ export default function FlightDetail() {
   return (
     <>
       <Header />
-      <div className='container mx-auto pt-28 pb-72'>
-        <section>
-          <div className='flex items-center space-x-2 text-sm text-gray-600'>
-            <p className='text-xl'>Today</p>
-            <ChevronRight className='w-4 h-4' />
-            <p className='text-xl'>Istanbul</p>
-            <ChevronRight className='w-4 h-4' />
-            <p className='text-lg text-primary'>{getbyId?.brand}</p>
-          </div>
-          <div className='flex justify-between p-4'>
-            <div>
-              <p className='text-2xl font-bold text-[#FF8682]'>{getbyId?.brand}</p>
-              <div className='flex items-center mt-1 space-x-2 text-sm'>
-                {/* <MapPin className='w-4 h-4' /> */}
-                <p></p>
-              </div>
-              <div className='flex items-center mt-2 space-x-2'>
-                <p className='flex items-center justify-center h-10 text-xs font-medium border rounded cursor-pointer w-11 border-primary hover:bg-primary'>
-                  4.2
-                </p>
-                <p className='font-2xl normal text-'>
-                  <span className='font-bold'>Very Good </span>
-                  54 reviews
-                </p>
-              </div>
+      <div className='dark:bg-gray-700'>
+        <div className='container mx-auto pt-28 pb-72 '>
+          <section>
+            <div className='flex items-center space-x-2 text-sm text-gray-600'>
+              <p className='text-xl dark:text-white'>Today</p>
+              <ChevronRight className='w-4 h-4 dark:text-white' />
+              <p className='text-xl dark:text-white'>Istanbul</p>
+              <ChevronRight className='w-4 h-4 dark:text-white' />
+              <p className='text-lg text-primary dark:text-white'>{getbyId?.brand}</p>
             </div>
-            <div className='space-y-2'>
-              <p className='text-[32px] font-bold text-[#FF8682] text-right'>{formattedPrice} </p>
-              <div className='flex space-x-2'>
-                <p className='mt-2 text-lg font-bold text-black'>Còn {getbyId?.number_of_seats_remaining} Vé</p>
-                <Favorite id={getbyId?.id} />
-                <div className='flex border rounded border-primary'>
+            <div className='flex justify-between p-4'>
+              <div>
+                <p className='text-2xl font-bold text-[#FF8682]'>{getbyId?.brand}</p>
+                <div className='flex items-center mt-1 space-x-2 text-sm'>
+                  {/* <MapPin className='w-4 h-4' /> */}
+                  <p></p>
+                </div>
+                <div className='flex items-center mt-2 space-x-2'>
+                  <p className='flex items-center justify-center h-10 text-xs font-medium border rounded cursor-pointer w-11 border-primary hover:bg-primary dark:boder-primary dark:hover:bg-primary dark:text-white dark:bg-gray-400'>
+                    4.2
+                  </p>
+                  <p className='font-2xl normal text- dark:text-white'>
+                    <span className='font-bold dark:text-white'>Very Good </span>
+                    54 reviews
+                  </p>
+                </div>
+              </div>
+              <div className='space-y-2'>
+                <p className='text-[32px] font-bold text-[#FF8682] text-right'>{formattedPrice} </p>
+                <div className='flex space-x-2'>
+                  <p className='mt-2 text-lg font-bold text-black dark:text-white'>
+                    Còn {getbyId?.number_of_seats_remaining} Vé
+                  </p>
+                  <Favorite id={getbyId?.id} />
+                  <div className='flex border rounded border-primary dark:border-primary'>
+                    <Button
+                      className='w-10 px-4 py-2 font-bold text-black rounded-l bg-primary hover:bg-green-200 dark:bg-primary dark:hover:bg-green-200 '
+                      onClick={() => setFlightQuantity(Math.max(1, flightQuantity - 1))}
+                      disabled={getbyId?.number_of_seats_remaining === 0}
+                    >
+                      -
+                    </Button>
+                    <input
+                      value={flightQuantity}
+                      type='text'
+                      min='1'
+                      className='h-10 text-center border-t border-b border-gray-300 w-14 focus:outline-none dark:bg-gray-400'
+                      onChange={(e) =>
+                        setFlightQuantity(Math.max(1, Number(e.target.value), getbyId?.number_of_seats_remaining ?? 0))
+                      }
+                    />
+                    <Button
+                      onClick={() =>
+                        setFlightQuantity(Math.min(flightQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
+                      }
+                      className='w-10 px-4 py-2 text-black rounded-r bg-primary hover:bg-green-200 dark:bg-primary dark:hover:bg-green-200 dark:rounded-r'
+                      disabled={
+                        getbyId?.number_of_seats_remaining === 0 ||
+                        getbyId?.number_of_seats_remaining === flightQuantity
+                      }
+                    >
+                      +
+                    </Button>
+                  </div>
+                  <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
+                    <Link2 className={`w-4 h-4 dark:text-white`} />
+                  </p>
+
+                  <ShareButtons url={flightUrl} title={flightTitle} />
                   <Button
-                    className='w-10 px-4 py-2 font-bold text-black rounded-l bg-primary hover:bg-green-200'
-                    onClick={() => setFlightQuantity(Math.max(1, flightQuantity - 1))}
+                    onClick={handleBookFlight}
                     disabled={getbyId?.number_of_seats_remaining === 0}
+                    loading={loadingBooking}
+                    className='dark:bg-primary dark:text-white'
                   >
-                    -
-                  </Button>
-                  <input
-                    value={flightQuantity}
-                    type='text'
-                    min='1'
-                    className='h-10 text-center border-t border-b border-gray-300 w-14 focus:outline-none'
-                    onChange={(e) =>
-                      setFlightQuantity(Math.max(1, Number(e.target.value), getbyId?.number_of_seats_remaining ?? 0))
-                    }
-                  />
-                  <Button
-                    onClick={() =>
-                      setFlightQuantity(Math.min(flightQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
-                    }
-                    className='w-10 px-4 py-2 text-black rounded-r bg-primary hover:bg-green-200'
-                    disabled={
-                      getbyId?.number_of_seats_remaining === 0 || getbyId?.number_of_seats_remaining === flightQuantity
-                    }
-                  >
-                    +
+                    Book now
                   </Button>
                 </div>
-                <p className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'>
-                  <Link2 className={`w-4 h-4`} />
+              </div>
+            </div>
+          </section>
+
+          <section className='mb-8'>
+            <img src={getbyId?.image} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
+          </section>
+
+          <section className='mb-8'>
+            <div className='flex justify-between p-4'>
+              <p className='text-2xl font-bold text-gray-800 dark:text-white'>Basic Economy Features</p>
+              <div className='flex space-x-6'>
+                <label className='flex items-center space-x-2'>
+                  <Checkbox />
+                  <span className='text-lg font-medium dark:text-white'>Economy</span>
+                </label>
+                <label className='flex items-center space-x-2'>
+                  <Checkbox />
+                  <span className='text-lg font-medium dark:text-white'>First Class</span>
+                </label>
+                <label className='flex items-center space-x-2'>
+                  <Checkbox />
+                  <span className='text-lg font-medium dark:text-white'>Business Class</span>
+                </label>
+              </div>
+            </div>
+
+            <div className='mb-10'>
+              <Swiper
+                modules={[Navigation, Pagination, A11y, Autoplay]}
+                spaceBetween={10}
+                slidesPerView={4}
+                pagination={{ clickable: true }}
+                navigation
+                breakpoints={{
+                  1024: {
+                    slidesPerView: 9,
+                    spaceBetween: 20
+                  }
+                }}
+                autoplay={{
+                  delay: 3000
+                }}
+                loop={true}
+              >
+                {slides.map((slide, index) => (
+                  <SwiperSlide key={index} className='flex justify-center'>
+                    <img
+                      src={slide.content}
+                      alt={`Slide ${index + 1}`}
+                      className='rounded-lg shadow-md w-[120px] h-[120px]'
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            <div className='h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary'>
+              <p className='text-2xl font-bold '>Emirates Airlines Policies</p>
+              <div className='flex flex-col space-y-4'>
+                <div className='flex items-center space-x-3'>
+                  <Timer className='w-5 h-5 text-white' />
+                  <p className='text-sm text-gray-200'>Pre-flight cleaning, installation of cabin HEPA filters.</p>
+                </div>
+                <div className='flex items-center space-x-3'>
+                  <Timer className='w-5 h-5 text-white' />
+                  <p className='text-sm text-gray-200'>Pre-flight health screening questions.</p>
+                </div>
+              </div>
+            </div>
+
+            <div ref={SectionRef}>
+              <FlightDaySelection day={day} setDay={setDay}></FlightDaySelection>
+              <FlightTicketSelection
+                tickets={getbyId?.Ticket || []}
+                ticketEconomy={ticket_economy}
+                onTicketSelect={handleTicketSelection}
+              />
+            </div>
+
+            <div className='p-6 mb-10 bg-white border shadow-md rounded-xl dark:bg-gray-400'>
+              <div className='flex justify-between'>
+                <p className='text-xl font-bold'>
+                  {new Date(getbyId?.start_day || '').toLocaleDateString('vi-VN')} {' -->  '}
+                  {new Date(getbyId?.end_day || '').toLocaleDateString('vi-VN')}
                 </p>
 
-                <ShareButtons url={flightUrl} title={flightTitle} />
-                <Button
-                  onClick={handleBookFlight}
-                  disabled={getbyId?.number_of_seats_remaining === 0}
-                  loading={loadingBooking}
-                >
-                  Book now
-                </Button>
+                <p className='text-lg font-medium'>{getbyId?.brand}</p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        <section className='mb-8'>
-          <img src={getbyId?.image} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
-        </section>
-
-        <section className='mb-8'>
-          <div className='flex justify-between p-4'>
-            <p className='text-2xl font-bold text-gray-800'>Basic Economy Features</p>
-            <div className='flex space-x-6'>
-              <label className='flex items-center space-x-2'>
-                <Checkbox />
-                <span className='text-lg font-medium'>Economy</span>
-              </label>
-              <label className='flex items-center space-x-2'>
-                <Checkbox />
-                <span className='text-lg font-medium'>First Class</span>
-              </label>
-              <label className='flex items-center space-x-2'>
-                <Checkbox />
-                <span className='text-lg font-medium'>Business Class</span>
-              </label>
-            </div>
-          </div>
-
-          <div className='mb-10'>
-            <Swiper
-              modules={[Navigation, Pagination, A11y, Autoplay]}
-              spaceBetween={10}
-              slidesPerView={4}
-              pagination={{ clickable: true }}
-              navigation
-              breakpoints={{
-                1024: {
-                  slidesPerView: 9,
-                  spaceBetween: 20
-                }
-              }}
-              autoplay={{
-                delay: 3000
-              }}
-              loop={true}
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={index} className='flex justify-center'>
-                  <img
-                    src={slide.content}
-                    alt={`Slide ${index + 1}`}
-                    className='rounded-lg shadow-md w-[120px] h-[120px]'
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          <div className='h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary'>
-            <p className='text-2xl font-bold '>Emirates Airlines Policies</p>
-            <div className='flex flex-col space-y-4'>
-              <div className='flex items-center space-x-3'>
-                <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-flight cleaning, installation of cabin HEPA filters.</p>
-              </div>
-              <div className='flex items-center space-x-3'>
-                <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>Pre-flight health screening questions.</p>
-              </div>
-            </div>
-          </div>
-
-          <div ref={SectionRef}>
-            <FlightDaySelection day={day} setDay={setDay}></FlightDaySelection>
-            <FlightTicketSelection
-              tickets={getbyId?.Ticket || []}
-              ticketEconomy={ticket_economy}
-              onTicketSelect={handleTicketSelection}
-            />
-          </div>
-
-          <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
-            <div className='flex justify-between'>
-              <p className='text-xl font-bold'>
-                {new Date(getbyId?.start_day || '').toLocaleDateString('vi-VN')} {' -->  '}
-                {new Date(getbyId?.end_day || '').toLocaleDateString('vi-VN')}
-              </p>
-
-              <p className='text-lg font-medium'>{getbyId?.brand}</p>
-            </div>
-
-            <div className='pt-6'>
-              <div className='flex justify-between'>
-                <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
-                  <img src={getbyId?.image} alt='' className='w-20 rounded-md' />
-                  <div>
-                    <p className='text-2xl font-bold'>{getbyId?.brand}</p>
-                    <p className='text-sm font-medium'>Airbus A320</p>
+              <div className='pt-6'>
+                <div className='flex justify-between'>
+                  <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg dark:bg-white'>
+                    <img src={getbyId?.image} alt='' className='w-20 rounded-md ' />
+                    <div className='dark:bg-white'>
+                      <p className='text-2xl font-bold'>{getbyId?.brand}</p>
+                      <p className='text-sm font-medium'>Airbus A320</p>
+                    </div>
+                  </div>
+                  <div className='flex items-center p-6 '>
+                    <div className='flex items-center space-x-6'>
+                      <Plane className='w-6 h-6' />
+                      <span className='h-6 border-l border-gray-400'></span>
+                      <Wifi className='w-6 h-6' />
+                      <span className='h-6 border-l border-gray-400'></span>
+                      <Timer className='w-6 h-6' />
+                      <span className='h-6 border-l border-gray-400'></span>
+                      <UtensilsCrossed className='w-6 h-6' />
+                      <span className='h-6 border-l border-gray-400'></span>
+                      <RockingChair className='w-6 h-6' />
+                    </div>
                   </div>
                 </div>
-                <div className='flex items-center p-6'>
-                  <div className='flex items-center space-x-6'>
-                    <Plane className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <Wifi className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <Timer className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <UtensilsCrossed className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <RockingChair className='w-6 h-6' />
+                <div className='flex items-center justify-center space-x-20'>
+                  <div className='flex items-center space-x-4'>
+                    <p className='text-2xl font-semibold'>{getbyId?.start_time}</p>
+                    <p className='text-base font-medium'>Newark(EWR)</p>
+                  </div>
+
+                  <div className='flex items-center space-x-4'>
+                    <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                    <IconFlight />
+                    <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                  </div>
+
+                  <div className='flex items-center space-x-4'>
+                    <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
+                    <p className='text-base font-medium'>Newark(EWR)</p>
+                  </div>
+                </div>
+
+                <div className='flex flex-row items-center justify-center pt-5'>
+                  <div className='flex items-center space-x-4'>
+                    <Plane className='w-6 h-6 text-primary' />
+                    <p className='text-2xl font-semibold'>{getbyId?.take_place}</p>
+                  </div>
+                  <div className='flex items-center px-4 space-x-6'>
+                    <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                    <IconFlight />
+                    <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                  </div>
+
+                  <div className='flex items-center space-x-4'>
+                    <MapPin className='w-6 h-6 text-primary' />
+                    <p className='text-2xl font-semibold'>{getbyId?.destination}</p>
                   </div>
                 </div>
               </div>
-              <div className='flex items-center justify-center space-x-20'>
-                <div className='flex items-center space-x-4'>
-                  <p className='text-2xl font-semibold'>{getbyId?.start_time}</p>
-                  <p className='text-base font-medium'>Newark(EWR)</p>
-                </div>
-
-                <div className='flex items-center space-x-4'>
-                  <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                  <IconFlight />
-                  <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                </div>
-
-                <div className='flex items-center space-x-4'>
-                  <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
-                  <p className='text-base font-medium'>Newark(EWR)</p>
-                </div>
-              </div>
-
-              <div className='flex flex-row items-center justify-center pt-5'>
-                <div className='flex items-center space-x-4'>
-                  <Plane className='w-6 h-6 text-primary' />
-                  <p className='text-2xl font-semibold'>{getbyId?.take_place}</p>
-                </div>
-                <div className='flex items-center px-4 space-x-6'>
-                  <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                  <IconFlight />
-                  <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                </div>
-
-                <div className='flex items-center space-x-4'>
-                  <MapPin className='w-6 h-6 text-primary' />
-                  <p className='text-2xl font-semibold'>{getbyId?.destination}</p>
-                </div>
-              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
+
       <Footer />
     </>
   )

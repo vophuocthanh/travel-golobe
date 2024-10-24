@@ -121,7 +121,7 @@ export default function TourDetailReview({ data, tourId, total }: TourDetailRevi
           <hr className='my-8 border-2 border-gray ' />
         </div>
         <div className='items-center '>
-          <h1 className='mb-2 text-2xl font-semibold'>Review</h1>
+          <h1 className='mb-2 text-2xl font-semibold dark:text-white'>Review</h1>
           {isAuthenticated ? (
             <form onSubmit={handleSubmit} className='flex items-center space-x-4 '>
               <div className='w-full p-2 border border-gray-300 rounded-md'>
@@ -133,10 +133,10 @@ export default function TourDetailReview({ data, tourId, total }: TourDetailRevi
                 />
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center space-x-5'>
-                    <label htmlFor=''>Satisfaction Level.</label>
+                    <label htmlFor='' className=' dark:text-white'>Satisfaction Level.</label>
                     <BasicRating setRating={setRating} />
                   </div>
-                  <Button className='px-4 py-1 text-white rounded-md w-[10rem]' loading={loading}>
+                  <Button className='px-4 py-1 text-white rounded-md w-[10rem] dark:bg-primary' loading={loading}>
                     Đánh giá
                   </Button>
                 </div>
@@ -145,10 +145,10 @@ export default function TourDetailReview({ data, tourId, total }: TourDetailRevi
           ) : null}
         </div>
         <div className='relative flex text-black w-[14rem] pt-5'>
-          <p className='absolute left-0 text-5xl font-semibold'>{averageRating}</p>
-          <div className='absolute right-0'>
+          <p className='absolute left-0 text-5xl font-semibold dark:text-white'>{averageRating}</p>
+          <div className='absolute right-0 dark:text-white'>
             <p>{ratingStatus}</p>
-            <p>{total} verified reviews</p>
+            <p className=' dark:text-white'>{total} verified reviews</p>
           </div>
         </div>
         <div className='w-full py-2'>
@@ -208,7 +208,7 @@ export default function TourDetailReview({ data, tourId, total }: TourDetailRevi
             >
               &lt;
             </Button>
-            <p>
+            <p className=' dark:text-white'>
               Page {currentPage} of {totalPages}
             </p>
             <Button

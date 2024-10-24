@@ -14,7 +14,8 @@ export default function StarRating({ rating }: Props) {
         value={rating}
         precision={0.5}
         readOnly
-        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />}
+        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize='inherit' className='dark:text-white'/>}
+        className=''
       />
       {rating !== null && (
         <Box sx={{ ml: 1 }}>

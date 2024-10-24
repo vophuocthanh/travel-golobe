@@ -83,12 +83,12 @@ const ProductTour: React.FC<TourlCardProps> = ({
   return (
     <div className='w-[70%]'>
       <div>
-        <div className='flex justify-end my-6'>
-          <Dropdown menu={{ items }}>
+        <div className='flex justify-end my-6 '>
+          <Dropdown menu={{ items }} className=''>
             <a onClick={(e) => e.preventDefault()}>
-              <Space>
+              <Space className='dark:text-white '>
                 Sắp xếp theo giá
-                <DownOutlined />
+                <DownOutlined className='' />
               </Space>
             </a>
           </Dropdown>
@@ -97,7 +97,10 @@ const ProductTour: React.FC<TourlCardProps> = ({
           {(getAll?.data?.length ?? 0) > 0 ? (
             getAll?.data?.map((item: TourResponseType) => (
               <Link to={`/tour/${item.id}`} className='w-full'>
-                <div className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl' key={item.id}>
+                <div
+                  className='tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl dark:border dark:border-white dark:bg-gray-900'
+                  key={item.id}
+                >
                   <div className='relative bg-blue-300 w-[27%] flex-3'>
                     <img src={item.image} className='object-cover w-full h-full ' alt='tour' />
                     <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
@@ -107,12 +110,12 @@ const ProductTour: React.FC<TourlCardProps> = ({
                   <div className='p-3  w-[73%] '>
                     <div className='flex justify-between '>
                       <div className='mr-2  w-[85%]'>
-                        <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2'>
+                        <h2 className='mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2 dark:text-white'>
                           {item.description}
                         </h2>
                         <div className='flex mb-3'>
                           <IconAdress />
-                          <p className='ml-2 overflow-hidden whitespace-pre-line text-ellipsis line-clamp-2'>
+                          <p className='ml-2 overflow-hidden whitespace-pre-line text-ellipsis line-clamp-2 dark:text-white'>
                             {item.name}
                           </p>
                         </div>
@@ -122,8 +125,8 @@ const ProductTour: React.FC<TourlCardProps> = ({
                           </div>
                           <div className='flex'>
                             <IconDrink />
-                            <p className='ml-3'>
-                              <span className='font-semibold'>20+</span> Aminities
+                            <p className='ml-3 dark:text-white'>
+                              <span className='font-semibold dark:text-white'>20+</span> Aminities
                             </p>
                           </div>
                         </div>
@@ -132,8 +135,8 @@ const ProductTour: React.FC<TourlCardProps> = ({
                           <Button className='mr-3 text-black bg-white border border-primary hover:bg-slate-100'>
                             4.2
                           </Button>
-                          <p className='flex items-center '>
-                            <span className='text-lg font-medium'>Very Good</span> 371 reviews
+                          <p className='flex items-center dark:text-white'>
+                            <span className='text-lg font-medium dark:text-white'>Very Good</span> 371 reviews
                           </p>
                         </div>
                       </div>
@@ -145,7 +148,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
                     <div className='w-full h-[25%] flex mb-10'>
                       <div className='flex flex-row items-center justify-between w-full '>
                         <Favorite id={item.id} />
-                        <Button className='w-full text-white '>View Deals</Button>
+                        <Button className='w-full text-white dark:bg-primary'>View Deals</Button>
                       </div>
                     </div>
                   </div>
@@ -162,7 +165,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
           <PaginationContent>
             <PaginationItem>
               <Button
-                className='px-4 py-2 text-white rounded min-w-[100px] text-center'
+                className='px-4 py-2 text-white rounded min-w-[100px] text-center dark:bg-gray-400'
                 disabled={page === 1}
                 onClick={() => handlePage(page - 1)}
               >
@@ -171,7 +174,9 @@ const ProductTour: React.FC<TourlCardProps> = ({
             </PaginationItem>
             <PaginationItem>
               <Button
-                className={`px-4 py-2 text-white bg-gray-300 ${page == 1 ? 'bg-primary' : ''}`}
+                className={`px-4 py-2 text-white bg-gray-300 dark:bg-gray-400 ${
+                  page === 1 ? 'bg-primary dark:bg-primary' : ''
+                }`} // Thêm dark:bg-gray-700
                 onClick={() => handlePage(1)}
               >
                 1
@@ -185,7 +190,9 @@ const ProductTour: React.FC<TourlCardProps> = ({
             {page > 1 && page < totalPages && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page > 1 ? 'bg-primary' : ''}`}
+                  className={`px-4 py-2 text-white bg-gray-300 dark:bg-gray-400 ${
+                    page > 1 ? 'bg-primary dark:bg-primary' : ''
+                  }`} // Thêm dark:bg-gray-700
                   onClick={() => handlePage(page)}
                 >
                   {page}
@@ -200,7 +207,9 @@ const ProductTour: React.FC<TourlCardProps> = ({
             {totalPages > 1 && (
               <PaginationItem>
                 <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page == totalPages ? 'bg-primary' : ''}`}
+                  className={`px-4 py-2 text-white bg-gray-300 dark:bg-gray-400 ${
+                    page === totalPages ? 'bg-primary dark:bg-primary' : ''
+                  }`} // Thêm dark:bg-gray-700
                   onClick={() => handlePage(totalPages)}
                 >
                   {totalPages}
@@ -209,7 +218,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
             )}
             <PaginationItem>
               <Button
-                className='px-4 text-white py-2 min-w-[100px]'
+                className='px-4 text-white py-2 min-w-[100px] dark:bg-gray-400'
                 onClick={() => handlePage(page + 1)}
                 disabled={page === totalPages}
               >

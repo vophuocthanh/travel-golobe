@@ -4,19 +4,19 @@ import { BannerTour, Footer, Header, IntoTour, LocationTour, SearchTour } from '
 
 export default function Tour() {
   return (
-    <div className='w-full'>
+    <div className='w-full dark:bg-gray-700'>
       <Header />
       <div className='relative w-full '>
         <img src={banner_tour} alt='' className='object-cover w-full h-screen ' />
-        <div className='absolute inset-0 flex items-center justify-center w-[650px] flex-col bg-gradient-to-r from-blue-500/50 to-transparent'>
+        <div className='absolute inset-0 flex items-center justify-center w-[650px] flex-col bg-gradient-to-r from-blue-500/50 to-transparent '>
           <div className='ml-32'>
             <h1 className='text-5xl text-white w-[28rem]'>Make your travel whishlist , we'll do the rest</h1>
             <p className='text-white '>Special offers to suit your plan</p>
           </div>
         </div>
-        <div className='absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl shadow-2xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px]'>
+        <div className=' absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl shadow-2xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px] dark:bg-gray-900'>
           <div className='relative w-full '>
-            <p className='p-4 text-3xl'>Where are you flying ?</p>
+            <p className='p-4 text-3xl dark:text-white'>Where are you flying ?</p>
             <BannerTour
               returnDate={new Date()}
               departDate={new Date()}

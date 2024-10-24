@@ -30,13 +30,13 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
   return (
     <div className='flex flex-col items-center justify-between pb-10 md:flex-row'>
       <div className='flex-1'>
-        <Typography variant='h4' gutterBottom>
+        <Typography variant='h4' gutterBottom className='dark:text-white'>
           Select Flight Ticket Type
         </Typography>
-        <div className='flex flex-col items-center justify-between gap-6 px-4 md:flex-row'>
+        <div className='flex flex-col items-center justify-between gap-6 px-4 md:flex-row '>
           {tickets.length > 0 ? (
             tickets.map((ticket: Ticket) => (
-              <Card key={ticket.id} sx={{ maxWidth: 345, marginBottom: 4 }}>
+              <Card key={ticket.id} sx={{ maxWidth: 345, marginBottom: 4 }} className='dark:bg-gray-400'>
                 <CardHeader
                   action={
                     <IconButton aria-label='settings'>
@@ -45,6 +45,7 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
                   }
                   title={ticket.type_ticket}
                   subheader={`Ngày tạo: ${new Date(ticket.createdAt).toLocaleDateString()}`}
+                  className='dark:text-white'
                 />
                 <CardMedia component='img' height='194' image={ticketEconomy} alt={`Ticket ${ticket.type_ticket}`} />
                 <CardContent>
@@ -57,7 +58,7 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
 
                 <div className='flex justify-end w-full p-4 mt-auto'>
                   <Button
-                    className='w-full'
+                    className='w-full dark:bg-primary dark:hover:bg-gray-600 dark:text-white'
                     onClick={() => handleSelectTicket(ticket.id)}
                     disabled={selectedTicketId !== null && selectedTicketId !== ticket.id}
                   >

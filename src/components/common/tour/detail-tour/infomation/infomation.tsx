@@ -35,7 +35,7 @@ export default function Information({ dataInfo }: IInformation) {
       id: 5,
       icon: <IconVehicle />,
       title: 'Phương tiện',
-      text: dataInfo?.road_vehicle?.type 
+      text: dataInfo?.road_vehicle?.type
     },
     {
       id: 6,
@@ -45,12 +45,12 @@ export default function Information({ dataInfo }: IInformation) {
     }
   ]
   return (
-    <div className='mt-16 '>
-      <h2 className='mb-8 text-3xl font-semibold text-center'>THÔNG TIN THÊM VỀ CHUYẾN ĐI </h2>
-      <div className='grid grid-cols-3 grid-rows-2 gap-4'>
+    <div className='mt-16 dark:border dark:border-white dark:rounded-lg dark:p-4'>
+      <h2 className='mb-8 text-3xl font-semibold text-center dark:text-white'>THÔNG TIN THÊM VỀ CHUYẾN ĐI </h2>
+      <div className='grid grid-cols-3 grid-rows-2 gap-4 dark:text-white'>
         {data.map((item) => (
           <div key={item.id}>
-            <div className='iconTour'>{item.icon}</div>
+            <div className='iconTour dark:text-white'>{item.icon}</div>
             <h3 className='py-3 text-xl font-medium'>{item.title}</h3>
             <p className='text-xs'>{item.text}</p>
           </div>

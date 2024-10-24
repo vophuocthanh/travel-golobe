@@ -25,37 +25,37 @@ export default function Vehicle({ data }: IVehicle) {
   
   
   return (
-    <div className='mt-16 '>
-      <h2 className='mb-8 text-3xl font-semibold text-center'>LỊCH KHỞI HÀNH </h2>
+    <div className='mt-16 dark:border dark:border-white dark:rounded-xl'>
+      <h2 className='mb-8 text-3xl font-semibold text-center dark:text-white'>LỊCH KHỞI HÀNH </h2>
       <div className='px-5 py-10 rounded-md shadow-2xl'>
         <div className=''>
-          <h2 className='text-2xl font-medium text-center text-sky-500'>PHƯƠNG TIỆN DI CHUYỂN</h2>
+          <h2 className='text-2xl font-medium text-center text-sky-500 '>PHƯƠNG TIỆN DI CHUYỂN</h2>
           <div className='flex justify-between gap-20 py-4'>
             <div className='w-full'>
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
-                    <h4 className='text-lg font-medium'>Ngày đi -</h4>
-                    <p className='flex items-center text-center'> {startDate}</p>
+                    <h4 className='text-lg font-medium dark:text-white'>Ngày đi -</h4>
+                    <p className='flex items-center text-center dark:text-white'> {startDate}</p>
                   </div>
-                  <div className='flex'>
+                  <div className='flex dark:text-white'>
                     <IconFlight />
-                    <h3 className='text-lg font-medium text-sky-500'>{data?.time_trip}</h3>
+                    <h3 className='text-lg font-medium text-sky-500 '>{data?.time_trip}</h3>
                   </div>
                 </div>
                 <div className='flex justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>{data?.road_vehicle.details.start_time}</p>
-                  <p className='text-lg font-medium'>{data?.road_vehicle.details.end_time}</p>
+                  <p className='text-lg font-medium dark:text-white'>{data?.road_vehicle.details.start_time}</p>
+                  <p className='text-lg font-medium dark:text-white'>{data?.road_vehicle.details.end_time}</p>
                 </div>
                 <div className='flex flex-row items-center justify-center'>
                   <div className=' row--transport'></div>
                 </div>
                 <div className='relative flex flex-row justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>{destination}</p>
+                  <p className='text-lg font-medium dark:text-white'>{destination}</p>
                   <div>
-                    <p>{data?.road_vehicle.details.brand}</p>
+                    <p className=' dark:text-white'>{data?.road_vehicle.details.brand}</p>
                   </div>
-                  <p className='text-lg font-medium'>{takePlace}</p>
+                  <p className='text-lg font-medium dark:text-white' >{takePlace}</p>
                 </div>
               </div>
             </div>
@@ -63,27 +63,27 @@ export default function Vehicle({ data }: IVehicle) {
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className='flex '>
-                    <h4 className='text-lg font-medium'>Ngày về -</h4>
-                    <p className='flex items-center text-center'> {endDate}</p>
+                    <h4 className='text-lg font-medium dark:text-white'>Ngày về -</h4>
+                    <p className='flex items-center text-center dark:text-white'> {endDate}</p>
                   </div>
-                  <div className='flex'>
+                  <div className='flex dark:text-white'>
                     <IconFlight />
                     <h3 className='text-lg font-medium text-sky-500'>{data?.time_trip}</h3>
                   </div>
                 </div>
                 <div className='flex justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>{data?.road_vehicle.details.start_time}</p>
-                  <p className='text-lg font-medium'>{data?.road_vehicle.details.end_time}</p>
+                  <p className='text-lg font-medium dark:text-white'>{data?.road_vehicle.details.start_time}</p>
+                  <p className='text-lg font-medium dark:text-white'>{data?.road_vehicle.details.end_time}</p>
                 </div>
                 <div className='flex flex-row items-center justify-center'>
                   <div className=' row--transport'></div>
                 </div>
                 <div className='relative flex flex-row justify-between w-full py-2'>
-                  <p className='text-lg font-medium'>{takePlace}</p>
+                  <p className='text-lg font-medium dark:text-white'>{takePlace}</p>
                   <div>
-                    <p>{data?.road_vehicle.details.brand}</p>
+                    <p className=' dark:text-white'>{data?.road_vehicle.details.brand}</p>
                   </div>
-                  <p className='text-lg font-medium'>{destination}</p>
+                  <p className='text-lg font-medium dark:text-white'>{destination}</p>
                 </div>
               </div>
             </div>
@@ -96,8 +96,8 @@ export default function Vehicle({ data }: IVehicle) {
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Người lớn</h4>
-                    <p className='flex items-center text-center'> (Từ 12 tuổi trở lên)</p>
+                    <h4 className='text-lg font-medium dark:text-white'>Người lớn</h4>
+                    <p className='flex items-center text-center dark:text-white'> (Từ 12 tuổi trở lên)</p>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.adult_price)}</h3>
@@ -105,8 +105,8 @@ export default function Vehicle({ data }: IVehicle) {
                 </div>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Trẻ em</h4>
-                    <p className='flex items-center text-center'> (Từ 2 tuổi đến 12 tuổi)</p>
+                    <h4 className='text-lg font-medium dark:text-white'>Trẻ em</h4>
+                    <p className='flex items-center text-center dark:text-white'> (Từ 2 tuổi đến 12 tuổi)</p>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.child_price)}</h3>
@@ -118,8 +118,8 @@ export default function Vehicle({ data }: IVehicle) {
               <div className='flex-col items-center justify-center gap-[1rem] w-full'>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Em bé</h4>
-                    <p className='flex items-center text-center'> (Dưới 2 tuổi)</p>
+                    <h4 className='text-lg font-medium dark:text-white'>Em bé</h4>
+                    <p className='flex items-center text-center dark:text-white'> (Dưới 2 tuổi)</p>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.baby_price)}</h3>
@@ -127,7 +127,7 @@ export default function Vehicle({ data }: IVehicle) {
                 </div>
                 <div className='flex justify-between py-2'>
                   <div className=''>
-                    <h4 className='text-lg font-medium'>Phụ thu phòng đơn</h4>
+                    <h4 className='text-lg font-medium dark:text-white'>Phụ thu phòng đơn</h4>
                   </div>
                   <div className='flex'>
                     <h3 className='text-lg font-medium text-red-600'>{formatCurrencyVND(data?.baby_price)}</h3>

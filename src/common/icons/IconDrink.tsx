@@ -6,11 +6,11 @@ const IconDrink = () => {
       height='24'
       viewBox='0 0 24 24'
       fill='none'
-      stroke='currentColor'
+      stroke='currentColor' // Sử dụng currentColor để cho phép màu sắc được quản lý bởi CSS
       strokeWidth='2'
       strokeLinecap='round'
       strokeLinejoin='round'
-      className='lucide lucide-coffee'
+      className='text-black lucide lucide-coffee dark:text-white' // Thêm class text-black cho light mode và text-white cho dark mode
     >
       <path d='M10 2v2' />
       <path d='M14 2v2' />

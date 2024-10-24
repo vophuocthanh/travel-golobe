@@ -42,40 +42,40 @@ export default function FlightPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
+        <main className='pt-20 px-[5rem] dark:bg-gray-700'>
           <section>
-            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>Flight Payment</h1>
+            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold dark:text-white'>Flight Payment</h1>
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>
                   <p className='text-red-400'>Turkey</p>
-                  <ChevronRight className='w-4 h-4' />
+                  <ChevronRight className='w-4 h-4 dark:text-white' />
                   <p className='text-red-400'>Istanbul</p>
-                  <ChevronRight className='w-4 h-4' />
-                  <p>{getBookingFlightDetails?.brand}</p>
+                  <ChevronRight className='w-4 h-4 dark:text-white' />
+                  <p className='dark:text-white'>{getBookingFlightDetails?.flightCrawls.brand}</p>
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+            <div className='grid grid-cols-3 gap-6 '>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-900 dark:text-white dark:border-white dark:border'>
                 {getBookingFlightDetails && <FlightInfo data={getBookingFlightDetails} />}
               </div>
-              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-900 dark:border'>
                 {getBookingFlightDetails && (
                   <FlightBook data={getBookingFlightDetails} loading={loading} onClick={handleAddMomoBooking} />
                 )}
               </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-900 dark:border dark:border-white'>
                 <FlightOptions />
               </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md dark:bg-gray-900 dark:border dark:border-white'>
                 <FlightForm />
               </div>
             </div>
           </section>
         </main>
       </SectionInViewRight>
-      <div className='mt-[15rem]'>
+      <div className='pt-[15rem] dark:bg-gray-700'>
         <Footer />
       </div>
     </div>

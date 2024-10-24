@@ -111,34 +111,34 @@ export default function TourDetailView() {
   return (
     <>
       {
-        <div>
+        <div className='dark:bg-gray-700'>
           <Header />
           <div className='container px-4 mx-auto pt-28 pb-36'>
             {/* Header Section */}
             <section className='mb-12'>
               <div className='flex items-center mb-4 space-x-2 text-sm text-gray-600'>
                 <p className='text-red-400'>Today</p>
-                <ChevronRight className='w-4 h-4 text-gray-500' />
+                <ChevronRight className='w-4 h-4 text-gray-500 dark:text-white' />
                 <p className='text-red-400'>Istanbul</p>
-                <ChevronRight className='w-4 h-4 text-gray-500' />
-                <p className='overflow-hidden whitespace-pre-line text-ellipsis line-clamp-1 w-[30%]'>
+                <ChevronRight className='w-4 h-4 text-gray-500 dark:text-white' />
+                <p className='overflow-hidden whitespace-pre-line text-ellipsis line-clamp-1 w-[30%] dark:text-white'>
                   {getbyId?.description}
                 </p>
               </div>
-              <div className='flex flex-col p-6 bg-white rounded-lg shadow-md md:flex-row'>
+              <div className='flex flex-col p-6 bg-white rounded-lg shadow-md md:flex-row dark:bg-gray-900 dark:border dark:border-white'>
                 <div className='flex-1 mb-6 md:mb-0'>
-                  <p className='overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line text-ellipsis line-clamp-2'>
+                  <p className='overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line text-ellipsis line-clamp-2 dark:text-white'>
                     {getbyId?.description}
                   </p>
-                  <div className='flex items-center mt-2 space-x-2 text-sm text-gray-500'>
-                    <MapPin className='w-4 h-4' />
+                  <div className='flex items-center mt-2 space-x-2 text-sm text-gray-500 dark:text-white'>
+                    <MapPin className='w-4 h-4 dark:text-white' />
                     <p>{getbyId?.name}</p>
                   </div>
                   <div className='flex items-center mt-4 space-x-2'>
                     <p className='flex items-center justify-center w-12 h-8 text-sm font-semibold border rounded-lg border-primary text-primary'>
                       4.2
                     </p>
-                    <p className='text-sm text-gray-600'>
+                    <p className='text-sm text-gray-600 dark:text-white'>
                       <span className='font-semibold'>{ratingStatus}</span> {getCommentTour?.total} reviews
                     </p>
                   </div>
@@ -149,7 +149,7 @@ export default function TourDetailView() {
                       <Button
                         onClick={handleDecreaseQuantity}
                         disabled={getbyId?.number_of_seats_remaining === 0}
-                        className='w-10 px-2 py-1 text-lg text-black border rounded'
+                        className='w-10 px-2 py-1 text-lg text-black border rounded dark:bg-primary dark:hover:bg-gray-800 dark:hover:text-white'
                       >
                         -
                       </Button>
@@ -160,7 +160,7 @@ export default function TourDetailView() {
                           getbyId?.number_of_seats_remaining === tourQuantity ||
                           getbyId?.number_of_seats_remaining === 0
                         }
-                        className='w-10 px-2 py-1 text-lg text-black border rounded'
+                        className='w-10 px-2 py-1 text-lg text-black border rounded dark:bg-primary dark:hover:bg-gray-800 dark:hover:text-white'
                       >
                         +
                       </Button>
@@ -217,20 +217,20 @@ export default function TourDetailView() {
                       />
                     </div>
                   )}
-                  <Vehicle data={getbyId}  />
+                  <Vehicle data={getbyId} />
 
                   {/* Thông tin */}
                   <Information dataInfo={getbyId} />
 
-                  <Schedule data={getbyId}  />
+                  <Schedule data={getbyId} />
                 </section>
 
                 <hr className='mb-12 border-t border-gray-300' />
 
                 <section>
                   <div className='mb-8'>
-                    <p className='mb-4 text-2xl font-bold'>Overview</p>
-                    <p className='text-base font-medium text-gray-700'>{getbyId?.description}</p>
+                    <p className='mb-4 text-2xl font-bold dark:text-white'>Overview</p>
+                    <p className='text-base font-medium text-gray-700 dark:text-white'>{getbyId?.description}</p>
                   </div>
 
                   <hr className='mb-12 border-t border-gray-300' />
@@ -242,31 +242,31 @@ export default function TourDetailView() {
                       <p className='text-sm'>371 reviews</p>
                     </div>
                     <div className='flex flex-col items-center p-6 text-center border rounded-lg shadow-md border-primary'>
-                      <p className='text-4xl font-bold'>4.2</p>
-                      <p className='text-base font-semibold'>Very Good</p>
-                      <p className='text-sm'>371 reviews</p>
+                      <p className='text-4xl font-bold dark:text-white'>4.2</p>
+                      <p className='text-base font-semibold dark:text-white'>Very Good</p>
+                      <p className='text-sm dark:text-white'>371 reviews</p>
                     </div>
                   </div>
 
                   <hr className='mb-12 border-t border-gray-300' />
 
                   <div>
-                    <p className='mb-4 text-2xl font-bold'>Available</p>
+                    <p className='mb-4 text-2xl font-bold dark:text-white'>Available</p>
                   </div>
 
                   <hr className='mb-12 border-t border-gray-300' />
 
                   <div>
-                    <p className='text-xl font-bold'>Amenities/Map</p>
+                    <p className='text-xl font-bold dark:text-white'>Amenities/Map</p>
                     <div className='grid grid-cols-2 p-4 gap-y-2 gap-x-4'>
                       <div className='flex items-center space-x-80'>
                         <div className='flex space-x-2'>
-                          <MapPin className='w-5 h-5' />
-                          <span>name</span>
+                          <MapPin className='w-5 h-5 dark:text-white' />
+                          <span className=' dark:text-white'>name</span>
                         </div>
                         <div className='flex space-x-2 '>
-                          <MapPin className='w-5 h-5' />
-                          <span>name</span>
+                          <MapPin className='w-5 h-5 dark:text-white' />
+                          <span className=' dark:text-white'>name</span>
                         </div>
                       </div>
                       <button className='text-blue-500'>+24 more</button>
@@ -277,8 +277,8 @@ export default function TourDetailView() {
 
                   <div>
                     <div className='flex items-center justify-between mb-4'>
-                      <p className='text-2xl font-bold'>Location/Map</p>
-                      <Button className='text-white bg-primary'>View on Google Maps</Button>
+                      <p className='text-2xl font-bold dark:text-white'>Location/Map</p>
+                      <Button className='text-white bg-primary dark:bg-primary'>View on Google Maps</Button>
                     </div>
 
                     <div>
@@ -297,7 +297,7 @@ export default function TourDetailView() {
                   <hr className='mb-12 border-t border-gray-300' />
 
                   <div>
-                    <p className='mb-4 text-2xl font-bold'>Reviews</p>
+                    <p className='mb-4 text-2xl font-bold dark:text-white'>Reviews</p>
                     <div className='flex flex-col space-y-4'>
                       <TourDetailReview
                         data={getCommentTour?.data ?? []}

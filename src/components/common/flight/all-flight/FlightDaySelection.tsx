@@ -23,7 +23,7 @@ const FlightDaySelection: React.FC<Props> = ({ day, setDay }) => {
 
   return (
     <div className='mb-[2rem]'>
-      <Typography variant='h4' gutterBottom>
+      <Typography variant='h4' gutterBottom className='dark:text-white '>
         Select Flight Date
       </Typography>
       <Popover>
@@ -31,7 +31,7 @@ const FlightDaySelection: React.FC<Props> = ({ day, setDay }) => {
           <Button
             variant={'outline'}
             className={cn(
-              'w-[240px] justify-start text-left font-normal shadow-md transition duration-300 ease-in-out hover:shadow-lg hover:bg-gray-100',
+              'w-[240px] justify-start text-left font-normal shadow-md transition duration-300 ease-in-out hover:shadow-lg hover:bg-gray-100 dark:bg-gray-400',
               !day && 'text-muted-foreground'
             )}
           >
@@ -39,7 +39,7 @@ const FlightDaySelection: React.FC<Props> = ({ day, setDay }) => {
             {day ? day : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className='w-auto p-4 mt-2 bg-white rounded-lg shadow-lg'>
+        <PopoverContent className='w-auto p-4 mt-2 bg-white rounded-lg shadow-lg '>
           <Calendar
             mode='single'
             selected={day ? new Date(day.split('-').reverse().join('-')) : undefined}
