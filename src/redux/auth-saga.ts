@@ -1,6 +1,6 @@
 import { authApi } from '@/apis/auth.api'
-import { LoginResponse } from '@/apis/axios-client'
 import { authActions } from '@/redux/auth-slice'
+import { LoginResponse } from '@/shared/ts/interface'
 import { history } from '@/shared/utils/history'
 import { setAccessTokenToLS, setRefreshTokenToLS } from '@/shared/utils/storage'
 import { PayloadAction } from '@reduxjs/toolkit'

@@ -4,19 +4,18 @@ import { Button } from '@/components/ui/button'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useTranslation } from 'react-i18next';
 
 export default function IntoTour() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { data: getAll } = useQuery({
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1, 5)
   })
-  console.log(getAll?.data, 'datatour')
   return (
     <SectionInViewUp>
       <div className='px-32 py-3 mb-20 rounded-2xl'>
@@ -24,9 +23,7 @@ export default function IntoTour() {
           <div className='flex items-center justify-between mb-5'>
             <div>
               <h2 className='mb-3 text-2xl font-medium'>{t('travel')}</h2>
-              <p className='w-[70%]'>
-              {t('textTravel')}
-              </p>
+              <p className='w-[70%]'>{t('textTravel')}</p>
             </div>
             <Link to='/tour/all-tour'>
               <Button className='text-black bg-white border border-primary'>{t('see')}</Button>
