@@ -171,7 +171,7 @@ export function BillingFLight() {
           statusClass = 'bg-yellow-100 text-yellow-800'
         } else if (status === 'CANCELED') {
           statusClass = 'bg-red-100 text-red-800'
-        }else if (status === 'CONFIRMED') {
+        } else if (status === 'CONFIRMED') {
           statusClass = 'bg-blue-100 text-blue-800'
         }
 
@@ -277,7 +277,6 @@ export function BillingFLight() {
           className='max-w-sm ml-4'
         />
         <div className='flex items-center gap-4 ml-auto'>
-          <span>Total : {total}</span>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button variant='outline' className='ml-auto'>
@@ -340,6 +339,7 @@ export function BillingFLight() {
         <div className='flex-1 text-sm text-muted-foreground'>
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
+        <span className='pr-[2px]'>Total : {total}</span>
         <div className='pr-4 space-x-2'>
           <Button
             onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
