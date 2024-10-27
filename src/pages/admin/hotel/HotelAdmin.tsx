@@ -268,7 +268,6 @@ export default function HotelAdmin() {
                     </option>
                   ))}
                 </select>
-                <span>entries</span>
               </div>
               <div className='relative'>
                 <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
