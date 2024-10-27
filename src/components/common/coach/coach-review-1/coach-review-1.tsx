@@ -12,7 +12,7 @@ export default function CoachReview1() {
   const { t } = useTranslation();
   const { data: getAll } = useQuery({
     queryKey: ['getAllCoach'],
-    queryFn: () => coachApi.getAll(1, 4, '', 500000, 20000000, '', '')
+    queryFn: () => coachApi.getAll(1, 4, )
   })
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
