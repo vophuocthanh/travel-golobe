@@ -13,13 +13,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import TimePicker from 'antd/es/time-picker'
 import { format } from 'date-fns'
+import { Dayjs } from 'dayjs'
 import { CalendarIcon, ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
-import { Dayjs } from 'dayjs'
 export default function CreateFlightAdmin() {
   const [startTime, setStartTime] = useState<Dayjs | null>(null) // Update type to Dayjs
   const [endTime, setEndTime] = useState<Dayjs | null>(null) // Update type to Dayjs
@@ -118,26 +118,12 @@ export default function CreateFlightAdmin() {
           />
           <FormField
             control={form.control}
-            name='destination'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Destination</FormLabel>
-                <FormControl>
-                  <Input placeholder='Nhập destination' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name='image'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Ảnh tour</FormLabel>
+                <FormLabel>Ảnh flight</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập image' {...field} />
+                  <Input placeholder='Nhập image flight' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -156,27 +142,42 @@ export default function CreateFlightAdmin() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name='take_place'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>take_place</FormLabel>
-                <FormControl>
-                  <Input placeholder='Nhập take_placeid của hotel' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className='flex items-center w-full gap-2'>
+            <FormField
+              control={form.control}
+              name='take_place'
+              render={({ field }) => (
+                <FormItem className='w-full'>
+                  <FormLabel>Điểm bắt đầu</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Nhập đểm bắt đầu của flight' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='destination'
+              render={({ field }) => (
+                <FormItem className='w-full'>
+                  <FormLabel>Điểm đến</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Nhập destination' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <FormField
             control={form.control}
             name='trip_to'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>trip_to</FormLabel>
+                <FormLabel>Nơi đến</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập trip_to' {...field} />
+                  <Input placeholder='Nhập nơi đến' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -187,9 +188,9 @@ export default function CreateFlightAdmin() {
             name='trip_time'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>trip_time</FormLabel>
+                <FormLabel>Tổng thời gian bay</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập trip_time' {...field} />
+                  <Input placeholder='Nhập tổng thời gian bay' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -208,7 +209,7 @@ export default function CreateFlightAdmin() {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-[280px] justify-start text-left font-normal',
+                            'w-54 justify-start text-left font-normal',
                             !startDay && 'text-muted-foreground'
                           )}
                         >
@@ -236,10 +237,7 @@ export default function CreateFlightAdmin() {
                       <PopoverTrigger asChild>
                         <Button
                           variant={'outline'}
-                          className={cn(
-                            'w-[280px] justify-start text-left font-normal',
-                            !endDay && 'text-muted-foreground'
-                          )}
+                          className={cn('w-54 justify-start text-left font-normal', !endDay && 'text-muted-foreground')}
                         >
                           <CalendarIcon className='w-4 h-4 mr-2' />
                           {endDay ? format(endDay, 'dd-MM-yyyy') : <span>Pick a endDay</span>}
@@ -254,8 +252,6 @@ export default function CreateFlightAdmin() {
                 </FormItem>
               )}
             />
-          </div>
-          <div className='flex items-center gap-2'>
             <FormField
               control={form.control}
               name='start_time'
@@ -268,7 +264,7 @@ export default function CreateFlightAdmin() {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-[280px] justify-start text-left font-normal',
+                            'w-54 justify-start text-left font-normal',
                             !startTime && 'text-muted-foreground'
                           )}
                         >
@@ -297,7 +293,7 @@ export default function CreateFlightAdmin() {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-[280px] justify-start text-left font-normal',
+                            'w-54 justify-start text-left font-normal',
                             !endTime && 'text-muted-foreground'
                           )}
                         >
