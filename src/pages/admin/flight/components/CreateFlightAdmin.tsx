@@ -12,8 +12,7 @@ import { CreateFlightSchema } from '@/shared/utils/flight.shema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import TimePicker from 'antd/es/time-picker'
-import { format } from 'date-fns'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { CalendarIcon, ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -36,8 +35,8 @@ export default function CreateFlightAdmin() {
     }
   }
 
-  const [startDay, setStartDay] = useState<Date>()
-  const [endDay, setEndDay] = useState<Date>()
+  const [startDay, setStartDay] = useState<dayjs.Dayjs | null>(null)
+  const [endDay, setEndDay] = useState<dayjs.Dayjs | null>(null)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
@@ -51,7 +50,6 @@ export default function CreateFlightAdmin() {
       start_day: '',
       end_day: '',
       end_time: '',
-      trip_time: '',
       take_place: '',
       destination: '',
       trip_to: '',
@@ -66,20 +64,18 @@ export default function CreateFlightAdmin() {
 
   function onSubmit(data: z.infer<typeof CreateFlightSchema>) {
     setLoading(true)
-    console.log('123')
-    console.log(data, 'data')
 
     const formattedData = {
       ...data,
       price: Number(data.price),
-      start_day: startDay ? format(startDay, 'dd-mm-yyyy') : '',
-      end_day: endDay ? format(endDay, 'dd-mm-yyyy') : '',
+      start_day: startDay ? startDay.startOf('day').format('DD-MM-YYYY') : '',
+      end_day: endDay ? endDay.startOf('day').format('DD-MM-YYYY') : '',
       start_time: startTime ? startTime.format('HH:mm') : '',
       end_time: endTime ? endTime.format('HH:mm') : ''
     }
     mutationCreateTour.mutate(formattedData, {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['getAllFlight'] })
+        queryClient.invalidateQueries({ queryKey: ['getAllPageFlightAdmin'] })
         toast.success('Create tour success')
         navigate('/admin/flights')
       },
@@ -150,7 +146,7 @@ export default function CreateFlightAdmin() {
                 <FormItem className='w-full'>
                   <FormLabel>Điểm bắt đầu</FormLabel>
                   <FormControl>
-                    <Input placeholder='Nhập đểm bắt đầu của flight' {...field} />
+                    <Input placeholder='Nhập đểm bắt đầu' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,7 +159,7 @@ export default function CreateFlightAdmin() {
                 <FormItem className='w-full'>
                   <FormLabel>Điểm đến</FormLabel>
                   <FormControl>
-                    <Input placeholder='Nhập destination' {...field} />
+                    <Input placeholder='Nhập điểm đến' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -178,19 +174,6 @@ export default function CreateFlightAdmin() {
                 <FormLabel>Nơi đến</FormLabel>
                 <FormControl>
                   <Input placeholder='Nhập nơi đến' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='trip_time'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tổng thời gian bay</FormLabel>
-                <FormControl>
-                  <Input placeholder='Nhập tổng thời gian bay' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -214,11 +197,17 @@ export default function CreateFlightAdmin() {
                           )}
                         >
                           <CalendarIcon className='w-4 h-4 mr-2' />
-                          {startDay ? format(startDay, 'dd-MM-yyyy') : <span>Pick a startDay</span>}
+                          {startDay ? dayjs(startDay).format('DD/MM/YYYY') : <span>Pick a startDay</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={startDay} onSelect={setStartDay} initialFocus {...field} />
+                        <Calendar
+                          mode='single'
+                          selected={startDay?.toDate()}
+                          onSelect={(date) => setStartDay(dayjs(date))}
+                          initialFocus
+                          {...field}
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>
@@ -240,11 +229,17 @@ export default function CreateFlightAdmin() {
                           className={cn('w-54 justify-start text-left font-normal', !endDay && 'text-muted-foreground')}
                         >
                           <CalendarIcon className='w-4 h-4 mr-2' />
-                          {endDay ? format(endDay, 'dd-MM-yyyy') : <span>Pick a endDay</span>}
+                          {endDay ? dayjs(endDay).format('DD/MM/YYYY') : <span>Pick a endDay</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={endDay} onSelect={setEndDay} initialFocus {...field} />
+                        <Calendar
+                          mode='single'
+                          selected={endDay?.toDate()}
+                          onSelect={(date) => setEndDay(dayjs(date))}
+                          initialFocus
+                          {...field}
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>

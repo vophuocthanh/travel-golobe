@@ -3,16 +3,16 @@ import SectionInViewRight from '@/components/common/animation/SectionInViewRight
 import { Button } from '@/components/ui/button'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useTranslation } from 'react-i18next';
 export default function CoachReview1() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { data: getAll } = useQuery({
     queryKey: ['getAllCoach'],
-    queryFn: () => coachApi.getAll(1, 4, )
+    queryFn: () => coachApi.getAll(1, 4)
   })
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
@@ -27,9 +27,7 @@ export default function CoachReview1() {
         <div className='relative mx-36'>
           <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'>{t('travelCoach')} </h1>
           <div className='flex flex-wrap justify-between '>
-            <p className='w-[970px] text-xl mb-8 font-light'>
-            {t('textTravelCoach')}
-            </p>
+            <p className='w-[970px] text-xl mb-8 font-light'>{t('textTravelCoach')}</p>
             <Link to='/vehicle/coach/all-coach' className=''>
               <Button className='absolute right-0 text-black bg-white border border-primary top-8'>{t('see')}</Button>
             </Link>
@@ -52,7 +50,7 @@ export default function CoachReview1() {
                   key={coach.id}
                   className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[14rem] rounded-lg'
                   style={{
-                    backgroundImage: `url(https://thacohcm.com/wp-content/uploads/2023/05/tong-quan-1-1-scaled.jpg)`
+                    backgroundImage: `url(${coach.image})`
                   }}
                 >
                   <Link to={`/vehicle/coach/${coach.id}`} key={coach.id}>

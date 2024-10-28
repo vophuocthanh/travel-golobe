@@ -283,7 +283,9 @@ export default function CreateTourAdmin() {
                       <Calendar
                         mode='single'
                         selected={startDate?.toDate()}
-                        onSelect={(date) => setStartDate(dayjs(date).startOf('day'))}
+                        onSelect={(date) => {
+                          setStartDate(dayjs(date).startOf('day'))
+                        }}
                       />
                     </PopoverContent>
                   </Popover>

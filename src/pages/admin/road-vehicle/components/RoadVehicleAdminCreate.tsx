@@ -11,8 +11,7 @@ import { CreateCoachSchema } from '@/shared/utils/coach.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { TimePicker } from 'antd'
-import { format } from 'date-fns'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { CalendarIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,6 +24,9 @@ export default function RoadVehicleAdminCreate() {
   const queryClient = useQueryClient()
   const [startTime, setStartTime] = useState<Dayjs | null>(null)
   const [endTime, setEndTime] = useState<Dayjs | null>(null)
+  const [startDay, setStartDay] = useState<dayjs.Dayjs | null>(null)
+  const [endDay, setEndDay] = useState<dayjs.Dayjs | null>(null)
+
   const handleTimeChange = (value: Dayjs | null) => {
     if (value) {
       setStartTime(value)
@@ -36,8 +38,6 @@ export default function RoadVehicleAdminCreate() {
       setEndTime(value)
     }
   }
-  const [startDay, setStartDay] = useState<Date>()
-  const [endDay, setEndDay] = useState<Date>()
 
   const form = useForm<z.infer<typeof CreateCoachSchema>>({
     resolver: zodResolver(CreateCoachSchema),
@@ -49,11 +49,9 @@ export default function RoadVehicleAdminCreate() {
       start_day: '',
       end_day: '',
       end_time: '',
-      trip_time: '',
       take_place: '',
       destination: '',
-      location: ''
-      // image: '',
+      image: ''
       // number_of_seats_remaining:'',
     }
   })
@@ -68,8 +66,8 @@ export default function RoadVehicleAdminCreate() {
     const formattedData = {
       ...data,
       price: Number(data.price),
-      start_day: startDay ? format(startDay, 'dd-mm-yyyy') : '',
-      end_day: endDay ? format(endDay, 'dd-mm-yyyy') : '',
+      start_day: startDay ? startDay.startOf('day').format('DD-MM-YYYY') : '',
+      end_day: endDay ? endDay.startOf('day').format('DD-MM-YYYY') : '',
       start_time: startTime ? startTime.format('HH:mm') : '',
       end_time: endTime ? endTime.format('HH:mm') : ''
     }
@@ -105,6 +103,23 @@ export default function RoadVehicleAdminCreate() {
                 <FormControl>
                   <Input
                     placeholder='Nhập tên nhà xe'
+                    {...field}
+                    className='border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300'
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='image'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='font-medium'>Ảnh nhà xe</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Nhập ảnh nhà xe'
                     {...field}
                     className='border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300'
                   />
@@ -167,16 +182,16 @@ export default function RoadVehicleAdminCreate() {
                           )}
                         >
                           <CalendarIcon className='w-4 h-4 mr-2' />
-                          {startDay ? format(startDay, 'dd-MM-yyyy') : <span>Pick a startDay</span>}
+                          {startDay ? dayjs(startDay).format('DD/MM/YYYY') : <span>Pick a startDay</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-auto p-0'>
                         <Calendar
                           mode='single'
-                          selected={startDay}
+                          selected={startDay?.toDate()}
                           onSelect={(date) => {
-                            setStartDay(date)
-                            field.onChange(date ? format(date, 'dd-MM-yyyy') : '')
+                            setStartDay(dayjs(date).startOf('day'))
+                            field.onChange(dayjs(date).startOf('day').format('DD/MM/YYYY'))
                           }}
                           initialFocus
                         />
@@ -204,16 +219,16 @@ export default function RoadVehicleAdminCreate() {
                           )}
                         >
                           <CalendarIcon className='w-4 h-4 mr-2' />
-                          {endDay ? format(endDay, 'dd-MM-yyyy') : <span>Pick a endDay</span>}
+                          {endDay ? dayjs(endDay).format('DD/MM/YYYY') : <span>Pick a endDay</span>}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-auto p-0'>
                         <Calendar
                           mode='single'
-                          selected={endDay}
+                          selected={endDay?.toDate()}
                           onSelect={(date) => {
-                            setEndDay(date)
-                            field.onChange(date ? format(date, 'dd-MM-yyyy') : '')
+                            setEndDay(dayjs(date).startOf('day'))
+                            field.onChange(dayjs(date).startOf('day').format('DD/MM/YYYY'))
                           }}
                           initialFocus
                         />
@@ -224,8 +239,6 @@ export default function RoadVehicleAdminCreate() {
                 </FormItem>
               )}
             />
-          </div>
-          <div className='flex items-center gap-2'>
             <FormField
               control={form.control}
               name='start_time'
@@ -299,24 +312,6 @@ export default function RoadVehicleAdminCreate() {
           </div>
           <FormField
             control={form.control}
-            name='trip_time'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='font-medium'>Thời gian chuyến đi</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='Nhập thời gian chuyến đi'
-                    {...field}
-                    className='border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300'
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name='take_place'
             render={({ field }) => (
               <FormItem>
@@ -349,56 +344,6 @@ export default function RoadVehicleAdminCreate() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name='location'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='font-medium'>Vị trí</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder='Nhập vị trí'
-                    {...field}
-                    className='border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300'
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {/* <FormField
-                        control={form.control}
-                        name='image'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className='font-medium'>Ảnh coach</FormLabel>
-                                <FormControl>
-                                    <Input placeholder='Nhập đường dẫn ảnh' {...field} className='border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300' />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    /> */}
-          {/* <FormField
-                        control={form.control}
-                        name='number_of_seats_remaining' 
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className='font-medium'>Số ghế còn lại</FormLabel>
-                                <FormControl>
-                                    <Input 
-                                        type='number' 
-                                        placeholder='Nhập số ghế còn lại' 
-                                        {...field} 
-                                        className='border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300' 
-                                        min={0} 
-                                        onWheel={(e) => e.currentTarget.blur()} 
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    /> */}
           <Button type='submit' className='flex px-4 py-2 ml-auto text-white'>
             Thêm
           </Button>

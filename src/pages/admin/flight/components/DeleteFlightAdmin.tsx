@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
 import { flightApi } from '@/apis/flight.api' // Đảm bảo đường dẫn đúng
+import IconDelete from '@/common/icons/IconDelete'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import IconDelete from '@/common/icons/IconDelete'
 
 interface DeleteFlightProps {
   flightId?: string
@@ -22,7 +22,7 @@ const DeleteFlight: React.FC<DeleteFlightProps> = ({ flightId }) => {
       toast.error('Xóa chuyến bay thất bại')
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['getAllFlight'] })
+      queryClient.invalidateQueries({ queryKey: ['getAllPageFlightAdmin'] })
     }
   })
 

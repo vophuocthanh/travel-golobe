@@ -83,7 +83,7 @@ export const unauthorizedListResponse = <T>(data: T[], message: string): DataLis
 })
 
 export interface TourResponse {
-  id?:string
+  id?: string
   name?: string
   image?: string
   description?: string
@@ -102,7 +102,7 @@ export interface TourResponse {
   end_date?: string
   start_date?: string
   time_trip?: string
-  baby_price?:number
+  baby_price?: number
   child_price?: number
   adult_price?: number
   number_of_seats_remaining?: number
@@ -119,43 +119,42 @@ export interface TourRequest {
   end_date: string
 }
 export interface CoachRequest {
-  brand: string;        
-  price: number;
-  number_of_seat: string      
-}  
+  brand: string
+  price: number
+  number_of_seat: string
+}
 export interface FlightRequest {
-  brand: string;        
-  price: number;        
-  start_time: string;    
-  start_day: string;     
-  end_day: string;       
-  end_time: string;    
-  trip_time: string;    
-  take_place: string;   
-  destination: string;  
+  brand: string
+  price: number
+  start_time: string
+  start_day: string
+  end_day: string
+  end_time: string
+  take_place: string
+  destination: string
   // location: string
-  image?: string;
-  // number_of_seats_remaining: number;  
+  image?: string
+  // number_of_seats_remaining: number;
 }
 export interface CoachRespone {
-  brand: string;                    
-  price: number;        
-  number_of_seat: string                     
-  trip_to: string;       
-  image: string;         
+  brand: string
+  price: number
+  number_of_seat: string
+  trip_to: string
+  image: string
 }
 export interface FlightRespone {
-  brand: string;                    
-  price: number;                     
-  start_time: string;                 
-  start_day: string;                 
-  end_day: string;                  
-  end_time: string;                 
-  trip_time: string;                  
-  take_place: string;                 
-  destination: string;                
+  brand: string
+  price: number
+  start_time: string
+  start_day: string
+  end_day: string
+  end_time: string
+  trip_time: string
+  take_place: string
+  destination: string
   // location: string
-  image?: string;                     
-  trip_to: string;                  
-  // number_of_seats_remaining: number;  
+  image?: string
+  trip_to: string
+  // number_of_seats_remaining: number;
 }

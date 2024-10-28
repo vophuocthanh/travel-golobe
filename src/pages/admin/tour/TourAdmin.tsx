@@ -29,8 +29,10 @@ import { Link } from 'react-router-dom'
 
 import { tourApi } from '@/apis/tour.api'
 import { IconSearch } from '@/common/icons'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { TourResponse } from '@/shared/utils/data-response'
+import { exportToExcel } from '@/shared/utils/excel-utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
@@ -159,7 +161,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className='truncate max-w-[400px]'>{row.getValue('description')}</div>
+      cell: ({ row }) => <div className='truncate text-center max-w-[400px]'>{row.getValue('description')}</div>
     },
     {
       accessorKey: 'createAt',
@@ -171,7 +173,9 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{dayjs(row.getValue('createdAt')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+      cell: ({ row }) => (
+        <div className='text-center'>{dayjs(row.getValue('createdAt')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+      )
     },
     {
       accessorKey: 'start_date',
@@ -183,7 +187,9 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{dayjs(row.getValue('start_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+      cell: ({ row }) => (
+        <div className='text-center'>{dayjs(row.getValue('start_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+      )
     },
     {
       accessorKey: 'end_date',
@@ -195,7 +201,9 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{dayjs(row.getValue('end_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+      cell: ({ row }) => (
+        <div className='text-center'>{dayjs(row.getValue('end_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+      )
     },
     {
       accessorKey: 'road_vehicle',
@@ -207,7 +215,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('road_vehicle')}</div>
+      cell: ({ row }) => <div className='text-center'>{row.getValue('road_vehicle')}</div>
     },
     {
       accessorKey: 'time_trip',
@@ -219,7 +227,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('time_trip')}</div>
+      cell: ({ row }) => <div className='text-center'>{row.getValue('time_trip')}</div>
     },
     {
       accessorKey: 'baby_price',
@@ -231,7 +239,7 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div>{row.getValue('baby_price')}</div>
+      cell: ({ row }) => <div className='text-center'>{row.getValue('baby_price')}</div>
     },
     {
       accessorKey: 'child_price',
@@ -252,7 +260,7 @@ function TourAdmin() {
             currency: 'VND'
           }).format(child_price)
 
-          return <div className='font-medium text-right'>{formatted}</div>
+          return <div className='font-medium text-center'>{formatted}</div>
         }
       }
     },
@@ -274,7 +282,7 @@ function TourAdmin() {
           currency: 'VND'
         }).format(adult_price)
 
-        return <div className='font-medium text-right'>{formatted}</div>
+        return <div className='font-medium text-center'>{formatted}</div>
       }
     },
     {
@@ -291,16 +299,9 @@ function TourAdmin() {
     },
     {
       accessorKey: 'price',
-      header: () => <div className='text-right'>Giá</div>,
+      header: () => <div className='text-center'>Giá</div>,
       cell: ({ row }) => {
-        const price = parseFloat(row.getValue('price'))
-
-        const formatted = new Intl.NumberFormat('vi-VN', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(price)
-
-        return <div className='font-medium text-right'>{formatted}</div>
+        return <div className='font-medium text-center'>{formatCurrencyVND(row.getValue('price'))}</div>
       }
     },
     {
@@ -353,132 +354,171 @@ function TourAdmin() {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
+  const handleDownloadExcelTour = () => {
+    const data = tourData.map((tour) => ({
+      Mã: tour.id,
+      'Tên Tour': tour.name,
+      'Mô Tả': tour.description,
+      'Ngày bắt đầu': dayjs(tour.start_date).format('DD/MM/YYYY, HH:mm:ss'),
+      'Ngày kết thúc': dayjs(tour.end_date).format('DD/MM/YYYY, HH:mm:ss'),
+      'Phương Tiện': tour.road_vehicle,
+      'Thời gian tour': tour.time_trip,
+      'Giá em bé': tour.baby_price,
+      'Giá trẻ em': tour.child_price,
+      'Giá người lớn': tour.adult_price,
+      'Số chỗ còn lại': tour.number_of_seats_remaining,
+      Giá: tour.price
+    }))
+    exportToExcel(data, 'TourData')
+  }
+
   return (
     <div className='w-full px-4'>
-      <p className='text-2xl font-bold'>Tour - Admin</p>
-      <div className='flex items-center justify-between py-4'>
-        <div className='flex items-center'>
-          <div className='flex items-center mr-4 space-x-2'>
-            <span>Show</span>
-            <select
-              className='p-2 border border-gray-300 rounded-lg'
-              value={entriesPerPage}
-              onChange={(e) => {
-                setEntriesPerPage(Number(e.target.value))
-                table.setPageIndex(0)
-              }}
-            >
-              {[5, 10, 25, 50, 100].map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className='relative'>
-            <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
-              <IconSearch />
-            </div>
-            <Input
-              placeholder='Filter tour name...'
-              value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
-              className='max-w-sm pl-10 rounded-xl'
+      <div className='flex items-center justify-between mb-6'>
+        <p className='text-2xl font-bold'>Tour - Admin</p>
+        <Button onClick={handleDownloadExcelTour} className='flex items-center gap-2'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
             />
+          </svg>
+          <p>Export to Excel</p>
+        </Button>
+      </div>
+      <div className='p-4 bg-white rounded-md'>
+        <div className='flex items-center justify-between py-4'>
+          <div className='flex items-center'>
+            <div className='flex items-center mr-4 space-x-2'>
+              <span>Show</span>
+              <select
+                className='p-2 border border-gray-300 rounded-lg'
+                value={entriesPerPage}
+                onChange={(e) => {
+                  setEntriesPerPage(Number(e.target.value))
+                  table.setPageIndex(0)
+                }}
+              >
+                {[5, 10, 25, 50, 100].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className='relative'>
+              <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
+                <IconSearch />
+              </div>
+              <Input
+                placeholder='Filter tour name...'
+                value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+                className='max-w-sm pl-10 rounded-xl'
+              />
+            </div>
+          </div>
+          <div className='flex items-center gap-4'>
+            <Link to='/admin/tours/create'>
+              <Button className='text-white'>+ Add Tour</Button>
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='outline' className='ml-auto'>
+                  Columns <ChevronDown className='w-4 h-4 ml-2' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end'>
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className='capitalize'
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-        <div className='flex items-center gap-4'>
-          <Link to='/admin/tours/create'>
-            <Button className='text-white'>+ Add Tour</Button>
-          </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className='capitalize'
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
 
-      <div className='px-4 border rounded-md'>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className='text-black'>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell, cellIndex) => (
-                    <TableCell
-                      key={cell.id}
-                      className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
-                        cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
-                      }`}
-                      style={{
-                        minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
-                        maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
-                      }}
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+        <div className='px-4 border rounded-md'>
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id} className='text-black'>
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                    {row.getVisibleCells().map((cell, cellIndex) => (
+                      <TableCell
+                        key={cell.id}
+                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
+                          cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
+                        }`}
+                        style={{
+                          minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto',
+                          maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto'
+                        }}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className='h-24 text-center'>
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </div>
-        <div className='space-x-2'>
-          <Button
-            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
-            disabled={pageIndex === 0}
-            className='text-white'
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
-            disabled={pageIndex + 1 >= table.getPageCount()}
-            className='text-white'
-          >
-            Next
-          </Button>
+        <div className='flex items-center justify-end py-4 space-x-2'>
+          <div className='flex-1 text-sm text-muted-foreground'>
+            {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+            selected.
+          </div>
+          <div className='space-x-2'>
+            <Button
+              onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+              disabled={pageIndex === 0}
+              className='text-white'
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+              disabled={pageIndex + 1 >= table.getPageCount()}
+              className='text-white'
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </div>
     </div>
