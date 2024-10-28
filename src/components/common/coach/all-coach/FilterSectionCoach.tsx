@@ -55,7 +55,20 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
     { id: '5', name: 'Dinh Nhan' },
     { id: '6', name: 'Hanh Cafe' },
     { id: '7', name: 'Huy Hoang-Vung Tau' },
-
+    { id: '8', name: 'Lien Hung' },
+    { id: '9', name: 'Tra Lan Vien' },
+    { id: '10', name: 'Khanh Phong' },
+    { id: '11', name: 'Phuc An Express' },
+    { id: '12', name: 'Phuong Nam' },
+    { id: '13', name: 'Vie Limousine' },
+    { id: '14', name: 'Trong Thang' },
+    { id: '13', name: 'Hoang Son-Phu Yen' },
+    { id: '13', name: 'Phi Long' },
+    { id: '13', name: 'Xe Nha' },
+    { id: '13', name: 'Quang Hanh' },
+    { id: '14', name: 'Hoang Trung' },
+    { id: '15', name: 'Thanh Vinh - Vung Tau' },
+    { id: '16', name: 'Hoàng Hải' },
   ]
   
   return (
