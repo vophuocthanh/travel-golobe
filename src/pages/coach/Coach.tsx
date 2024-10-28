@@ -19,8 +19,8 @@ import { useNavigate } from 'react-router-dom'
 export default function Coach() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [takePlace, setTakePlace] = useState<string | undefined>(undefined)
-  const [destination, setDestination] = useState<string | undefined>(undefined)
+  const [searchTo, setSearchTo] = useState<string | undefined>(undefined)
+  const [searchFrom, setSearchFrom] = useState<string | undefined>(undefined)
   const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
 
@@ -34,14 +34,14 @@ export default function Coach() {
   })
   
   const handleSearch = () => {
-    if ((!formattedDepartDate || !formattedReturnDate) && (!takePlace || !destination)) {
+    if ((!formattedDepartDate || !formattedReturnDate) && (!searchTo || !searchFrom)) {
       toast.error('Vui lòng nhập đầy đủ điểm đi, điểm đến, ngày khởi hành và ngày trở về.')
       return
     }
     refetch()
     const queryString = new URLSearchParams({
-      takePlace: takePlace || '',
-      destination: destination || '',
+      searchTo: searchTo || '',
+      searchFrom: searchFrom || '',
       departDate: formattedDepartDate || '',
       returnDate: formattedReturnDate || '',
   }).toString();
@@ -78,8 +78,7 @@ export default function Coach() {
                 <Input
                   type='text'
                   className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
-                  value={takePlace}
-                  onChange={(e) => setTakePlace(e.target.value)}
+                  onChange={(e) => setSearchFrom(e.target.value)}
                   placeholder='Nhập nơi đi...'
                 />
                 </div>
@@ -90,8 +89,7 @@ export default function Coach() {
                   <Input
                     type='text'
                     className='block text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
+                    onChange={(e) => setSearchTo(e.target.value)}
                     placeholder='Nhập nơi đến...' 
                   />
                 </div>

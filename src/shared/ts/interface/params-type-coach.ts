@@ -5,8 +5,8 @@ export interface ParamsType {
   brand?: string;
   min_price?: number;
   max_price?: number;
-  take_place?: string;
-  destination?: string;
   start_day?: string;
   end_day?: string;
+  search_to?: string
+  search_from?: string
 }

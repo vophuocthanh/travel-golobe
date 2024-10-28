@@ -9,18 +9,19 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import FavoriteCoach from './FavoriteCoach'
+import { imgcoach } from '@/assets/images'
 
 interface CoachCardProps {
-  takePlace: string
-  destination: string
   minPrice?: number
   maxPrice?: number
   departDate?: string
   returnDate?: string
   brandCoach: string
+  searchTo?: string
+  searchFrom?: string
 }
 
-const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandCoach,takePlace, destination }) => {
+const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandCoach,searchTo, searchFrom }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
@@ -52,8 +53,8 @@ const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, d
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllCoach', page, sortByPrice, brandCoach, minPrice, maxPrice, departDate, returnDate, takePlace, destination],
-    queryFn: () => coachApi.getAll(page, 4, sortByPrice, brandCoach, minPrice, maxPrice, departDate, returnDate, takePlace, destination),
+    queryKey: ['getAllCoach', page, sortByPrice, brandCoach || '', minPrice, maxPrice, departDate, returnDate, searchTo, searchFrom],
+    queryFn: () => coachApi.getAll(page, 4, sortByPrice, brandCoach || '', minPrice, maxPrice, departDate, returnDate, searchTo, searchFrom),
   }) 
   console.log('getAll:', getAll);
 
@@ -97,7 +98,7 @@ const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, d
         getAll?.data.map((coach: CoachResponseType) => (
           <div key={coach.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
             <div className='w-[40%] bg-white relative'>
-              <img src={coach?.image} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
+              <img src={imgcoach} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
                 9 images
               </p>
@@ -171,7 +172,7 @@ const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, d
           </div>
         ))
       ) : (
-        <p className='text-center'>{t('availableCoach')}</p>
+        <p className='text-center'>{t('Không có vé nào cho chuyến xe này')}</p>
       )}
 
       <div className='flex justify-around mt-6'>

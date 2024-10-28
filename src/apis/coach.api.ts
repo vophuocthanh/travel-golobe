@@ -13,15 +13,13 @@ export const coachApi = {
     max_price?: number,
     start_day?: string,
     end_day?: string,
-    take_place?: string,
-    destination?: string,
+    search_from?: string,
+    search_to?: string,
   ): Promise<ListResponse<CoachResponseType>> {
     const url = '/road-vehicle/crawl'
     const params: ParamsType = {
       items_per_page: Number(items_per_page),
       page: Number(page),
-      take_place,
-      destination, 
     }
 
     if (sort_by_price) {
@@ -43,11 +41,16 @@ export const coachApi = {
       params.start_day = String(start_day)
       params.end_day = String(end_day)
     }
-    if (take_place && destination) {
-      params.take_place = String(take_place)
-      params.destination = String(destination)
+    if (search_from && search_to) {
+      params.search_from = search_from
+      params.search_to = search_to
     }
-
+    if (search_from && search_to && start_day && end_day) {
+      params.search_from = search_from
+      params.search_to = search_to
+      params.start_day = start_day
+      params.end_day = end_day
+    }
     return axiosClient.get(url, { params })
   },
 
