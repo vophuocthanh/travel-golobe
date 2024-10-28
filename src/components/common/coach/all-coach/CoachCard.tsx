@@ -12,8 +12,8 @@ import { coachApi } from '@/apis/coach.api'
 import FavoriteCoach from './FavoriteCoach'
 
 interface CoachCardProps {
-  takePlace?: string
-  destination?: string
+  takePlace: string
+  destination: string
   minPrice?: number
   maxPrice?: number
   departDate?: string
@@ -21,7 +21,7 @@ interface CoachCardProps {
   brandCoach: string
 }
 
-const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandCoach }) => {
+const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandCoach,takePlace, destination }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
@@ -53,11 +53,11 @@ const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, d
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllCoach', page, sortByPrice, brandCoach, minPrice, maxPrice, departDate, returnDate],
-    queryFn: () => coachApi.getAll(page, 4, sortByPrice, brandCoach, minPrice, maxPrice, departDate, returnDate)
-  })
-  console.log(getAll?.min_price,"getAllgetAll");
-  
+    queryKey: ['getAllCoach', page, sortByPrice, brandCoach, minPrice, maxPrice, departDate, returnDate, takePlace, destination],
+    queryFn: () => coachApi.getAll(page, 4, sortByPrice, brandCoach, minPrice, maxPrice, departDate, returnDate, takePlace, destination),
+  }) 
+  console.log('getAll:', getAll);
+
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePageChange = (newPage: number) => {

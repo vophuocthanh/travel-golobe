@@ -9,19 +9,25 @@ import { toast } from 'react-toastify'
 import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import FilterSectionCoach from './FilterSectionCoach';
 import CoachCard from './CoachCard'
+import { useLocation } from 'react-router-dom'
 
 export default function ContentAllCoach() {
+  const location = useLocation();
+
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
   const [brandCoach, setBrandCoach] = useState('')
-
-
-  const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
-  const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
+  const query = new URLSearchParams(location.search);
+  const takePlaceFromQuery = query.get('takePlace');
+  const destinationFromQuery = query.get('destination');
+  const departDateFromQuery = query.get('departDate');
+  const returnDateFromQuery = query.get('returnDate');
   const [filteredDepartDate, setFilteredDepartDate] = useState<string | undefined>(undefined)
   const [filteredReturnDate, setFilteredReturnDate] = useState<string | undefined>(undefined)
-  const [takePlace, setTakePlace] = useState<string | undefined>(undefined)
-  const [destination, setDestination] = useState<string | undefined>(undefined)
+  const [takePlace, setTakePlace] = useState(takePlaceFromQuery || '');
+  const [destination, setDestination] = useState(destinationFromQuery || '');
+  const [departDate, setDepartDate] = useState(departDateFromQuery ? new Date(departDateFromQuery) : undefined);
+  const [returnDate, setReturnDate] = useState(returnDateFromQuery ? new Date(returnDateFromQuery) : undefined);
   const formattedDepartDate: string | undefined = departDate ? format(departDate, 'dd-MM-yyyy') : undefined
   const formattedReturnDate: string | undefined = returnDate ? format(returnDate, 'dd-MM-yyyy') : undefined
   const handleApplyFilter = (min: number | undefined, max: number | undefined) => {
@@ -29,13 +35,15 @@ export default function ContentAllCoach() {
     setMaxPrice(max)
   }
   const { data: getAll, refetch } = useQuery({
-    queryKey: ['getAllCoach', 1, '',],
-    queryFn: () => coachApi.getAll(1, 4, '',),
+    queryKey: ['getAllCoach', 1, ''],
+    queryFn: () => coachApi.getAll(1, 4, ''),
     enabled: false
   })
   
 
   const handleSearch = () => {
+    setTakePlace(takePlace)
+    setDestination(destination)
     setFilteredDepartDate(formattedDepartDate)
     setFilteredReturnDate(formattedReturnDate)
     if ((!formattedDepartDate || !formattedReturnDate) && (!takePlace || !destination)) {
@@ -46,7 +54,7 @@ export default function ContentAllCoach() {
   }
   useEffect(() => {
     if (getAll && getAll.data && getAll.data.length === 0) {
-      toast.error('Không có chuyến xe vào ngày này.')
+      toast.error('Không có chuyến xe vào ngày và điểm đến này.')
     }
   }, [getAll])
 

@@ -5,18 +5,54 @@ import { DatePickerWithPresets } from '@/components/common/calendar/calendar-dat
 import CoachReview1 from '@/components/common/coach/coach-review-1/coach-review-1'
 import CoachReview2 from '@/components/common/coach/coach-review-2/coach-review-2'
 import PlacesTogether from '@/components/common/coach/places-together/places-together'
-
+import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify'
+import { coachApi } from '@/apis/coach.api'
+import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function Coach() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [takePlace, setTakePlace] = useState<string | undefined>(undefined)
   const [destination, setDestination] = useState<string | undefined>(undefined)
   const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
+
+  const formattedDepartDate: string | undefined = departDate ? format(departDate, 'dd-MM-yyyy') : undefined
+  const formattedReturnDate: string | undefined = returnDate ? format(returnDate, 'dd-MM-yyyy') : undefined
+  
+  const { data: getAll, refetch } = useQuery({
+    queryKey: ['getAllCoach', 1, '',],
+    queryFn: () => coachApi.getAll(1, 4, '',),
+    enabled: false
+  })
+  
+  const handleSearch = () => {
+    if ((!formattedDepartDate || !formattedReturnDate) && (!takePlace || !destination)) {
+      toast.error('Vui lòng nhập đầy đủ điểm đi, điểm đến, ngày khởi hành và ngày trở về.')
+      return
+    }
+    refetch()
+    const queryString = new URLSearchParams({
+      takePlace: takePlace || '',
+      destination: destination || '',
+      departDate: formattedDepartDate || '',
+      returnDate: formattedReturnDate || '',
+  }).toString();
+    navigate(`/vehicle/coach/all-coach?${queryString}`);
+  }
+  useEffect(() => {
+    if (getAll && getAll.data && getAll.data.length === 0) {
+      toast.error('Không có chuyến xe vào ngày và điểm đến này.')
+    }
+  }, [getAll])
+  
   return (
     <div className='w-full'>
       <Header />
@@ -81,8 +117,8 @@ export default function Coach() {
                   <Button className='px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white '>
                     + {t('Promo')}
                   </Button>
-                  <Button className='flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
-                    <IconVectorFlight /> {t('places')}
+                  <Button className='flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black' onClick={handleSearch}>
+                    <IconVectorFlight  /> {t('places')}
                   </Button>
                 </div>
               </div>
