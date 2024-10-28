@@ -1,7 +1,5 @@
-import { coachApi } from '@/apis/coach.api'
 import { IconEdit, IconMore, IconSearch, IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -9,12 +7,8 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { formatCurrencyVND } from '@/shared/lib/format-price'
-import { CoachResponseType } from '@/shared/ts/interface/data.interface'
-import { exportToExcel } from '@/shared/utils/excel-utils'
-import { CaretSortIcon } from '@radix-ui/react-icons'
-import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -29,10 +23,16 @@ import {
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
-import { Link } from 'react-router-dom'
-import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele'
+import { CaretSortIcon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { coachApi } from '@/apis/coach.api';
+import { CoachResponseType } from '@/shared/ts/interface/data.interface';
+import { coachdetail1 } from '@/assets/images';
+import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele';
 
 export default function RoadVehicleAdmin() {
+
   const { data: getAllCoach } = useQuery({
     queryKey: ['getAllCoach'],
     queryFn: () => coachApi.getAll(1, 1, '')
@@ -52,6 +52,7 @@ export default function RoadVehicleAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
 
+
   const columns: ColumnDef<CoachResponseType>[] = [
     {
       accessorKey: 'id',
@@ -61,7 +62,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='lowercase truncate'>{row.getValue('id')}</div>
+      cell: ({ row }) => <div className='lowercase truncate'>{row.getValue('id')}</div>,
     },
     {
       accessorKey: 'brand',
@@ -71,7 +72,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('brand')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('brand')}</div>,
     },
     {
       accessorKey: 'image',
@@ -81,31 +82,30 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => (
-        <div className='text-center'>
-          <img src={row.getValue('image')} alt='vehicle' className='object-cover h-12 mx-auto w-15' />
+      cell: () =>
+        <div className="text-left">
+          <img src={coachdetail1} alt="vehicle" className="object-cover h-12 mx-auto w-15" />
         </div>
-      )
     },
     {
       accessorKey: 'number_of_seat',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Số chổ ngồi của xe
+          Số chổ ngồi
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('number_of_seat')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seat')}</div>,
     },
     {
-      accessorKey: 'trip_time',
+      accessorKey: 'start_time',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Tổng thời gian
+          Thời gian khởi hành
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('trip_time')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('start_time')}</div>,
     },
     {
       accessorKey: 'start_day',
@@ -118,9 +118,19 @@ export default function RoadVehicleAdmin() {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('start_day'))
-        return <div className='text-center'>{endDate.toLocaleDateString('vi-VN')}</div>
-      }
+        const endDate = new Date(row.getValue('start_day'));
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
+      },
+    },
+    {
+      accessorKey: 'end_time',
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Thời gian kết thúc
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('end_time')}</div>,
     },
     {
       accessorKey: 'end_day',
@@ -133,29 +143,9 @@ export default function RoadVehicleAdmin() {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('end_day'))
-        return <div className='text-center'>{endDate.toLocaleDateString('vi-VN')}</div>
-      }
-    },
-    {
-      accessorKey: 'start_time',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Thời gian khởi hành
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('start_time')}</div>
-    },
-    {
-      accessorKey: 'end_time',
-      header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Thời gian kết thúc
-          <CaretSortIcon className='w-4 h-4 ml-2' />
-        </Button>
-      ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('end_time')}</div>
+        const endDate = new Date(row.getValue('end_day'));
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
+      },
     },
     {
       accessorKey: 'trip_time',
@@ -165,7 +155,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('trip_time')}</div>
+      cell: ({ row }) => <div className="text-left">{row.getValue('trip_time')}</div>,
     },
     {
       accessorKey: 'take_place',
@@ -175,7 +165,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center line-clamp-2'>{row.getValue('take_place')}</div>
+      cell: ({ row }) => <div className="text-left line-clamp-2">{row.getValue('take_place')}</div>,
     },
     {
       accessorKey: 'destination',
@@ -185,47 +175,64 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center line-clamp-2'>{row.getValue('destination')}</div>
+      cell: ({ row }) => <div className="text-left line-clamp-2">{row.getValue('destination')}</div>,
+    },
+    {
+      accessorKey: 'location',
+      header: ({ column }) => (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Vị trí
+          <CaretSortIcon className='w-4 h-4 ml-2' />
+        </Button>
+      ),
+      cell: ({ row }) => <div className="text-center">{row.getValue('location')}</div>,
     },
     {
       accessorKey: 'price',
       header: () => <div className='text-center'>Giá</div>,
       cell: ({ row }) => {
-        return <div className='font-medium text-center'>{formatCurrencyVND(row.getValue('price'))}</div>
+        const amount = parseFloat(row.getValue('price'))
+
+        const formatted = new Intl.NumberFormat('vn-Vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+
+        return <div className='font-medium text-right'>{formatted}</div>
       }
     },
     {
       accessorKey: 'number_of_seats_remaining',
       header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Số ghế còn lại trên xe
+          Số ghế còn lại
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center'>{row.getValue('number_of_seats_remaining')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seats_remaining')}</div>,
     },
     {
       accessorKey: 'action',
       header: () => <div className='flex justify-center text-center'>Hành động</div>,
       cell: ({ row }) => (
-        <div className='flex justify-center space-x-6'>
-          <div className=''>
+        <div className="flex justify-center space-x-6">
+          <div className="">
             <Link to={`/admin/road-vehicle-view/${row.original.id}`}>
               <IconView />
             </Link>
           </div>
-          <div className=''>
+          <div className="">
             <Link to={`/admin/road-vehicle-edit/${row.original.id}`}>
               <IconEdit />
             </Link>
           </div>
-          <div className=''>
+          <div className="" >
             <RoadVehicleAdminDetele coachId={row.original.id} />
           </div>
         </div>
-      )
-    }
-  ]
+      ),
+    },
+  ];
 
   const table = useReactTable({
     data: coachData,
@@ -258,48 +265,9 @@ export default function RoadVehicleAdmin() {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
-  const handleDownloadExcelCoach = () => {
-    const data = coachData.map((item) => ({
-      'Mã nhà xe': item.id,
-      'Tên nhà xe': item.brand,
-      'Số chổ ngồi': item.number_of_seat,
-      'Thời gian khởi hành': item.start_time,
-      'Ngày khởi hành': item.start_day,
-      'Thời gian kết thúc': item.end_time,
-      'Ngày kết thúc': item.end_day,
-      'Thời gian chuyến xe': item.trip_time,
-      'Điểm đi': item.take_place,
-      'Điểm đến': item.destination,
-      'Vị trí': item.location,
-      Giá: item.price,
-      'Số ghế còn lại': item.number_of_seats_remaining
-    }))
-
-    exportToExcel(data, 'CoachData')
-  }
-
   return (
     <div className='w-full p-2'>
-      <div className='flex items-center justify-between mb-6'>
-        <h1 className='text-2xl font-bold '>Road Vehicle</h1>
-        <Button onClick={handleDownloadExcelCoach} className='flex items-center gap-2'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-6 h-6'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
-            />
-          </svg>
-          <p>Export to Excel</p>
-        </Button>
-      </div>
+      <h1 className='mb-4 text-2xl font-bold '>Road Vehicle</h1>
       <Card>
         <CardContent>
           <div className='flex items-center justify-between py-4'>
@@ -310,8 +278,8 @@ export default function RoadVehicleAdmin() {
                   className='p-2 border border-gray-300 rounded-lg'
                   value={entriesPerPage}
                   onChange={(e) => {
-                    setEntriesPerPage(Number(e.target.value))
-                    setPageIndex(0)
+                    setEntriesPerPage(Number(e.target.value));
+                    setPageIndex(0);
                   }}
                 >
                   {[10, 25, 50, 100].map((size) => (
@@ -334,7 +302,6 @@ export default function RoadVehicleAdmin() {
               </div>
             </div>
             <div className='flex items-center gap-4'>
-              <span>Total Coachs: {totalDataCount}</span>
               <Link to='/admin/coach/create'>
                 <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
                   <IconMore />
@@ -361,7 +328,7 @@ export default function RoadVehicleAdmin() {
                         >
                           {column.id}
                         </DropdownMenuCheckboxItem>
-                      )
+                      );
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -387,12 +354,11 @@ export default function RoadVehicleAdmin() {
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${cell.column.id === 'hotelId' ? 'sticky left-0 bg-white z-10' : ''} ${
-                            cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
-                          }`}
+                          className={`${cell.column.id === "hotelId" ? "sticky left-0 bg-white z-10" : ""
+                            } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
                           style={{
-                            minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
-                            maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
+                            minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                            maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
                           }}
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -414,16 +380,19 @@ export default function RoadVehicleAdmin() {
             <span className='text-sm text-gray-700'>
               Showing page {pageIndex + 1} of {table.getPageCount()}
             </span>
-            <div className='flex space-x-2 text-white'>
-              <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
-                Previous
-              </Button>
-              <Button
-                onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
-                disabled={pageIndex + 1 >= table.getPageCount()}
-              >
-                Next
-              </Button>
+            <div className='flex items-center'>
+              <span className='pr-2'>Total Coachs: {totalDataCount}</span>
+              <div className='flex space-x-2 text-white'>
+                <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
+                  Previous
+                </Button>
+                <Button
+                  onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+                  disabled={pageIndex + 1 >= table.getPageCount()}
+                >
+                  Next
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>

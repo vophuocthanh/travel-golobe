@@ -11,9 +11,6 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
-import {
-  Pagination, PaginationContent, PaginationEllipsis, PaginationItem
-} from '@/components/ui/pagination';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -170,7 +167,6 @@ export function BillingHotel() {
           className='max-w-sm'
         />
         <div className='flex items-center'>
-          <p className='px-5'>Total :{totalPage} </p>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>
@@ -234,72 +230,28 @@ export function BillingHotel() {
           </TableBody>
         </Table>
       </div>
-      <div className='flex justify-around mt-6'>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <Button
-                className='px-4 py-2 text-white rounded min-w-[100px] text-center'
-                disabled={page === 1}
-                onClick={() => handleClick(page - 1)}
-              >
-                Previous
-              </Button>
-            </PaginationItem>
-            <PaginationItem>
-              <Button
-                className={`px-4 py-2 text-white bg-gray-300 ${page === 1 ? 'bg-primary' : ''}`}
-                onClick={() => handleClick(1)}
-              >
-                1
-              </Button>
-            </PaginationItem>
 
-            {page > 2 && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-
-            {page > 1 && page < totalPages && (
-              <PaginationItem>
-                <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page === page ? 'bg-primary' : ''}`}
-                  onClick={() => handleClick(page)}
-                >
-                  {page}
-                </Button>
-              </PaginationItem>
-            )}
-
-            {page < totalPages - 1 && (
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-            )}
-
-            {totalPages > 1 && (
-              <PaginationItem>
-                <Button
-                  className={`px-4 py-2 text-white bg-gray-300 ${page === totalPages ? 'bg-primary' : ''}`}
-                  onClick={() => handleClick(totalPages)}
-                >
-                  {totalPages}
-                </Button>
-              </PaginationItem>
-            )}
-
-            <PaginationItem>
-              <Button
-                className='px-4 text-white py-2 min-w-[100px]'
-                onClick={() => handleClick(page + 1)}
-                disabled={page === totalPages}
-              >
-                Next
-              </Button>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+      <div className='flex items-center justify-end py-4 space-x-2'>
+        <div className="flex-1 text-sm text-muted-foreground">
+          Page {page} of {totalPages}
+        </div>
+        <p className='px-5'>Total :{totalPage} </p>
+        <div className='pr-4 space-x-2'>
+          <Button
+            className='px-4 py-2 text-white rounded min-w-[100px] text-center'
+            disabled={page === 1}
+            onClick={() => handleClick(page - 1)}
+          >
+            Previous
+          </Button>
+          <Button
+            className='px-4 text-white py-2 min-w-[100px]'
+            onClick={() => handleClick(page + 1)}
+            disabled={page === totalPages}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

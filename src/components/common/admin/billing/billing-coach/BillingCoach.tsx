@@ -31,7 +31,7 @@ import { BillingCoachResponseAdmin } from '@/shared/ts/interface/booking-coach.i
 export function BillingCoach() {
   const { data: getCoachBilling } = useQuery({
     queryKey: ['getAllBilling'],
-    queryFn: () => bookingCoachApi.getBookingCoach(1,1)
+    queryFn: () => bookingCoachApi.getBookingCoach(1, 1)
   })
 
   const totalDataCount = getCoachBilling?.total || 0
@@ -154,7 +154,7 @@ export function BillingCoach() {
           statusClass = 'bg-yellow-100 text-yellow-800'
         } else if (status === 'CANCELED') {
           statusClass = 'bg-red-100 text-red-800'
-        }else if (status === 'CONFIRMED') {
+        } else if (status === 'CONFIRMED') {
           statusClass = 'bg-blue-100 text-blue-800'
         }
 
@@ -229,11 +229,11 @@ export function BillingCoach() {
   function handleDelete(payment: BillingCoachResponseAdmin) {
     console.log('Deleting payment:', payment)
   }
-  
+
   return (
     <div className="w-full">
-    <div className="flex items-center w-full gap-4 py-4">
-      <span>Show</span>
+      <div className="flex items-center w-full gap-4 py-4">
+        <span>Show</span>
         <select
           className='p-2 border border-gray-300 rounded-lg'
           value={entriesPerPage}
@@ -241,102 +241,102 @@ export function BillingCoach() {
             setEntriesPerPage(Number(e.target.value))
             table.setPageIndex(0)
           }}
-            >
+        >
           {[10, 25, 50, 100].map((size) => (
-          <option key={size} value={size}>
-            {size}
-          </option>
+            <option key={size} value={size}>
+              {size}
+            </option>
           ))}
         </select>
-      <Input
-        placeholder="Filter id..."
-        value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn("id")?.setFilterValue(event.target.value)
-        }
-        className="max-w-sm"
-      />
-      <div className='flex items-center gap-4 ml-auto'>
-        <span>Total Billing Coach: {totalDataCount}</span>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-                <Button variant='outline' className='ml-auto'>
-                  Columns <ChevronDown className='w-4 h-4 ml-2' />
-                </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className='capitalize'
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Input
+          placeholder="Filter id..."
+          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("id")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <div className='flex items-center gap-4 ml-auto'>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button variant='outline' className='ml-auto'>
+                Columns <ChevronDown className='w-4 h-4 ml-2' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
-    </div>
-    <div className="border rounded-md">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
+      <div className="border rounded-md">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext()
-                    )}
-                  </TableCell>
-                ))}
+                    </TableHead>
+                  );
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={columns.length}
-                className="h-24 text-center"
-              >
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
-    <div className='flex items-center justify-end py-4 space-x-2'>
-      <div className="flex-1 text-sm text-muted-foreground">
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className='flex items-center justify-end py-4 space-x-2'>
+        <div className="flex-1 text-sm text-muted-foreground">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>
+        <span className='pr-[2px]'>Total Billing Coach: {totalDataCount}</span>
         <div className='pr-4 space-x-2'>
           <Button
             onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
@@ -354,6 +354,6 @@ export function BillingCoach() {
           </Button>
         </div>
       </div>
-  </div>
+    </div>
   )
 }
