@@ -1,5 +1,8 @@
+import { coachApi } from '@/apis/coach.api'
+import { coachdetail1 } from '@/assets/images'
 import { IconEdit, IconMore, IconSearch, IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -7,8 +10,10 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { CoachResponseType } from '@/shared/ts/interface/data.interface'
+import { CaretSortIcon } from '@radix-ui/react-icons'
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -21,18 +26,13 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
-import { CaretSortIcon } from '@radix-ui/react-icons';
-import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { coachApi } from '@/apis/coach.api';
-import { CoachResponseType } from '@/shared/ts/interface/data.interface';
-import { coachdetail1 } from '@/assets/images';
-import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele';
+import { Link } from 'react-router-dom'
+import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele'
 
 export default function RoadVehicleAdmin() {
-
   const { data: getAllCoach } = useQuery({
     queryKey: ['getAllCoach'],
     queryFn: () => coachApi.getAll(1, 1, '')
@@ -52,7 +52,6 @@ export default function RoadVehicleAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
 
-
   const columns: ColumnDef<CoachResponseType>[] = [
     {
       accessorKey: 'id',
@@ -62,7 +61,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className='lowercase truncate'>{row.getValue('id')}</div>,
+      cell: ({ row }) => <div className='lowercase truncate'>{row.getValue('id')}</div>
     },
     {
       accessorKey: 'brand',
@@ -72,7 +71,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-center">{row.getValue('brand')}</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('brand')}</div>
     },
     {
       accessorKey: 'image',
@@ -82,10 +81,11 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: () =>
-        <div className="text-left">
-          <img src={coachdetail1} alt="vehicle" className="object-cover h-12 mx-auto w-15" />
+      cell: () => (
+        <div className='text-left'>
+          <img src={coachdetail1} alt='vehicle' className='object-cover h-12 mx-auto w-15' />
         </div>
+      )
     },
     {
       accessorKey: 'number_of_seat',
@@ -95,7 +95,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seat')}</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('number_of_seat')}</div>
     },
     {
       accessorKey: 'start_time',
@@ -105,7 +105,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-center">{row.getValue('start_time')}</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('start_time')}</div>
     },
     {
       accessorKey: 'start_day',
@@ -118,9 +118,9 @@ export default function RoadVehicleAdmin() {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('start_day'));
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
-      },
+        const endDate = new Date(row.getValue('start_day'))
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+      }
     },
     {
       accessorKey: 'end_time',
@@ -130,7 +130,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-center">{row.getValue('end_time')}</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('end_time')}</div>
     },
     {
       accessorKey: 'end_day',
@@ -143,9 +143,9 @@ export default function RoadVehicleAdmin() {
         )
       },
       cell: ({ row }) => {
-        const endDate = new Date(row.getValue('end_day'));
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>;
-      },
+        const endDate = new Date(row.getValue('end_day'))
+        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+      }
     },
     {
       accessorKey: 'trip_time',
@@ -155,7 +155,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left">{row.getValue('trip_time')}</div>,
+      cell: ({ row }) => <div className='text-left'>{row.getValue('trip_time')}</div>
     },
     {
       accessorKey: 'take_place',
@@ -165,7 +165,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left line-clamp-2">{row.getValue('take_place')}</div>,
+      cell: ({ row }) => <div className='text-left line-clamp-2'>{row.getValue('take_place')}</div>
     },
     {
       accessorKey: 'destination',
@@ -175,7 +175,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-left line-clamp-2">{row.getValue('destination')}</div>,
+      cell: ({ row }) => <div className='text-left line-clamp-2'>{row.getValue('destination')}</div>
     },
     {
       accessorKey: 'location',
@@ -185,7 +185,7 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-center">{row.getValue('location')}</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('location')}</div>
     },
     {
       accessorKey: 'price',
@@ -209,30 +209,30 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seats_remaining')}</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('number_of_seats_remaining')}</div>
     },
     {
       accessorKey: 'action',
       header: () => <div className='flex justify-center text-center'>Hành động</div>,
       cell: ({ row }) => (
-        <div className="flex justify-center space-x-6">
-          <div className="">
+        <div className='flex justify-center space-x-6'>
+          <div className=''>
             <Link to={`/admin/road-vehicle-view/${row.original.id}`}>
               <IconView />
             </Link>
           </div>
-          <div className="">
+          <div className=''>
             <Link to={`/admin/road-vehicle-edit/${row.original.id}`}>
               <IconEdit />
             </Link>
           </div>
-          <div className="" >
+          <div className=''>
             <RoadVehicleAdminDetele coachId={row.original.id} />
           </div>
         </div>
-      ),
-    },
-  ];
+      )
+    }
+  ]
 
   const table = useReactTable({
     data: coachData,
@@ -278,8 +278,8 @@ export default function RoadVehicleAdmin() {
                   className='p-2 border border-gray-300 rounded-lg'
                   value={entriesPerPage}
                   onChange={(e) => {
-                    setEntriesPerPage(Number(e.target.value));
-                    setPageIndex(0);
+                    setEntriesPerPage(Number(e.target.value))
+                    setPageIndex(0)
                   }}
                 >
                   {[10, 25, 50, 100].map((size) => (
@@ -328,7 +328,7 @@ export default function RoadVehicleAdmin() {
                         >
                           {column.id}
                         </DropdownMenuCheckboxItem>
-                      );
+                      )
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -354,11 +354,12 @@ export default function RoadVehicleAdmin() {
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${cell.column.id === "hotelId" ? "sticky left-0 bg-white z-10" : ""
-                            } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
+                          className={`${cell.column.id === 'hotelId' ? 'sticky left-0 bg-white z-10' : ''} ${
+                            cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
+                          }`}
                           style={{
-                            minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
-                            maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
+                            minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
+                            maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
                           }}
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -369,7 +370,7 @@ export default function RoadVehicleAdmin() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className='h-24 text-center'>
-                      No hotels available.
+                      <Spin />
                     </TableCell>
                   </TableRow>
                 )}

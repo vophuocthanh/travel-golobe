@@ -1,4 +1,14 @@
-import * as React from 'react'
+import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,22 +22,13 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { useQuery } from '@tanstack/react-query'
 
+import { bookingFlightApi } from '@/apis/booking-flight'
 import { FlightBillingResponseType } from '@/shared/ts/interface/data.interface'
 import { CaretSortIcon } from '@radix-ui/react-icons'
-import { bookingFlightApi } from '@/apis/booking-flight'
+import { Spin } from 'antd'
 
 export function BillingFLight() {
   const { data: getFlightBilling } = useQuery({
@@ -174,7 +175,6 @@ export function BillingFLight() {
         } else if (status === 'CONFIRMED') {
           statusClass = 'bg-blue-100 text-blue-800'
         }
-
 
         return (
           <div className='flex items-center justify-center h-10'>
@@ -328,7 +328,7 @@ export function BillingFLight() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  <Spin />
                 </TableCell>
               </TableRow>
             )}

@@ -35,6 +35,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -371,8 +372,9 @@ export default function HotelAdmin() {
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${cell.column.id === 'id' ? 'sticky left-0 bg-white z-10' : ''} ${cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
-                            }`}
+                          className={`${cell.column.id === 'id' ? 'sticky left-0 bg-white z-10' : ''} ${
+                            cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
+                          }`}
                           style={{
                             minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
                             maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
@@ -386,7 +388,7 @@ export default function HotelAdmin() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className='h-24 text-center'>
-                      No hotels available.
+                      <Spin />
                     </TableCell>
                   </TableRow>
                 )}
@@ -397,7 +399,7 @@ export default function HotelAdmin() {
             <span className='text-sm text-gray-700'>
               Showing page {pageIndex + 1} of {table.getPageCount()}
             </span>
-            <div className='flex pr-2 items-center'>
+            <div className='flex items-center pr-2'>
               <span className='pr-2'>Total Hotels: {totalDataCount}</span>
               <div className='flex space-x-2 text-white'>
                 <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>

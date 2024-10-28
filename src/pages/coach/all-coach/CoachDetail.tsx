@@ -21,7 +21,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
@@ -114,9 +114,13 @@ export default function CoachDetail() {
       <div className='container mx-auto pt-28 pb-72'>
         <section>
           <div className='flex items-center space-x-2 text-sm text-gray-600'>
-            <p>Today</p>
+            <Link to='/vehicle/coach' className='text-red-400'>
+              Coach
+            </Link>
             <ChevronRight className='w-4 h-4' />
-            <p>Istanbul</p>
+            <Link to='/vehicle/coach/all-coach' className='text-red-400'>
+              Coach All
+            </Link>
             <ChevronRight className='w-4 h-4' />
             <p>{getbyId?.location}</p>
           </div>

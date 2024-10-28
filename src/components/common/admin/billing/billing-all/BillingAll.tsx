@@ -24,6 +24,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -392,7 +393,7 @@ export function BillingAll() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  <Spin />
                 </TableCell>
               </TableRow>
             )}

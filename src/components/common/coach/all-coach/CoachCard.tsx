@@ -215,7 +215,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang đầu
+                className={page === 1 ? 'bg-primary text-white' : 'bg-gray-400 text-white'}
               >
                 1
               </Button>
@@ -229,7 +229,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
+                  className={page === page ? 'bg-primary text-white' : 'bg-gray-400 text-white'}
                 >
                   {page}
                 </Button>
@@ -244,7 +244,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-primary text-white' : 'bg-gray-400 text-black'}
+                  className={page === totalPages ? 'bg-primary text-white' : 'bg-gray-400  text-white'}
                 >
                   {totalPages}
                 </Button>

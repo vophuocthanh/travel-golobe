@@ -1,3 +1,16 @@
+import { bookingHotelApi } from '@/apis/booking-hotel.api'
+import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { PaymentHotel } from '@/shared/ts/interface/booking-hotel.interface'
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -8,90 +21,77 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import { ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { IconDelete, IconEdit, IconView } from '@/common/icons';
-import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { bookingHotelApi } from '@/apis/booking-hotel.api';
-import { useState } from 'react';
-import { PaymentHotel } from '@/shared/ts/interface/booking-hotel.interface';
+  useReactTable
+} from '@tanstack/react-table'
+import { Spin } from 'antd'
+import { ChevronDown } from 'lucide-react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export function BillingHotel() {
-  const navigate = useNavigate();
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 10;
+  const navigate = useNavigate()
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = useState({})
+  const [page, setPage] = useState(1)
+  const itemsPerPage = 10
 
   const { data: getBookingHotelData, isLoading } = useQuery({
     queryKey: ['getBookingHotel', page],
-    queryFn: () => bookingHotelApi.getBookingHotel(itemsPerPage, page),
-  });
+    queryFn: () => bookingHotelApi.getBookingHotel(itemsPerPage, page)
+  })
 
-  const totalPages = Math.ceil((getBookingHotelData?.total ?? 0) / itemsPerPage);
-  const totalPage = Math.ceil((getBookingHotelData?.total ?? 0));
-
+  const totalPages = Math.ceil((getBookingHotelData?.total ?? 0) / itemsPerPage)
+  const totalPage = Math.ceil(getBookingHotelData?.total ?? 0)
 
   const handleClick = (newPage: number) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
   const columns: ColumnDef<PaymentHotel>[] = [
     {
       accessorKey: 'id',
       header: () => <div className='text-left'>ID</div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('id')}</div>,
-      enableSorting: true,
+      enableSorting: true
     },
     {
       accessorKey: 'userId',
       header: () => <div className='text-left'>Mã khách hàng</div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('userId')}</div>,
-      enableSorting: true,
+      enableSorting: true
     },
     {
       accessorKey: 'hotelQuantity',
       header: () => <div className='text-left'>Số lượng khách sạn</div>,
       cell: ({ row }) => <div className='text-left'>{row.getValue('hotelQuantity')}</div>,
-      enableSorting: true,
+      enableSorting: true
     },
     {
       accessorKey: 'totalAmount',
       header: () => <div className='text-left'>Tổng số tiền</div>,
       cell: ({ row }) => {
-        const price = row.getValue('totalAmount');
+        const price = row.getValue('totalAmount')
         if (typeof price === 'number') {
           const formattedPrice = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
             currency: 'VND',
             minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          }).format(price);
-          return <div className='text-left'>{formattedPrice}</div>;
+            maximumFractionDigits: 0
+          }).format(price)
+          return <div className='text-left'>{formattedPrice}</div>
         }
-        return <div className='text-left'>N/A</div>;
+        return <div className='text-left'>N/A</div>
       },
-      enableSorting: true,
+      enableSorting: true
     },
     {
       accessorKey: 'status',
       header: () => <div className='flex justify-center'>Trạng thái</div>,
       cell: ({ row }) => {
-        const status = row.getValue('status');
-        let statusClass = 'bg-gray-200';
+        const status = row.getValue('status')
+        let statusClass = 'bg-gray-200'
 
         if (status === 'SUCCESS') {
           statusClass = 'bg-green-100 text-green-800'
@@ -109,22 +109,31 @@ export function BillingHotel() {
               {row.getValue('status')}
             </div>
           </div>
-        );
+        )
       },
-      enableSorting: true,
+      enableSorting: true
     },
     {
       id: 'actions',
       header: () => <div className='flex justify-center'>Hành động</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={() => handleView(row.original)}> <IconView /></div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}> <IconEdit /></div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}> <IconDelete /></div>
+          <div className='cursor-pointer' onClick={() => handleView(row.original)}>
+            {' '}
+            <IconView />
+          </div>
+          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
+            {' '}
+            <IconEdit />
+          </div>
+          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
+            {' '}
+            <IconDelete />
+          </div>
         </div>
-      ),
-    },
-  ];
+      )
+    }
+  ]
 
   const table = useReactTable({
     data: getBookingHotelData?.data || [],
@@ -141,21 +150,21 @@ export function BillingHotel() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
-    },
-  });
+      rowSelection
+    }
+  })
 
   function handleEdit(payment: PaymentHotel) {
-    console.log('Editing payment:', payment);
+    console.log('Editing payment:', payment)
   }
 
   function handleDelete(payment: PaymentHotel) {
-    console.log('Deleting payment:', payment);
+    console.log('Deleting payment:', payment)
   }
 
   const handleView = (payment: PaymentHotel) => {
-    navigate(`/admin/billing/hotel-view/${payment.id}`);
-  };
+    navigate(`/admin/billing/hotel-view/${payment.id}`)
+  }
 
   return (
     <div className='w-full'>
@@ -174,16 +183,19 @@ export function BillingHotel() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
-              {table.getAllColumns().filter(column => column.getCanHide()).map(column => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className='capitalize'
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -191,9 +203,9 @@ export function BillingHotel() {
       <div className='border rounded-md'>
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map(headerGroup => (
+            {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
+                {headerGroup.headers.map((header) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
@@ -205,15 +217,15 @@ export function BillingHotel() {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={columns.length} className='text-center'>
-                  Loading...
+                  <Spin />
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map(row => (
+              table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
-                  {row.getVisibleCells().map(cell => (
+                  {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      <div className="whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px]">
+                      <div className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px]'>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </div>
                     </TableCell>
@@ -232,7 +244,7 @@ export function BillingHotel() {
       </div>
 
       <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className="flex-1 text-sm text-muted-foreground">
+        <div className='flex-1 text-sm text-muted-foreground'>
           Page {page} of {totalPages}
         </div>
         <p className='px-5'>Total :{totalPage} </p>
@@ -254,5 +266,5 @@ export function BillingHotel() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,17 @@
-import * as React from 'react'
+import { bookingTourApi } from '@/apis/booking-tour.api'
+import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Tour, TourBillingResponseType } from '@/shared/ts/interface/data.interface'
+import { CaretSortIcon } from '@radix-ui/react-icons'
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,22 +24,10 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { useQuery } from '@tanstack/react-query'
-import { Tour, TourBillingResponseType } from '@/shared/ts/interface/data.interface'
-import { CaretSortIcon } from '@radix-ui/react-icons'
-import { bookingTourApi } from '@/apis/booking-tour.api'
 
 export function BillingTour() {
   const { data: getAllTourBilling } = useQuery({
@@ -193,7 +194,6 @@ export function BillingTour() {
           statusClass = 'bg-blue-100 text-blue-800'
         }
 
-
         return (
           <div className='flex items-center justify-center h-10'>
             <div className={`w-[7rem] text-center py-1 rounded-md capitalize ${statusClass}`}>
@@ -348,7 +348,7 @@ export function BillingTour() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  <Spin />
                 </TableCell>
               </TableRow>
             )}

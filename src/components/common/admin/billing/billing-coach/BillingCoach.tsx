@@ -1,4 +1,17 @@
-import * as React from 'react'
+import { bookingCoachApi } from '@/apis/booking-coach'
+import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { BillingCoachResponseAdmin } from '@/shared/ts/interface/booking-coach.interface'
+import { CaretSortIcon } from '@radix-ui/react-icons'
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,22 +24,10 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { useQuery } from '@tanstack/react-query'
-import { CaretSortIcon } from '@radix-ui/react-icons'
-import { bookingCoachApi } from '@/apis/booking-coach'
-import { BillingCoachResponseAdmin } from '@/shared/ts/interface/booking-coach.interface'
 
 export function BillingCoach() {
   const { data: getCoachBilling } = useQuery({
@@ -158,7 +159,6 @@ export function BillingCoach() {
           statusClass = 'bg-blue-100 text-blue-800'
         }
 
-
         return (
           <div className='flex items-center justify-center h-10'>
             <div className={`w-[7rem] text-center py-1 rounded-md capitalize ${statusClass}`}>
@@ -175,7 +175,7 @@ export function BillingCoach() {
       header: () => <div className='flex justify-center'>Actions</div>,
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
-          <Button variant='ghost' className='w-8 h-8 cursor-pointer' >
+          <Button variant='ghost' className='w-8 h-8 cursor-pointer'>
             <Link to={`/admin/billing/coach-view/${row.original.id}`}>
               <IconView />
             </Link>
@@ -188,8 +188,8 @@ export function BillingCoach() {
           </div>
         </div>
       )
-    },
-  ];
+    }
+  ]
 
   const table = useReactTable({
     data: billing,
@@ -231,8 +231,8 @@ export function BillingCoach() {
   }
 
   return (
-    <div className="w-full">
-      <div className="flex items-center w-full gap-4 py-4">
+    <div className='w-full'>
+      <div className='flex items-center w-full gap-4 py-4'>
         <span>Show</span>
         <select
           className='p-2 border border-gray-300 rounded-lg'
@@ -249,12 +249,10 @@ export function BillingCoach() {
           ))}
         </select>
         <Input
-          placeholder="Filter id..."
-          value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("id")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+          placeholder='Filter id...'
+          value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
+          className='max-w-sm'
         />
         <div className='flex items-center gap-4 ml-auto'>
           <DropdownMenu>
@@ -281,7 +279,7 @@ export function BillingCoach() {
           </DropdownMenu>
         </div>
       </div>
-      <div className="border rounded-md">
+      <div className='border rounded-md'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -289,14 +287,9 @@ export function BillingCoach() {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -304,27 +297,16 @@ export function BillingCoach() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
+                <TableCell colSpan={columns.length} className='h-24 text-center'>
+                  <Spin />
                 </TableCell>
               </TableRow>
             )}
@@ -332,9 +314,8 @@ export function BillingCoach() {
         </Table>
       </div>
       <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className="flex-1 text-sm text-muted-foreground">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+        <div className='flex-1 text-sm text-muted-foreground'>
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
         <span className='pr-[2px]'>Total Billing Coach: {totalDataCount}</span>
         <div className='pr-4 space-x-2'>

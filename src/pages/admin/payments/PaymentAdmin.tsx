@@ -1,4 +1,17 @@
-import * as React from 'react'
+import { paymentApi } from '@/apis/payment.api'
+import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { exportToExcel } from '@/shared/utils/excel-utils'
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,21 +24,10 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useQuery } from '@tanstack/react-query'
-import { paymentApi } from '@/apis/payment.api'
 
 interface Payment {
   id: string
@@ -46,8 +48,6 @@ export default function PaymentAdmin() {
   })
   const Data = getAllPayemnt?.data || []
 
-  console.log('data', Data)
-
   const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -57,9 +57,9 @@ export default function PaymentAdmin() {
   const columns: ColumnDef<Payment>[] = [
     {
       accessorKey: 'id',
-      header: () => <div className='text-left'>ID</div>,
+      header: () => <div className='text-center'>ID</div>,
       cell: ({ row }) => (
-        <div className='text-left w-[12rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className='text-center w-[12rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
           {row.getValue('id')}
         </div>
       ),
@@ -67,9 +67,9 @@ export default function PaymentAdmin() {
     },
     {
       accessorKey: 'bookingId',
-      header: () => <div className='text-left '>ID đặt </div>,
+      header: () => <div className='text-center '>ID đặt</div>,
       cell: ({ row }) => (
-        <div className='text-left w-[15rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className='text-center w-[15rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
           {row.getValue('bookingId')}
         </div>
       ),
@@ -77,21 +77,8 @@ export default function PaymentAdmin() {
     },
     {
       accessorKey: 'userId',
-      header: () => <div className='text-left'>ID người dùng </div>,
-      cell: ({ row }) => <div className='text-left'>{row.getValue('userId')}</div>,
-      enableSorting: true
-    },
-    {
-      accessorKey: 'amount',
-      header: () => <div className='flex justify-center'>Tổng cộng</div>,
-      cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('amount'))
-        const formatted = new Intl.NumberFormat('vi-vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-        return <div className='flex justify-center font-medium'>{formatted}</div>
-      },
+      header: () => <div className='text-center'>ID người dùng</div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('userId')}</div>,
       enableSorting: true
     },
     {
@@ -111,9 +98,7 @@ export default function PaymentAdmin() {
 
         return (
           <div className='flex items-center justify-center h-10'>
-            <div className={`w-[7rem] text-center py-1 rounded-md capitalize ${statusClass}`}>
-              {row.getValue('status')}
-            </div>
+            <div className={`w-[7rem] text-center py-1 rounded-md ${statusClass}`}>{row.getValue('status')}</div>
           </div>
         )
       },
@@ -121,15 +106,15 @@ export default function PaymentAdmin() {
     },
     {
       accessorKey: 'paymentMethod',
-      header: () => <div className='text-left'>Phương thức thanh toán </div>,
-      cell: ({ row }) => <div className='text-left'>{row.getValue('paymentMethod')}</div>,
+      header: () => <div className='w-40 text-center'>Phương thức thanh toán </div>,
+      cell: ({ row }) => <div className='text-center'>{row.getValue('paymentMethod')}</div>,
       enableSorting: true
     },
     {
       accessorKey: 'orderId',
-      header: () => <div className='text-left '>Id đặt hàng </div>,
+      header: () => <div className='text-center '>Id đặt hàng</div>,
       cell: ({ row }) => (
-        <div className='text-left w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className='text-center w-[10rem]  break-words overflow-hidden whitespace-nowrap truncate'>
           {row.getValue('orderId')}
         </div>
       ),
@@ -137,7 +122,7 @@ export default function PaymentAdmin() {
     },
     {
       accessorKey: 'createdAt',
-      header: () => <div className='text-left w-[10rem]'>Ngày tạo</div>,
+      header: () => <div className='text-center w-[10rem]'>Ngày mua</div>,
       cell: ({ row }) => {
         const createdAt = new Date(row.getValue('createdAt'))
         const formattedDate = new Intl.DateTimeFormat('vi-VN', {
@@ -145,20 +130,20 @@ export default function PaymentAdmin() {
           timeStyle: 'short'
         }).format(createdAt)
 
-        return <div className='text-left'>{formattedDate}</div>
+        return <div className='text-center'>{formattedDate}</div>
       },
       enableSorting: true
     },
     {
-      accessorKey: 'updatedAt',
-      header: () => <div className='text-left w-[10rem]'>Ngày cập nhật</div>,
+      accessorKey: 'amount',
+      header: () => <div className='flex justify-center'>Tổng cộng</div>,
       cell: ({ row }) => {
-        const createdAt = new Date(row.getValue('updatedAt'))
-        const formattedDate = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short' }).format(
-          createdAt
-        )
-
-        return <div className='text-left'>{formattedDate}</div>
+        const amount = parseFloat(row.getValue('amount'))
+        const formatted = new Intl.NumberFormat('vi-vn', {
+          style: 'currency',
+          currency: 'VND'
+        }).format(amount)
+        return <div className='flex justify-center font-medium'>{formatted}</div>
       },
       enableSorting: true
     },
@@ -215,13 +200,30 @@ export default function PaymentAdmin() {
     navigate(`/admin/payment/payment-view/${paymenID.id}`)
   }
 
+  const handleExportExcelPayment = () => {
+    const dataPayemnt = Data.map((item: Payment) => ({
+      Mã: item.id,
+      'Mã đặt hàng': item.bookingId,
+      'Mã người dùng': item.userId,
+      'Tổng cộng': item.amount,
+      'Trạng thái': item.status,
+      'Phương thức thanh toán': item.paymentMethod,
+      'Id đặt hàng': item.orderId,
+      'Ngày mua': item.createdAt
+    }))
+
+    exportToExcel(dataPayemnt, 'PaymentData')
+  }
+
   return (
     <div className='w-full p-2'>
       <Card>
         <CardHeader>
           <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
             <h1 className='mb-4 text-2xl font-bold '>PAYMENT</h1>
-            <Button className='text-black'>Download</Button>
+            <Button className='text-white' onClick={handleExportExcelPayment}>
+              Download
+            </Button>
           </CardTitle>
           <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
         </CardHeader>
@@ -287,7 +289,7 @@ export default function PaymentAdmin() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className='h-24 text-center'>
-                      No results.
+                      <Spin />
                     </TableCell>
                   </TableRow>
                 )}

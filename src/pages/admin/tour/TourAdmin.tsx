@@ -36,6 +36,7 @@ import { exportToExcel } from '@/shared/utils/excel-utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
+import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'react-toastify'
 
@@ -475,8 +476,9 @@ function TourAdmin() {
                     {row.getVisibleCells().map((cell, cellIndex) => (
                       <TableCell
                         key={cell.id}
-                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
-                          }`}
+                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
+                          cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
+                        }`}
                         style={{
                           minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto',
                           maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto'
@@ -490,7 +492,7 @@ function TourAdmin() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className='h-24 text-center'>
-                    No results.
+                    <Spin />
                   </TableCell>
                 </TableRow>
               )}
