@@ -394,129 +394,131 @@ function TourAdmin() {
           <p>Export to Excel</p>
         </Button>
       </div>
-      <div className='flex items-center justify-between py-4'>
-        <div className='flex items-center'>
-          <div className='flex items-center mr-4 space-x-2'>
-            <span>Show</span>
-            <select
-              className='p-2 border border-gray-300 rounded-lg'
-              value={entriesPerPage}
-              onChange={(e) => {
-                setEntriesPerPage(Number(e.target.value))
-                table.setPageIndex(0)
-              }}
-            >
-              {[5, 10, 25, 50, 100].map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className='relative'>
-            <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
-              <IconSearch />
+      <div className='p-4 bg-white rounded-md'>
+        <div className='flex items-center justify-between py-4'>
+          <div className='flex items-center'>
+            <div className='flex items-center mr-4 space-x-2'>
+              <span>Show</span>
+              <select
+                className='p-2 border border-gray-300 rounded-lg'
+                value={entriesPerPage}
+                onChange={(e) => {
+                  setEntriesPerPage(Number(e.target.value))
+                  table.setPageIndex(0)
+                }}
+              >
+                {[5, 10, 25, 50, 100].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
             </div>
-            <Input
-              placeholder='Filter tour name...'
-              value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
-              className='max-w-sm pl-10 rounded-xl'
-            />
+            <div className='relative'>
+              <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
+                <IconSearch />
+              </div>
+              <Input
+                placeholder='Filter tour name...'
+                value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+                className='max-w-sm pl-10 rounded-xl'
+              />
+            </div>
+          </div>
+          <div className='flex items-center gap-4'>
+            <Link to='/admin/tours/create'>
+              <Button className='text-white'>+ Add Tour</Button>
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='outline' className='ml-auto'>
+                  Columns <ChevronDown className='w-4 h-4 ml-2' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end'>
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className='capitalize'
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-        <div className='flex items-center gap-4'>
-          <Link to='/admin/tours/create'>
-            <Button className='text-white'>+ Add Tour</Button>
-          </Link>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className='capitalize'
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
 
-      <div className='px-4 border rounded-md'>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className='text-black'>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell, cellIndex) => (
-                    <TableCell
-                      key={cell.id}
-                      className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
-                        cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
-                      }`}
-                      style={{
-                        minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
-                        maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
-                      }}
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+        <div className='px-4 border rounded-md'>
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id} className='text-black'>
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                    {row.getVisibleCells().map((cell, cellIndex) => (
+                      <TableCell
+                        key={cell.id}
+                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
+                          cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
+                        }`}
+                        style={{
+                          minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto',
+                          maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto'
+                        }}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className='h-24 text-center'>
+                    No results.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </div>
-        <div className='space-x-2'>
-          <Button
-            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
-            disabled={pageIndex === 0}
-            className='text-white'
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
-            disabled={pageIndex + 1 >= table.getPageCount()}
-            className='text-white'
-          >
-            Next
-          </Button>
+        <div className='flex items-center justify-end py-4 space-x-2'>
+          <div className='flex-1 text-sm text-muted-foreground'>
+            {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+            selected.
+          </div>
+          <div className='space-x-2'>
+            <Button
+              onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+              disabled={pageIndex === 0}
+              className='text-white'
+            >
+              Previous
+            </Button>
+            <Button
+              onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+              disabled={pageIndex + 1 >= table.getPageCount()}
+              className='text-white'
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </div>
     </div>
