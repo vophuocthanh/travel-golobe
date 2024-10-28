@@ -40,6 +40,7 @@ export interface ListResponseTour<Tour> {
   items_per_page: number
 
 }
+
 export interface HotelParams {
   items_per_page: number
   page: number

@@ -475,9 +475,8 @@ function TourAdmin() {
                     {row.getVisibleCells().map((cell, cellIndex) => (
                       <TableCell
                         key={cell.id}
-                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
-                          cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
-                        }`}
+                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
+                          }`}
                         style={{
                           minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto',
                           maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto'
@@ -503,6 +502,8 @@ function TourAdmin() {
             {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
             selected.
           </div>
+          <span className='pr-2'>Total Tours: {totalTour}</span>
+
           <div className='space-x-2'>
             <Button
               onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}

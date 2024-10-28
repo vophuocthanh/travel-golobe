@@ -78,6 +78,7 @@ export default function HotelAdmin() {
       toast.error('Xóa khách sạn thất bại')
     }
   })
+  const totalDataCount = allHotel?.total || 0
 
   const handleDelete = (id: string) => {
     mutationDelete.mutate(id)
@@ -396,16 +397,19 @@ export default function HotelAdmin() {
             <span className='text-sm text-gray-700'>
               Showing page {pageIndex + 1} of {table.getPageCount()}
             </span>
-            <div className='flex space-x-2 text-white'>
-              <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
-                Previous
-              </Button>
-              <Button
-                onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
-                disabled={pageIndex + 1 >= table.getPageCount()}
-              >
-                Next
-              </Button>
+            <div className='flex pr-2 items-center'>
+              <span className='pr-2'>Total Hotels: {totalDataCount}</span>
+              <div className='flex space-x-2 text-white'>
+                <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
+                  Previous
+                </Button>
+                <Button
+                  onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+                  disabled={pageIndex + 1 >= table.getPageCount()}
+                >
+                  Next
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>
