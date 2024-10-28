@@ -1,16 +1,11 @@
-import { IconVectorDown } from '@/common/icons'
 import IconSreach from '@/common/icons/IconSreach'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useEffect, useState } from 'react'
+import { format } from 'date-fns'
+import { useState } from 'react'
+import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import FilterSection from './FilterSection'
 import FlightCard from './FlightCard'
-
-import { flightApi } from '@/apis/flight.api'
-import { useQuery } from '@tanstack/react-query'
-import { format } from 'date-fns'
-import { toast } from 'react-toastify'
-import { DatePickerWithPresets } from '../../calendar/calendar-date'
 
 export default function ContentAllFlight() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
@@ -27,14 +22,14 @@ export default function ContentAllFlight() {
     setMinPrice(min)
     setMaxPrice(max)
   }
-  const { data: getAll, refetch } = useQuery({
-    queryKey: ['getAllFlightList', 1, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate],
-    queryFn: () => flightApi.getAll(1, 4, '', '', minPrice, maxPrice, formattedDepartDate, formattedReturnDate)
-  })
-  console.log(getAll, 'formattedDepartDate')
+
+  const [searchTo, setSearchTo] = useState('')
+  const [searchFrom, setSearchFrom] = useState('')
+
+  const [tempSearchTo, setTempSearchTo] = useState('')
+  const [tempSearchFrom, setTempSearchFrom] = useState('')
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-
     if (brandFlight === value) {
       setBrandFlight('')
     } else {
@@ -42,20 +37,12 @@ export default function ContentAllFlight() {
     }
   }
   const handleSearch = () => {
+    setSearchFrom(tempSearchFrom)
+    setSearchTo(tempSearchTo)
     setFilteredDepartDate(formattedDepartDate)
     setFilteredReturnDate(formattedReturnDate)
-    if (!formattedDepartDate || !formattedReturnDate) {
-      toast.error('Vui lòng nhập đầy đủ ngày khởi hành và ngày trở về.')
-      return
-    }
-
-    refetch()
   }
-  useEffect(() => {
-    if (getAll && getAll.data && getAll.data.length === 0) {
-      toast.error('Không có chuyến bay vào ngày này.')
-    }
-  }, [getAll])
+
   return (
     <div className={`flex flex-row  mx-[6rem] mt-10 space-y-2 gap-2 h-[120rem]`}>
       <div className='flex-none w-full ml-2 mt-14 '>
@@ -69,12 +56,10 @@ export default function ContentAllFlight() {
                   </label>
                   <Input
                     type='text'
-                    className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
-                    value='Lahore '
+                    className='block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md'
+                    placeholder='Search for city or airport'
+                    onChange={(e) => setTempSearchFrom(e.target.value)}
                   />
-                  <div className='absolute right-3 top-6'>
-                    <IconVectorDown />
-                  </div>
                 </div>
                 <div className='relative w-full col-span-2 ml-5'>
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
@@ -82,18 +67,16 @@ export default function ContentAllFlight() {
                   </label>
                   <Input
                     type='text'
-                    className='block text-lg w-full  pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'
-                    value='Karachi'
+                    className='block text-lg w-full  pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md'
+                    placeholder='Search for city or airport'
+                    onChange={(e) => setTempSearchTo(e.target.value)}
                   />
-                  <div className='absolute right-3 top-6'>
-                    <IconVectorDown />
-                  </div>
                 </div>
                 <div className='relative z-10 w-full col-span-2 ml-5'>
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Depart
                   </label>
-                  <div className='flex  text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
+                  <div className='flex  text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md'>
                     <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
                   </div>
                 </div>
@@ -101,7 +84,7 @@ export default function ContentAllFlight() {
                   <label className='absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm'>
                     Return
                   </label>
-                  <div className='flex text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md'>
+                  <div className='flex text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md'>
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
                   </div>{' '}
                 </div>
@@ -122,8 +105,10 @@ export default function ContentAllFlight() {
             setBrandFlight={setBrandFlight}
             handleCheckboxChange={handleCheckboxChange}
           />
-          <div className='flex flex-col gap-8 '>
+          <div className='w-full h-full'>
             <FlightCard
+              searchFrom={searchFrom}
+              searchTo={searchTo}
               returnDate={filteredReturnDate}
               departDate={filteredDepartDate}
               minPrice={minPrice}

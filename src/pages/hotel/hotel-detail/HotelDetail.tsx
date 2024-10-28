@@ -12,17 +12,17 @@ import ShareButtons from '@/components/common/share/share-link'
 import { Button } from '@/components/ui/button'
 import ReadOnlyRating from '@/pages/home-stay/components/ReadOnlyRating'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { DatePicker, Space } from 'antd'
 import { ChevronRight, MapPin } from 'lucide-react'
+import moment from 'moment'
 import { useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Favorite from '../components/Favorite'
-import { Space, DatePicker } from 'antd';
-import moment from 'moment'
-import { useTranslation } from 'react-i18next';
 
 export default function HotelDetail() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const roomSectionRef = useRef<HTMLDivElement | null>(null)
@@ -38,12 +38,10 @@ export default function HotelDetail() {
   const handleValueChange = (value: string) => {
     setRoomId(value)
   }
-  const { RangePicker } = DatePicker;
+  const { RangePicker } = DatePicker
 
-
-  const [checkInDate, setCheckInDate] = useState<string | null>(null);
-  const [checkOutDate, setCheckOutDate] = useState<string | null>(null);
-
+  const [checkInDate, setCheckInDate] = useState<string | null>(null)
+  const [checkOutDate, setCheckOutDate] = useState<string | null>(null)
 
   const mutationHotelBooking = useMutation({
     mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId, checkInDate, checkOutDate),
@@ -106,9 +104,13 @@ export default function HotelDetail() {
           <div className='flex items-center space-x-4'>
             <div className='items-start flex-1 w-full mt-8 mb-8'>
               <div className='flex items-center space-x-2 text-gray-800 text-md'>
-                <p className='text-red-400'>Turkey</p>
+                <Link to='/hotel' className='text-red-400'>
+                  Hotel
+                </Link>
                 <ChevronRight className='w-4 h-4' />
-                <p className='text-red-400'>Istanbul</p>
+                <Link to='/hotel/home-stay' className='text-red-400'>
+                  Hotel All
+                </Link>
                 <ChevronRight className='w-4 h-4' />
                 <p>{getbyId?.hotel_names}</p>
               </div>
@@ -174,35 +176,33 @@ export default function HotelDetail() {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-x-4">
-              <Button className="text-black bg-white border hover:bg-primary hover:text-white border-primary">
+          <div className='flex items-center justify-between w-full'>
+            <div className='flex items-center gap-x-4'>
+              <Button className='text-black bg-white border hover:bg-primary hover:text-white border-primary'>
                 {getbyId?.score_hotels}
               </Button>
               <div>
-                <p className="text-lg font-bold text-gray-700">{ratingStatus}</p>
-                <p className="text-gray-500">{getCommentHotel?.total} reviews</p>
+                <p className='text-lg font-bold text-gray-700'>{ratingStatus}</p>
+                <p className='text-gray-500'>{getCommentHotel?.total} reviews</p>
               </div>
             </div>
 
-            <div className="mb-4">
-              <label htmlFor="date-range-picker" className="block mb-2 text-sm font-medium text-gray-700">
+            <div className='mb-4'>
+              <label htmlFor='date-range-picker' className='block mb-2 text-sm font-medium text-gray-700'>
                 {t('Select')}:
               </label>
-              <Space direction="vertical" size={12}>
+              <Space direction='vertical' size={12}>
                 <RangePicker
-                  id="date-range-picker"
-                  className="w-full p-2 border border-gray-300 rounded-lg custom-date-picker md:w-auto"
-                  format="DD-MM-YYYY"
+                  id='date-range-picker'
+                  className='w-full p-2 border border-gray-300 rounded-lg custom-date-picker md:w-auto'
+                  format='DD-MM-YYYY'
                   onChange={(dates) => {
                     if (dates && dates.length === 2) {
-                      setCheckInDate(dates[0]?.format('DD-MM-YYYY') || null);
-                      setCheckOutDate(dates[1]?.format('DD-MM-YYYY') || null);
+                      setCheckInDate(dates[0]?.format('DD-MM-YYYY') || null)
+                      setCheckOutDate(dates[1]?.format('DD-MM-YYYY') || null)
                     }
                   }}
-                  disabledDate={(current) =>
-                    current && current < moment().subtract(0, 'days').startOf('day')
-                  }
+                  disabledDate={(current) => current && current < moment().subtract(0, 'days').startOf('day')}
                 />
               </Space>
             </div>

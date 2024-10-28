@@ -15,12 +15,12 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useTranslation } from 'react-i18next';
 
 export default function TourDetailView() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
@@ -119,9 +119,13 @@ export default function TourDetailView() {
             {/* Header Section */}
             <section className='mb-12'>
               <div className='flex items-center mb-4 space-x-2 text-sm text-gray-600'>
-                <p className='text-red-400'>Today</p>
+                <Link to='/tour' className='text-red-400'>
+                  Tour
+                </Link>
                 <ChevronRight className='w-4 h-4 text-gray-500' />
-                <p className='text-red-400'>Istanbul</p>
+                <Link to='/tour/all-tour' className='text-red-400'>
+                  Tour All
+                </Link>
                 <ChevronRight className='w-4 h-4 text-gray-500' />
                 <p className='overflow-hidden whitespace-pre-line text-ellipsis line-clamp-1 w-[30%]'>
                   {getbyId?.description}
@@ -219,12 +223,12 @@ export default function TourDetailView() {
                       />
                     </div>
                   )}
-                  <Vehicle data={getbyId}  />
+                  <Vehicle data={getbyId} />
 
                   {/* Thông tin */}
                   <Information dataInfo={getbyId} />
 
-                  <Schedule data={getbyId}  />
+                  <Schedule data={getbyId} />
                 </section>
 
                 <hr className='mb-12 border-t border-gray-300' />

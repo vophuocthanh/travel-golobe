@@ -13,7 +13,9 @@ export const flightApi = {
     min_price?: number,
     max_price?: number,
     start_day?: string,
-    end_day?: string
+    end_day?: string,
+    search_from?: string,
+    search_to?: string
   ): Promise<ListResponse<FlightResponseType>> {
     const url = '/flight-crawl/crawl'
     const params: ParamsType = {
@@ -41,6 +43,18 @@ export const flightApi = {
       params.end_day = String(end_day)
     }
 
+    if (search_from && search_to) {
+      params.search_from = search_from
+      params.search_to = search_to
+    }
+
+    if (search_from && search_to && start_day && end_day) {
+      params.search_from = search_from
+      params.search_to = search_to
+      params.start_day = start_day
+      params.end_day = end_day
+    }
+
     return axiosClient.get(url, { params })
   },
 
@@ -61,7 +75,7 @@ export const flightApi = {
     const url = 'flight-crawl/crawl'
     return axiosClient.post(url, data)
   },
-  putFlight(id: string| undefined, data: FlightRespone) {
+  putFlight(id: string | undefined, data: FlightRespone) {
     const url = `/flight-crawl/crawl/${id}`
     return axiosClient.put(url, data)
   },
