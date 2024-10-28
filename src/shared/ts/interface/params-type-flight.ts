@@ -7,4 +7,6 @@ export interface ParamsType {
   start_day?: string
   end_day?: string
   brand?: string
+  search_to?: string
+  search_from?: string
 }

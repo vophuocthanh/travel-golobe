@@ -1,40 +1,57 @@
 import axiosClient from '@/apis/axios-client'
 import { ListResponse } from '@/shared/ts/interface'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
+import { ParamsType } from '@/shared/ts/interface/params-type-coach'
 
 export const coachApi = {
   getAll(
     page: number | string,
     items_per_page: number | string,
-    sort_by_price: string,
+    sort_by_price?: string,
+    brand?: string,
     min_price?: number,
     max_price?: number,
     start_day?: string,
-    end_day?: string
+    end_day?: string,
+    search_from?: string,
+    search_to?: string,
   ): Promise<ListResponse<CoachResponseType>> {
     const url = '/road-vehicle/crawl'
-    if (!start_day || !end_day) {
-      return axiosClient.get(url, {
-        params: {
-          items_per_page: Number(items_per_page),
-          page: Number(page),
-          sort_by_price: String(sort_by_price),
-          min_price: min_price,
-          max_price: max_price
-        }
-      })
+    const params: ParamsType = {
+      items_per_page: Number(items_per_page),
+      page: Number(page),
     }
-    return axiosClient.get(url, {
-      params: {
-        items_per_page: Number(items_per_page),
-        page: Number(page),
-        sort_by_price: String(sort_by_price),
-        min_price: min_price,
-        max_price: max_price,
-        start_day: String(start_day),
-        end_day: String(end_day)
-      }
-    })
+
+    if (sort_by_price) {
+      params.sort_by_price = sort_by_price
+    }
+
+    if (min_price !== undefined) {
+      params.min_price = min_price
+    }
+
+    if (max_price !== undefined) {
+      params.max_price = max_price
+    }
+
+    if (brand) {
+      params.brand = String(brand)
+    }
+    if (start_day && end_day) {
+      params.start_day = String(start_day)
+      params.end_day = String(end_day)
+    }
+    if (search_from && search_to) {
+      params.search_from = search_from
+      params.search_to = search_to
+    }
+    if (search_from && search_to && start_day && end_day) {
+      params.search_from = search_from
+      params.search_to = search_to
+      params.start_day = start_day
+      params.end_day = end_day
+    }
+    return axiosClient.get(url, { params })
   },
 
 

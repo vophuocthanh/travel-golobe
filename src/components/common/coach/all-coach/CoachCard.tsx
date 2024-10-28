@@ -6,31 +6,34 @@ import { CoachResponseType } from '@/shared/ts/interface/data.interface'
 import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
-import { Heart } from 'lucide-react'
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import FavoriteCoach from './FavoriteCoach'
 
 interface CoachCardProps {
-  isFavorite: boolean
-  onToggleFavorite: () => void
   minPrice?: number
   maxPrice?: number
   departDate?: string
   returnDate?: string
+  brandCoach: string
+  searchTo?: string
+  searchFrom?: string
 }
 
 const CoachCard: React.FC<CoachCardProps> = ({
-  isFavorite,
-  onToggleFavorite,
   minPrice,
   maxPrice,
   returnDate,
-  departDate
+  departDate,
+  brandCoach,
+  searchTo,
+  searchFrom
 }) => {
+  const { t } = useTranslation()
   const [page, setPage] = useState(1)
-  const { t } = useTranslation();
   const [sortByPrice, setSortByPrice] = useState('')
+
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -58,15 +61,39 @@ const CoachCard: React.FC<CoachCardProps> = ({
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllCoach', page, sortByPrice, minPrice, maxPrice, departDate, returnDate],
-
-    queryFn: () => coachApi.getAll(page, 4, sortByPrice, minPrice, maxPrice, departDate, returnDate)
+    queryKey: [
+      'getAllCoach',
+      page,
+      sortByPrice,
+      brandCoach || '',
+      minPrice,
+      maxPrice,
+      departDate,
+      returnDate,
+      searchFrom,
+      searchTo
+    ],
+    queryFn: () =>
+      coachApi.getAll(
+        page,
+        4,
+        sortByPrice,
+        brandCoach || '',
+        minPrice,
+        maxPrice,
+        departDate,
+        returnDate,
+        searchFrom,
+        searchTo
+      )
   })
+  console.log('getAll:', getAll)
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
   }
+
   const formatCurrency = (value: string | undefined) => {
     if (!value) return 'N/A'
     const numberValue = parseFloat(value)
@@ -74,6 +101,15 @@ const CoachCard: React.FC<CoachCardProps> = ({
       ? 'N/A'
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
+
+  const formatDate = (dateString?: string) =>
+    dateString
+      ? new Date(dateString).toLocaleDateString('vi-VN', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        })
+      : 'N/A'
 
   return (
     <>
@@ -88,89 +124,99 @@ const CoachCard: React.FC<CoachCardProps> = ({
         </Dropdown>
       </div>
 
-      {getAll?.data.map((coach: CoachResponseType) => (
-        <div key={coach.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
-          <div className='w-[40%] bg-white relative'>
-            <img src={imgcoach} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
-            <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
-              9 images
-            </p>
-          </div>
-          <div className='w-[65%] flex-7 h-full p-4 bg-white'>
-            <div className='flex flex-col w-full h-full'>
-              <div className='flex flex-row w-full h-[85%] border-b-2 border-gray-400 pb-4'>
-                  <div className='w-[70%] flex flex-col gap-4 '>
-                    <div className='flex items-center gap-2 mt-2'>
-                      <Button className='text-black bg-white border border-primary'>4.2</Button>
-                      <p className='font-bold'>Very good</p>
-                      <p>54 reviews</p>
-                    </div>
+      {(getAll?.data?.length ?? 0) > 0 ? (
+        getAll?.data.map((coach: CoachResponseType) => (
+          <div key={coach.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
+            <div className='w-[40%] bg-white relative'>
+              <img src={imgcoach} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
+              <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
+                9 images
+              </p>
+            </div>
+            <div className='w-[65%] flex-7 h-full p-4 bg-white'>
+              <div className='flex flex-col w-full h-full'>
+                <div className='flex flex-row w-full h-[85%] border-b-2 border-gray-400 pb-4'>
+                  <div className='flex flex-row w-full h-full'>
+                    <div className='w-[70%] flex flex-col gap-4 '>
+                      <div className='flex items-center gap-2 mt-2'>
+                        <Button className='text-black bg-white border border-primary'>4.2</Button>
+                        <p className='font-bold'>Very good</p>
+                        <p>54 reviews</p>
+                      </div>
 
-                    <div className='mb-4'>
-                      <div className='flex items-center mb-2'>
-                        <div className='flex-grow'>
-                          <div className='flex items-center gap-4 text-black'>
-                            <div className='flex gap-2 text-xl'>
-                              <p>Time Start: </p>{coach.start_time} - <p>Time End:</p>{coach.end_time}
+                      <div className='mb-4'>
+                        <div className='flex items-center mb-2'>
+                          <div className='flex-grow'>
+                            <div className='flex-col items-center gap-4 text-black'>
+                              <div className='flex gap-2 text-lg'>
+                                <p>Time Start: </p>
+                                {coach.start_time} - <p>Time End:</p>
+                                {coach.end_time}
+                              </div>
+                              <div className='flex gap-2 text-lg'>
+                                <p>Day Start: </p>
+                                {formatDate(coach.start_day)} - <p>Day End:</p>
+                                {formatDate(coach.end_day)}
+                              </div>
+                              <div></div>
                             </div>
-                            <div>
-                          </div>
                           </div>
                         </div>
-                      </div>
-                      <div className='text-xl'>Trip Time: {coach.trip_time}</div>
-                      <div className='w-full py-2 pr-2'>
-                        <div className='flex flex-col w-full text-left text-gray-800'>
-                          <div className='flex gap-2'>
-                            <p className='mb-2 font-bold text-black'>From:</p>
-                            <p className='flex line-clamp-2'>{coach.take_place}</p>
-                          </div>
-                          <div className='flex gap-7'>
-                            <p className='mb-2 font-bold text-black'>To:</p>
-                            <p className='flex line-clamp-2'>{coach.destination}</p>
+                        <div className='text-lg'>Trip Time: {coach.trip_time}</div>
+                        <div className='w-[30rem] py-2 '>
+                          <div className='flex flex-col w-full text-left text-gray-800'>
+                            <div className='flex gap-2'>
+                              <p className='mb-2 font-bold text-black'>From:</p>
+                              <p className='w-[70%] truncate '>{coach.take_place}</p>
+                            </div>
+                            <div className='flex gap-7'>
+                              <p className='mb-2 font-bold text-black'>To:</p>
+                              <p className='w-[70%] truncate '>{coach.destination}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className='flex items-center mt-2 ml-6 text-xl'>
-                        <p className='mr-2 font-bold text-black '>Brand: </p> {coach.brand}
+                        <div className='flex items-center mt-2 ml-6 text-xl'>
+                          <p className='mr-2 font-bold text-black '>Brand: </p> {coach.brand}
+                        </div>
                       </div>
                     </div>
+                    <div className='relative w-[30%] pt-4 text-right mr-5'>
+                      <p className='text-xl text-[#FF8682] font-bold'> {formatCurrency(coach.price?.toString())}</p>
+                      <p className='absolute bottom-0 font-medium text-right text-black-500 line-clamp-2'>
+                        Trip To: {coach.destination}
+                      </p>
+                    </div>
                   </div>
-                  <div className='relative w-[30%] pt-4 text-right mr-5'>
-                    <p className='text-xl text-[#FF8682] font-bold'> {formatCurrency(coach.price?.toString())}</p>
-                    <p className='absolute bottom-0 font-medium text-right text-black-500 line-clamp-2'>Trip To: {coach.destination}</p>
-                  </div>
-              </div>
+                </div>
 
-              <div className='flex w-full mt-2'>
-                <div className='flex flex-row items-center w-full gap-2 mr-4'>
-                  <Button
-                    className={isFavorite ? 'bg-white border border-primary' : 'bg-primary text-white w-[3.6rem] '}
-                    onClick={onToggleFavorite}
-                  >
-                    <Heart />
-                  </Button>
-                  <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
-                    <Button className='w-full mx-4 '>{t('ViewDeals')}</Button>
-                  </Link>
+                <div className='flex w-full mt-2'>
+                  <div className='flex flex-row items-center w-full gap-2 mr-4'>
+                    <FavoriteCoach id={coach.id} />
+                    <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
+                      <Button className='w-full mx-4 '>View Deals</Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p className='text-center'>{t('Không có vé nào cho chuyến xe này')}</p>
+      )}
+
       <div className='flex justify-around mt-6'>
         <Pagination>
           <PaginationContent>
             <PaginationItem>
-              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
+              <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className='text-white'>
                 Previous
               </Button>
             </PaginationItem>
             <PaginationItem>
               <Button
                 onClick={() => handlePageChange(1)}
-                className={page === 1 ? 'bg-primary' : 'bg-gray-400 '} // Nút trang đầu
+                className={page === 1 ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang đầu
               >
                 1
               </Button>
@@ -184,7 +230,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(page)}
-                  className={page === page ? 'bg-primary ' : 'bg-gray-400 '} // Nút trang hiện tại
+                  className={page === page ? 'bg-primary text-white' : 'bg-gray-400 text-black'} // Nút trang hiện tại
                 >
                   {page}
                 </Button>
@@ -195,18 +241,18 @@ const CoachCard: React.FC<CoachCardProps> = ({
                 <PaginationEllipsis />
               </PaginationItem>
             )}
-            {totalPages > 1 && (
+            {page < totalPages && (
               <PaginationItem>
                 <Button
                   onClick={() => handlePageChange(totalPages)}
-                  className={page === totalPages ? 'bg-primary ' : 'bg-gray-400 '} // Nút trang cuối
+                  className={page === totalPages ? 'bg-primary text-white' : 'bg-gray-400 text-black'}
                 >
                   {totalPages}
                 </Button>
               </PaginationItem>
             )}
             <PaginationItem>
-              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
+              <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className='text-white'>
                 Next
               </Button>
             </PaginationItem>

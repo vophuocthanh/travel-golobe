@@ -6,9 +6,9 @@ import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Favorite from './favorite'
-import { useTranslation } from 'react-i18next';
 
 interface FlightCardProps {
   minPrice?: number
@@ -16,10 +16,20 @@ interface FlightCardProps {
   departDate?: string
   returnDate?: string
   brandFlight: string
+  searchTo?: string
+  searchFrom?: string
 }
 
-const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandFlight }) => {
-  const { t } = useTranslation();
+const FlightCard: React.FC<FlightCardProps> = ({
+  minPrice,
+  maxPrice,
+  returnDate,
+  departDate,
+  brandFlight,
+  searchFrom,
+  searchTo
+}) => {
+  const { t } = useTranslation()
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
 
@@ -50,11 +60,32 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllFlight', page, sortByPrice, brandFlight || '', minPrice, maxPrice, departDate, returnDate],
-    queryFn: () => flightApi.getAll(page, 4, sortByPrice, brandFlight || '', minPrice, maxPrice, departDate, returnDate)
+    queryKey: [
+      'getAllFlight',
+      page,
+      sortByPrice,
+      brandFlight || '',
+      minPrice,
+      maxPrice,
+      departDate,
+      returnDate,
+      searchTo,
+      searchFrom
+    ],
+    queryFn: () =>
+      flightApi.getAll(
+        page,
+        4,
+        sortByPrice,
+        brandFlight || '',
+        minPrice,
+        maxPrice,
+        departDate,
+        returnDate,
+        searchFrom,
+        searchTo
+      )
   })
-  console.log(getAll?.min_price,"getAllgetAll");
-  
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePageChange = (newPage: number) => {
@@ -71,11 +102,11 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
 
   return (
     <>
-      <div className='flex items-center justify-between mt-20'>
+      <div className='flex items-center justify-between mt-20 mb-4'>
         <Dropdown menu={{ items }}>
           <a onClick={(e) => e.preventDefault()} className='ml-auto'>
             <Space>
-            {t('Sortby')}
+              {t('Sortby')}
               <DownOutlined />
             </Space>
           </a>
@@ -149,7 +180,7 @@ const FlightCard: React.FC<FlightCardProps> = ({ minPrice, maxPrice, returnDate,
           </div>
         ))
       ) : (
-        <p className='text-center'>{t('availableFlight')}</p>
+        <p className='flex justify-center w-full text-center'>{t('availableFlight')}</p>
       )}
 
       <div className='flex justify-around mt-6'>

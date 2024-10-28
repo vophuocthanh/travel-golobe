@@ -1,4 +1,13 @@
-import * as React from 'react'
+import IconEdit from '@/assets/icons/icon-edit'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import {
   ColumnFiltersState,
   SortingState,
@@ -10,32 +19,25 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import IconEdit from '@/assets/icons/icon-edit'
+import * as React from 'react'
 
-import { Link } from 'react-router-dom'
-import { CaretSortIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
-import { IconSearch } from '@/common/icons'
-import { ChevronDown } from 'lucide-react'
-import { FlightResponseType } from '@/shared/ts/interface/data.interface'
-import { useQuery } from '@tanstack/react-query'
 import { flightApi } from '@/apis/flight.api'
+import { IconSearch } from '@/common/icons'
 import { Card } from '@/components/ui/card'
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { CaretSortIcon } from '@radix-ui/react-icons'
+import { useQuery } from '@tanstack/react-query'
+import { ColumnDef } from '@tanstack/react-table'
+import { ChevronDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
+import { formatCurrencyVND } from '@/shared/lib/format-price'
+import { exportToExcel } from '@/shared/utils/excel-utils'
 import DeleteFlightButton from './components/DeleteFlightAdmin'
 
 const FlightAdmin: React.FC = () => {
   const { data: getAllFlights } = useQuery({
-    queryKey: ['getAllFlight'],
+    queryKey: ['getAllPageFlightAdmin'],
     queryFn: () => flightApi.getAll(1, 1, '')
   })
   const totalDataCount = getAllFlights?.total || 0
@@ -77,7 +79,7 @@ const FlightAdmin: React.FC = () => {
           <CaretSortIcon className='w-4 h-4 ml-2 ' />
         </Button>
       ),
-      cell: ({ row }) => <div className='uppercase'>{row.getValue('brand')}</div>
+      cell: ({ row }) => <div className='w-40'>{row.getValue('brand')}</div>
     },
     {
       accessorKey: 'image',
@@ -112,6 +114,18 @@ const FlightAdmin: React.FC = () => {
       cell: ({ row }) => <div className='text-center lowercase '>{row.getValue('start_time')}</div>
     },
     {
+      accessorKey: 'end_time',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Thời gian kết thúc
+            <CaretSortIcon className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='text-center lowercase'>{row.getValue('end_time')}</div>
+    },
+    {
       accessorKey: 'start_day',
       header: ({ column }) => {
         return (
@@ -123,20 +137,8 @@ const FlightAdmin: React.FC = () => {
       },
       cell: ({ row }) => {
         const endDate = new Date(row.getValue('start_day'))
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+        return <div className='text-center'>{endDate.toLocaleDateString('vi-VN')}</div>
       }
-    },
-    {
-      accessorKey: 'end_time',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Thời gian kết thúc
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div className='text-center lowercase'>{row.getValue('end_time')}</div>
     },
     {
       accessorKey: 'end_day',
@@ -150,7 +152,7 @@ const FlightAdmin: React.FC = () => {
       },
       cell: ({ row }) => {
         const endDate = new Date(row.getValue('end_day'))
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+        return <div className='text-center'>{endDate.toLocaleDateString('vi-VN')}</div>
       }
     },
     {
@@ -163,7 +165,7 @@ const FlightAdmin: React.FC = () => {
           </Button>
         )
       },
-      cell: ({ row }) => <div className='lowercase'>{row.getValue('trip_time')}</div>
+      cell: ({ row }) => <div className='text-center'>{row.getValue('trip_time')}</div>
     },
     {
       accessorKey: 'take_place',
@@ -176,7 +178,7 @@ const FlightAdmin: React.FC = () => {
         )
       },
       cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className='w-[10rem] text-center break-words overflow-hidden whitespace-nowrap truncate'>
           {row.getValue('take_place')}
         </div>
       )
@@ -192,22 +194,10 @@ const FlightAdmin: React.FC = () => {
         )
       },
       cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className='w-[10rem] text-center break-words overflow-hidden whitespace-nowrap truncate'>
           {row.getValue('destination')}
         </div>
       )
-    },
-    {
-      accessorKey: 'trip_to',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Vị trí đến
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div className=''>{row.getValue('trip_to')}</div>
     },
     {
       accessorKey: 'createAt',
@@ -221,36 +211,14 @@ const FlightAdmin: React.FC = () => {
       },
       cell: ({ row }) => {
         const endDate = new Date(row.getValue('createAt'))
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
-      }
-    },
-    {
-      accessorKey: 'updateAt',
-      header: ({ column }) => {
-        return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            Ngày cập nhật
-            <CaretSortIcon className='w-4 h-4 ml-2' />
-          </Button>
-        )
-      },
-      cell: ({ row }) => {
-        const endDate = new Date(row.getValue('updateAt'))
-        return <div>{endDate.toLocaleDateString('vi-VN')}</div>
+        return <div className='text-center'>{endDate.toLocaleDateString('vi-VN')}</div>
       }
     },
     {
       accessorKey: 'price',
       header: () => <div className='text-center'>Giá</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue('price'))
-
-        const formatted = new Intl.NumberFormat('vn-Vn', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(amount)
-
-        return <div className='font-medium text-right'>{formatted}</div>
+        return <div className='font-medium text-center'>{formatCurrencyVND(row.getValue('price'))}</div>
       }
     },
     {
@@ -301,9 +269,47 @@ const FlightAdmin: React.FC = () => {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
+  const handleDownloadExcelFlight = () => {
+    const dataToExport = flightsData.map((flight) => ({
+      Mã: flight.id,
+      TênHãng: flight.brand,
+      HìnhẢnh: flight.image,
+      ThờiGianKhởiHành: flight.start_time,
+      NgàyKhởiHành: flight.start_day,
+      ThờiGianKếtThúc: flight.end_time,
+      NgàyKếtThúc: flight.end_day,
+      ThờiGianChuyếnBay: flight.trip_time,
+      ĐiểmĐi: flight.take_place,
+      ĐiểmĐến: flight.destination,
+      NgàyTạo: flight.create_at ? new Date(flight.create_at).toLocaleDateString('vi-VN') : '',
+      Giá: new Intl.NumberFormat('vn-VN', { style: 'currency', currency: 'VND' }).format(flight.price)
+    }))
+
+    exportToExcel(dataToExport, 'FlightsData')
+  }
+
   return (
     <div className='w-full p-2'>
-      <p className='text-2xl font-bold'>Flight - Admin</p>
+      <div className='flex items-center justify-between'>
+        <p className='text-2xl font-bold'>Flight - Admin</p>
+        <Button onClick={handleDownloadExcelFlight} className='flex items-center gap-2'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
+            />
+          </svg>
+          <p>Export to Excel</p>
+        </Button>
+      </div>
       <Card className='p-4 mt-5'>
         <div className='flex items-center justify-between p-2 py-2'>
           <div className='flex items-center'>
@@ -338,7 +344,7 @@ const FlightAdmin: React.FC = () => {
           </div>
           <div className='flex items-center gap-4'>
             <Link to='/admin/flight/create'>
-              <Button className='bg-[#624DE3] text-white'>+ Add Flight</Button>
+              <Button className='text-white'>+ Add Flight</Button>
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

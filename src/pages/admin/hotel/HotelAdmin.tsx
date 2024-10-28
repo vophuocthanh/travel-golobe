@@ -19,7 +19,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { exportToExcel } from '@/shared/utils/excel-utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   ColumnDef,
@@ -166,12 +168,7 @@ export default function HotelAdmin() {
       accessorKey: 'price',
       header: () => <div className='flex justify-center w-20'>Giá mỗi đêm</div>,
       cell: ({ row }) => {
-        const price = parseFloat(row.getValue('price'))
-        const formatted = new Intl.NumberFormat('vi-VN', {
-          style: 'currency',
-          currency: 'VND'
-        }).format(price)
-        return <div className='flex justify-center font-medium'>{formatted}</div>
+        return <div className='flex justify-center font-medium'>{formatCurrencyVND(row.getValue('price'))}</div>
       },
       enableSorting: true
     },
@@ -245,9 +242,47 @@ export default function HotelAdmin() {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
+  const handleDownloadExcelHotel = () => {
+    const data = hotelData.map((item) => ({
+      Mã: item.id,
+      'Tên khách sạn': item.hotel_names,
+      'Vị trí': item.location,
+      'Địa điểm': item.place,
+      'Điểm số khách sạn': item.score_hotels,
+      'Xếp hạng': item.number_rating,
+      'Số sao': item.star_number,
+      'Thời gian nhận được': item.received_time,
+      'Thời gian trả lại': item.giveback_time,
+      'Mô tả': item.description,
+      'Còn lại': item.number_of_seats_remaining,
+      'Giá mỗi đêm': item.price
+    }))
+
+    exportToExcel(data, 'HotelData')
+  }
+
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-4 text-2xl font-bold '>HOTEL</h1>
+      <div className='flex items-center justify-between mb-6'>
+        <h1 className='text-2xl font-bold '>HOTEL</h1>
+        <Button onClick={handleDownloadExcelHotel} className='flex items-center gap-2'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
+            />
+          </svg>
+          <p>Export to Excel</p>
+        </Button>
+      </div>
       <Card>
         <CardContent>
           <div className='flex items-center justify-between py-4'>

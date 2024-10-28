@@ -6,7 +6,6 @@ import { Footer, Header } from '@/components/common'
 import ShareButtons from '@/components/common/share/share-link'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next';
 import {
   Bus,
   BusFront,
@@ -21,6 +20,7 @@ import {
   Wifi
 } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'swiper/css'
@@ -29,7 +29,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import CoachDetailReview from './commentCoach'
 
 export default function CoachDetail() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const [loadingBooking, setLoadingBooking] = useState(false)
   const [liked, setLiked] = useState(false)
   const [roadVehicleQuantity, setRoadVehicleQuantity] = useState(1) // Khởi tạo số lượng là 1
@@ -223,21 +223,15 @@ export default function CoachDetail() {
             <div className='flex flex-col space-y-4'>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>
-                {t('cleaned')}
-                </p>
+                <p className='text-sm text-gray-200'>{t('cleaned')}</p>
               </div>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>
-                {t('fitted')}
-                </p>
+                <p className='text-sm text-gray-200'>{t('fitted')}</p>
               </div>
               <div className='flex items-center space-x-3'>
                 <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>
-                {t('complete')}
-                </p>
+                <p className='text-sm text-gray-200'>{t('complete')}</p>
               </div>
             </div>
           </div>
@@ -254,7 +248,7 @@ export default function CoachDetail() {
             <div className='gap-4'>
               <div className='flex justify-between mt-5'>
                 <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
-                  <img src={getbyId?.images} alt='' className='w-16' />
+                  <img src={getbyId?.image} alt='' className='w-16' />
                   <div>
                     <p className='text-2xl font-bold'>{getbyId?.brand}</p>
                     <p className='text-sm font-medium'>{getbyId?.number_of_seat}</p>

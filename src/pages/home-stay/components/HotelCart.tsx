@@ -6,9 +6,9 @@ import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Coffee, MapPin } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import ReadOnlyRating from './ReadOnlyRating'
-import { useTranslation } from 'react-i18next';
 interface HotelCardProps {
   priceRangeMax: number | undefined
   priceRangeMin: number | undefined
@@ -17,7 +17,7 @@ interface HotelCardProps {
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sortByPrice, starNumber }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const [page, setPage] = useState(1)
   const { data: getAll } = useQuery({
     queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, starNumber],
@@ -39,59 +39,62 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
 
   return (
     <>
-      {getAll?.data.map((item: HotelResponseType) => (
-        <div
-          key={item.id}
-          className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
-        >
-          <div className='w-[35%] bg-blue-300 flex-3 relative'>
-            <img src={hoteldetail3} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
-            <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
-              9 images
-            </p>
-          </div>
-          <div className='w-[65%] flex-7 h-full p-4 bg-white'>
-            <div className='flex flex-col w-full h-full'>
-              <div className='flex flex-row w-full h-[75%] border-b-2 border-gray-400 pb-4'>
-                <div className='w-[70%] flex flex-col gap-4'>
-                  <p className='pt-2 overflow-hidden text-2xl font-bold whitespace-nowrap overflow-ellipsis'>
-                    {item.hotel_names}
-                  </p>
-                  <div className='flex text-gray-500 text-md '>
-                    <MapPin className='w-4 h-4 mr-1 text-black ' />
-                    <span className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</span>
-                  </div>
-                  <div className='flex gap-2'>
-                    <ReadOnlyRating rating={Number(item.star_number)} />
-                    <div className='flex items-center gap-1'>
-                      <p className='font-bold'>20+</p>
-                      <Coffee className='font-bold text-black' />
-                      <p>Amenities</p>
+      {(getAll?.data.length ?? 0) > 0 ? (
+        getAll?.data.map((item: HotelResponseType) => (
+          <div
+            key={item.id}
+            className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
+          >
+            <div className='w-[35%] bg-blue-300 flex-3 relative'>
+              <img src={hoteldetail3} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
+              <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
+                9 images
+              </p>
+            </div>
+            <div className='w-[65%] flex-7 h-full p-4 bg-white'>
+              <div className='flex flex-col w-full h-full'>
+                <div className='flex flex-row w-full h-[75%] border-b-2 border-gray-400 pb-4'>
+                  <div className='w-[70%] flex flex-col gap-4'>
+                    <p className='pt-2 overflow-hidden text-2xl font-bold whitespace-nowrap overflow-ellipsis'>
+                      {item.hotel_names}
+                    </p>
+                    <div className='flex text-gray-500 text-md '>
+                      <MapPin className='w-4 h-4 mr-1 text-black ' />
+                      <span className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</span>
+                    </div>
+                    <div className='flex gap-2'>
+                      <ReadOnlyRating rating={Number(item.star_number)} />
+                      <div className='flex items-center gap-1'>
+                        <p className='font-bold'>20+</p>
+                        <Coffee className='font-bold text-black' />
+                        <p>Amenities</p>
+                      </div>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <Button className='text-white'>{item.score_hotels}</Button>
+                      <p className='font-bold'>Very good</p>
+                      <p>371 reviews</p>
                     </div>
                   </div>
-                  <div className='flex items-center gap-2'>
-                    <Button className='text-white'>{item.score_hotels}</Button>
-                    <p className='font-bold'>Very good</p>
-                    <p>371 reviews</p>
+                  <div className='w-[30%] pt-4 text-right'>
+                    <p className='text-3xl text-[#FF8682] font-bold'>{formatCurrency(item.price?.toString())}</p>
+                    <p className='mr-3 text-gray-400'>excl. tax</p>
                   </div>
                 </div>
-                <div className='w-[30%] pt-4 text-right'>
-                  <p className='text-3xl text-[#FF8682] font-bold'>{formatCurrency(item.price?.toString())}</p>
-                  <p className='mr-3 text-gray-400'>excl. tax</p>
-                </div>
-              </div>
-              <div className='flex w-full mt-2'>
-                <div className='flex items-center justify-center w-full gap-4'>
-                  <Link to={`/hotel/${item.id}`} className='w-full'>
-                    <Button className='w-full text-white bg-primary'>{t('ViewDeals')}</Button>
-                  </Link>
+                <div className='flex w-full mt-2'>
+                  <div className='flex items-center justify-center w-full gap-4'>
+                    <Link to={`/hotel/${item.id}`} className='w-full'>
+                      <Button className='w-full text-white bg-primary'>{t('ViewDeals')}</Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
-
+        ))
+      ) : (
+        <p className='text-center'>Không có hotel</p>
+      )}
       <div className='flex justify-around mt-6'>
         <Pagination>
           <PaginationContent>

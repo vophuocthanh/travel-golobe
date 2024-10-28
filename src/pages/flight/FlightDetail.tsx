@@ -4,7 +4,6 @@ import { flightdetail1, flightdetail2, flightdetail3, ticket_economy } from '@/a
 import { IconFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import Favorite from '@/components/common/flight/all-flight/favorite'
-import FlightDaySelection from '@/components/common/flight/all-flight/FlightDaySelection'
 import FlightTicketSelection from '@/components/common/flight/all-flight/FlightTicketSelection'
 import ShareButtons from '@/components/common/share/share-link'
 
@@ -25,15 +24,15 @@ import {
 } from 'lucide-react'
 import { useRef, useState } from 'react'
 
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { useTranslation } from 'react-i18next'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useTranslation } from 'react-i18next';
 export default function FlightDetail() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const slides = [
     { content: flightdetail1 },
     { content: flightdetail2 },
@@ -57,9 +56,6 @@ export default function FlightDetail() {
   const [flightQuantity, setFlightQuantity] = useState(1)
 
   const [selectedTicket, setSelectedTicket] = useState('')
-  const [day, setDay] = useState<string>('')
-
-  console.log('ngay ', day)
 
   const SectionRef = useRef<HTMLDivElement | null>(null)
 
@@ -75,7 +71,7 @@ export default function FlightDetail() {
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   const mutationFlightBooking = useMutation({
-    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity, selectedTicket, day),
+    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity, selectedTicket),
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
@@ -87,8 +83,8 @@ export default function FlightDetail() {
   })
 
   const handleBookFlight = () => {
-    if (selectedTicket === '' || day === '') {
-      toast.error('Vui lòng chọn vé  và ngày trước khi đặt.')
+    if (selectedTicket === '') {
+      toast.error('Vui lòng chọn vé trước khi đặt.')
       SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
       setLoadingBooking(true)
@@ -110,9 +106,13 @@ export default function FlightDetail() {
       <div className='container mx-auto pt-28 pb-72'>
         <section>
           <div className='flex items-center space-x-2 text-sm text-gray-600'>
-            <p className='text-xl'>Today</p>
+            <Link to='/vehicle/flight' className='text-red-400'>
+              Flight
+            </Link>
             <ChevronRight className='w-4 h-4' />
-            <p className='text-xl'>Istanbul</p>
+            <Link to='/vehicle/flight/all-flight' className='text-red-400'>
+              Flight All
+            </Link>
             <ChevronRight className='w-4 h-4' />
             <p className='text-lg text-primary'>{getbyId?.brand}</p>
           </div>
@@ -136,7 +136,9 @@ export default function FlightDetail() {
             <div className='space-y-2'>
               <p className='text-[32px] font-bold text-[#FF8682] text-right'>{formattedPrice} </p>
               <div className='flex space-x-2'>
-                <p className='mt-2 text-lg font-bold text-black'>{t('Availab')} {getbyId?.number_of_seats_remaining} {t('Ticket')}</p>
+                <p className='mt-2 text-lg font-bold text-black'>
+                  {t('Availab')} {getbyId?.number_of_seats_remaining} {t('Ticket')}
+                </p>
                 <Favorite id={getbyId?.id} />
                 <div className='flex border rounded border-primary'>
                   <Button
@@ -252,7 +254,7 @@ export default function FlightDetail() {
           </div>
 
           <div ref={SectionRef}>
-            <FlightDaySelection day={day} setDay={setDay}></FlightDaySelection>
+            {/* <FlightDaySelection day={day} setDay={setDay}></FlightDaySelection> */}
             <FlightTicketSelection
               tickets={getbyId?.Ticket || []}
               ticketEconomy={ticket_economy}

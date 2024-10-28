@@ -8,22 +8,25 @@ export const bookingFlightApi = {
     const url = '/book/flight'
     return axiosClient.get(url)
   },
-  getBookingFlight( page: number | string, items_per_page: number | string): Promise<ListResponseFlight<FlightBillingResponseType>>{
-    const url = `/bookings/book/flight`;
+  getBookingFlight(
+    page: number | string,
+    items_per_page: number | string
+  ): Promise<ListResponseFlight<FlightBillingResponseType>> {
+    const url = `/bookings/book/flight`
     return axiosClient.get(url, {
       params: {
         page: Number(page),
-        items_per_page: Number(items_per_page),
-      },
-    });
+        items_per_page: Number(items_per_page)
+      }
+    })
   },
-  
+
   getBookingDetail(id: string): Promise<BookingResponse> {
     const url = `/bookings/flight/${id}`
     return axiosClient.get(url)
   },
-  addBookingFlight(flightCrawlId: string, flightQuantity: number,ticketFlighttId:string,flightDate:string): Promise<BookingResponse> {
+  addBookingFlight(flightCrawlId: string, flightQuantity: number, ticketFlighttId: string): Promise<BookingResponse> {
     const url = '/bookings/book/flight'
-    return axiosClient.post(url, { flightCrawlId, flightQuantity ,ticketFlighttId,flightDate})
+    return axiosClient.post(url, { flightCrawlId, flightQuantity, ticketFlighttId })
   }
-} 
+}
