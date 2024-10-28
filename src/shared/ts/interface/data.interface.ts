@@ -101,7 +101,6 @@ export interface CoachResponseType {
   id?: string
   image?: string
   brand?: string
-  images?: string
   price: number
   number_of_seat?: string
   start_time?: string
