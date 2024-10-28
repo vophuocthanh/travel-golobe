@@ -187,7 +187,7 @@ export default function FlightDetail() {
         </section>
 
         <section className='mb-8'>
-          <img src={getbyId?.image} alt='Flight Banner' className='object-cover w-full h-80 rounded-xl' />
+          <img src={getbyId?.image} alt='Flight Banner' className='object-cover w-full h-[30rem] rounded-xl' />
         </section>
 
         <section className='mb-8'>

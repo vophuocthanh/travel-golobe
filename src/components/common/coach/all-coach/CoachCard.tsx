@@ -1,5 +1,4 @@
 import { coachApi } from '@/apis/coach.api'
-import { imgcoach } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
@@ -128,7 +127,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
         getAll?.data.map((coach: CoachResponseType) => (
           <div key={coach.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
             <div className='w-[40%] bg-white relative'>
-              <img src={imgcoach} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
+              <img src={coach.image} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
                 9 images
               </p>

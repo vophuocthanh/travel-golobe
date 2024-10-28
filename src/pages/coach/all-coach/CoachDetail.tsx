@@ -1,7 +1,7 @@
 import { bookingCoachApi } from '@/apis/booking-coach'
 import { coachApi } from '@/apis/coach.api'
 import { commentCoachApi } from '@/apis/comment-coach.api'
-import { bannercoach, coachdetail1, coachdetail2, coachdetail3 } from '@/assets/images'
+import { coachdetail1, coachdetail2, coachdetail3 } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import ShareButtons from '@/components/common/share/share-link'
 import { Button } from '@/components/ui/button'
@@ -184,7 +184,7 @@ export default function CoachDetail() {
         </section>
 
         <section className='mb-8'>
-          <img src={bannercoach} alt='Coach Banner' className='object-cover w-full h-[30rem] rounded-xl' />
+          <img src={getbyId?.image} alt='Coach Banner' className='object-cover w-full h-full rounded-xl' />
         </section>
 
         <section className='mb-8'>
