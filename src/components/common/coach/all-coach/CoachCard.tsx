@@ -1,4 +1,5 @@
 import { coachApi } from '@/apis/coach.api'
+import { imgcoach } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
@@ -9,7 +10,6 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import FavoriteCoach from './FavoriteCoach'
-import { imgcoach } from '@/assets/images'
 
 interface CoachCardProps {
   minPrice?: number
@@ -21,8 +21,16 @@ interface CoachCardProps {
   searchFrom?: string
 }
 
-const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, departDate, brandCoach,searchTo, searchFrom }) => {
-  const { t } = useTranslation();
+const CoachCard: React.FC<CoachCardProps> = ({
+  minPrice,
+  maxPrice,
+  returnDate,
+  departDate,
+  brandCoach,
+  searchTo,
+  searchFrom
+}) => {
+  const { t } = useTranslation()
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
 
@@ -53,11 +61,33 @@ const CoachCard: React.FC<CoachCardProps> = ({ minPrice, maxPrice, returnDate, d
   ]
 
   const { data: getAll } = useQuery({
-    queryKey: ['getAllCoach', page, sortByPrice, brandCoach || '', minPrice, maxPrice, departDate, returnDate, searchTo, searchFrom],
-    queryFn: () => coachApi.getAll(page, 4, sortByPrice, brandCoach || '', minPrice, maxPrice, departDate, returnDate, searchTo, searchFrom),
-  }) 
-  console.log('getAll:', getAll);
-
+    queryKey: [
+      'getAllCoach',
+      page,
+      sortByPrice,
+      brandCoach || '',
+      minPrice,
+      maxPrice,
+      departDate,
+      returnDate,
+      searchFrom,
+      searchTo
+    ],
+    queryFn: () =>
+      coachApi.getAll(
+        page,
+        4,
+        sortByPrice,
+        brandCoach || '',
+        minPrice,
+        maxPrice,
+        departDate,
+        returnDate,
+        searchFrom,
+        searchTo
+      )
+  })
+  console.log('getAll:', getAll)
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePageChange = (newPage: number) => {
