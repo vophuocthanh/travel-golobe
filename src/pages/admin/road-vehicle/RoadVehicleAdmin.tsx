@@ -32,19 +32,19 @@ import { coachdetail1 } from '@/assets/images';
 import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele';
 
 export default function RoadVehicleAdmin() {
-  
+
   const { data: getAllCoach } = useQuery({
     queryKey: ['getAllCoach'],
-    queryFn: () => coachApi.getAll(1, 1,'')
+    queryFn: () => coachApi.getAll(1, 1, '')
   })
   const totalDataCount = getAllCoach?.total || 0
   const { data: CoachData } = useQuery({
     queryKey: ['getCoach', totalDataCount],
-    queryFn: () => coachApi.getAll(1, totalDataCount,''),
+    queryFn: () => coachApi.getAll(1, totalDataCount, ''),
     enabled: totalDataCount > 0
   })
 
-const coachData = CoachData?.data || []
+  const coachData = CoachData?.data || []
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -83,9 +83,9 @@ const coachData = CoachData?.data || []
         </Button>
       ),
       cell: () =>
-          <div className="text-left">
+        <div className="text-left">
           <img src={coachdetail1} alt="vehicle" className="object-cover h-12 mx-auto w-15" />
-          </div>
+        </div>
     },
     {
       accessorKey: 'number_of_seat',
@@ -235,7 +235,7 @@ const coachData = CoachData?.data || []
   ];
 
   const table = useReactTable({
-    data : coachData,
+    data: coachData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -288,7 +288,6 @@ const coachData = CoachData?.data || []
                     </option>
                   ))}
                 </select>
-                <span>entries</span>
               </div>
               <div className='relative'>
                 <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
@@ -300,10 +299,9 @@ const coachData = CoachData?.data || []
                   onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
                   className='max-w-sm pl-10 rounded-xl'
                 />
-            </div>
+              </div>
             </div>
             <div className='flex items-center gap-4'>
-            <span>Total Coachs: {totalDataCount}</span>
               <Link to='/admin/coach/create'>
                 <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
                   <IconMore />
@@ -356,9 +354,8 @@ const coachData = CoachData?.data || []
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${
-                            cell.column.id === "hotelId" ? "sticky left-0 bg-white z-10" : ""
-                          } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
+                          className={`${cell.column.id === "hotelId" ? "sticky left-0 bg-white z-10" : ""
+                            } ${cell.column.id === "actions" ? "sticky right-0 bg-white z-10" : ""}`}
                           style={{
                             minWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
                             maxWidth: cellIndex === 0 || cell.column.id === "actions" ? "150px" : "auto",
@@ -383,16 +380,19 @@ const coachData = CoachData?.data || []
             <span className='text-sm text-gray-700'>
               Showing page {pageIndex + 1} of {table.getPageCount()}
             </span>
-            <div className='flex space-x-2 text-white'>
-              <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
-                Previous
-              </Button>
-              <Button
-                onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
-                disabled={pageIndex + 1 >= table.getPageCount()}
-              >
-                Next
-              </Button>
+            <div className='flex items-center'>
+              <span className='pr-2'>Total Coachs: {totalDataCount}</span>
+              <div className='flex space-x-2 text-white'>
+                <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
+                  Previous
+                </Button>
+                <Button
+                  onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+                  disabled={pageIndex + 1 >= table.getPageCount()}
+                >
+                  Next
+                </Button>
+              </div>
             </div>
           </div>
         </CardContent>

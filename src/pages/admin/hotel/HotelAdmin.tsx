@@ -268,7 +268,6 @@ export default function HotelAdmin() {
                     </option>
                   ))}
                 </select>
-                <span>entries</span>
               </div>
               <div className='relative'>
                 <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
@@ -336,9 +335,8 @@ export default function HotelAdmin() {
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${cell.column.id === 'id' ? 'sticky left-0 bg-white z-10' : ''} ${
-                            cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
-                          }`}
+                          className={`${cell.column.id === 'id' ? 'sticky left-0 bg-white z-10' : ''} ${cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
+                            }`}
                           style={{
                             minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
                             maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'

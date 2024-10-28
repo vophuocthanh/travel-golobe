@@ -337,7 +337,6 @@ const FlightAdmin: React.FC = () => {
             </div>
           </div>
           <div className='flex items-center gap-4'>
-            <span>Total Flights: {totalDataCount}</span>
             <Link to='/admin/flight/create'>
               <Button className='bg-[#624DE3] text-white'>+ Add Flight</Button>
             </Link>
@@ -402,6 +401,7 @@ const FlightAdmin: React.FC = () => {
           <div className='flex-1 text-sm text-muted-foreground'>
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
+          <span className='pr-2'>Total Flights: {totalDataCount}</span>
           <div className='pr-4 space-x-2'>
             <Button
               onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
