@@ -119,6 +119,15 @@ export default function FlightDetail() {
           <div className='flex justify-between p-4'>
             <div>
               <p className='text-2xl font-bold text-[#FF8682]'>{getbyId?.brand}</p>
+              <div className='flex flex-row items-center justify-center pt-5 space-x-2'>
+                <div className='flex items-center'>
+                  <p className='font-semibold text-xxs'>{getbyId?.take_place}</p>
+                </div>
+                <Plane className='w-6 h-6 text-primary' />
+                <div className='flex items-center'>
+                  <p className='font-semibold text-xxs'>{getbyId?.destination}</p>
+                </div>
+              </div>
               <div className='flex items-center mt-1 space-x-2 text-sm'>
                 {/* <MapPin className='w-4 h-4' /> */}
                 <p></p>
