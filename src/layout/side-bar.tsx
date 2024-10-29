@@ -10,7 +10,6 @@ const Sidebar = () => {
   const router = useLocation()
   const { pathname } = router
   const { isCollapsed, toggleSidebar } = useSidebar()
-  console.log('isCollapsed:', isCollapsed)
 
   return (
     <div className={`px-4 py-4 bg-[#FCFCFC] ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300`}>

@@ -13,7 +13,6 @@ export default function PaymentDetailView() {
     queryKey: ['getPaymentById'],
     queryFn: () => paymentApi.getPaymentById(paymentID ?? '')
   })
-  console.log('PaymentID', PaymentData)
 
   const handleBack = () => {
     navigate('/admin/payments')

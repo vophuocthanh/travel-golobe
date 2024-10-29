@@ -60,7 +60,6 @@ export default function CreateFlightAdmin() {
   const mutationCreateTour = useMutation({
     mutationFn: (data: z.infer<typeof CreateFlightSchema>) => flightApi.addFlight(data)
   })
-  console.log(mutationCreateTour, 'mutationCreateTour')
 
   function onSubmit(data: z.infer<typeof CreateFlightSchema>) {
     setLoading(true)

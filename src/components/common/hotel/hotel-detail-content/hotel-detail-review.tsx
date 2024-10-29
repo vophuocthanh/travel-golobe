@@ -10,9 +10,9 @@ import { CommentHotel, CommentHotelForm } from '@/shared/ts/interface/comment-ho
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { CornerRightDown, TableOfContents } from 'lucide-react'
 import { SetStateAction, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useTranslation } from 'react-i18next';
 const reviewsPerPage = 5
 
 interface HotelDetailReviewProps {
@@ -23,7 +23,7 @@ interface HotelDetailReviewProps {
 
 export default function HotelDetailReview({ data, hotelId, total }: HotelDetailReviewProps) {
   const [currentPage, setCurrentPage] = useState(1)
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { isAuthenticated } = useAuth()
 
   const totalPages = Math.ceil(data.length / reviewsPerPage)
@@ -109,7 +109,6 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
 
   const handleReplySubmit = (e: React.FormEvent<HTMLFormElement>, commentId: string) => {
     e.preventDefault()
-    console.log('Reply to commentId:', commentId, 'Content:', reply[commentId])
     setReply((prev) => ({ ...prev, [commentId]: '' }))
     setIsReplyVisible((prev) => ({ ...prev, [commentId]: false }))
   }

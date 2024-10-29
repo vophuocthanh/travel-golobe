@@ -39,8 +39,6 @@ export default function BillingTourView() {
     }).format(date)
   }
 
-  console.log('dataaaaaaaaa:', billingTourData1)
-
   const handleBack = () => {
     navigate('/admin/billing')
   }

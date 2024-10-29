@@ -9,9 +9,9 @@ import { CommentTour, CommentTourForm } from '@/shared/ts/interface/comment-tour
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CornerRightDown, TableOfContents } from 'lucide-react'
 import { SetStateAction, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useTranslation } from 'react-i18next';
 
 const reviewsPerPage = 5
 
@@ -22,7 +22,7 @@ interface TourDetailReviewProps {
 }
 
 export default function TourDetailReview({ data, tourId, total }: TourDetailReviewProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
   const { isAuthenticated } = useAuth()
 
@@ -96,7 +96,6 @@ export default function TourDetailReview({ data, tourId, total }: TourDetailRevi
 
   const handleReplySubmit = (e: React.FormEvent<HTMLFormElement>, commentId: string) => {
     e.preventDefault()
-    console.log('Reply to commentId:', commentId, 'Content:', reply[commentId])
     setReply((prev) => ({ ...prev, [commentId]: '' }))
     setIsReplyVisible((prev) => ({ ...prev, [commentId]: false }))
   }

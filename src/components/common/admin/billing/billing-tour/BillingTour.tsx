@@ -43,7 +43,6 @@ export function BillingTour() {
   })
 
   const billingTour = billingTourData?.data || []
-  console.log('dataTour', billingTour)
 
   const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([])

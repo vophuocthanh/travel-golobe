@@ -94,7 +94,6 @@ export default function FlightDetail() {
 
   const handleTicketSelection = (id: string) => {
     setSelectedTicket(id)
-    console.log('Ticket đã chọn:', id)
   }
 
   const flightUrl = `https://travel-golobe.vercel.app/tour/${id}`

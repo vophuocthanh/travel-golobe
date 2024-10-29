@@ -1,18 +1,18 @@
 import { hotelApi } from '@/apis/hotel.api'
 import { hoteldetail1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { HotelUpdateSchema } from '@/shared/utils/hotel.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ArrowLeftToLine, CirclePlus } from 'lucide-react'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
-import { Textarea } from '@/components/ui/textarea'
 
 export default function HotelAdminEdit() {
   const { id } = useParams()
@@ -42,7 +42,7 @@ export default function HotelAdminEdit() {
       image_3: '',
       image_4: '',
       image_5: '',
-      number_of_seats_remaining: 0,
+      number_of_seats_remaining: 0
     }
   })
 
@@ -67,7 +67,7 @@ export default function HotelAdminEdit() {
         image_3: getbyId.image_3 || '',
         image_4: getbyId.image_4 || '',
         image_5: getbyId.image_5 || '',
-        number_of_seats_remaining: getbyId.number_of_seats_remaining, // Default to 0
+        number_of_seats_remaining: getbyId.number_of_seats_remaining // Default to 0
       })
     }
   }, [getbyId, reset])
@@ -87,10 +87,8 @@ export default function HotelAdminEdit() {
       score_hotels: Number(data.score_hotels),
       star_number: Number(data.star_number),
       number_rating: Number(data.number_rating),
-      number_of_seats_remaining: Number(data.number_of_seats_remaining),
+      number_of_seats_remaining: Number(data.number_of_seats_remaining)
     }
-
-    console.log(formattedData)
 
     mutationUpdateHotel.mutate(formattedData, {
       onSuccess: () => {

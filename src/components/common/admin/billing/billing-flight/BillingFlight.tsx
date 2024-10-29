@@ -45,7 +45,6 @@ export function BillingFLight() {
   })
 
   const billing = billiingFLightData?.data || []
-  console.log()
 
   const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([])

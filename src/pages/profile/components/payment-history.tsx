@@ -9,7 +9,6 @@ export default function PaymentHistory() {
     queryKey: ['getPaymentUser'],
     queryFn: () => paymentApi.getPaymentUser()
   })
-  console.log('getPaymentUser:', getPaymentUser)
   return (
     <div className='w-full h-full'>
       <div className='flex items-center justify-between'>

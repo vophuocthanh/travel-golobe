@@ -15,7 +15,6 @@ export default function TourPayment() {
   const { id } = useParams<{ id: string }>()
   const [loading, setLoading] = useState<boolean>(false)
   const [paymentOption, setPaymentOption] = useState('full')
-  console.log('paymentOption:', paymentOption)
   const navigate = useNavigate()
 
   const { data: getBookingDetailTour } = useQuery({

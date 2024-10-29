@@ -43,7 +43,6 @@ export function BillingAll() {
   })
 
   const billing = billiingData?.data || []
-  console.log('data', billing)
 
   const navigate = useNavigate()
   const [sorting, setSorting] = React.useState<SortingState>([])

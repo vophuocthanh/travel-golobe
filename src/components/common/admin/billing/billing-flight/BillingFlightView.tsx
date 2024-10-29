@@ -2,13 +2,14 @@ import { bookingFlightApi } from '@/apis/booking-flight'
 import { flightdetail1 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { formatDateStandard } from '@/shared/utils/date-utils'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeftToLine } from 'lucide-react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function BillingFlightView() {
-  const { billingID } = useParams()
+  const { id } = useParams()
 
   const navigate = useNavigate()
   const handleBack = () => {
@@ -17,20 +18,12 @@ export default function BillingFlightView() {
 
   const { data: billingFlightData } = useQuery({
     queryKey: ['getBookingDetail'],
-    queryFn: () => bookingFlightApi.getBookingDetail(billingID ?? '')
+    queryFn: () => bookingFlightApi.getBookingDetail(id ?? '')
   })
-  // console.log('dt', billingFlightData?.flightCrawls.brand)
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0') // Tháng bắt đầu từ 0
-    const year = date.getFullYear()
-    return `${day}-${month}-${year}`
-  }
 
   return (
     <div className='w-full p-2 mb-5'>
-      <h1 className='mb-2 text-2xl font-bold'>Thanh toán chuyến bay {billingID}</h1>
+      <h1 className='mb-2 text-2xl font-bold'>Thanh toán chuyến bay {id}</h1>
       <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
@@ -135,7 +128,7 @@ export default function BillingFlightView() {
                     placeholder='Departure Time'
                     value={
                       billingFlightData?.flightCrawls.start_day
-                        ? `${formatDate(billingFlightData.flightCrawls.start_day)} -- ${
+                        ? `${formatDateStandard(billingFlightData.flightCrawls.start_day)} -- ${
                             billingFlightData.flightCrawls.start_time
                           }`
                         : ''
@@ -152,7 +145,7 @@ export default function BillingFlightView() {
                     placeholder='Departure Time'
                     value={
                       billingFlightData?.flightCrawls.end_day
-                        ? `${formatDate(billingFlightData.flightCrawls.end_day)} -- ${
+                        ? `${formatDateStandard(billingFlightData.flightCrawls.end_day)} -- ${
                             billingFlightData.flightCrawls.end_time
                           }`
                         : ''

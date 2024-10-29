@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button'
 import { tourApi } from '@/apis/tour.api'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import StarRating from '../star-rating'
-import { useTranslation } from 'react-i18next';
 
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
@@ -33,7 +33,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
 }) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -75,7 +75,6 @@ const ProductTour: React.FC<TourlCardProps> = ({
       tourApi.getAll(page, 4, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate),
     enabled: !!debouncedSearchTour || !!sortByPrice || !!page
   })
-  console.log(getAll?.data, 'getAllDate')
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePage = (newPage: number) => {

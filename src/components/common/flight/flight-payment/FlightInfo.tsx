@@ -2,9 +2,9 @@ import { bookingFlightApi } from '@/apis/booking-flight'
 import { IconFlight } from '@/common/icons'
 import { BookingResponse } from '@/shared/ts/interface/booking-flight.interface'
 import { useQuery } from '@tanstack/react-query'
+import dayjs from 'dayjs'
 import { MoveLeft, MoveRight, Plane, RockingChair, Timer, UtensilsCrossed, Wifi } from 'lucide-react'
 import { useParams } from 'react-router-dom'
-import dayjs from 'dayjs'
 interface FlightInfo {
   data: BookingResponse
 }
@@ -15,7 +15,6 @@ export default function FlightInfo({ data }: FlightInfo) {
     queryKey: ['getById', id],
     queryFn: () => bookingFlightApi.getBookingDetail(id || '')
   })
-  console.log('data', getBookingFlightDetails?.flightCrawls.start_day)
   const endDate = getBookingFlightDetails?.flightCrawls.end_day
   const formattedEndDate = endDate ? dayjs(endDate).format('DD-MM-YYYY') : ''
   const startDate = getBookingFlightDetails?.flightCrawls.start_day

@@ -34,8 +34,7 @@ export default function TourDetail() {
   const handleRating = (val: number | undefined) => {
     setRating(val)
   }
-  console.log(rating,"rating");
-  
+
   const [searchTour, setSearchTour] = useState<string>('')
   const debouncedSearchTour = useDebounce<string>(searchTour, 500)
 
@@ -66,7 +65,6 @@ export default function TourDetail() {
       ),
     enabled: !!debouncedSearchTour
   })
-  console.log(getAllTour, 'getAllTour')
   const handleSearch = () => {
     setFilteredDepartDate(formattedDepartDate)
     setFilteredReturnDate(formattedReturnDate)

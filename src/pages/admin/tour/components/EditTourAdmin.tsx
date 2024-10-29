@@ -102,15 +102,11 @@ export default function EditTourAdmin() {
 
     mutationUpdateTour.mutate(formattedData, {
       onSuccess: () => {
-        console.log(formattedData, 'formattedData123')
         queryClient.invalidateQueries({ queryKey: ['getUpdateTourAll'] })
         toast.success('Update tour success')
         navigate('/admin/tours')
       },
-      onError: (error) => {
-        console.log(error, 'eror')
-        console.log(formattedData, 'formattedData123')
-
+      onError: () => {
         toast.error('Update tour failed')
       },
       onSettled: () => {

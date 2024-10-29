@@ -70,15 +70,11 @@ function TourAdmin() {
     if (confirmDelete) {
       mutationDeleteTour.mutate(id, {
         onSuccess: () => {
-          console.log(id, 'idqewe')
-
           queryClient.invalidateQueries({ queryKey: ['getTour'] })
           queryClient.setQueryData(['getTour'], (deleteTour: TourResponse[] | undefined) => {
-            console.log(id, deleteTour, 'idqewe')
             if (!deleteTour) {
               return []
             }
-            console.log(id, 'idqewe')
             const updatedTours = deleteTour.filter((item) => item.id !== id)
             return updatedTours
           })

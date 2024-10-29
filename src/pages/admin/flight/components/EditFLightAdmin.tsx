@@ -1,21 +1,21 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
 import { flightApi } from '@/apis/flight.api'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
 import { UpdateFlightSchema } from '@/shared/utils/flight.shema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate, useParams } from 'react-router-dom'
+import { z } from 'zod'
 // import { format } from 'date-fns'
-import { toast } from 'react-toastify'
-import { Dayjs } from 'dayjs'
-import { ArrowLeftToLine, CalendarIcon } from 'lucide-react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/shared/lib/utils'
 import TimePicker from 'antd/es/time-picker'
+import { Dayjs } from 'dayjs'
+import { ArrowLeftToLine, CalendarIcon } from 'lucide-react'
+import { toast } from 'react-toastify'
 // import { Calendar } from '@/components/ui/calendar'
 
 const EditAdminFlight = () => {
@@ -84,7 +84,6 @@ const EditAdminFlight = () => {
   const queryClient = useQueryClient()
   function onSubmit(data: z.infer<typeof UpdateFlightSchema>) {
     setLoading(true)
-    console.log(data, 'dâtta123')
 
     const formattedData = {
       ...data,
@@ -94,7 +93,6 @@ const EditAdminFlight = () => {
       start_time: startTime ? startTime.format('HH:mm') : '',
       end_time: endTime ? endTime.format('HH:mm') : ''
     }
-    console.log(formattedData, 'formattedData')
 
     mutationUpdateFlight.mutate(formattedData, {
       onSuccess: () => {
@@ -102,9 +100,7 @@ const EditAdminFlight = () => {
         toast.success('Update FLight success')
         navigate('/admin/flights')
       },
-      onError: (error) => {
-        console.log(error, 'error')
-
+      onError: () => {
         toast.error('Update FLight failed')
       },
       onSettled: () => {

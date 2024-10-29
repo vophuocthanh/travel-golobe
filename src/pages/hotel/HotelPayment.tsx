@@ -61,7 +61,6 @@ export default function HotelPayment() {
     })
   }
 
-  console.log('getBookingHotelDetails:', getBookingHotelDetails)
   return (
     <div className='w-full bg-gray-100'>
       <Header />

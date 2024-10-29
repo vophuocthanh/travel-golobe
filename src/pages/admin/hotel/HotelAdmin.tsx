@@ -56,7 +56,6 @@ export default function HotelAdmin() {
     queryFn: () => hotelApi.getAll()
   })
   const totalDataHotel = getAllHotel?.total || 0
-  console.log(totalDataHotel, 'totalDataHotel')
 
   const { data: allHotel } = useQuery({
     queryKey: ['getAllHotel', totalDataHotel],

@@ -86,7 +86,6 @@ const CoachCard: React.FC<CoachCardProps> = ({
         searchTo
       )
   })
-  console.log('getAll:', getAll)
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePageChange = (newPage: number) => {

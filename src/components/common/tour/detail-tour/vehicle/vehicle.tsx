@@ -1,31 +1,31 @@
-
 import { IconFlight } from '@/common/icons'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourInfoResponse } from '@/shared/ts/interface/data.interface'
 import moment from 'moment'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 interface IVehicle {
   data?: TourInfoResponse
 }
 
 export default function Vehicle({ data }: IVehicle) {
-  const { t } = useTranslation();
-  
-  
-  const startDate = moment(data?.start_date).format('DD/MM/YYYY') 
-  console.log(data?.start_date,startDate,"egsag");
-  const endDate = moment(data?.end_date).format('DD/MM/YYYY') 
+  const { t } = useTranslation()
+
+  const startDate = moment(data?.start_date).format('DD/MM/YYYY')
+  const endDate = moment(data?.end_date).format('DD/MM/YYYY')
 
   const getAirportCode = (str: string) => {
-    const match = str.match(/\((.*?)\)/);
-    return match ? match[1] : "";
-  };
+    const match = str.match(/\((.*?)\)/)
+    return match ? match[1] : ''
+  }
 
-  const destination: string = (data?.road_vehicle.details.destination) ? getAirportCode(data?.road_vehicle.details.destination) : " ";
-  const takePlace: string = (data?.road_vehicle.details.take_place) ? getAirportCode(data?.road_vehicle.details.take_place) : " ";
-  
-  
+  const destination: string = data?.road_vehicle.details.destination
+    ? getAirportCode(data?.road_vehicle.details.destination)
+    : ' '
+  const takePlace: string = data?.road_vehicle.details.take_place
+    ? getAirportCode(data?.road_vehicle.details.take_place)
+    : ' '
+
   return (
     <div className='mt-16 '>
       <h2 className='mb-8 text-3xl font-semibold text-center'>{t('DEPARTURE')} </h2>
