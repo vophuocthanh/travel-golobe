@@ -11,6 +11,7 @@ export interface IUser {
 }
 
 export interface MeResponse {
+  id?: string
   email?: string
   name?: string
   role?: string

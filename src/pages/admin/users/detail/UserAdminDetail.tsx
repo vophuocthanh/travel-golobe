@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
 import { formatDateStandard } from '@/shared/utils/date-utils'
+import { getUserFromLocalStorage } from '@/shared/utils/storage'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft } from 'lucide-react'
 import { useState } from 'react'
@@ -34,7 +35,8 @@ export default function UserAdminDetail() {
   })
 
   const mutationRole = useMutation({
-    mutationFn: (data: { roleId: string }) => roleApi.updateRole(id ?? '', data)
+    mutationFn: (data: { roleId: string }) =>
+      roleApi.updateRole(id as string, data, queryClient.getQueryData<string>(['getMe']) as string)
   })
 
   const handleUpdateRole = () => {
@@ -47,8 +49,8 @@ export default function UserAdminDetail() {
             queryClient.invalidateQueries({ queryKey: ['getUserById', id] })
             toast.success('Update role successfully')
           },
-          onError: () => {
-            toast.error('Update role failed')
+          onError: (error) => {
+            toast.error(error.message)
           },
           onSettled: () => {
             setLoading(false)
@@ -61,6 +63,10 @@ export default function UserAdminDetail() {
   const handleSelectRole = (value: string) => {
     setSelectedRoleId(value)
   }
+
+  const user = getUserFromLocalStorage()
+
+  const checkUserIs = user?.id === id
 
   return (
     <div className='w-full h-full'>
@@ -107,7 +113,7 @@ export default function UserAdminDetail() {
             <div className='flex flex-col gap-2'>
               <h1 className='text-xl font-semibold'>Role</h1>
               {getRoles ? (
-                <Select onValueChange={handleSelectRole}>
+                <Select onValueChange={handleSelectRole} disabled={checkUserIs}>
                   <SelectTrigger className='w-[180px]'>
                     <SelectValue placeholder={getUserById?.role?.name || 'Select role'} />
                   </SelectTrigger>

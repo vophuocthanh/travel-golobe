@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/components/common/theme/theme-provider'
+import { SidebarProvider } from '@/context/SidebarContext'
 import useRoutesElements from '@/hooks/useRouterElement'
 import ScrollToTop from './components/common/scroll/scroll-to-top'
 
@@ -8,7 +9,7 @@ function App() {
     <>
       <ScrollToTop />
       <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-        {routerDom}
+        <SidebarProvider>{routerDom}</SidebarProvider>
       </ThemeProvider>
     </>
   )

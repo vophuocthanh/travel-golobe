@@ -22,7 +22,7 @@ const ScrollProgressBar = () => {
       className='fixed top-0 left-0 z-[100] h-1 duration-200 transition-width'
       style={{
         width: `${scrollPosition}%`,
-        backgroundImage: 'linear-gradient(to right, #ff7e5f, #feb47b)'
+        backgroundImage: 'linear-gradient(90deg, #abeca2 -1.42%, #2fb3fe 30.38%, #6a8eea 65.09%, #a185f4 99.55%)'
       }}
     ></div>
   )
