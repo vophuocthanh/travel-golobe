@@ -96,7 +96,13 @@ export const columns: ColumnDef<UserResponse>[] = [
     cell: ({ row }) => (
       <div className='flex justify-center'>
         <h1
-          className={row.original.role?.name === 'ADMIN' ? 'text-white p-2 inline-block rounded-xl bg-green-400' : ''}
+          className={
+            row.original.role?.name === 'ADMIN'
+              ? 'text-white p-2 inline-block rounded-xl bg-green-400'
+              : row.original.role?.name === 'EMPLOYEE'
+              ? 'text-white p-2 inline-block rounded-xl bg-blue-400'
+              : ''
+          }
         >
           {row.original.role?.name || 'N/A'}
         </h1>

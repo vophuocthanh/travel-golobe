@@ -9,7 +9,7 @@ interface AdminRouteProps {
 const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   const user = getUserFromLocalStorage()
 
-  if (!user || user?.role !== 'ADMIN') {
+  if (!user || (user?.role !== 'ADMIN' && user?.role !== 'EMPLOYEE')) {
     return <Navigate to='/' replace />
   }
 
