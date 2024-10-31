@@ -6,32 +6,24 @@ import { Link } from 'react-router-dom'
 import 'swiper/css'
 
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
+import { formatDateStandard } from '@/shared/utils/date-utils'
+import { useTranslation } from 'react-i18next'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useTranslation } from 'react-i18next';
 export default function FlightReview1() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { data: getAll } = useQuery({
     queryKey: ['getAllFlight'],
     queryFn: () => flightApi.getAll(1, 4)
   })
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return 'N/A'
-    const numberValue = parseFloat(value)
-    return isNaN(numberValue)
-      ? 'N/A'
-      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
-  }
+
   return (
     <SectionInViewRight>
       <div className='mt-[5rem]'>
         <div className='relative mx-36'>
           <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'>{t('travelFlight')}</h1>
           <div className='flex flex-wrap justify-between '>
-            <p className='w-[970px] text-xl mb-8 font-light'>
-            {t('textTravelFlight')}
-
-            </p>
+            <p className='w-[970px] text-xl mb-8 font-light'>{t('textTravelFlight')}</p>
             <Link to='/vehicle/flight/all-flight' className=''>
               <Button className='absolute right-0 text-black bg-white border border-primary top-8'>{t('see')}</Button>
             </Link>
@@ -69,7 +61,7 @@ export default function FlightReview1() {
                         </p>
                       </div>
                       <p className='flex items-center justify-center text-lg text-white'>
-                        {formatCurrency(flight.price?.toString())}
+                        {formatDateStandard(flight.price?.toString())}
                       </p>
                     </div>
                   </Link>
