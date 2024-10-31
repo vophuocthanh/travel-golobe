@@ -1,20 +1,24 @@
 import { bookingCoachApi } from '@/apis/booking-coach'
+import { bookingTourApi } from '@/apis/booking-tour.api'
 import { paymentApi } from '@/apis/payment.api'
 import { Footer, Header } from '@/components/common'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import CoachBook from '@/components/common/coach/coach-payment/CoachBook'
-import CoachForm from '@/components/common/coach/coach-payment/CoachForm'
 import CoachInfo from '@/components/common/coach/coach-payment/CoachInfo'
-import CoachOptions from '@/components/common/coach/coach-payment/CoachOptions'
+import PaymentOptions from '@/components/common/payment/payment-option'
 import { BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
 
 export default function CoachPayment() {
   const { id } = useParams<{ id: string }>()
   const [loading, setLoading] = useState<boolean>(false)
+  const navigate = useNavigate()
+  const [paymentOption, setPaymentOption] = useState('full')
 
   const { data: getBookingCoachDeTails } = useQuery({
     queryKey: ['getBookedCoachDetails', id],
@@ -40,7 +44,25 @@ export default function CoachPayment() {
       }
     })
   }
+  const mutationAddBookingCashPayment = useMutation({
+    mutationFn: () => bookingTourApi.addBookingCashPayment(id || '')
+  })
 
+  const handleAddBookingCashPayment = () => {
+    setLoading(true)
+    mutationAddBookingCashPayment.mutate(undefined, {
+      onSuccess: () => {
+        navigate('/')
+        toast.success('Booking successfully')
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
   return (
     <div className='w-full bg-gray-100'>
       <Header />
@@ -67,16 +89,13 @@ export default function CoachPayment() {
                 {getBookingCoachDeTails && (
                   <CoachBook
                     loading={loading}
-                    onClick={handleAddMomoBooking}
+                    onClick={paymentOption === 'full' ? handleAddBookingCashPayment : handleAddMomoBooking}
                     data={getBookingCoachDeTails as BookingCoachResponse}
                   />
                 )}
               </div>
               <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <CoachOptions />
-              </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <CoachForm />
+                <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption}/>
               </div>
             </div>
           </section>

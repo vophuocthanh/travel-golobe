@@ -62,3 +62,11 @@ export interface BillingCoachView {
     avatar?: string | null;
   };
 }
+export interface BookingConfirmationResponse {
+  success: boolean;
+  message: string;
+  data: {
+    bookingId: string;
+    paymentStatus: string;
+  };
+}

@@ -1,6 +1,6 @@
 import axiosClient from '@/apis/axios-client'
 import { ListResponse } from '@/shared/ts/interface'
-import { BillingCoachResponseAdmin, BillingCoachView, BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interface'
+import { BillingCoachResponseAdmin, BillingCoachView, BookingCoachResponse, BookingConfirmationResponse } from '@/shared/ts/interface/booking-coach.interface'
 export const bookingCoachApi = {
   getBooking() {
     const url = '/bookings/book/road-vehicle'
@@ -22,5 +22,9 @@ export const bookingCoachApi = {
   addBookingCoach(roadVehicleId: string, roadVehicleQuantity: number): Promise<BookingCoachResponse> {
     const url = '/bookings/book/road-vehicle'
     return axiosClient.post(url, { roadVehicleId, roadVehicleQuantity })
+  },
+  addBookingCashPayment(bookingId: string): Promise<BookingConfirmationResponse> {
+    const url = '/bookings/confirm'
+    return axiosClient.post(url, { bookingId })
   }
 }

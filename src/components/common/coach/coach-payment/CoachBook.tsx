@@ -16,7 +16,6 @@ export default function CoachBook({ onClick, data, loading }: CoachBookProps) {
         <div className='flex items-center mb-4'>
           <img src={imgcoach || ''} alt={data?.brand} className='object-fill w-32 h-32 rounded-md' />
           <div className='ml-4'>
-            <p className='text-gray-500'>{data?.brand}</p>
             <h2 className='text-xl font-semibold'>{data?.brand}</h2>
             <div className='flex flex-col'>
               <span className='ml-1 text-lg text-gray-500'>{data?.destination}</span>
