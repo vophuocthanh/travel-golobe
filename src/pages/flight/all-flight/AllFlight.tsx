@@ -1,7 +1,5 @@
 import { Footer, Header } from '@/components/common'
 import ContentAllFlight from '@/components/common/flight/all-flight/ContentAllFlight'
-// import { Button } from '@/components/ui/button'
-// import { Input } from '@/components/ui/input'
 
 export default function AllFlight() {
   return (

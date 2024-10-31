@@ -30,7 +30,7 @@ export default function CoachDetail() {
   const { t } = useTranslation()
   const [loadingBooking, setLoadingBooking] = useState(false)
   const [liked, setLiked] = useState(false)
-  const [roadVehicleQuantity, setRoadVehicleQuantity] = useState(1) // Khởi tạo số lượng là 1
+  const [roadVehicleQuantity, setRoadVehicleQuantity] = useState(1)
 
   const handleClick = () => {
     setLiked(!liked)
