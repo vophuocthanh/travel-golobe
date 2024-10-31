@@ -19,14 +19,13 @@ export default function CoachInfo({ data }: CoachInfo) {
           </div>
           <div>
             <h2 className='mb-3 text-3xl font-bold text-red-500'>{formatCurrencyVND(data?.price || 0)}</h2>
-            <p className='flex font-medium text-md'>{data?.start_time}</p>
           </div>
         </div>
 
         <div className='flex items-center justify-between my-4'>
           <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
             {/* <img src={data.image ?? ''} alt='' className='w-20 rounded-md' /> */}
-            <img src={imgcoach} alt='' className='w-20 rounded-md' />
+            <img src={imgcoach} alt='' className='object-fill w-20 h-20 rounded-md' />
             <div>
               <p className='text-2xl font-bold'>{data?.brand}</p>
               <p className='text-base font-medium'>{data?.number_of_seat}</p>

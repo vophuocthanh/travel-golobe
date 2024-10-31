@@ -122,7 +122,7 @@ export default function CoachDetail() {
               Coach All
             </Link>
             <ChevronRight className='w-4 h-4' />
-            <p>{getbyId?.location}</p>
+            <p>{getbyId?.brand}</p>
           </div>
           <div className='flex justify-between p-4'>
             <div>
