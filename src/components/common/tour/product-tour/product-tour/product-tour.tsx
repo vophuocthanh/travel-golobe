@@ -59,7 +59,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
       onClick: () => setSortByPrice('')
     }
   ]
-  const { data: getAll } = useQuery({
+  const { data: getAll, isLoading } = useQuery({
     queryKey: [
       'getAllTour',
       page,
@@ -79,6 +79,14 @@ const ProductTour: React.FC<TourlCardProps> = ({
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
   const handlePage = (newPage: number) => {
     setPage(newPage)
+  }
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
+        <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+      </div>
+    )
   }
 
   return (

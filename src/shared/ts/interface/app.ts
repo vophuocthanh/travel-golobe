@@ -38,7 +38,6 @@ export interface ListResponseTour<Tour> {
   total: number
   currentPage: number
   items_per_page: number
-
 }
 
 export interface HotelParams {
@@ -49,17 +48,16 @@ export interface HotelParams {
   max_price?: number | undefined
   star_number?: number | undefined
   search?: string
+  place?: string
 }
 export interface TourParams {
   items_per_page: number
   page: number
   min_price?: number
-  max_price?: number 
+  max_price?: number
   search?: string
   sort_by_price?: string
   rating?: number
   start_date?: string
   end_date?: string
-
-  
 }

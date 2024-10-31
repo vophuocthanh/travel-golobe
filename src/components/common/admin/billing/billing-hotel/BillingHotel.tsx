@@ -23,7 +23,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -217,7 +216,9 @@ export function BillingHotel() {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={columns.length} className='text-center'>
-                  <Spin />
+                  <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
+                    <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                  </div>
                 </TableCell>
               </TableRow>
             ) : table.getRowModel().rows.length ? (

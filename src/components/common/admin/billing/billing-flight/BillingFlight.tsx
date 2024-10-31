@@ -28,7 +28,6 @@ import { useNavigate } from 'react-router-dom'
 import { bookingFlightApi } from '@/apis/booking-flight'
 import { FlightBillingResponseType } from '@/shared/ts/interface/data.interface'
 import { CaretSortIcon } from '@radix-ui/react-icons'
-import { Spin } from 'antd'
 
 export function BillingFLight() {
   const { data: getFlightBilling } = useQuery({
@@ -327,7 +326,9 @@ export function BillingFLight() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  <Spin />
+                  <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
+                    <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                  </div>
                 </TableCell>
               </TableRow>
             )}

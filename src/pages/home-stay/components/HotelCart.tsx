@@ -2,6 +2,7 @@ import { hotelApi } from '@/apis/hotel.api'
 import { hoteldetail3 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { Coffee, MapPin } from 'lucide-react'
@@ -14,14 +15,22 @@ interface HotelCardProps {
   priceRangeMin: number | undefined
   sortByPrice: string
   starNumber?: number | undefined
+  selectedPlaces?: string[]
 }
 
-const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sortByPrice, starNumber }) => {
+const HotelCard: React.FC<HotelCardProps> = ({
+  priceRangeMax,
+  priceRangeMin,
+  sortByPrice,
+  starNumber,
+  selectedPlaces
+}) => {
   const { t } = useTranslation()
   const [page, setPage] = useState(1)
-  const { data: getAll } = useQuery({
-    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, starNumber],
-    queryFn: () => hotelApi.getAll(page, 4, '', sortByPrice, priceRangeMin, priceRangeMax, starNumber)
+  const { data: getAll, isLoading } = useQuery({
+    queryKey: ['getAllHotel', page, sortByPrice, priceRangeMin, priceRangeMax, starNumber, selectedPlaces],
+    queryFn: () =>
+      hotelApi.getAll(page, 4, '', sortByPrice, priceRangeMin, priceRangeMax, starNumber, selectedPlaces?.join(','))
   })
 
   const totalPages = Math.ceil((getAll?.total ?? 0) / 4)
@@ -29,12 +38,12 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
     setPage(newPage)
   }
 
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return 'N/A'
-    const numberValue = parseFloat(value)
-    return isNaN(numberValue)
-      ? 'N/A'
-      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center h-[30rem]'>
+        <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+      </div>
+    )
   }
 
   return (
@@ -59,7 +68,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
                       {item.hotel_names}
                     </p>
                     <div className='flex text-gray-500 text-md '>
-                      <MapPin className='w-4 h-4 mr-1 text-black ' />
+                      <MapPin className='mr-1 text-black ' />
                       <span className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</span>
                     </div>
                     <div className='flex gap-2'>
@@ -77,7 +86,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
                     </div>
                   </div>
                   <div className='w-[30%] pt-4 text-right'>
-                    <p className='text-3xl text-[#FF8682] font-bold'>{formatCurrency(item.price?.toString())}</p>
+                    <p className='text-3xl text-[#FF8682] font-bold'>{formatCurrencyVND(item.price)}</p>
                     <p className='mr-3 text-gray-400'>excl. tax</p>
                   </div>
                 </div>
@@ -93,7 +102,9 @@ const HotelCard: React.FC<HotelCardProps> = ({ priceRangeMax, priceRangeMin, sor
           </div>
         ))
       ) : (
-        <p className='text-center'>Không có hotel</p>
+        <div className='flex items-center justify-center h-[30rem]'>
+          <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+        </div>
       )}
       <div className='flex justify-around mt-6'>
         <Pagination>

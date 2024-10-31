@@ -1,7 +1,9 @@
 import { coachApi } from '@/apis/coach.api'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
+import { formatDateStandard } from '@/shared/utils/date-utils'
 import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
@@ -59,7 +61,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
     }
   ]
 
-  const { data: getAll } = useQuery({
+  const { data: getAll, isLoading } = useQuery({
     queryKey: [
       'getAllCoach',
       page,
@@ -91,23 +93,13 @@ const CoachCard: React.FC<CoachCardProps> = ({
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
   }
-
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return 'N/A'
-    const numberValue = parseFloat(value)
-    return isNaN(numberValue)
-      ? 'N/A'
-      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center h-[30rem]'>
+        <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+      </div>
+    )
   }
-
-  const formatDate = (dateString?: string) =>
-    dateString
-      ? new Date(dateString).toLocaleDateString('vi-VN', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        })
-      : 'N/A'
 
   return (
     <>
@@ -153,8 +145,8 @@ const CoachCard: React.FC<CoachCardProps> = ({
                               </div>
                               <div className='flex gap-2 text-lg'>
                                 <p>Day Start: </p>
-                                {formatDate(coach.start_day)} - <p>Day End:</p>
-                                {formatDate(coach.end_day)}
+                                {formatDateStandard(coach.start_day)} - <p>Day End:</p>
+                                {formatDateStandard(coach.end_day)}
                               </div>
                               <div></div>
                             </div>
@@ -179,7 +171,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
                       </div>
                     </div>
                     <div className='relative w-[30%] pt-4 text-right mr-5'>
-                      <p className='text-xl text-[#FF8682] font-bold'> {formatCurrency(coach.price?.toString())}</p>
+                      <p className='text-xl text-[#FF8682] font-bold'> {formatCurrencyVND(coach.price)}</p>
                       <p className='absolute bottom-0 font-medium text-right text-black-500 line-clamp-2'>
                         Trip To: {coach.destination}
                       </p>

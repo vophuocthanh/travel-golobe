@@ -1,5 +1,7 @@
+import { hotelApi } from '@/apis/hotel.api'
 import { Button } from '@/components/ui/button'
 import { DownOutlined } from '@ant-design/icons'
+import { useQuery } from '@tanstack/react-query'
 import { Dropdown, MenuProps, Space } from 'antd'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,11 +14,16 @@ const HotelListings: React.FC = () => {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
   const [starNumber, setStarNumber] = useState<number | undefined>(undefined)
+  const [selectedPlaces, setSelectedPlaces] = useState<string[]>([])
 
   const handlePriceRangeChange = () => {
     const newMinPrice = Number(minPrice)
     const newMaxPrice = Number(maxPrice)
     setPriceRange([newMinPrice, newMaxPrice])
+  }
+
+  const handlePlaceChange = (place: string) => {
+    setSelectedPlaces([place])
   }
 
   const items: MenuProps['items'] = [
@@ -47,6 +54,12 @@ const HotelListings: React.FC = () => {
   ]
 
   const [sortByPrice, setSortByPrice] = useState('')
+
+  const { data: getCountPlace } = useQuery({
+    queryKey: ['getCountPlace'],
+    queryFn: () => hotelApi.getCountPlace()
+  })
+  console.log('getCountPlace:', getCountPlace)
 
   const isRatingVisible = true
   return (
@@ -113,6 +126,20 @@ const HotelListings: React.FC = () => {
                     </Button>
                   ))}
                 </div>
+                <div className='inline-block mt-6'>
+                  {getCountPlace?.data?.map((place: string, index: number) => (
+                    <label key={index} className='flex items-center'>
+                      <input
+                        type='checkbox'
+                        value={place}
+                        checked={selectedPlaces.includes(place)}
+                        onChange={(e) => handlePlaceChange(e.target.value)}
+                        className='w-5 h-5 mr-2 accent-primary '
+                      />
+                      {place}
+                    </label>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -135,6 +162,7 @@ const HotelListings: React.FC = () => {
                 sortByPrice={sortByPrice}
                 priceRangeMax={priceRange[1]}
                 priceRangeMin={priceRange[0]}
+                selectedPlaces={selectedPlaces}
               />
             </div>
           </div>

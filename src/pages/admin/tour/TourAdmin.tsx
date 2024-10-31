@@ -36,7 +36,6 @@ import { exportToExcel } from '@/shared/utils/excel-utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
-import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'react-toastify'
 
@@ -488,7 +487,9 @@ function TourAdmin() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className='h-24 text-center'>
-                    <Spin />
+                    <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
+                      <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}

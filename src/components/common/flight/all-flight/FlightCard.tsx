@@ -1,6 +1,7 @@
 import { flightApi } from '@/apis/flight.api'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { DownOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
@@ -59,7 +60,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
     }
   ]
 
-  const { data: getAll } = useQuery({
+  const { data: getAll, isLoading } = useQuery({
     queryKey: [
       'getAllFlight',
       page,
@@ -92,12 +93,12 @@ const FlightCard: React.FC<FlightCardProps> = ({
     setPage(newPage)
   }
 
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return 'N/A'
-    const numberValue = parseFloat(value)
-    return isNaN(numberValue)
-      ? 'N/A'
-      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center h-[30rem]'>
+        <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+      </div>
+    )
   }
 
   return (
@@ -162,7 +163,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                       </div>
                     </div>
                     <div className='w-[30%] pt-4 text-right mr-5'>
-                      <p className='text-xl text-[#FF8682] font-bold'>{formatCurrency(flight.price?.toString())}</p>
+                      <p className='text-xl text-[#FF8682] font-bold'>{formatCurrencyVND(flight.price)}</p>
                       <p className='mt-40 font-medium text-right text-black-500'>Trip To: {flight.trip_to}</p>
                     </div>
                   </div>

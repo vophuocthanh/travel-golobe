@@ -24,7 +24,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { Spin } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
@@ -306,7 +305,9 @@ export function BillingCoach() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  <Spin />
+                  <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
+                    <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                  </div>
                 </TableCell>
               </TableRow>
             )}

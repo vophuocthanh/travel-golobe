@@ -1,6 +1,6 @@
 import axiosClient from '@/apis/axios-client'
 import { HotelParams, ListResponse } from '@/shared/ts/interface'
-import { HotelAdd, HotelResponseType, HotelUpdate, } from '@/shared/ts/interface/data.interface'
+import { HotelAdd, HotelResponseType, HotelUpdate } from '@/shared/ts/interface/data.interface'
 
 export const hotelApi = {
   getAll(
@@ -10,7 +10,8 @@ export const hotelApi = {
     sort_by_price?: string,
     min_price?: number,
     max_price?: number,
-    star_number?: number
+    star_number?: number,
+    place?: string
   ): Promise<ListResponse<HotelResponseType>> {
     const url = '/hotel-crawl/crawl'
 
@@ -39,6 +40,10 @@ export const hotelApi = {
       params.star_number = star_number
     }
 
+    if (place) {
+      params.place = place
+    }
+
     return axiosClient.get(url, { params })
   },
 
@@ -50,7 +55,7 @@ export const hotelApi = {
     const url = '/hotel-crawl/crawl'
     return axiosClient.post(url, data)
   },
-  updateHotel(id: string | undefined, data:HotelUpdate ) {
+  updateHotel(id: string | undefined, data: HotelUpdate) {
     const url = `hotel-crawl/crawl/${id}`
     return axiosClient.put(url, data)
   },
@@ -65,5 +70,9 @@ export const hotelApi = {
   deleteHotel(id: string) {
     const url = `/hotel-crawl/crawl/${id}`
     return axiosClient.delete(url)
+  },
+  getCountPlace() {
+    const url = '/hotel-crawl/crawl/count-place'
+    return axiosClient.get(url)
   }
 }

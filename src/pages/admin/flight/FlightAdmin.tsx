@@ -33,7 +33,6 @@ import { Link } from 'react-router-dom'
 
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { exportToExcel } from '@/shared/utils/excel-utils'
-import { Spin } from 'antd'
 import DeleteFlightButton from './components/DeleteFlightAdmin'
 
 const FlightAdmin: React.FC = () => {
@@ -397,7 +396,9 @@ const FlightAdmin: React.FC = () => {
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className='h-24 text-center'>
-                    <Spin />
+                    <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
+                      <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
