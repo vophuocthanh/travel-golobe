@@ -1,6 +1,5 @@
 import { bookingCoachApi } from '@/apis/booking-coach'
 import { coachApi } from '@/apis/coach.api'
-import { commentCoachApi } from '@/apis/comment-coach.api'
 import { coachdetail1, coachdetail2, coachdetail3 } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import ShareButtons from '@/components/common/share/share-link'
@@ -26,7 +25,6 @@ import { toast } from 'react-toastify'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import CoachDetailReview from './commentCoach'
 
 export default function CoachDetail() {
   const { t } = useTranslation()
@@ -65,10 +63,6 @@ export default function CoachDetail() {
   const { data: getbyId } = useQuery({
     queryKey: ['getById', id],
     queryFn: () => coachApi.getById(id || '')
-  })
-  const { data: getCommentCoach } = useQuery({
-    queryKey: ['getComments', id],
-    queryFn: () => commentCoachApi.getComments(id || '')
   })
 
   const price = getbyId?.price
@@ -298,7 +292,6 @@ export default function CoachDetail() {
             </div>
           </div>
         </section>
-        <CoachDetailReview data={getCommentCoach?.data ?? []} />
       </div>
       <Footer />
     </>
