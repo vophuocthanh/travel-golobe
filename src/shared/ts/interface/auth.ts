@@ -11,3 +11,11 @@ export interface LoginResponse {
   access_token: string
   refresh_token: string
 }
+
+export interface Account {
+  email: string
+  password: string
+  confirmPassword?: string
+  name?: string
+  phone?: string
+}

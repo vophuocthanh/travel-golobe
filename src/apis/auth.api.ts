@@ -1,6 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { Account } from '@/redux/auth-saga'
-import { LoginResponse, RegisterReponse } from '@/shared/ts/interface'
+import { Account, LoginResponse, RegisterReponse } from '@/shared/ts/interface'
 
 export const authApi = {
   login(params: Account): Promise<LoginResponse> {

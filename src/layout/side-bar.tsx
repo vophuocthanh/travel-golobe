@@ -1,7 +1,7 @@
 import { logo } from '@/assets/images'
 import { sidebarLinks } from '@/constants/general.const'
-import { useSidebar } from '@/context/SidebarContext'
 import { TSidebarLinks } from '@/shared/ts/types'
+import useToggleSideBar from '@/store'
 import { ChevronRight } from '@mui/icons-material'
 import { ChevronLeft } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
@@ -9,21 +9,21 @@ import { Link, useLocation } from 'react-router-dom'
 const Sidebar = () => {
   const router = useLocation()
   const { pathname } = router
-  const { isCollapsed, toggleSidebar } = useSidebar()
+  const { sidebarOpen, toggleSidebar } = useToggleSideBar()
 
   return (
-    <div className={`px-4 py-4 bg-[#FCFCFC] ${isCollapsed ? 'w-20' : 'w-64'} transition-width duration-300`}>
+    <div className={`px-4 py-4 bg-[#FCFCFC] ${sidebarOpen ? 'w-20' : 'w-64'} transition-width duration-300`}>
       <div className='flex items-center gap-2 mb-5'>
-        <Link to='/' className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-4 ml-10'}`}>
-          {!isCollapsed && <img src={logo} alt='logo' className='w-24 h-10' />}
+        <Link to='/' className={`flex items-center ${sidebarOpen ? 'justify-center' : 'gap-4 ml-10'}`}>
+          {!sidebarOpen && <img src={logo} alt='logo' className='w-24 h-10' />}
         </Link>
-        <button onClick={toggleSidebar} className={`ml-auto ${isCollapsed ? 'mr-2' : ''}`}>
-          {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
+        <button onClick={toggleSidebar} className={`ml-auto ${sidebarOpen ? 'mr-2' : ''}`}>
+          {sidebarOpen ? <ChevronRight /> : <ChevronLeft />}
         </button>
       </div>
       <div>
         {sidebarLinks.map((link) => (
-          <SidebarLink isActive={pathname === link.path} key={link.title} link={link} isCollapsed={isCollapsed} />
+          <SidebarLink isActive={pathname === link.path} key={link.title} link={link} isCollapsed={sidebarOpen} />
         ))}
       </div>
     </div>
