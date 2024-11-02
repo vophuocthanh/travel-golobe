@@ -84,5 +84,9 @@ export const coachApi = {
   getFavoriteCoach() {
     const url = `/road-vehicle/favorites`
     return axiosClient.get(url)
+  },
+  getCountBrands() {
+    const url = '/road-vehicle/crawl/count-place'
+    return axiosClient.get(url)
   }
 }

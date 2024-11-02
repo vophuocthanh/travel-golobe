@@ -7,6 +7,8 @@ import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import FilterSectionCoach from './FilterSectionCoach';
 import CoachCard from './CoachCard'
 import { useLocation } from 'react-router-dom'
+import { coachApi } from '@/apis/coach.api'
+import { useQuery } from '@tanstack/react-query'
 
 export default function ContentAllCoach() {
   const location = useLocation();
@@ -17,7 +19,6 @@ export default function ContentAllCoach() {
   const returnDateFromQuery = query.get('returnDate');
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
-  const [brandCoach, setBrandCoach] = useState('')
   const [filteredDepartDate, setFilteredDepartDate] = useState<string | undefined>(undefined)
   const [filteredReturnDate, setFilteredReturnDate] = useState<string | undefined>(undefined)
   const [searchTo, setSearchTo] = useState(searchToFromQuery || '');
@@ -28,11 +29,20 @@ export default function ContentAllCoach() {
   const [returnDate, setReturnDate] = useState(returnDateFromQuery ? new Date(returnDateFromQuery) : undefined);
   const formattedDepartDate: string | undefined = departDate ? format(departDate, 'dd-MM-yyyy') : undefined
   const formattedReturnDate: string | undefined = returnDate ? format(returnDate, 'dd-MM-yyyy') : undefined
+  const [selectBrands, setSelectBrands] = useState<string[]>([])
   const handleApplyFilter = (min: number | undefined, max: number | undefined) => {
     setMinPrice(min)
     setMaxPrice(max)
   }
+  
+  const { data: getCoachCountBrand } = useQuery({
+    queryKey: ['getCoachCountBrand'],
+    queryFn: () => coachApi.getCountBrands()
+  })
 
+  const handleCheckSelectBrand = (brand: string) => {
+    setSelectBrands([brand])
+  }
   const handleSearch = () => {
     setSearchFrom(tempSearchFrom)
     setSearchTo(tempSearchTo)
@@ -40,15 +50,7 @@ export default function ContentAllCoach() {
     setFilteredReturnDate(formattedReturnDate)
   }
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
 
-    if (brandCoach === value) {
-      setBrandCoach('')
-    } else {
-      setBrandCoach(value)
-    }
-  }
   return (
     <div className='flex-none w-full p-4 ml-2'>
       <div className='flex items-center justify-center w-[70%] h-[10rem] overflow-hidden relative bg-gray-100 mx-auto'>
@@ -104,15 +106,15 @@ export default function ContentAllCoach() {
       <div className={`flex flex-row mx-[6rem]  gap-2 h-[120rem]`}>
           <FilterSectionCoach
             onApplyFilter={handleApplyFilter}
-            brandCoach={brandCoach}
-            setBrandCoach={setBrandCoach}
-            handleCheckboxChange={handleCheckboxChange}
+            brandCoach={selectBrands}
+            data={getCoachCountBrand?.data}
+            handleSelectBrand={handleCheckSelectBrand}
           />        
           <div className='flex flex-col w-full gap-8 '>
           <CoachCard
             searchFrom={searchFrom}
             searchTo={searchTo}
-            brandCoach={brandCoach}
+            brandCoach={selectBrands}
             returnDate={filteredReturnDate}
             departDate={filteredDepartDate}
             minPrice={minPrice}

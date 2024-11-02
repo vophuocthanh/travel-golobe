@@ -6,12 +6,12 @@ import ReactSlider from 'react-slider'
 import { useTranslation } from 'react-i18next';
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
-  brandCoach: string
-  setBrandCoach: React.Dispatch<React.SetStateAction<string>>
-  handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  brandCoach: string[]
+  data?: string[]
+  handleSelectBrand: (brand: string) => void
 }
 
-const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCoach, handleCheckboxChange }) => {
+const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCoach, handleSelectBrand, data }) => {
   const { t } = useTranslation();
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
 
@@ -47,34 +47,10 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
     return `${formattedHours}:${formattedMinutes}${ampm}`
   }
 
-  const brands = [
-    { id: '1', name: 'Hoa Mai' },
-    { id: '2', name: 'AVIGO' },
-    { id: '3', name: 'Cuc Tung' },
-    { id: '4', name: 'Da Lat oi' },
-    { id: '5', name: 'Dinh Nhan' },
-    { id: '6', name: 'Hanh Cafe' },
-    { id: '7', name: 'Huy Hoang-Vung Tau' },
-    { id: '8', name: 'Lien Hung' },
-    { id: '9', name: 'Tra Lan Vien' },
-    { id: '10', name: 'Khanh Phong' },
-    { id: '11', name: 'Phuc An Express' },
-    { id: '12', name: 'Phuong Nam' },
-    { id: '13', name: 'Vie Limousine' },
-    { id: '14', name: 'Trong Thang' },
-    { id: '13', name: 'Hoang Son-Phu Yen' },
-    { id: '13', name: 'Phi Long' },
-    { id: '13', name: 'Xe Nha' },
-    { id: '13', name: 'Quang Hanh' },
-    { id: '14', name: 'Hoang Trung' },
-    { id: '15', name: 'Thanh Vinh - Vung Tau' },
-    { id: '16', name: 'Hoàng Hải' },
-  ]
-  
   return (
     <div className='flex-none w-[22.5%] ml-12 mr-5'>
       <div className='flex flex-col items-center mt-8'>
-        <div className='flex justify-between w-full mb-6'>
+        <div className='flex items-center justify-between w-full mb-6'>
           <p>{t('Price')}</p>
           <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleVisibility}>
             {isVisible ? <ChevronUp /> : <ChevronDown />}
@@ -174,16 +150,16 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
           <div className='flex flex-col gap-3 pb-12 border-b-2'>
             <div className='mt-4'>
               <div className='flex flex-col'>
-                {brands.map((brand) => (
-                  <label key={brand.id} className='flex items-center'>
+                {data?.map((brand: string, index:number) => (
+                  <label key={index} className='flex items-center'>
                     <input
                       type='checkbox'
-                      value={brand.name}
-                      checked={brandCoach === brand.name}
-                      onChange={handleCheckboxChange}
+                      value={brand}
+                      checked={brandCoach.includes(brand)}
+                      onChange={(e) => handleSelectBrand(e.target.value)}
                       className='w-5 h-5 mr-2 accent-primary '
                     />
-                    {brand.name}
+                    {brand}
                   </label>
                 ))}
               </div>
