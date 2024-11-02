@@ -16,7 +16,7 @@ interface FlightCardProps {
   maxPrice?: number
   departDate?: string
   returnDate?: string
-  brandFlight: string
+  brandFlight?: string[]
   searchTo?: string
   searchFrom?: string
 }
@@ -78,7 +78,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
         page,
         4,
         sortByPrice,
-        brandFlight || '',
+        brandFlight?.join(','),
         minPrice,
         maxPrice,
         departDate,

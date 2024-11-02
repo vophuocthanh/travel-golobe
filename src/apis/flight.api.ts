@@ -87,5 +87,10 @@ export const flightApi = {
   getFavoriteFlights() {
     const url = `/flight-crawl/favorites`
     return axiosClient.get(url)
+  },
+  // get count place
+  getCountBrands() {
+    const url = '/flight-crawl/crawl/count-place'
+    return axiosClient.get(url)
   }
 }

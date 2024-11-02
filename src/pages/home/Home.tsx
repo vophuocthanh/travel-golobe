@@ -1,6 +1,6 @@
 import { Banner, Footer, Header, Perfect, Review } from '@/components/common'
+import CrispProvider from '@/components/common/crips/crisp-provirde'
 import '@/components/common/i18n/i18n'
-import CrispProvider from '@/components/crips/crisp-provirde'
 import { getAccessTokenFromLS } from '@/shared/utils/storage'
 import { useLocation } from 'react-router-dom'
 

@@ -3,18 +3,18 @@ import { Button } from '@/components/ui/button'
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import ReactSlider from 'react-slider'
-import { useTranslation } from 'react-i18next';
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
-  brandFlight: string
-  setBrandFlight: React.Dispatch<React.SetStateAction<string>>
-  handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  brandFlight: string[]
+  handleSelectBrand: (brand: string) => void
+  data?: string[]
 }
 
-const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight, handleCheckboxChange }) => {
+const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight, handleSelectBrand, data }) => {
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState<boolean>(true)
   const [time, setTime] = useState<number[]>([0, 1440])
   const [isTimeVisible, setIsTimeVisible] = useState<boolean>(true)
@@ -47,11 +47,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
     const formattedMinutes = mins < 10 ? `0${mins}` : mins
     return `${formattedHours}:${formattedMinutes}${ampm}`
   }
-  const brands = [
-    { id: '1', name: 'Bamboo Airways' },
-    { id: '2', name: 'VietJet Air' },
-    { id: '3', name: 'Vietnam Airlines' }
-  ]
+
   return (
     <div className='flex-none w-[22.5%] ml-12 mr-5 mt-[6rem]'>
       <p className='text-3xl text-black'>{t('Filter')}</p>
@@ -155,16 +151,16 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
         <div className='flex flex-col gap-3 pb-12 border-b-2'>
           <div className='mt-4'>
             <div className='flex flex-col'>
-              {brands.map((brand) => (
-                <label key={brand.id} className='flex items-center'>
+              {data?.map((brand: string, index: number) => (
+                <label key={index} className='flex items-center'>
                   <input
                     type='checkbox'
-                    value={brand.name}
-                    checked={brandFlight === brand.name}
-                    onChange={handleCheckboxChange}
+                    value={brand}
+                    checked={brandFlight.includes(brand)}
+                    onChange={(e) => handleSelectBrand(e.target.value)}
                     className='w-5 h-5 mr-2 accent-primary '
                   />
-                  {brand.name}
+                  {brand}
                 </label>
               ))}
             </div>

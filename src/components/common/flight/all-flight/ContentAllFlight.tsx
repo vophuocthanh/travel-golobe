@@ -1,6 +1,8 @@
+import { flightApi } from '@/apis/flight.api'
 import IconSreach from '@/common/icons/IconSreach'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useState } from 'react'
 import { DatePickerWithPresets } from '../../calendar/calendar-date'
@@ -10,7 +12,6 @@ import FlightCard from './FlightCard'
 export default function ContentAllFlight() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
-  const [brandFlight, setBrandFlight] = useState('')
 
   const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
@@ -22,20 +23,21 @@ export default function ContentAllFlight() {
     setMinPrice(min)
     setMaxPrice(max)
   }
-
   const [searchTo, setSearchTo] = useState('')
   const [searchFrom, setSearchFrom] = useState('')
-
   const [tempSearchTo, setTempSearchTo] = useState('')
   const [tempSearchFrom, setTempSearchFrom] = useState('')
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    if (brandFlight === value) {
-      setBrandFlight('')
-    } else {
-      setBrandFlight(value)
-    }
+  const [selectBrands, setSelectBrands] = useState<string[]>([])
+
+  const { data: getFlightCountBrand } = useQuery({
+    queryKey: ['getFlightCountBrand'],
+    queryFn: () => flightApi.getCountBrands()
+  })
+
+  const handleCheckSelectBrand = (brand: string) => {
+    setSelectBrands([brand])
   }
+
   const handleSearch = () => {
     setSearchFrom(tempSearchFrom)
     setSearchTo(tempSearchTo)
@@ -101,9 +103,9 @@ export default function ContentAllFlight() {
         <div className='flex flex-row gap-8 '>
           <FilterSection
             onApplyFilter={handleApplyFilter}
-            brandFlight={brandFlight}
-            setBrandFlight={setBrandFlight}
-            handleCheckboxChange={handleCheckboxChange}
+            brandFlight={selectBrands}
+            handleSelectBrand={handleCheckSelectBrand}
+            data={getFlightCountBrand?.data}
           />
           <div className='w-full h-full'>
             <FlightCard
@@ -113,7 +115,7 @@ export default function ContentAllFlight() {
               departDate={filteredDepartDate}
               minPrice={minPrice}
               maxPrice={maxPrice}
-              brandFlight={brandFlight}
+              brandFlight={selectBrands}
             />
           </div>
         </div>
