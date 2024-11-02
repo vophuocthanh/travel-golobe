@@ -51,7 +51,7 @@ export default function HotelDetail() {
       navigate(`/hotel/home-stay/hotel-payment/${bookingId}`)
     },
     onError: () => {
-      toast.error('Failed to book flight')
+      toast.error('Failed to book Hotel')
     }
   })
 

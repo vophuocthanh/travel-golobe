@@ -39,8 +39,8 @@ export default function BannerTour({
   })
 
   return (
-    <div className='flex flex-wrap justify-between p-4 space-x-2'>
-      <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
+    <div className='flex grid flex-wrap justify-between grid-cols-6 p-4 space-x-2 gap-7'>
+      <div className='relative w-full col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'
@@ -74,7 +74,7 @@ export default function BannerTour({
       </div>
 
       {/* Other Inputs */}
-      <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+      <div className='relative w-full col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
@@ -102,7 +102,7 @@ export default function BannerTour({
           </PopoverContent>
         </Popover>
       </div>
-      <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+      <div className='relative w-full col-span-2 ml-5 h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'

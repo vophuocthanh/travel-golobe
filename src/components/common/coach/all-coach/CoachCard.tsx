@@ -17,7 +17,7 @@ interface CoachCardProps {
   maxPrice?: number
   departDate?: string
   returnDate?: string
-  brandCoach: string
+  brandCoach?: string[]
   searchTo?: string
   searchFrom?: string
 }
@@ -79,7 +79,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
         page,
         4,
         sortByPrice,
-        brandCoach || '',
+        brandCoach?.join(','),
         minPrice,
         maxPrice,
         departDate,
