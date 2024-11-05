@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
-import { ArrowUpDown, ChevronDown } from 'lucide-react'
+import { ArrowUpDown, ChevronDown, TableOfContents } from 'lucide-react'
 import * as React from 'react'
 
 import { meApi } from '@/apis/me'
@@ -25,136 +25,168 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { UserResponse } from '@/shared/ts/interface'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const columns: ColumnDef<UserResponse>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label='Select all'
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false
-  },
-  {
-    accessorKey: 'avatar',
-    header: 'Avatar',
-    cell: ({ row }) => {
-      return (
-        <div className='flex items-center'>
-          <img src={row.original.avatar} alt='Avatar' className='w-8 h-8 rounded-full' />
-        </div>
-      )
-    }
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Email
-          <ArrowUpDown className='w-4 h-4 ml-2' />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>
-  },
-  {
-    accessorKey: 'country',
-    header: () => <div className='text-left'>Quốc tịch</div>,
-    cell: ({ row }) => <div>{row.getValue('country') || 'N/A'}</div>
-  },
-  {
-    accessorKey: 'phone',
-    header: () => <div className='text-left'>Số điện thoại</div>,
-    cell: ({ row }) => <div>{row.getValue('phone') || 'N/A'}</div>
-  },
-  {
-    accessorKey: 'address',
-    header: () => <div className='text-left'>Địa chỉ</div>,
-    cell: ({ row }) => <div>{row.getValue('address') || 'N/A'}</div>
-  },
-  {
-    id: 'role',
-    header: () => <div className='flex justify-center'>Vai trò</div>,
-    cell: ({ row }) => (
-      <div className='flex justify-center'>
-        <h1
-          className={
-            row.original.role?.name === 'ADMIN'
-              ? 'text-white p-2 inline-block rounded-xl bg-green-400'
-              : row.original.role?.name === 'EMPLOYEE'
-              ? 'text-white p-2 inline-block rounded-xl bg-blue-400'
-              : ''
-          }
-        >
-          {row.original.role?.name || 'N/A'}
-        </h1>
-      </div>
-    )
-  },
-  {
-    accessorKey: 'date_of_birth',
-    header: () => <div className='flex justify-center'>Ngày sinh</div>,
-    cell: ({ row }) => {
-      const formatDate = (dateString?: string): string => {
-        if (!dateString) return 'N/A'
-
-        const date = new Date(dateString)
-        if (isNaN(date.getTime())) return 'N/A'
-
-        const day = String(date.getDate()).padStart(2, '0')
-        const month = String(date.getMonth() + 1).padStart(2, '0')
-        const year = date.getFullYear()
-
-        return `${day}-${month}-${year}`
-      }
-
-      return <div className='flex justify-center'>{formatDate(row.getValue<string>('date_of_birth'))}</div>
-    }
-  },
-  {
-    id: 'actions',
-    enableHiding: false,
-    cell: ({ row }) => {
-      return (
-        <div className='flex items-center justify-center gap-4'>
-          <Link to={`/admin/users/${row.original.id}`}>
-            <IconEdit />
-          </Link>
-          <IconDelete />
-        </div>
-      )
-    }
-  }
-]
+import { toast } from 'react-toastify'
 
 export function TableUser() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [loading, setLoading] = React.useState(false)
+  const queryClient = useQueryClient()
 
   const { data: getAllUsers } = useQuery({
     queryKey: ['getAllUsers'],
     queryFn: () => meApi.getAllUsers()
   })
   const data = getAllUsers?.data ?? []
+
+  const mutationDeleteUser = useMutation({
+    mutationFn: (id: string) => meApi.deleteUser(id)
+  })
+
+  const handleDeleteUser = (id: string) => {
+    setLoading(true)
+    mutationDeleteUser.mutate(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['getAllUsers'] })
+        toast.success('Xóa user thành công')
+      },
+      onError: () => {
+        toast.error('Xóa user thất bại')
+      },
+      onSettled: () => {
+        setLoading(false)
+      }
+    })
+  }
+
+  const columns: ColumnDef<UserResponse>[] = [
+    {
+      id: 'select',
+      header: ({ table }) => (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label='Select all'
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label='Select row'
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false
+    },
+    {
+      accessorKey: 'avatar',
+      header: 'Avatar',
+      cell: ({ row }) => {
+        return (
+          <div className='flex items-center'>
+            <img src={row.original.avatar} alt='Avatar' className='w-8 h-8 rounded-full' />
+          </div>
+        )
+      }
+    },
+    {
+      accessorKey: 'email',
+      header: ({ column }) => {
+        return (
+          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            Email
+            <ArrowUpDown className='w-4 h-4 ml-2' />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>
+    },
+    {
+      accessorKey: 'country',
+      header: () => <div className='text-left'>Quốc tịch</div>,
+      cell: ({ row }) => <div>{row.getValue('country') || 'N/A'}</div>
+    },
+    {
+      accessorKey: 'phone',
+      header: () => <div className='text-left'>Số điện thoại</div>,
+      cell: ({ row }) => <div>{row.getValue('phone') || 'N/A'}</div>
+    },
+    {
+      accessorKey: 'address',
+      header: () => <div className='text-left'>Địa chỉ</div>,
+      cell: ({ row }) => <div>{row.getValue('address') || 'N/A'}</div>
+    },
+    {
+      id: 'role',
+      header: () => <div className='flex justify-center'>Vai trò</div>,
+      cell: ({ row }) => (
+        <div className='flex justify-center'>
+          <h1
+            className={
+              row.original.role?.name === 'ADMIN'
+                ? 'text-white p-2 inline-block rounded-xl bg-green-400'
+                : row.original.role?.name === 'EMPLOYEE'
+                ? 'text-white p-2 inline-block rounded-xl bg-blue-400'
+                : ''
+            }
+          >
+            {row.original.role?.name || 'N/A'}
+          </h1>
+        </div>
+      )
+    },
+    {
+      accessorKey: 'date_of_birth',
+      header: () => <div className='flex justify-center'>Ngày sinh</div>,
+      cell: ({ row }) => {
+        const formatDate = (dateString?: string): string => {
+          if (!dateString) return 'N/A'
+
+          const date = new Date(dateString)
+          if (isNaN(date.getTime())) return 'N/A'
+
+          const day = String(date.getDate()).padStart(2, '0')
+          const month = String(date.getMonth() + 1).padStart(2, '0')
+          const year = date.getFullYear()
+
+          return `${day}-${month}-${year}`
+        }
+
+        return <div className='flex justify-center'>{formatDate(row.getValue<string>('date_of_birth'))}</div>
+      }
+    },
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        return (
+          <div className='flex items-center justify-center gap-4'>
+            <Link to={`/admin/users/${row.original.id}`}>
+              <IconEdit />
+            </Link>
+            <Popover>
+              <PopoverTrigger asChild>
+                <TableOfContents className='w-6 h-6 cursor-pointer' />
+              </PopoverTrigger>
+              <PopoverContent className='w-24'>
+                <Button loading={loading} onClick={() => handleDeleteUser(row.original.id!)}>
+                  <IconDelete />
+                </Button>
+              </PopoverContent>
+            </Popover>
+          </div>
+        )
+      }
+    }
+  ]
 
   const table = useReactTable({
     data,

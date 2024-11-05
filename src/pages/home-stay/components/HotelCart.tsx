@@ -1,5 +1,4 @@
 import { hotelApi } from '@/apis/hotel.api'
-import { hoteldetail3 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem } from '@/components/ui/pagination'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
@@ -55,7 +54,7 @@ const HotelCard: React.FC<HotelCardProps> = ({
             className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
           >
             <div className='w-[35%] bg-blue-300 flex-3 relative'>
-              <img src={hoteldetail3} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
+              <img src={item.image} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
                 9 images
               </p>

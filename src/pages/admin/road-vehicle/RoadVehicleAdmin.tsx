@@ -1,5 +1,4 @@
 import { coachApi } from '@/apis/coach.api'
-import { coachdetail1 } from '@/assets/images'
 import { IconEdit, IconMore, IconSearch, IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -80,9 +79,9 @@ export default function RoadVehicleAdmin() {
           <CaretSortIcon className='w-4 h-4 ml-2' />
         </Button>
       ),
-      cell: () => (
+      cell: ({ row }) => (
         <div className='text-left'>
-          <img src={coachdetail1} alt='vehicle' className='object-cover h-12 mx-auto w-15' />
+          <img src={row.getValue('image')} alt='vehicle' className='object-cover h-12 mx-auto w-15' />
         </div>
       )
     },

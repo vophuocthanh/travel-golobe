@@ -59,7 +59,6 @@ const HotelListings: React.FC = () => {
     queryKey: ['getCountPlace'],
     queryFn: () => hotelApi.getCountPlace()
   })
-  console.log('getCountPlace:', getCountPlace)
 
   const isRatingVisible = true
   return (

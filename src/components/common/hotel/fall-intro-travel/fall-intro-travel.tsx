@@ -1,5 +1,4 @@
 import { hotelApi } from '@/apis/hotel.api'
-import { hoteldetail3 } from '@/assets/images'
 import { Button } from '@/components/ui/button'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
@@ -50,7 +49,7 @@ export default function FallIntroTravel() {
               <SwiperSlide
                 key={travel.id}
                 className='hover:transform hover:-translate-y-1 relative flex flex-col justify-end h-[30rem] p-4 bg-center bg-cover w-[18rem] rounded-lg'
-                style={{ backgroundImage: `url(${hoteldetail3})` }}
+                style={{ backgroundImage: `url(${travel.image})` }}
               >
                 <Link to={`/hotel/${travel.id}`}>
                   <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent'></div>

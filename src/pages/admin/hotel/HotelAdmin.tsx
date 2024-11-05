@@ -1,5 +1,4 @@
 import { hotelApi } from '@/apis/hotel.api'
-import { hotel } from '@/assets/images'
 import { IconDelete, IconEdit, IconMore, IconSearch } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -99,9 +98,9 @@ export default function HotelAdmin() {
     {
       accessorKey: 'image',
       header: () => <div className='text-center w-28'>Hình ảnh </div>,
-      cell: () => (
+      cell: ({ row }) => (
         <div className='flex flex-col items-center justify-center'>
-          <img src={hotel} alt='Hotel Image' className='object-cover h-28' />
+          <img src={row.getValue('image')} alt='Hotel Image' className='object-cover h-28' />
         </div>
       ),
       enableSorting: true

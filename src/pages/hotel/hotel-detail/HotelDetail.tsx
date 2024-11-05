@@ -210,35 +210,15 @@ export default function HotelDetail() {
           <div className='items-start w-full mt-5 mb-8'>
             <div className='grid w-full grid-cols-4 gap-4'>
               <div className='grid w-full col-span-2'>
-                <img
-                  src='https://ik.imagekit.io/tvlk/blog/2023/09/khach-san-view-bien-da-nang-1.jpg?tr=dpr-2,w-675'
-                  alt='hotel'
-                  className='w-full h-[41rem]'
-                />
+                <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem]' />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img
-                  src='https://www.kkday.com/vi/blog/wp-content/uploads/khach-san-Da-Nang-ft.jpg'
-                  alt='hotel'
-                  className='w-full h-[20rem]'
-                />
-                <img
-                  src='https://owa.bestprice.vn/images/combos/658_370/combo-da-nang-3n2d-minh-toan-ocean-hotel-4-ve-may-bay-khu-hoi-5fce0306ee446.jpg'
-                  alt='hotel'
-                  className='w-full h-[20rem]'
-                />
+                <img src={getbyId?.image_2} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_3} alt='hotel' className='w-full h-[20rem]' />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img
-                  src='https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10039783-066fe52d5f3ccb8e0aebb2dba564747b.jpeg'
-                  alt='hotel'
-                  className='w-full h-[20rem]'
-                />
-                <img
-                  src='https://reviewvilla.vn/wp-content/uploads/2022/05/TOP-20-NHA-NGHI-DA-NANG-CHAT-LUONG-TOT-NHAT-2022-2.3.jpg'
-                  alt='hotel'
-                  className='w-full h-[20rem]'
-                />
+                <img src={getbyId?.image_4} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_5} alt='hotel' className='w-full h-[20rem]' />
               </div>
             </div>
           </div>

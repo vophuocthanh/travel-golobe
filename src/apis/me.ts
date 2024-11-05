@@ -31,5 +31,10 @@ export const meApi = {
   updateAccount(data: UpdateAccountPayload): Promise<MeResponse> {
     const url = '/user/me'
     return axiosClient.put(url, data)
+  },
+
+  deleteUser(id: string) {
+    const url = `/user/${id}`
+    return axiosClient.delete(url)
   }
 }
