@@ -1,4 +1,4 @@
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -194,14 +194,6 @@ export function BillingFLight() {
             {' '}
             <IconView />
           </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
-            {' '}
-            <IconEdit />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
-            {' '}
-            <IconDelete />
-          </div>
         </div>
       )
     }
@@ -237,14 +229,6 @@ export function BillingFLight() {
   React.useEffect(() => {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
-
-  function handleEdit(flight: FlightBillingResponseType) {
-    console.log('Editing payment:', flight)
-  }
-
-  function handleDelete(flight: FlightBillingResponseType) {
-    console.log('Deleting payment:', flight)
-  }
 
   const handleView = (flight: FlightBillingResponseType) => {
     navigate(`/admin/billing/flight_view/${flight.id}`)

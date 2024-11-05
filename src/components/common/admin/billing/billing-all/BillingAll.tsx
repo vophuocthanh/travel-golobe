@@ -1,5 +1,5 @@
 import { billingApi } from '@/apis/billing-all.api'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -253,19 +253,11 @@ export function BillingAll() {
     {
       id: 'actions',
       header: () => <div className='flex justify-center'>Hành động</div>,
-      cell: ({ row }) => (
+      cell: () => (
         <div className='flex justify-center space-x-6'>
           <div className='cursor-pointer' onClick={handleView}>
             {' '}
             <IconView />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
-            {' '}
-            <IconEdit />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
-            {' '}
-            <IconDelete />
           </div>
         </div>
       )
@@ -302,14 +294,6 @@ export function BillingAll() {
   React.useEffect(() => {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
-
-  function handleEdit(payment: BillingResponseType) {
-    console.log('Editing payment:', payment)
-  }
-
-  function handleDelete(payment: BillingResponseType) {
-    console.log('Deleting payment:', payment)
-  }
 
   const handleView = () => {
     navigate(`/admin/billing/all-view`)

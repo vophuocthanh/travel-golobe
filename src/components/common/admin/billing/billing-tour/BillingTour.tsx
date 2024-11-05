@@ -1,5 +1,5 @@
 import { bookingTourApi } from '@/apis/booking-tour.api'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -212,14 +212,6 @@ export function BillingTour() {
             {' '}
             <IconView />
           </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
-            {' '}
-            <IconEdit />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
-            {' '}
-            <IconDelete />
-          </div>
         </div>
       )
     }
@@ -255,14 +247,6 @@ export function BillingTour() {
   React.useEffect(() => {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
-
-  function handleEdit(payment: TourBillingResponseType) {
-    console.log('Editing payment:', payment)
-  }
-
-  function handleDelete(payment: TourBillingResponseType) {
-    console.log('Deleting payment:', payment)
-  }
 
   const handleView = (tour: TourBillingResponseType) => {
     navigate(`/admin/billing/tour-view/${tour.id}`)

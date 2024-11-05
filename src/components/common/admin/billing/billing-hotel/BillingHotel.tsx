@@ -1,5 +1,5 @@
 import { bookingHotelApi } from '@/apis/booking-hotel.api'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -121,14 +121,6 @@ export function BillingHotel() {
             {' '}
             <IconView />
           </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
-            {' '}
-            <IconEdit />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
-            {' '}
-            <IconDelete />
-          </div>
         </div>
       )
     }
@@ -152,14 +144,6 @@ export function BillingHotel() {
       rowSelection
     }
   })
-
-  function handleEdit(payment: PaymentHotel) {
-    console.log('Editing payment:', payment)
-  }
-
-  function handleDelete(payment: PaymentHotel) {
-    console.log('Deleting payment:', payment)
-  }
 
   const handleView = (payment: PaymentHotel) => {
     navigate(`/admin/billing/hotel-view/${payment.id}`)

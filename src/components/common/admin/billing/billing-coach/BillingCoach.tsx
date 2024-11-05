@@ -1,5 +1,5 @@
 import { bookingCoachApi } from '@/apis/booking-coach'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -179,12 +179,6 @@ export function BillingCoach() {
               <IconView />
             </Link>
           </Button>
-          <div className='w-8 h-8 cursor-pointer' onClick={() => handleEdit(row.original)}>
-            <IconEdit />
-          </div>
-          <div className='w-8 h-8 cursor-pointer' onClick={() => handleDelete(row.original)}>
-            <IconDelete />
-          </div>
         </div>
       )
     }
@@ -220,14 +214,6 @@ export function BillingCoach() {
   React.useEffect(() => {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
-
-  function handleEdit(payment: BillingCoachResponseAdmin) {
-    console.log('Editing payment:', payment)
-  }
-
-  function handleDelete(payment: BillingCoachResponseAdmin) {
-    console.log('Deleting payment:', payment)
-  }
 
   return (
     <div className='w-full'>

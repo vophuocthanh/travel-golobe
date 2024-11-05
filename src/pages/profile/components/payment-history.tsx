@@ -23,7 +23,7 @@ export default function PaymentHistory() {
               item.tour
                 ? `/tour/${item.tour.id}`
                 : item.flightCrawls
-                ? `/flight/${item.flightCrawls.id}`
+                ? `/vehicle/flight/${item.flightCrawls.id}`
                 : item.hotelCrawls
                 ? `/hotel/${item.hotelCrawls.id}`
                 : '#'
