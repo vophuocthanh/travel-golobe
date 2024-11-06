@@ -114,7 +114,8 @@ export interface TourRequest {
   image: string
   price: number
   hotelId: string
-  flightId: string
+  flightId?: string | undefined
+  roadVehicleId?: string | undefined
   start_date: string
   end_date: string
 }

@@ -13,7 +13,9 @@ export const tourApi = {
     sort_by_price?: string,
     rating?: number | undefined,
     start_date?: string,
-    end_date?: string
+    end_date?: string,
+    starting_gate?: string,
+    road_vehicle?: string
   ): Promise<ListResponse<TourResponseType>> {
     const url = '/tour'
 
@@ -39,6 +41,15 @@ export const tourApi = {
       params.start_date = String(start_date)
       params.end_date = String(end_date)
     }
+
+    if (starting_gate) {
+      params.starting_gate = starting_gate
+    }
+
+    if (road_vehicle) {
+      params.road_vehicle = road_vehicle
+    }
+
     return axiosClient.get(url, { params })
   },
   getById(id: string | undefined): Promise<TourInfoResponse> {
@@ -68,6 +79,14 @@ export const tourApi = {
   },
   getFavoriteTours() {
     const url = `/tour/favorite`
+    return axiosClient.get(url)
+  },
+  getUniqeStartingGate() {
+    const url = '/tour/unique-starting-gate'
+    return axiosClient.get(url)
+  },
+  getUniqueRoadVehicle() {
+    const url = '/tour/unique-road-vehicle'
     return axiosClient.get(url)
   }
 }

@@ -60,4 +60,6 @@ export interface TourParams {
   rating?: number
   start_date?: string
   end_date?: string
+  starting_gate?: string
+  road_vehicle?: string
 }

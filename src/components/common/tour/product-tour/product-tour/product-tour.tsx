@@ -22,6 +22,8 @@ interface TourlCardProps {
   returnDate?: string
   departDate?: string
   debouncedSearchTour?: string
+  selectUniqueStartingGate?: string[]
+  selectUniqueRoadVehicle?: string[]
 }
 const ProductTour: React.FC<TourlCardProps> = ({
   debouncedSearchTour,
@@ -29,7 +31,9 @@ const ProductTour: React.FC<TourlCardProps> = ({
   maxPrice,
   rating,
   departDate,
-  returnDate
+  returnDate,
+  selectUniqueStartingGate,
+  selectUniqueRoadVehicle
 }) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
@@ -69,10 +73,24 @@ const ProductTour: React.FC<TourlCardProps> = ({
       sortByPrice,
       rating,
       departDate,
-      returnDate
+      returnDate,
+      selectUniqueStartingGate,
+      selectUniqueRoadVehicle
     ],
     queryFn: () =>
-      tourApi.getAll(page, 4, minPrice, maxPrice, debouncedSearchTour, sortByPrice, rating, departDate, returnDate),
+      tourApi.getAll(
+        page,
+        4,
+        minPrice,
+        maxPrice,
+        debouncedSearchTour,
+        sortByPrice,
+        rating,
+        departDate,
+        returnDate,
+        selectUniqueStartingGate?.join(','),
+        selectUniqueRoadVehicle?.join(',')
+      ),
     enabled: !!debouncedSearchTour || !!sortByPrice || !!page
   })
 

@@ -1,16 +1,13 @@
+import { tourApi } from '@/apis/tour.api'
 import { FilterTour, Footer, Header, ProductTour } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { format } from 'date-fns'
-import { Search } from 'lucide-react'
-import { useState } from 'react'
-
-import { Label } from '@radix-ui/react-label'
-
-import { tourApi } from '@/apis/tour.api'
 import { useDebounce } from '@/hooks/useDebounce'
+import { Label } from '@radix-ui/react-label'
 import { useQuery } from '@tanstack/react-query'
-import { Sofa } from 'lucide-react'
+import { format } from 'date-fns'
+import { Search, Sofa } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { TourDate } from './TourDate'
@@ -26,6 +23,10 @@ export default function TourDetail() {
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
   const [rating, setRating] = useState<number | undefined>(undefined)
+  const [searchTour, setSearchTour] = useState<string>('')
+  const debouncedSearchTour = useDebounce<string>(searchTour, 500)
+  const [selectUniqueStartingGate, setSelectUniqueStartingGate] = useState<string[]>([])
+  const [selectUniqueRoadVehicle, setSelectUniqueRoadVehicle] = useState<string[]>([])
 
   const handlePriceRangeChange = (min: number | undefined, max: number | undefined) => {
     setMinPrice(min)
@@ -34,9 +35,6 @@ export default function TourDetail() {
   const handleRating = (val: number | undefined) => {
     setRating(val)
   }
-
-  const [searchTour, setSearchTour] = useState<string>('')
-  const debouncedSearchTour = useDebounce<string>(searchTour, 500)
 
   const { data: getAllTour, isLoading } = useQuery({
     queryKey: [
@@ -72,6 +70,24 @@ export default function TourDetail() {
       toast.error('Vui lòng nhập đầy đủ ngày khởi hành và ngày trở về.')
       return
     }
+  }
+
+  const { data: getUniqueStagingGate } = useQuery({
+    queryKey: ['getUniqueStagingGate'],
+    queryFn: () => tourApi.getUniqeStartingGate()
+  })
+
+  const { data: getUniqueRoadVehicle } = useQuery({
+    queryKey: ['getUniqueRoadVehicle'],
+    queryFn: () => tourApi.getUniqueRoadVehicle()
+  })
+
+  const handleSelectUniqueStartingGate = (val: string) => {
+    setSelectUniqueStartingGate([val])
+  }
+
+  const handleSelectUniqueRoadVehicle = (val: string) => {
+    setSelectUniqueRoadVehicle([val])
   }
 
   return (
@@ -127,7 +143,7 @@ export default function TourDetail() {
           </Button>
         </div>
       </div>
-      <div className='flex justify-between gap-4 mx-[6rem] mt-8'>
+      <div className='flex justify-between gap-4 mx-[6rem] min-h-[56rem] mt-8'>
         <FilterTour
           setMinPrice={setMinPrice}
           setMaxPrice={setMaxPrice}
@@ -136,6 +152,10 @@ export default function TourDetail() {
           maxPrice={maxPrice}
           handleRating={handleRating}
           rating={rating}
+          data={getUniqueStagingGate?.data}
+          handleSelectUniqueStartingGate={handleSelectUniqueStartingGate}
+          handleSelectUniqueRoadVehicle={handleSelectUniqueRoadVehicle}
+          dataRoadVehicle={getUniqueRoadVehicle?.data}
         />
         <ProductTour
           departDate={filteredDepartDate}
@@ -144,6 +164,8 @@ export default function TourDetail() {
           minPrice={minPrice}
           maxPrice={maxPrice}
           debouncedSearchTour={debouncedSearchTour}
+          selectUniqueStartingGate={selectUniqueStartingGate}
+          selectUniqueRoadVehicle={selectUniqueRoadVehicle}
         />
       </div>
       <Footer />

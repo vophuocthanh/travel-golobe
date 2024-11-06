@@ -1,3 +1,4 @@
+import { coachApi } from '@/apis/coach.api'
 import { flightApi } from '@/apis/flight.api'
 import { hotelApi } from '@/apis/hotel.api'
 import { tourApi } from '@/apis/tour.api'
@@ -17,7 +18,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/shared/lib/utils'
-import { FlightResponseType, HotelResponseType } from '@/shared/ts/interface/data.interface'
+import { CoachResponseType, FlightResponseType, HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { CreateTourSchema } from '@/shared/utils/tour.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -38,8 +39,10 @@ export default function CreateTourAdmin() {
   const [loading, setLoading] = useState(false)
   const [pageHotel, setPageHotel] = useState(1)
   const [pageFlight, setPageFlight] = useState(1)
+  const [pageRoadVehicle, setPageRoadVehicle] = useState(1)
   const [hotels, setHotels] = useState<HotelResponseType[]>([])
   const [flights, setFlights] = useState<FlightResponseType[]>([])
+  const [roadVehicles, setRoadVehicles] = useState<CoachResponseType[]>([])
 
   const form = useForm<z.infer<typeof CreateTourSchema>>({
     resolver: zodResolver(CreateTourSchema),
@@ -51,9 +54,28 @@ export default function CreateTourAdmin() {
       hotelId: '',
       flightId: '',
       start_date: '',
-      end_date: ''
+      end_date: '',
+      roadVehicleId: ''
     }
   })
+
+  const { setValue, watch } = form
+  const selectedFlightId = watch('flightId')
+  const selectedRoadVehicleId = watch('roadVehicleId')
+
+  const handleFlightSelect = (value: string) => {
+    setValue('flightId', value)
+    if (selectedRoadVehicleId) {
+      setValue('roadVehicleId', '')
+    }
+  }
+
+  const handleRoadVehicleSelect = (value: string) => {
+    setValue('roadVehicleId', value)
+    if (selectedFlightId) {
+      setValue('flightId', '')
+    }
+  }
 
   const mutationCreateTour = useMutation({
     mutationFn: (data: z.infer<typeof CreateTourSchema>) => tourApi.addTour(data)
@@ -62,14 +84,20 @@ export default function CreateTourAdmin() {
   function onSubmit(data: z.infer<typeof CreateTourSchema>) {
     setLoading(true)
 
-    const formattedData = {
+    const formattedData: Partial<z.infer<typeof CreateTourSchema>> = {
       ...data,
       price: Number(data.price),
       start_date: startDate ? startDate.startOf('day').format('DD-MM-YYYY') : '',
       end_date: endDate ? endDate.startOf('day').format('DD-MM-YYYY') : ''
     }
 
-    mutationCreateTour.mutate(formattedData, {
+    if (data.roadVehicleId) {
+      delete formattedData.flightId
+    } else if (data.flightId) {
+      delete formattedData.roadVehicleId
+    }
+
+    mutationCreateTour.mutate(formattedData as z.infer<typeof CreateTourSchema>, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['getTourAll'] })
         toast.success('Create tour success')
@@ -100,6 +128,11 @@ export default function CreateTourAdmin() {
     // staleTime: 5 * 60 * 1000 //Là khoảng thời gian mà dữ liệu được coi là mới và sẽ không bị refetch từ server. Ở đây, nó được đặt là 5 phút (5 * 60 * 1000), nghĩa là trong vòng 5 phút kể từ lần fetch gần nhất, dữ liệu sẽ không được fetch lại, thay vào đó nó lấy từ cache.
   })
 
+  const { data: getRoadVehicle } = useQuery({
+    queryKey: ['getRoadVehicleAdmin', pageRoadVehicle],
+    queryFn: () => coachApi.getAll(pageRoadVehicle, 20)
+  })
+
   useEffect(() => {
     if (getAllHotelAdmin?.data) {
       setHotels((prev) => [...prev, ...getAllHotelAdmin.data])
@@ -112,6 +145,12 @@ export default function CreateTourAdmin() {
     }
   }, [getAllFlight])
 
+  useEffect(() => {
+    if (getRoadVehicle?.data) {
+      setRoadVehicles((prev) => [...prev, ...getRoadVehicle.data])
+    }
+  }, [getRoadVehicle])
+
   const loadMore = () => {
     setPageHotel((prevPage) => prevPage + 1)
   }
@@ -120,8 +159,12 @@ export default function CreateTourAdmin() {
     setPageFlight((prevPage) => prevPage + 1)
   }
 
+  const loadMoreRoadVehicle = () => {
+    setPageRoadVehicle((prevPage) => prevPage + 1)
+  }
+
   if (isError) {
-    return <div>Error loading hotels</div>
+    return <div>Error loading</div>
   }
 
   return (
@@ -231,7 +274,7 @@ export default function CreateTourAdmin() {
               <FormItem>
                 <FormLabel>ID của flight</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select onValueChange={(value) => handleFlightSelect(value)} value={field.value}>
                     <SelectTrigger className='w-full'>
                       <SelectValue placeholder='Select a flight' />
                     </SelectTrigger>
@@ -244,12 +287,51 @@ export default function CreateTourAdmin() {
                           hasMore={!isFetching && getAllFlight?.data?.length === 20}
                           loader={<h4>Loading more flight...</h4>}
                           height={200}
-                          endMessage={<p>You have seen all flight</p>}
+                          endMessage={<p>You have seen all flights</p>}
                         >
                           {flights.map((flight) => (
                             <SelectItem key={flight.id} value={flight.id || ''}>
                               {dayjs(flight.start_day).format('DD/MM/YYYY')} -{' '}
                               {dayjs(flight.end_day).format('DD/MM/YYYY')} - {flight.trip_to}
+                            </SelectItem>
+                          ))}
+                        </InfiniteScroll>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='roadVehicleId'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ID của road vehicle</FormLabel>
+                <FormControl>
+                  <Select onValueChange={(value) => handleRoadVehicleSelect(value)} value={field.value}>
+                    <SelectTrigger className='w-full'>
+                      <SelectValue placeholder='Select a road vehicle' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Road Vehicle</SelectLabel>
+                        <InfiniteScroll
+                          dataLength={roadVehicles.length}
+                          next={loadMoreRoadVehicle}
+                          hasMore={!isFetching && getRoadVehicle?.data?.length === 20}
+                          loader={<h4>Loading more coaches...</h4>}
+                          height={200}
+                          endMessage={<p>You have seen all coaches</p>}
+                        >
+                          {roadVehicles.map((coach) => (
+                            <SelectItem key={coach.id} value={coach.id || ''}>
+                              {dayjs(coach.start_day).format('DD/MM/YYYY')} -{' '}
+                              {dayjs(coach.end_day).format('DD/MM/YYYY')} - {coach.brand} - {coach.take_place} -{' '}
+                              {coach.destination}
                             </SelectItem>
                           ))}
                         </InfiniteScroll>

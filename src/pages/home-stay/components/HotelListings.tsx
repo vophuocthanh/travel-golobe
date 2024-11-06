@@ -126,6 +126,7 @@ const HotelListings: React.FC = () => {
                   ))}
                 </div>
                 <div className='inline-block mt-6'>
+                  <h2 className='mb-4 text-xl font-semibold text-gray-700'>Địa điểm</h2>
                   {getCountPlace?.data?.map((place: string, index: number) => (
                     <label key={index} className='flex items-center'>
                       <input
@@ -142,7 +143,6 @@ const HotelListings: React.FC = () => {
               </div>
             )}
           </div>
-
           <div className='w-2/3'>
             <div className='flex items-center justify-end w-full h-10 mb-2'>
               <Dropdown menu={{ items }}>
@@ -154,7 +154,6 @@ const HotelListings: React.FC = () => {
                 </a>
               </Dropdown>
             </div>
-
             <div className='flex flex-col flex-1 gap-8'>
               <HotelCard
                 starNumber={starNumber}

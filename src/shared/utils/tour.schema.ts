@@ -6,7 +6,8 @@ export const CreateTourSchema = z.object({
   image: z.string().nonempty('Image is required'),
   price: z.preprocess((val) => Number(val), z.number().positive()),
   hotelId: z.string().nonempty('Hotel ID is required'),
-  flightId: z.string().nonempty('Flight ID is required'),
+  flightId: z.string().optional(),
+  roadVehicleId: z.string().optional(),
   start_date: z.string(),
   end_date: z.string()
 })
