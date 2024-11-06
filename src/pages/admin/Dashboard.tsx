@@ -1,5 +1,7 @@
+import { dashboardApi } from '@/apis/dashboad.api'
 import ContentDashboard1 from '@/components/common/admin/dashboard/ContentDashboard1'
 import ContentDashboard2 from '@/components/common/admin/dashboard/ContentDashboard2'
+import { useQuery } from '@tanstack/react-query'
 import { DatePicker, Space } from 'antd'
 import { RangePickerProps } from 'antd/es/date-picker'
 import dayjs, { Dayjs } from 'dayjs'
@@ -19,6 +21,26 @@ export default function Dashboard() {
     }
   }
 
+  const { data: getCountUser } = useQuery({
+    queryKey: ['getCountUser'],
+    queryFn: () => dashboardApi.getCountUser()
+  })
+
+  const { data: getCountPaymentDone } = useQuery({
+    queryKey: ['getCountPaymentDone'],
+    queryFn: () => dashboardApi.getCountPaymentDone()
+  })
+
+  const { data: getCountTour } = useQuery({
+    queryKey: ['getCountTour'],
+    queryFn: () => dashboardApi.getCountTour()
+  })
+
+  const { data: getCountBooking } = useQuery({
+    queryKey: ['getCountBooking'],
+    queryFn: () => dashboardApi.getCountBooking()
+  })
+
   const menuPresets: { label: string; value: [Dayjs, Dayjs] }[] = [
     { label: 'Last 7 Days', value: [dayjs().subtract(7, 'd'), dayjs()] },
     { label: 'Last 14 Days', value: [dayjs().subtract(14, 'd'), dayjs()] },
@@ -26,21 +48,13 @@ export default function Dashboard() {
     { label: 'Last 90 Days', value: [dayjs().subtract(90, 'd'), dayjs()] }
   ]
 
-  const tabs = [
-    { name: 'Overview', label: 'Tổng quan', count: null },
-    { name: 'Tasks', label: 'Nhiệm vụ', count: 7 },
-    { name: 'Documents', label: 'Tài liệu', count: 2 },
-    { name: 'Team', label: 'Đội ngũ', count: '99+' },
-    { name: 'Reports', label: 'Báo cáo', count: null },
-    { name: 'Admin', label: 'Quản trị viên', count: null },
-    { name: 'More', label: '...', count: null }
-  ]
+  const tabs = [{ name: 'Overview', label: 'Tổng quan', count: null }]
 
   const stats = [
-    { label: 'Users Total', value: '11.8M', change: '+2.5%', changeType: 'increase' },
-    { label: 'New Users', value: '8.236K', change: '-1.2%', changeType: 'decrease' },
-    { label: 'Active Users', value: '2.352M', change: '+11%', changeType: 'increase' },
-    { label: 'New Users', value: '8K', change: '+5.2%', changeType: 'increase' }
+    { label: 'Users Total', value: getCountUser?.data?.total || 'N/A', change: '+2.5%', changeType: 'increase' },
+    { label: 'Payment Done', value: getCountPaymentDone?.data?.total, change: '-1.2%', changeType: 'decrease' },
+    { label: 'Booking System', value: getCountBooking?.data?.total, change: '+5.2%', changeType: 'increase' },
+    { label: 'Tour System', value: getCountTour?.data?.total, change: '+11%', changeType: 'increase' }
   ]
 
   return (
@@ -72,9 +86,9 @@ export default function Dashboard() {
               key={index}
               className='flex flex-col items-center p-4 bg-white rounded-lg shadow w-full h-[6rem] relative'
             >
-              <div className='absolute left-[2rem]'>
+              <div className='absolute gap-2 flex left-[2rem]'>
                 <span className='text-lg text-gray-500'>{stat.label}</span>
-                <span className='text-3xl font-bold'>{stat.value}</span>
+                <span className='text-xl font-bold'>{stat.value}</span>
               </div>
               <span
                 className={`text-sm mt-2 absolute bottom-[1rem] right-[2rem] bg-gray-200 w-12 h-6 flex items-center justify-center rounded-lg ${
