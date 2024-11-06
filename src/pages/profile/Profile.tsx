@@ -1,5 +1,4 @@
 import { meApi } from '@/apis/me'
-import { logo_flight, logo_hotel } from '@/assets/images'
 import { Footer, Header } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,9 +12,8 @@ import {
 import ContentPassword from '@/pages/profile/components/content-password'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Armchair, Calendar, ChevronRight, CirclePlus, Clock4, Cpu, CreditCard, DoorOpen, Minus } from 'lucide-react'
+import { CirclePlus, Cpu, CreditCard } from 'lucide-react'
 import { useRef, useState } from 'react'
-import Div from './components/div-profile'
 import Input from './components/input-profile'
 
 import PaymentHistory from '@/pages/profile/components/payment-history'
@@ -140,87 +138,7 @@ export default function Profile() {
             </TabsContent>
             <TabsContent value='Tickets-Booking'>
               <p className='mb-4 text-xl font-semibold'>Tickets/Booking</p>
-              <Tabs defaultValue='flight' className='w-full'>
-                <TabsList className='flex my-2 space-x-10'>
-                  <TabsTrigger
-                    value='flight'
-                    className='px-4 py-2 text-lg font-medium transition duration-300 border-b-2 border-transparent hover:border-blue-500'
-                  >
-                    Flight
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value='stays'
-                    className='px-4 py-2 text-lg font-medium transition duration-300 border-b-2 border-transparent hover:border-blue-500'
-                  >
-                    Stays
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value='flight'>
-                  <div className='relative flex items-center px-4 bg-white border rounded-lg shadow-md'>
-                    <img src={logo_flight} alt='airline-logo' className='w-16 h-16 mr-4' />
-                    <div className='flex items-center px-5 space-x-12'>
-                      <div className='flex items-center justify-center space-x-5'>
-                        <div className='text-center start'>
-                          <p className='text-base text-gray-500'>Newark (EWR)</p>
-                          <p className='text-xl font-bold pt-1/2'>12:00 AM</p>
-                        </div>
-                        <div className='flex justify-center'>
-                          <Minus className='w-6 h-6' />
-                        </div>
-                        <div className='text-center come'>
-                          <p className='text-base text-gray-500'>Newark (EWR)</p>
-                          <p className='text-xl font-bold pt-1/2'>6:00 PM</p>
-                        </div>
-                      </div>
 
-                      <div className='grid grid-cols-2 p-4 gap-x-8'>
-                        <Div icon={<Calendar />} name='Date' content='12-11-22' className='col-span-1' />
-                        <Div icon={<DoorOpen />} name='Gate' content='A12' className='col-span-1' />
-                        <Div icon={<Clock4 />} name='Flight time' content='Newark(EWR)' className='col-span-1' />
-                        <Div icon={<Armchair />} name='Seat no.' content='128' className='col-span-1' />
-                      </div>
-                    </div>
-                    <Button className='absolute px-2 py-2 text-white bg-green-500 rounded right-20'>
-                      Download Ticket
-                    </Button>
-                    <Button className='absolute px-4 py-2 transition-colors duration-300 bg-white border rounded shadow-md text-primary border-primary hover:bg-primary hover:text-white right-4'>
-                      <ChevronRight />
-                    </Button>
-                  </div>
-                </TabsContent>
-                <TabsContent value='stays'>
-                  <div className='relative flex items-center px-4 bg-white border rounded-lg shadow-md'>
-                    <img src={logo_hotel} alt='airline-logo' className='w-16 h-16 mr-4' />
-                    <div className='flex items-center px-5 space-x-12'>
-                      <div className='flex items-center justify-center space-x-5'>
-                        <div className='text-center start'>
-                          <p className='text-base text-gray-500'>Check-In</p>
-                          <p className='text-xl font-bold pt-1/2'>Thur, Dec 8</p>
-                        </div>
-                        <div className='flex justify-center'>
-                          <Minus className='w-6 h-6' />
-                        </div>
-                        <div className='text-center come'>
-                          <p className='text-base text-gray-500'>Check Out</p>
-                          <p className='text-xl font-bold pt-1/2'>Fri, Dec 9</p>
-                        </div>
-                      </div>
-
-                      <div className='grid grid-cols-2 p-4 gap-x-8'>
-                        <Div icon={<Clock4 />} name='Check-In time' content='12:00pm' className='col-span-1' />
-                        <Div icon={<DoorOpen />} name='Room no.' content='A12' className='col-span-1' />
-                        <Div icon={<Clock4 />} name='Check-In out' content='11:30am' className='col-span-1' />
-                      </div>
-                    </div>
-                    <Button className='absolute px-2 py-2 text-white bg-green-500 rounded right-20'>
-                      Download Ticket
-                    </Button>
-                    <Button className='absolute px-4 py-2 transition-colors duration-300 bg-white border rounded shadow-md text-primary border-primary hover:bg-primary hover:text-white right-4'>
-                      <ChevronRight />
-                    </Button>
-                  </div>
-                </TabsContent>
-              </Tabs>
               <PaymentHistory />
             </TabsContent>
             <TabsContent value='Payment-methods'>

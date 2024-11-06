@@ -1,13 +1,12 @@
 import { flightApi } from '@/apis/flight.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
+import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import 'swiper/css'
-
-import { FlightResponseType } from '@/shared/ts/interface/data.interface'
-import { formatDateStandard } from '@/shared/utils/date-utils'
-import { useTranslation } from 'react-i18next'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 export default function FlightReview1() {
@@ -61,7 +60,7 @@ export default function FlightReview1() {
                         </p>
                       </div>
                       <p className='flex items-center justify-center text-lg text-white'>
-                        {formatDateStandard(flight.price?.toString())}
+                        {formatCurrencyVND(flight.price)}
                       </p>
                     </div>
                   </Link>
