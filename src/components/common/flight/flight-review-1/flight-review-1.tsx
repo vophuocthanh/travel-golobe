@@ -1,6 +1,7 @@
 import { flightApi } from '@/apis/flight.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { FlightResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
@@ -11,10 +12,24 @@ import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 export default function FlightReview1() {
   const { t } = useTranslation()
-  const { data: getAll } = useQuery({
+  const { data: getAll, isLoading } = useQuery({
     queryKey: ['getAllFlight'],
     queryFn: () => flightApi.getAll(1, 4)
   })
+
+  if (isLoading)
+    return (
+      <div className='items-center mx-auto mt-10 space-y-4 max-w-[105rem]'>
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+      </div>
+    )
 
   return (
     <SectionInViewRight>

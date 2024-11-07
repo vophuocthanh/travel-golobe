@@ -1,6 +1,7 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
@@ -12,10 +13,23 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 export default function IntoTour() {
   const { t } = useTranslation()
-  const { data: getAll } = useQuery({
+  const { data: getAll, isLoading } = useQuery({
     queryKey: ['getAllTour'],
     queryFn: () => tourApi.getAll(1, 5)
   })
+
+  if (isLoading)
+    return (
+      <div className='items-center mx-auto space-y-4 max-w-[105rem]'>
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+      </div>
+    )
+
   return (
     <SectionInViewUp>
       <div className='px-32 py-3 mb-20 rounded-2xl'>

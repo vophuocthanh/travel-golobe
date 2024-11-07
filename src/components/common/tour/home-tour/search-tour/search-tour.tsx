@@ -1,18 +1,25 @@
 import { tourApi } from '@/apis/tour.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
+import { Skeleton } from '@/components/ui/skeleton'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next';
-
-
-
+import { useTranslation } from 'react-i18next'
 
 export default function SearchTour() {
-  const { t } = useTranslation();
-  const { data: getAll } = useQuery({
+  const { t } = useTranslation()
+  const { data: getAll, isLoading } = useQuery({
     queryKey: ['getAllTour'],
-    queryFn: () => tourApi.getAll(1,5)
+    queryFn: () => tourApi.getAll(1, 5)
   })
+
+  if (isLoading)
+    return (
+      <div className='items-center mb-10 mx-auto space-y-4 max-w-[105rem]'>
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+      </div>
+    )
 
   return (
     <SectionInViewRight>

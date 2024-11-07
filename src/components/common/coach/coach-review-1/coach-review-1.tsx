@@ -1,6 +1,8 @@
 import { coachApi } from '@/apis/coach.api'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
@@ -10,17 +12,25 @@ import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 export default function CoachReview1() {
   const { t } = useTranslation()
-  const { data: getAll } = useQuery({
+  const { data: getAll, isLoading } = useQuery({
     queryKey: ['getAllCoach'],
     queryFn: () => coachApi.getAll(1, 4)
   })
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return 'N/A'
-    const numberValue = parseFloat(value)
-    return isNaN(numberValue)
-      ? 'N/A'
-      : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
-  }
+
+  if (isLoading)
+    return (
+      <div className='items-center mt-20 mx-auto space-y-4 max-w-[105rem]'>
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+        <Skeleton width='100%' height='2.5rem' />
+      </div>
+    )
+
   return (
     <SectionInViewRight>
       <div className='mt-[5rem]'>
@@ -70,7 +80,7 @@ export default function CoachReview1() {
                         </p>
                       </div>
                       <p className='flex items-center justify-center text-lg text-white'>
-                        {formatCurrency(coach.price?.toString())}
+                        {formatCurrencyVND(coach.price)}
                       </p>
                     </div>
                   </Link>
