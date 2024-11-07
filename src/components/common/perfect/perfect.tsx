@@ -73,13 +73,18 @@ export default function Perfect() {
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={10}
-            slidesPerView={3}
+            slidesPerView={1} // mặc định là 1 slide
             pagination={{ clickable: true }}
             navigation
             autoplay={{
               delay: 3000
             }}
             loop={true}
+            breakpoints={{
+              768: {
+                slidesPerView: 3
+              }
+            }}
           >
             {dataSlide.map((slide, index) => (
               <SwiperSlide key={index} className='flex w-full'>

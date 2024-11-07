@@ -25,7 +25,7 @@ const Chatbox = () => {
   }
 
   return (
-    <div className='fixed flex flex-col items-end bottom-48 right-8'>
+    <div className='fixed flex flex-col items-end bottom-24 right-7'>
       <button
         onClick={toggleChatbox}
         className='p-3 text-white bg-blue-500 rounded-full shadow-lg size-14 focus:outline-none'
