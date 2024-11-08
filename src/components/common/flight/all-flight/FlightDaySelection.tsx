@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/shared/lib/utils'
-import Typography from '@mui/material/Typography'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
@@ -23,9 +22,6 @@ const FlightDaySelection: React.FC<Props> = ({ day, setDay }) => {
 
   return (
     <div className='mb-[2rem]'>
-      <Typography variant='h4' gutterBottom>
-        Select Flight Date
-      </Typography>
       <Popover>
         <PopoverTrigger asChild>
           <Button

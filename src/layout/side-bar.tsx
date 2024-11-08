@@ -2,8 +2,7 @@ import { logo } from '@/assets/images'
 import { sidebarLinks } from '@/constants/general.const'
 import { TSidebarLinks } from '@/shared/ts/types'
 import useToggleSideBar from '@/store'
-import { ChevronRight } from '@mui/icons-material'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
 const Sidebar = () => {

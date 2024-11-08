@@ -1,14 +1,14 @@
-import * as React from 'react'
-import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
-import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Button } from '@/components/ui/button'
 import { Ticket } from '@/shared/ts/interface/ticket-flight'
-import { useTranslation } from 'react-i18next';
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import CardMedia from '@mui/material/CardMedia'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import { MoreVerticalIcon } from 'lucide-react'
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
 interface FlightTicketSelectionProps {
   tickets: Ticket[]
   ticketEconomy: string
@@ -17,7 +17,7 @@ interface FlightTicketSelectionProps {
 
 const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, ticketEconomy, onTicketSelect }) => {
   const [selectedTicketId, setSelectedTicketId] = React.useState<string | null>(null)
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const handleSelectTicket = (id: string) => {
     if (selectedTicketId == id) {
       setSelectedTicketId(null)
@@ -40,7 +40,7 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
                 <CardHeader
                   action={
                     <IconButton aria-label='settings'>
-                      <MoreVertIcon />
+                      <MoreVerticalIcon />
                     </IconButton>
                   }
                   title={ticket.type_ticket}
@@ -51,8 +51,12 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
                   <Typography variant='body2' color='text.secondary'>
                     {t('TicketPrice')}: {ticket.price.toLocaleString()} VND
                   </Typography>
-                  <Typography paragraph>{t('Baggage')}: {ticket.baggage_weight} kg</Typography>
-                  <Typography paragraph>{t('BaggageFee')}: {ticket.baggage_price.toLocaleString()} VND</Typography>
+                  <Typography paragraph>
+                    {t('Baggage')}: {ticket.baggage_weight} kg
+                  </Typography>
+                  <Typography paragraph>
+                    {t('BaggageFee')}: {ticket.baggage_price.toLocaleString()} VND
+                  </Typography>
                 </CardContent>
 
                 <div className='flex justify-end w-full p-4 mt-auto'>

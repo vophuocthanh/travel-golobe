@@ -1,6 +1,6 @@
-import { Star as StarIcon } from '@mui/icons-material' // Đảm bảo sử dụng đúng icon
 import { Rating } from '@mui/material'
-import Box from '@mui/material/Box' // Import Box từ MUI
+import Box from '@mui/material/Box'
+import { Star } from 'lucide-react'
 
 type Props = {
   rating: number
@@ -14,12 +14,9 @@ export default function StarRating({ rating }: Props) {
         value={rating}
         precision={0.5}
         readOnly
-        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />}
+        emptyIcon={<Star style={{ opacity: 0.55 }} fontSize='inherit' />}
       />
-      {rating !== null && (
-        <Box sx={{ ml: 1 }}>
-        </Box>
-      )}
+      {rating !== null && <Box sx={{ ml: 1 }}></Box>}
     </Box>
   )
 }
