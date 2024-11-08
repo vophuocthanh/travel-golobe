@@ -7,7 +7,7 @@ export const sidebarLinks: TSidebarLinks[] = [
   {
     title: 'Dashboard',
     icon: <IconDashboard />,
-    path: '/admin'
+    path: '/admin/dashboard'
   },
   {
     title: 'Hotel',

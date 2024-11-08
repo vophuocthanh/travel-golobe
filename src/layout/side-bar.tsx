@@ -23,7 +23,12 @@ const Sidebar = () => {
       </div>
       <div>
         {sidebarLinks.map((link) => (
-          <SidebarLink isActive={pathname === link.path} key={link.title} link={link} isCollapsed={sidebarOpen} />
+          <SidebarLink
+            isActive={pathname.startsWith(link.path)}
+            key={link.title}
+            link={link}
+            isCollapsed={sidebarOpen}
+          />
         ))}
       </div>
     </div>

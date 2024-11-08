@@ -11,6 +11,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
+import { exportToExcel } from '@/shared/utils/excel-utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { useQuery } from '@tanstack/react-query'
 import {
@@ -215,12 +216,12 @@ export default function RoadVehicleAdmin() {
       cell: ({ row }) => (
         <div className='flex justify-center space-x-6'>
           <div className=''>
-            <Link to={`/admin/road-vehicle-view/${row.original.id}`}>
+            <Link to={`/admin/road-vehicle/view/${row.original.id}`}>
               <IconView />
             </Link>
           </div>
           <div className=''>
-            <Link to={`/admin/road-vehicle-edit/${row.original.id}`}>
+            <Link to={`/admin/road-vehicle/${row.original.id}`}>
               <IconEdit />
             </Link>
           </div>
@@ -263,9 +264,49 @@ export default function RoadVehicleAdmin() {
     table.setPageIndex(pageIndex)
   }, [pageIndex, table])
 
+  const handleDownloadExcelRoadVehicle = () => {
+    const data = coachData.map((item) => ({
+      ID: item.id,
+      'Tên nhà xe': item.brand,
+      'Hình ảnh': item.image,
+      'Số chổ ngồi': item.number_of_seat,
+      'Thời gian khởi hành': item.start_time,
+      'Ngày khởi hành': item.start_day,
+      'Thời gian kết thúc': item.end_time,
+      'Ngày kết thúc': item.end_day,
+      'Thời gian chuyến xe': item.trip_time,
+      'Điểm đi': item.take_place,
+      'Điểm đến': item.destination,
+      'Vị trí': item.location,
+      Giá: item.price,
+      'Số ghế còn lại': item.number_of_seats_remaining
+    }))
+
+    exportToExcel(data, 'road-vehicle')
+  }
+
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-4 text-2xl font-bold '>Road Vehicle</h1>
+      <div className='flex items-center justify-between py-4'>
+        <h1 className='text-2xl font-bold '>Road Vehicle - Admin</h1>
+        <Button onClick={handleDownloadExcelRoadVehicle} className='flex items-center gap-2'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='w-6 h-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
+            />
+          </svg>
+          <p>Export to Excel</p>
+        </Button>
+      </div>
       <Card>
         <CardContent>
           <div className='flex items-center justify-between py-4'>
@@ -300,7 +341,7 @@ export default function RoadVehicleAdmin() {
               </div>
             </div>
             <div className='flex items-center gap-4'>
-              <Link to='/admin/coach/create'>
+              <Link to='/admin/road-vehicle/create'>
                 <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
                   <IconMore />
                   Add Road Vehicle
@@ -332,7 +373,7 @@ export default function RoadVehicleAdmin() {
               </DropdownMenu>
             </div>
           </div>
-          <div className='border rounded-md'>
+          <div className='h-[calc(100vh-280px)] px-4 overflow-y-auto border rounded-md'>
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (

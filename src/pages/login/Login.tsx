@@ -53,7 +53,7 @@ export default function Login() {
         setRefreshTokenToLS(data.refresh_token)
         setUserToLS(data.user)
         if (data?.user?.role === 'ADMIN' || data?.user?.role === 'EMPLOYEE') {
-          navigate('/admin')
+          navigate('/admin/dashboard')
         } else {
           navigate('/')
         }

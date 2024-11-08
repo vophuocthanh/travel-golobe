@@ -219,7 +219,7 @@ export default function PaymentAdmin() {
       <Card>
         <CardHeader>
           <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
-            <h1 className='mb-4 text-2xl font-bold '>PAYMENT</h1>
+            <h1 className='mb-4 text-2xl font-bold '>Payment - Admin</h1>
             <Button className='text-white' onClick={handleExportExcelPayment}>
               Download
             </Button>
@@ -259,7 +259,7 @@ export default function PaymentAdmin() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div className='border rounded-md'>
+          <div className='h-[calc(100vh-430px)] px-4 overflow-y-auto border rounded-md'>
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (

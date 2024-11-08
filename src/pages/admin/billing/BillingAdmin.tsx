@@ -25,7 +25,7 @@ export default function BillingAdmin() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-4 text-2xl font-bold '>BILLING</h1>
+      <h1 className='mb-4 text-2xl font-bold '>Billing - Admin</h1>
       <div>
         <Tabs value={selectedTab} onValueChange={handleTabChange} className='w-full'>
           <TabsList className='grid w-[35rem] h-[3rem] grid-cols-5 text-black border border-primary'>

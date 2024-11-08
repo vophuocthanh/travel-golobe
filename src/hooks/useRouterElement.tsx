@@ -9,7 +9,6 @@ import LayoutMain from '@/layout/LayoutMain'
 import { Flight, Home, Hotel, Login, PageNotFound, Register, Tour, TourDetail } from '@/pages'
 import BillingAdmin from '@/pages/admin/billing/BillingAdmin'
 import Dashboard from '@/pages/admin/Dashboard'
-import EmployeeAdmin from '@/pages/admin/employee/EmployeeAdmin'
 import CreateFlightAdmin from '@/pages/admin/flight/components/CreateFlightAdmin'
 import EditFlightAdmin from '@/pages/admin/flight/components/EditFLightAdmin'
 import FlightAdmin from '@/pages/admin/flight/FlightAdmin'
@@ -18,8 +17,10 @@ import CreateHotelAdmin from '@/pages/admin/hotel/HotelAdminAdd'
 import HotelAdminEdit from '@/pages/admin/hotel/HotelAdminEdit'
 import PaymentAdmin from '@/pages/admin/payments/PaymentAdmin'
 import PaymentDetailView from '@/pages/admin/payments/PaymentDetailView'
-import RoadVehicleAdmin from '@/pages/admin/road-vehicle/RoadVehicleAdmin'
+import RoadVehicleAdminCreate from '@/pages/admin/road-vehicle/components/RoadVehicleAdminCreate'
+import RoadVehicleAdmineEdit from '@/pages/admin/road-vehicle/components/RoadVehicleAdmineEdit'
 import RoadVehicleAdminView from '@/pages/admin/road-vehicle/components/RoadVehicleAdminView'
+import RoadVehicleAdmin from '@/pages/admin/road-vehicle/RoadVehicleAdmin'
 import CreateTourAdmin from '@/pages/admin/tour/components/CreateTourAdmin'
 import EditTourAdmin from '@/pages/admin/tour/components/EditTourAdmin'
 import TourAdmin from '@/pages/admin/tour/TourAdmin'
@@ -44,8 +45,6 @@ import VerifyCode from '@/pages/verify-code/VerifyCode'
 import AdminRoute from '@/routes/AdminRoute'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
-import RoadVehicleAdminCreate from '@/pages/admin/road-vehicle/components/RoadVehicleAdminCreate'
-import RoadVehicleAdmineEdit from '@/pages/admin/road-vehicle/components/RoadVehicleAdmineEdit'
 
 export default function useRoutesElements() {
   const location = useLocation()
@@ -57,7 +56,7 @@ export default function useRoutesElements() {
       { path: path.register, element: <Register /> },
       { path: path.verify_code, element: <VerifyCode /> },
       { path: path.tour, element: <Tour /> },
-      { path: path.tourId, element: <TourDetail /> },
+      { path: path.tourAll, element: <TourDetail /> },
       { path: path.tourDetailView, element: <TourDetailView /> },
       { path: path.hotel, element: <Hotel /> },
       { path: path.home_stay, element: <HomeStay /> },
@@ -73,41 +72,47 @@ export default function useRoutesElements() {
       { path: path.hotelId, element: <HotelDetail /> },
       { path: '*', element: <PageNotFound /> },
       {
-        path: path.admin,
+        path: path.admin.root,
         element: (
           <AdminRoute>
             <LayoutMain children={<Dashboard />} />
           </AdminRoute>
         )
       },
-      { path: path.users, element: <LayoutMain children={<UserAdmin />} /> },
-      { path: path.users_id, element: <LayoutMain children={<UserAdminDetail />} /> },
-      { path: path.billing, element: <LayoutMain children={<BillingAdmin />} /> },
-      { path: path.admin_payment, element: <LayoutMain children={<PaymentAdmin />} /> },
-      { path: path.all_view, element: <LayoutMain children={<BillingAllView />} /> },
-      { path: path.hotel_view, element: <LayoutMain children={<BillingHotelView />} /> },
-      { path: path.flight_view, element: <LayoutMain children={<BillingFlightView />} /> },
-      { path: path.coach_view, element: <LayoutMain children={<BillingCoachView />} /> },
-      { path: path.payment_view, element: <LayoutMain children={<PaymentDetailView />} /> },
-      { path: path.tour_view, element: <LayoutMain children={<BillingTourView />} /> },
-      { path: path.admin_tour, element: <LayoutMain children={<TourAdmin />} /> },
-      { path: path.admin_create_tour, element: <LayoutMain children={<CreateTourAdmin />} /> },
-      { path: path.hotel_add, element: <LayoutMain children={<CreateHotelAdmin />} /> },
-      { path: path.admin_tourID, element: <LayoutMain children={<EditTourAdmin />} /> },
-      { path: path.admin_flight, element: <LayoutMain children={<FlightAdmin />} /> },
-      { path: path.admin_create_flight, element: <LayoutMain children={<CreateFlightAdmin />} /> },
-      { path: path.admin_flightID, element: <LayoutMain children={<EditFlightAdmin />} /> },
-      { path: path.admin_hotel, element: <LayoutMain children={<HotelAdmin />} /> },
-      { path: path.admin_hotelID, element: <LayoutMain children={<HotelAdminEdit />} /> },
-      { path: path.admin_road_vehicle, element: <LayoutMain children={<RoadVehicleAdmin />} /> },
-      { path: path.admin_create_coach, element: <LayoutMain children={<RoadVehicleAdminCreate />} /> },
-      { path: path.admin_edit_coach, element: <LayoutMain children={<RoadVehicleAdmineEdit />} /> },
-      { path: path.road_vehicleID, element: <LayoutMain children={<RoadVehicleAdminView />} /> },
-      { path: path.admin_employee, element: <LayoutMain children={<EmployeeAdmin />} /> },
-      { path: path.flight_payment, element: <FlightPayment /> },
-      { path: path.coach_payment, element: <CoachPayment /> },
-      { path: path.tour_payment, element: <TourPayment /> },
-      { path: path.hotel_payment, element: <HotelPayment /> },
+      {
+        path: path.admin.users,
+        element: (
+          <AdminRoute>
+            <LayoutMain children={<UserAdmin />} />
+          </AdminRoute>
+        )
+      },
+      { path: path.admin.userById, element: <LayoutMain children={<UserAdminDetail />} /> },
+      { path: path.admin.billing, element: <LayoutMain children={<BillingAdmin />} /> },
+      { path: path.admin.payments, element: <LayoutMain children={<PaymentAdmin />} /> },
+      { path: path.admin.billing_views.all, element: <LayoutMain children={<BillingAllView />} /> },
+      { path: path.admin.billing_views.hotel, element: <LayoutMain children={<BillingHotelView />} /> },
+      { path: path.admin.billing_views.flight, element: <LayoutMain children={<BillingFlightView />} /> },
+      { path: path.admin.billing_views.coach, element: <LayoutMain children={<BillingCoachView />} /> },
+      { path: path.admin.payment_view, element: <LayoutMain children={<PaymentDetailView />} /> },
+      { path: path.admin.billing_views.tour, element: <LayoutMain children={<BillingTourView />} /> },
+      { path: path.admin.tours, element: <LayoutMain children={<TourAdmin />} /> },
+      { path: path.admin.tour_create, element: <LayoutMain children={<CreateTourAdmin />} /> },
+      { path: path.admin.tour_edit, element: <LayoutMain children={<EditTourAdmin />} /> },
+      { path: path.admin.flights, element: <LayoutMain children={<FlightAdmin />} /> },
+      { path: path.admin.flight_create, element: <LayoutMain children={<CreateFlightAdmin />} /> },
+      { path: path.admin.flight_edit, element: <LayoutMain children={<EditFlightAdmin />} /> },
+      { path: path.admin.hotels, element: <LayoutMain children={<HotelAdmin />} /> },
+      { path: path.admin.hotel_add, element: <LayoutMain children={<CreateHotelAdmin />} /> },
+      { path: path.admin.hotel_edit, element: <LayoutMain children={<HotelAdminEdit />} /> },
+      { path: path.admin.road_vehicle, element: <LayoutMain children={<RoadVehicleAdmin />} /> },
+      { path: path.admin.road_vehicle_create, element: <LayoutMain children={<RoadVehicleAdminCreate />} /> },
+      { path: path.admin.road_vehicle_edit, element: <LayoutMain children={<RoadVehicleAdmineEdit />} /> },
+      { path: path.admin.road_vehicle_view, element: <LayoutMain children={<RoadVehicleAdminView />} /> },
+      { path: path.payment.coach, element: <CoachPayment /> },
+      { path: path.payment.flight, element: <FlightPayment /> },
+      { path: path.payment.tour, element: <TourPayment /> },
+      { path: path.payment.hotel, element: <HotelPayment /> }
     ],
     location
   )

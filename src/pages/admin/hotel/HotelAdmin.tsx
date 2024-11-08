@@ -263,7 +263,7 @@ export default function HotelAdmin() {
   return (
     <div className='w-full p-2'>
       <div className='flex items-center justify-between mb-6'>
-        <h1 className='text-2xl font-bold '>HOTEL</h1>
+        <h1 className='text-2xl font-bold '>Hotel - Admin</h1>
         <Button onClick={handleDownloadExcelHotel} className='flex items-center gap-2'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -349,7 +349,7 @@ export default function HotelAdmin() {
               </DropdownMenu>
             </div>
           </div>
-          <div className='border rounded-md'>
+          <div className='h-[calc(100vh-270px)] px-4 overflow-y-auto border rounded-md'>
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (

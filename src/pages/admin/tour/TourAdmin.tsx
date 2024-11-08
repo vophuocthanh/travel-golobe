@@ -450,7 +450,7 @@ function TourAdmin() {
           </div>
         </div>
 
-        <div className='px-4 border rounded-md'>
+        <div className='h-[calc(100vh-260px)] px-4 overflow-y-auto border rounded-md'>
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
