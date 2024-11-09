@@ -116,3 +116,28 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.typing-animation {
+  display: inline-block;
+  font-weight: bold;
+  font-style: italic;
+  color: #555;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: slide-in-out 2s ease-in-out infinite;
+}
+
+@keyframes slide-in-out {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

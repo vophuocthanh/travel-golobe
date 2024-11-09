@@ -1,12 +1,11 @@
 import { google } from '@/assets/icons'
 import SectionInViewRight from '@/components/common/animation/SectionInViewRight'
 import { Button } from '@/components/ui/button'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import { Navigation, Pagination, A11y, Autoplay } from 'swiper/modules';
-import { useTranslation } from 'react-i18next';
-
+import 'swiper/css'
+import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 const slide = [
   {
@@ -51,7 +50,7 @@ const slide = [
 ]
 
 export default function Review() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <SectionInViewRight>
       <div className='mb-64 max-w-7xl'>
@@ -64,39 +63,41 @@ export default function Review() {
             {t('see')}
           </Button>
         </div>
-        <Swiper
-          modules={[Navigation, Pagination, A11y, Autoplay]}
-          spaceBetween={10}
-          slidesPerView={3}
-          pagination={{ clickable: true }}
-          navigation
-          autoplay={{
-            delay: 3000
-          }}
-          loop={true}
-        >
-          {slide.map((slide, index) => (
-            <SwiperSlide key={index} className='flex w-full mt-20'>
-              <div className='p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300'>
-                <h1 className='text-3xl'>{slide.title}</h1>
-                <p className='text-gray-400 textContainer'>{slide.content}</p>
-                <span className='flex ml-auto text-sm font-medium'>View more</span>
+        <div className='z-0'>
+          <Swiper
+            modules={[Navigation, Pagination, A11y, Autoplay]}
+            spaceBetween={10}
+            slidesPerView={3}
+            pagination={{ clickable: true }}
+            navigation
+            autoplay={{
+              delay: 3000
+            }}
+            loop={true}
+          >
+            {slide.map((slide, index) => (
+              <SwiperSlide key={index} className='flex w-full mt-20'>
+                <div className='p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300'>
+                  <h1 className='text-3xl'>{slide.title}</h1>
+                  <p className='text-gray-400 textContainer'>{slide.content}</p>
+                  <span className='flex ml-auto text-sm font-medium'>View more</span>
 
-                <div className='flex flex-col'>
-                  <span>{slide.span}</span>
-                  <p className='text-gray-400'>Weave Studios – Kai Tak</p>
-                </div>
-                <Link to='https://www.google.com.vn/?hl=vi' target='_blank'>
-                  <div className='flex items-center gap-2'>
-                    <img src={google} alt='google' />
-                    <span className='text-gray-400'>Google</span>
+                  <div className='flex flex-col'>
+                    <span>{slide.span}</span>
+                    <p className='text-gray-400'>Weave Studios – Kai Tak</p>
                   </div>
-                </Link>
-                <img src={slide.url} alt='' className='w-[30rem] h-[10rem] rounded-xl object-cover' />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                  <Link to='https://www.google.com.vn/?hl=vi' target='_blank'>
+                    <div className='flex items-center gap-2'>
+                      <img src={google} alt='google' />
+                      <span className='text-gray-400'>Google</span>
+                    </div>
+                  </Link>
+                  <img src={slide.url} alt='' className='w-[30rem] h-[10rem] rounded-xl object-cover' />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </SectionInViewRight>
   )

@@ -69,7 +69,7 @@ export default function Perfect() {
           ))}
         </div>
 
-        <div className='relative flex gap-4'>
+        <div className='relative z-0 flex gap-4'>
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={10}
