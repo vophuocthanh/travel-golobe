@@ -9,8 +9,8 @@ export default function Home() {
   const location = useLocation()
   const token = getAccessTokenFromLS()
 
-  const showCrispProvider = token && location.pathname !== '/admin'
-  const showChatbox = token && location.pathname !== '/admin'
+  const showCrispProvider = token && location.pathname !== '/admin/dashboard'
+  const showChatbox = token && location.pathname !== '/admin/dashboard'
 
   return (
     <div className='w-full'>

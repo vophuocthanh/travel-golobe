@@ -13,11 +13,6 @@ export interface CommentTour {
     avatar: string
   }
 }
-export interface ListResponse<T> {
-  data: T[]
-  total: number
-  page: number
-}
 export interface TabProps {
   label: string
   description: string

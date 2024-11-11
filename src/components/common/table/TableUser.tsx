@@ -28,6 +28,7 @@ import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { UserResponse } from '@/shared/ts/interface'
+import { exportToExcel } from '@/shared/utils/excel-utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -38,11 +39,19 @@ export function TableUser() {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
   const [loading, setLoading] = React.useState(false)
+  const [pageIndex, setPageIndex] = React.useState(0)
   const queryClient = useQueryClient()
 
-  const { data: getAllUsers } = useQuery({
+  const { data: getUsers } = useQuery({
     queryKey: ['getAllUsers'],
     queryFn: () => meApi.getAllUsers()
+  })
+
+  const totalUser = getUsers?.total || 0
+
+  const { data: getAllUsers } = useQuery({
+    queryKey: ['getAllUsers', totalUser],
+    queryFn: () => meApi.getAllUsers(1, totalUser)
   })
   const data = getAllUsers?.data ?? []
 
@@ -203,19 +212,62 @@ export function TableUser() {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection
+      rowSelection,
+      pagination: {
+        pageIndex,
+        pageSize: 8
+      }
     }
   })
+
+  React.useEffect(() => {
+    table.setPageIndex(pageIndex)
+  }, [pageIndex, table])
+
+  const handleDownloadExcelUser = async () => {
+    const data = getAllUsers?.data.map((user) => ({
+      email: user.email,
+      country: user.country,
+      phone: user.phone,
+      address: user.address,
+      role: user.role?.name,
+      avatar: user.avatar,
+      date_of_birth: user.date_of_birth
+    }))
+
+    if (data) {
+      exportToExcel(data, 'users')
+    }
+  }
 
   return (
     <div className='w-full p-2 mt-4 bg-white rounded-md'>
       <div className='flex items-center py-4'>
-        <Input
-          placeholder='Filter emails...'
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-          className='max-w-sm'
-        />
+        <div className='flex items-center gap-2'>
+          <Input
+            placeholder='Filter emails...'
+            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+            onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+            className='max-w-sm'
+          />
+          <Button onClick={handleDownloadExcelUser} className='flex items-center gap-2'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='w-6 h-6'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
+              />
+            </svg>
+            <p>Export to Excel</p>
+          </Button>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>
@@ -284,14 +336,17 @@ export function TableUser() {
         </div>
         <div className='space-x-2'>
           <Button
-            variant='outline'
-            size='sm'
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+            disabled={pageIndex === 0}
+            className='text-white'
           >
             Previous
           </Button>
-          <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          <Button
+            onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
+            disabled={pageIndex + 1 >= table.getPageCount()}
+            className='text-white'
+          >
             Next
           </Button>
         </div>

@@ -58,3 +58,9 @@ export interface RoleResponse {
 export interface UpdateRoleResponse {
   roleId: string
 }
+
+export interface UserParams {
+  page?: number
+  items_per_page?: number
+  search?: string
+}

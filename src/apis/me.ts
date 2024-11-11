@@ -1,5 +1,5 @@
 import axiosClient from '@/apis/axios-client'
-import { MeResponse, UpdateAccountPayload, UserResponse } from '@/shared/ts/interface'
+import { ListResponse, MeResponse, UpdateAccountPayload, UserParams, UserResponse } from '@/shared/ts/interface'
 
 export const meApi = {
   getMe(): Promise<MeResponse> {
@@ -7,9 +7,19 @@ export const meApi = {
     return axiosClient.get(url)
   },
 
-  getAllUsers() {
+  getAllUsers(page?: number | string, items_per_page?: number | string): Promise<ListResponse<UserResponse>> {
     const url = '/user'
-    return axiosClient.get(url)
+
+    if (page === undefined && items_per_page === undefined) {
+      return axiosClient.get(url)
+    }
+
+    const params: UserParams = {
+      items_per_page: items_per_page ? Number(items_per_page) : undefined,
+      page: page ? Number(page) : undefined
+    }
+
+    return axiosClient.get(url, { params })
   },
 
   getUserById(id: string): Promise<UserResponse> {
