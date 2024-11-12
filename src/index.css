@@ -141,3 +141,18 @@ body {
     opacity: 0;
   }
 }
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton-animation {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+}

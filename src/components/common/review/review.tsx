@@ -63,7 +63,7 @@ export default function Review() {
             {t('see')}
           </Button>
         </div>
-        <div className='z-0'>
+        <div className='z-[-10rem]'>
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={10}

@@ -25,52 +25,7 @@ const Chatbox: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const chatContainerRef = useRef<HTMLDivElement>(null)
-  const [loopNum, setLoopNum] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [text, setText] = useState('')
-  const [delta, setDelta] = useState(300 - Math.random() * 100)
-  const [, setIndex] = useState(1)
   const [showScrollButton, setShowScrollButton] = useState(false)
-  const toRotate = ['đang viết']
-  const period = 100 // thời gian lui chữ
-
-  // typing effect
-
-  useEffect(() => {
-    const ticker = setInterval(() => {
-      tick()
-    }, delta)
-
-    return () => {
-      clearInterval(ticker)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text])
-
-  const tick = () => {
-    const i = loopNum % toRotate.length
-    const fullText = toRotate[i]
-    const updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1)
-
-    setText(updatedText)
-
-    if (isDeleting) {
-      setDelta((prevDelta) => prevDelta / 2)
-    }
-
-    if (!isDeleting && updatedText === fullText) {
-      setIsDeleting(true)
-      setIndex((prevIndex) => prevIndex - 1)
-      setDelta(period)
-    } else if (isDeleting && updatedText === '') {
-      setIsDeleting(false)
-      setLoopNum(loopNum + 1)
-      setIndex(1)
-      setDelta(100) // thời gian hiển thị chữ
-    } else {
-      setIndex((prevIndex) => prevIndex + 1)
-    }
-  }
 
   // scroll bottom when new message is added
 
@@ -149,7 +104,7 @@ const Chatbox: React.FC = () => {
     <div className='fixed flex flex-col items-end bottom-24 right-7'>
       <Button
         onClick={toggleChatbox}
-        className='p-3 text-white bg-blue-500 rounded-full shadow-lg size-14 hover:ring-primary hover:ring-2'
+        className='p-3 text-white bg-blue-500 rounded-full shadow-lg animate-bounce size-14 hover:ring-primary hover:ring-2'
       >
         💬
       </Button>
@@ -171,7 +126,7 @@ const Chatbox: React.FC = () => {
               <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
                   className={`p-3 rounded-lg max-w-sm ${
-                    message.sender === 'user' ? 'bg-primary text-white' : 'bg-gray-300 text-black p-3'
+                    message.sender === 'user' ? 'bg-primary text-white' : 'bg-gray-100 text-black p-3'
                   }`}
                 >
                   {message.isCode ? (
@@ -192,28 +147,21 @@ const Chatbox: React.FC = () => {
               </div>
             ))}
             {isTyping && (
-              <div className='flex justify-start'>
-                <div className='max-w-xs p-3 text-black bg-gray-300 rounded-lg'>
-                  <h1 className='min-w-24'>
-                    {`AI`}{' '}
-                    <span className='txt-rotate' data-period='1000'>
-                      <span className='text-transparent bg-clip-text bg-gradient-to-b from-blue-400 to-pink-600'>
-                        {text}
-                      </span>
-                    </span>
-                  </h1>
-                </div>
+              <div className='flex flex-col space-y-4'>
+                <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[80%]' />
+                <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[70%]' />
+                <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[60%]' />
               </div>
             )}
           </div>
 
           {showScrollButton && (
-            <button
+            <Button
               className='absolute flex items-center justify-center w-10 p-2 text-white transform -translate-x-1/2 rounded-full bg-primary left-1/2 bottom-20 hover:bg-primary hover:ring-2 hover:ring-primary animate-bounce'
               onClick={scrollToBottom}
             >
               <ArrowDown size={20} />
-            </button>
+            </Button>
           )}
 
           <div className='p-4 border-t'>
@@ -227,13 +175,13 @@ const Chatbox: React.FC = () => {
                 onKeyDown={handleKeyPress}
                 disabled={loading}
               />
-              <button
+              <Button
                 className='px-3 py-2 text-white transition-all rounded-md bg-primary hover:opacity-80'
                 onClick={handleSend}
-                disabled={loading}
+                disabled={loading || !input.trim()}
               >
                 Send
-              </button>
+              </Button>
             </div>
           </div>
         </div>
