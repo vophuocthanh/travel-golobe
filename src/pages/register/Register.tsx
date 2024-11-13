@@ -105,7 +105,7 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder='Nhập name' {...field} />
+                        <Input placeholder='Nhập name' {...field} className='w-full' />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -118,7 +118,7 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder='Nhập phone number' {...field} />
+                        <Input placeholder='Nhập phone number' {...field} className='w-full' />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

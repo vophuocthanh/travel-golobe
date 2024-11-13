@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import MDEditor from '@uiw/react-md-editor'
 import dayjs from 'dayjs'
@@ -19,7 +20,6 @@ interface Message {
 }
 
 const Chatbox: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -54,8 +54,6 @@ const Chatbox: React.FC = () => {
     }
     setShowScrollButton(false)
   }
-
-  const toggleChatbox = () => setIsOpen(!isOpen)
 
   const handleSend = async () => {
     if (!input.trim()) return
@@ -102,90 +100,90 @@ const Chatbox: React.FC = () => {
 
   return (
     <div className='fixed flex flex-col items-end bottom-24 right-7'>
-      <Button
-        onClick={toggleChatbox}
-        className='p-3 text-white bg-blue-500 rounded-full shadow-lg animate-bounce size-14 hover:ring-primary hover:ring-2'
-      >
-        💬
-      </Button>
-
-      {isOpen && (
-        <div className='flex flex-col mt-2 overflow-hidden bg-white border rounded-md shadow-lg w-[27rem] z-999 h-[36rem]'>
-          <div className='p-4 font-semibold text-center text-white bg-primary'>
-            <img
-              src='https://images2.thanhnien.vn/528068263637045248/2024/7/15/google-gemini-ai-logo-on-color-swirl-background-1721059067170-1721059069909486798923.jpg'
-              alt='gemini'
-              width={20}
-              className='inline-block object-cover w-20 h-full mr-2 rounded-md'
-            />
-            Chat with us
-          </div>
-
-          <div className='flex-1 p-4 space-y-4 overflow-y-auto' ref={chatContainerRef}>
-            {messages.map((message) => (
-              <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div
-                  className={`p-3 rounded-lg max-w-sm ${
-                    message.sender === 'user' ? 'bg-primary text-white' : 'bg-gray-100 text-black p-3'
-                  }`}
-                >
-                  {message.isCode ? (
-                    <MDEditor.Markdown source={message.text} style={{ whiteSpace: 'pre-wrap' }} />
-                  ) : (
-                    <p>
-                      {message.text.split('\n').map((line, index) => (
-                        <span key={index} className='block'>
-                          {line}
-                        </span>
-                      ))}
-                    </p>
-                  )}
-                  <span className='text-xs text-gray-500'>
-                    {dayjs(message.timestamp).format('DD.MM.YYYY HH:mm:ss')}
-                  </span>
-                </div>
-              </div>
-            ))}
-            {isTyping && (
-              <div className='flex flex-col space-y-4'>
-                <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[80%]' />
-                <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[70%]' />
-                <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[60%]' />
-              </div>
-            )}
-          </div>
-
-          {showScrollButton && (
-            <Button
-              className='absolute flex items-center justify-center w-10 p-2 text-white transform -translate-x-1/2 rounded-full bg-primary left-1/2 bottom-20 hover:bg-primary hover:ring-2 hover:ring-primary animate-bounce'
-              onClick={scrollToBottom}
-            >
-              <ArrowDown size={20} />
-            </Button>
-          )}
-
-          <div className='p-4 border-t'>
-            <div className='flex items-center space-x-2'>
-              <Input
-                type='text'
-                className='w-[20.5rem] px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
-                placeholder='Bạn cần điều gì...'
-                value={input}
-                onChange={handleChange}
-                onKeyDown={handleKeyPress}
-                disabled={loading}
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button className='p-3 text-white bg-blue-500 rounded-full shadow-lg size-14 hover:ring-primary hover:ring-2'>
+            💬
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className='w-full p-0 bg-transparent'>
+          <div className='flex flex-col overflow-hidden bg-white border rounded-md shadow-lg w-[27rem] z-999 h-[36rem]'>
+            <div className='p-4 font-semibold text-center text-white bg-primary'>
+              <img
+                src='https://images2.thanhnien.vn/528068263637045248/2024/7/15/google-gemini-ai-logo-on-color-swirl-background-1721059067170-1721059069909486798923.jpg'
+                alt='gemini'
+                width={20}
+                className='inline-block object-cover w-20 h-full mr-2 rounded-md'
               />
+              Chat with us
+            </div>
+
+            <div className='flex-1 p-4 space-y-4 overflow-y-auto' ref={chatContainerRef}>
+              {messages.map((message) => (
+                <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div
+                    className={`p-3 rounded-lg max-w-sm ${
+                      message.sender === 'user' ? 'bg-primary text-white' : 'bg-gray-100 text-black p-3'
+                    }`}
+                  >
+                    {message.isCode ? (
+                      <MDEditor.Markdown source={message.text} style={{ whiteSpace: 'pre-wrap' }} />
+                    ) : (
+                      <p>
+                        {message.text.split('\n').map((line, index) => (
+                          <span key={index} className='block'>
+                            {line}
+                          </span>
+                        ))}
+                      </p>
+                    )}
+                    <span className='text-xs text-gray-500'>
+                      {dayjs(message.timestamp).format('DD.MM.YYYY HH:mm:ss')}
+                    </span>
+                  </div>
+                </div>
+              ))}
+              {isTyping && (
+                <div className='flex flex-col space-y-4'>
+                  <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[80%]' />
+                  <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[70%]' />
+                  <div className='skeleton-animation max-w-sm p-3 bg-gray-300 rounded-lg w-[60%]' />
+                </div>
+              )}
+            </div>
+
+            {showScrollButton && (
               <Button
-                className='px-3 py-2 text-white transition-all rounded-md bg-primary hover:opacity-80'
-                onClick={handleSend}
-                disabled={loading || !input.trim()}
+                className='absolute flex items-center justify-center w-10 p-2 text-white transform -translate-x-1/2 rounded-full bg-primary left-1/2 bottom-20 hover:bg-primary hover:ring-2 hover:ring-primary animate-bounce'
+                onClick={scrollToBottom}
               >
-                Send
+                <ArrowDown size={20} />
               </Button>
+            )}
+
+            <div className='p-4 border-t'>
+              <div className='flex items-center space-x-2'>
+                <Input
+                  type='text'
+                  className='w-[20.5rem] px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
+                  placeholder='Bạn cần điều gì...'
+                  value={input}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyPress}
+                  disabled={loading}
+                />
+                <Button
+                  className='px-3 py-2 text-white transition-all rounded-md bg-primary hover:opacity-80'
+                  onClick={handleSend}
+                  disabled={loading || !input.trim()}
+                >
+                  Send
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        </PopoverContent>
+      </Popover>
     </div>
   )
 }
