@@ -336,8 +336,8 @@ const FlightAdmin: React.FC = () => {
               </div>
               <Input
                 placeholder='Filter tour name...'
-                value={(table.getColumn('brand')?.getFilterValue() as string) ?? ''}
-                onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
+                value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
                 className='max-w-sm pl-10 rounded-xl'
               />
             </div>

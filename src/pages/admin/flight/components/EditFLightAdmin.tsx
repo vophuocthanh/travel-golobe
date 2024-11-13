@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/shared/lib/utils'
 import TimePicker from 'antd/es/time-picker'
-import { Dayjs } from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { ArrowLeftToLine, CalendarIcon } from 'lucide-react'
 import { toast } from 'react-toastify'
 // import { Calendar } from '@/components/ui/calendar'
@@ -24,6 +24,7 @@ const EditAdminFlight = () => {
     queryKey: ['getById', id],
     queryFn: () => flightApi.getById(id)
   })
+  console.log('getbyId:', getbyId?.start_time)
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof UpdateFlightSchema>>({
@@ -133,14 +134,15 @@ const EditAdminFlight = () => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
-            name='destination'
+            name='trip_to'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Destination</FormLabel>
+                <FormLabel>Nơi đến</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập destination' {...field} />
+                  <Input placeholder='Nhập trip_to' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -191,9 +193,9 @@ const EditAdminFlight = () => {
             name='take_place'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>take_place</FormLabel>
+                <FormLabel>Nơi đi</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập take_placeid của hotel' {...field} />
+                  <Input placeholder='Nhập điểm đi của flight' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -201,12 +203,12 @@ const EditAdminFlight = () => {
           />
           <FormField
             control={form.control}
-            name='trip_to'
+            name='destination'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>trip_to</FormLabel>
+                <FormLabel>Điểm đến</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập trip_to' {...field} />
+                  <Input placeholder='Nhập destination' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -217,7 +219,7 @@ const EditAdminFlight = () => {
             name='trip_time'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>trip_time</FormLabel>
+                <FormLabel>Thời gian di chuyển</FormLabel>
                 <FormControl>
                   <Input placeholder='Nhập trip_time' {...field} />
                 </FormControl>
@@ -225,66 +227,6 @@ const EditAdminFlight = () => {
               </FormItem>
             )}
           />
-          {/* <div className='flex items-center gap-2'>
-            <FormField
-              control={form.control}
-              name='start_day'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='mr-6'>Nhập ngày bắt đầu</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[280px] justify-start text-left font-normal',
-                            !startDay && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className='w-4 h-4 mr-2' />
-                          {startDay ? format(startDay, 'dd-MM-yyyy') : <span>Pick a startDay</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={startDay} onSelect={setStartDay} initialFocus {...field} />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='end_day'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className='mr-6'>Nhập ngày kết thúc</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[280px] justify-start text-left font-normal',
-                            !endDay && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className='w-4 h-4 mr-2' />
-                          {endDay ? format(endDay, 'dd-MM-yyyy') : <span>Pick a endDay</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className='w-auto p-0'>
-                        <Calendar mode='single' selected={endDay} onSelect={setEndDay} initialFocus {...field} />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div> */}
           <div className='flex items-center gap-2'>
             <FormField
               control={form.control}
@@ -307,7 +249,10 @@ const EditAdminFlight = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-full p-0'>
-                        <TimePicker onChange={handleTimeChange} />
+                        <TimePicker
+                          onChange={handleTimeChange}
+                          value={getbyId?.start_time ? dayjs(getbyId?.start_time, 'HH:mm') : null}
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>
@@ -336,7 +281,10 @@ const EditAdminFlight = () => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-full p-0'>
-                        <TimePicker onChange={handleEndTimeChange} />
+                        <TimePicker
+                          onChange={handleEndTimeChange}
+                          value={getbyId?.end_time ? dayjs(getbyId.end_time, 'HH:mm') : null}
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>

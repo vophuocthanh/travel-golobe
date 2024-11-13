@@ -309,8 +309,8 @@ export default function HotelAdmin() {
                 </div>
                 <Input
                   placeholder='Search product...'
-                  value={(table.getColumn('hotel_names')?.getFilterValue() as string) ?? ''}
-                  onChange={(event) => table.getColumn('hotel_names')?.setFilterValue(event.target.value)}
+                  value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
+                  onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
                   className='max-w-sm pl-10 rounded-xl'
                 />
               </div>

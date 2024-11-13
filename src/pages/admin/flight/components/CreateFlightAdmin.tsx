@@ -20,8 +20,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
 export default function CreateFlightAdmin() {
-  const [startTime, setStartTime] = useState<Dayjs | null>(null) // Update type to Dayjs
-  const [endTime, setEndTime] = useState<Dayjs | null>(null) // Update type to Dayjs
+  const [startTime, setStartTime] = useState<dayjs.Dayjs | null>(null)
+  const [endTime, setEndTime] = useState<dayjs.Dayjs | null>(null)
 
   const handleTimeChange = (value: Dayjs | null) => {
     if (value) {
