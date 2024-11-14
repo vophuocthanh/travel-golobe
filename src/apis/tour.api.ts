@@ -7,9 +7,9 @@ export const tourApi = {
   getAll(
     page?: number | string,
     items_per_page?: number | string,
+    search?: string,
     min_price?: number,
     max_price?: number,
-    search?: string,
     sort_by_price?: string,
     rating?: number | undefined,
     start_date?: string,

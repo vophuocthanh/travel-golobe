@@ -8,6 +8,7 @@ export const flightApi = {
   getAll(
     page: number | string,
     items_per_page: number | string,
+    search?: string,
     sort_by_price?: string,
     brand?: string,
     min_price?: number,
@@ -21,6 +22,10 @@ export const flightApi = {
     const params: ParamsType = {
       items_per_page: Number(items_per_page),
       page: Number(page)
+    }
+
+    if (search) {
+      params.search = search
     }
 
     if (sort_by_price) {

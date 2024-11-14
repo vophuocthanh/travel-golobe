@@ -7,6 +7,7 @@ export const coachApi = {
   getAll(
     page: number | string,
     items_per_page: number | string,
+    search?: string,
     sort_by_price?: string,
     brand?: string,
     min_price?: number,
@@ -14,12 +15,16 @@ export const coachApi = {
     start_day?: string,
     end_day?: string,
     search_from?: string,
-    search_to?: string,
+    search_to?: string
   ): Promise<ListResponse<CoachResponseType>> {
     const url = '/road-vehicle/crawl'
     const params: ParamsType = {
       items_per_page: Number(items_per_page),
-      page: Number(page),
+      page: Number(page)
+    }
+
+    if (search) {
+      params.search = search
     }
 
     if (sort_by_price) {
@@ -53,7 +58,6 @@ export const coachApi = {
     }
     return axiosClient.get(url, { params })
   },
-
 
   favoriteCoachID(id: string | undefined): Promise<void> {
     const url = `/road-vehicle/${id}/favorite`

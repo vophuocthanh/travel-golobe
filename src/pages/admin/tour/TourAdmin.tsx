@@ -28,6 +28,7 @@ import { Link } from 'react-router-dom'
 
 import { tourApi } from '@/apis/tour.api'
 import { IconSearch } from '@/common/icons'
+import { useDebounce } from '@/hooks/useDebounce'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourResponseType } from '@/shared/ts/interface/data.interface'
 import { TourResponse } from '@/shared/utils/data-response'
@@ -46,6 +47,9 @@ function TourAdmin() {
   const [entriesPerPage, setEntriesPerPage] = React.useState(5)
   const [pageIndex, setPageIndex] = React.useState(0)
 
+  const [searchTourAdmin, setSearchTourAdmin] = React.useState<string>('')
+  const debouncedSearchTourAdmin = useDebounce<string>(searchTourAdmin, 500)
+
   const queryClient = useQueryClient()
 
   const { data: getAllTour } = useQuery({
@@ -55,8 +59,8 @@ function TourAdmin() {
   const totalTour = getAllTour?.total || 0
 
   const { data: getTour } = useQuery({
-    queryKey: ['getTour', totalTour],
-    queryFn: () => tourApi.getAll(1, totalTour)
+    queryKey: ['getTour', totalTour, debouncedSearchTourAdmin],
+    queryFn: () => tourApi.getAll(1, totalTour, debouncedSearchTourAdmin)
   })
   const tourData = getTour?.data || []
   const mutationDeleteTour = useMutation({
@@ -415,8 +419,9 @@ function TourAdmin() {
               </div>
               <Input
                 placeholder='Filter tour name...'
-                value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-                onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+                // value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+                // onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+                onChange={(e) => setSearchTourAdmin(e.target.value)}
                 className='max-w-sm pl-10 rounded-xl'
               />
             </div>

@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useDebounce } from '@/hooks/useDebounce'
 import { CoachResponseType } from '@/shared/ts/interface/data.interface'
 import { exportToExcel } from '@/shared/utils/excel-utils'
 import { CaretSortIcon } from '@radix-ui/react-icons'
@@ -32,24 +33,26 @@ import { Link } from 'react-router-dom'
 import RoadVehicleAdminDetele from './components/RoadVehicleAdminDetele'
 
 export default function RoadVehicleAdmin() {
-  const { data: getAllCoach } = useQuery({
-    queryKey: ['getAllCoach'],
-    queryFn: () => coachApi.getAll(1, 1, '')
-  })
-  const totalDataCount = getAllCoach?.total || 0
-  const { data: CoachData } = useQuery({
-    queryKey: ['getCoach', totalDataCount],
-    queryFn: () => coachApi.getAll(1, totalDataCount, ''),
-    enabled: totalDataCount > 0
-  })
-
-  const coachData = CoachData?.data || []
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
   const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [pageIndex, setPageIndex] = React.useState(0)
+  const [searchCoach, setSearchCoach] = React.useState('')
+  const debouncedSearchCoach = useDebounce<string>(searchCoach, 500)
+
+  const { data: getAllCoach } = useQuery({
+    queryKey: ['getAllCoach'],
+    queryFn: () => coachApi.getAll(1, 1, '')
+  })
+  const totalDataCount = getAllCoach?.total || 0
+  const { data: CoachData } = useQuery({
+    queryKey: ['getCoach', totalDataCount, debouncedSearchCoach],
+    queryFn: () => coachApi.getAll(1, totalDataCount, debouncedSearchCoach),
+    enabled: totalDataCount > 0
+  })
+  const coachData = CoachData?.data || []
 
   const columns: ColumnDef<CoachResponseType>[] = [
     {
@@ -334,8 +337,9 @@ export default function RoadVehicleAdmin() {
                 </div>
                 <Input
                   placeholder='Filter coach brand...'
-                  value={(table.getColumn('brand')?.getFilterValue() as string) ?? ''}
-                  onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
+                  // value={(table.getColumn('brand')?.getFilterValue() as string) ?? ''}
+                  // onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
+                  onChange={(e) => setSearchCoach(e.target.value)}
                   className='max-w-sm pl-10 rounded-xl'
                 />
               </div>

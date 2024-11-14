@@ -39,7 +39,7 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
       <div className='mt-4'>
         <h3 className='text-lg font-semibold'>Price Details</h3>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>Vé máy bay</p>
+          <p className='text-lg text-gray-500'>Phương tiện</p>
           <p className='text-lg font-semibold'>{formatCurrencyVND(data?.road_vehicle?.details?.price)}</p>
         </div>
         <div className='flex justify-between mt-2'>

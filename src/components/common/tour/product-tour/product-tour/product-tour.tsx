@@ -81,9 +81,9 @@ const ProductTour: React.FC<TourlCardProps> = ({
       tourApi.getAll(
         page,
         4,
+        debouncedSearchTour,
         minPrice,
         maxPrice,
-        debouncedSearchTour,
         sortByPrice,
         rating,
         departDate,

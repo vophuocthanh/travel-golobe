@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useDebounce } from '@/hooks/useDebounce'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { HotelResponseType } from '@/shared/ts/interface/data.interface'
 import { exportToExcel } from '@/shared/utils/excel-utils'
@@ -48,6 +49,8 @@ export default function HotelAdmin() {
   const [pageIndex, setPageIndex] = React.useState(0)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const [searchHotelAdmin, setSearchHotelAdmin] = React.useState<string>('')
+  const debouncedSearchHotelAdmin = useDebounce<string>(searchHotelAdmin, 500)
 
   const { data: getAllHotel } = useQuery({
     queryKey: ['getAllHotel'],
@@ -56,8 +59,8 @@ export default function HotelAdmin() {
   const totalDataHotel = getAllHotel?.total || 0
 
   const { data: allHotel } = useQuery({
-    queryKey: ['getAllHotel', totalDataHotel],
-    queryFn: () => hotelApi.getAll(1, totalDataHotel)
+    queryKey: ['getAllHotel', totalDataHotel, debouncedSearchHotelAdmin],
+    queryFn: () => hotelApi.getAll(1, totalDataHotel, debouncedSearchHotelAdmin)
   })
 
   const hotelData = allHotel?.data || []
@@ -309,8 +312,9 @@ export default function HotelAdmin() {
                 </div>
                 <Input
                   placeholder='Search product...'
-                  value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
-                  onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
+                  // value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
+                  // onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
+                  onChange={(e) => setSearchHotelAdmin(e.target.value)}
                   className='max-w-sm pl-10 rounded-xl'
                 />
               </div>

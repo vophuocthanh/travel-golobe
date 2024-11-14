@@ -1,6 +1,7 @@
 export interface ParamsType {
   items_per_page: number
   page: number
+  search?: string
   sort_by_price?: string
   min_price?: number
   max_price?: number

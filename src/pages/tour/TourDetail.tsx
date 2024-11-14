@@ -53,10 +53,10 @@ export default function TourDetail() {
       tourApi.getAll(
         1,
         50,
+        '',
         minPrice,
         maxPrice,
         debouncedSearchTour,
-        '',
         rating,
         formattedDepartDate,
         formattedReturnDate

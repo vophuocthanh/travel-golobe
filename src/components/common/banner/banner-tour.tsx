@@ -34,7 +34,7 @@ export default function BannerTour({
 
   const { data: getAllTour, isLoading } = useQuery({
     queryKey: ['getAllTourSearch', debouncedSearchTour],
-    queryFn: () => tourApi.getAll(1, 50, undefined, undefined, debouncedSearchTour),
+    queryFn: () => tourApi.getAll(1, 50, debouncedSearchTour, undefined, undefined),
     enabled: !!debouncedSearchTour
   })
 

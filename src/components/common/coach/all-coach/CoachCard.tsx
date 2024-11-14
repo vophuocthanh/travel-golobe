@@ -78,6 +78,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
       coachApi.getAll(
         page,
         4,
+        '',
         sortByPrice,
         brandCoach?.join(','),
         minPrice,

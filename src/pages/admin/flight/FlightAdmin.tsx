@@ -31,11 +31,21 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+import { useDebounce } from '@/hooks/useDebounce'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { exportToExcel } from '@/shared/utils/excel-utils'
 import DeleteFlightButton from './components/DeleteFlightAdmin'
 
 const FlightAdmin: React.FC = () => {
+  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
+  const [entriesPerPage, setEntriesPerPage] = React.useState(10)
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const [searchFlightAdmin, setSearchFlightAdmin] = React.useState('')
+  const debouncedSearchFlightAdmin = useDebounce<string>(searchFlightAdmin, 500)
+
   const { data: getAllFlights } = useQuery({
     queryKey: ['getAllPageFlightAdmin'],
     queryFn: () => flightApi.getAll(1, 1, '')
@@ -43,19 +53,13 @@ const FlightAdmin: React.FC = () => {
   const totalDataCount = getAllFlights?.total || 0
 
   const { data: flightData } = useQuery({
-    queryKey: ['getFlights', totalDataCount],
-    queryFn: () => flightApi.getAll(1, totalDataCount, ''),
+    queryKey: ['getFlights', totalDataCount, debouncedSearchFlightAdmin],
+    queryFn: () => flightApi.getAll(1, totalDataCount, debouncedSearchFlightAdmin),
     enabled: totalDataCount > 0
   })
 
   const flightsData = flightData?.data || []
 
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [entriesPerPage, setEntriesPerPage] = React.useState(10)
-  const [pageIndex, setPageIndex] = React.useState(0)
   const columns: ColumnDef<FlightResponseType>[] = [
     {
       accessorKey: 'id',
@@ -335,9 +339,10 @@ const FlightAdmin: React.FC = () => {
                 <IconSearch />
               </div>
               <Input
-                placeholder='Filter tour name...'
-                value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
-                onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
+                placeholder='Filter flight brand...'
+                // value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
+                // onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
+                onChange={(e) => setSearchFlightAdmin(e.target.value)}
                 className='max-w-sm pl-10 rounded-xl'
               />
             </div>

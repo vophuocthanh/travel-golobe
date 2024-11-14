@@ -77,6 +77,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
       flightApi.getAll(
         page,
         4,
+        '',
         sortByPrice,
         brandFlight?.join(','),
         minPrice,
