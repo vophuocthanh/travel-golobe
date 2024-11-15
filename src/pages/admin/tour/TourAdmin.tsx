@@ -44,7 +44,7 @@ function TourAdmin() {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [entriesPerPage, setEntriesPerPage] = React.useState(5)
+  const [entriesPerPage, setEntriesPerPage] = React.useState(6)
   const [pageIndex, setPageIndex] = React.useState(0)
 
   const [searchTourAdmin, setSearchTourAdmin] = React.useState<string>('')
@@ -94,33 +94,33 @@ function TourAdmin() {
       accessorKey: 'id',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" className="w-48" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             ID
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className=''>{row.getValue('id')}</div>
+      cell: ({ row }) => <div className="">{row.getValue('id')}</div>
     },
     {
       accessorKey: 'name',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' className='w-56' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" className="w-56" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Tên tour
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className='truncate max-w-[300px]'>{row.getValue('name')}</div>
+      cell: ({ row }) => <div className="truncate max-w-[300px]">{row.getValue('name')}</div>
     },
     {
       accessorKey: 'image',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Hình ảnh
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
@@ -128,8 +128,8 @@ function TourAdmin() {
         const mainImage = row.getValue('image') as string
 
         return (
-          <div className='flex flex-col items-center justify-center'>
-            <img src={mainImage} alt='Tour Image' className='object-cover w-16 h-16' />
+          <div className="flex flex-col items-center justify-center">
+            <img src={mainImage} alt="Tour Image" className="object-cover w-16 h-16" />
           </div>
         )
       }
@@ -138,9 +138,9 @@ function TourAdmin() {
       accessorKey: 'userId',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Người tạo
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
@@ -151,102 +151,102 @@ function TourAdmin() {
       header: ({ column }) => {
         return (
           <Button
-            variant='ghost'
-            className='w-[400px]'
+            variant="ghost"
+            className="w-[400px]"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Mô tả
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className='truncate text-center max-w-[400px]'>{row.getValue('description')}</div>
+      cell: ({ row }) => <div className="truncate text-center max-w-[400px]">{row.getValue('description')}</div>
     },
     {
       accessorKey: 'createAt',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" className="w-48" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Ngày tạo
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
       cell: ({ row }) => (
-        <div className='text-center'>{dayjs(row.getValue('createdAt')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+        <div className="text-center">{dayjs(row.getValue('createAt')).format('DD/MM/YYYY, HH:mm:ss')}</div>
       )
     },
     {
       accessorKey: 'start_date',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" className="w-48" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Ngày bắt đầu
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
       cell: ({ row }) => (
-        <div className='text-center'>{dayjs(row.getValue('start_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+        <div className="text-center">{dayjs(row.getValue('start_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
       )
     },
     {
       accessorKey: 'end_date',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' className='w-48' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" className="w-48" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Ngày kết thúc
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
       cell: ({ row }) => (
-        <div className='text-center'>{dayjs(row.getValue('end_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
+        <div className="text-center">{dayjs(row.getValue('end_date')).format('DD/MM/YYYY, HH:mm:ss')}</div>
       )
     },
     {
       accessorKey: 'road_vehicle',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Phương tiện
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className='text-center'>{row.getValue('road_vehicle')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('road_vehicle')}</div>
     },
     {
       accessorKey: 'time_trip',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Thời gian du lịch
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className='text-center'>{row.getValue('time_trip')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('time_trip')}</div>
     },
     {
       accessorKey: 'baby_price',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Giá em bé
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className='text-center'>{row.getValue('baby_price')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('baby_price')}</div>
     },
     {
       accessorKey: 'child_price',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Giá trẻ em
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
@@ -259,7 +259,7 @@ function TourAdmin() {
             currency: 'VND'
           }).format(child_price)
 
-          return <div className='font-medium text-center'>{formatted}</div>
+          return <div className="font-medium text-center">{formatted}</div>
         }
       }
     },
@@ -267,9 +267,9 @@ function TourAdmin() {
       accessorKey: 'adult_price',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Giá người lớn
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
@@ -281,40 +281,40 @@ function TourAdmin() {
           currency: 'VND'
         }).format(adult_price)
 
-        return <div className='font-medium text-center'>{formatted}</div>
+        return <div className="font-medium text-center">{formatted}</div>
       }
     },
     {
       accessorKey: 'number_of_seats_remaining',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Số chỗ còn lại
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
-      cell: ({ row }) => <div className='text-center'>{row.getValue('number_of_seats_remaining')}</div>
+      cell: ({ row }) => <div className="text-center">{row.getValue('number_of_seats_remaining')}</div>
     },
     {
-      accessorKey: 'price',
-      header: () => <div className='text-center'>Giá</div>,
+      accessorKey: 'totalAmount',
+      header: () => <div className="text-center">Giá</div>,
       cell: ({ row }) => {
-        return <div className='font-medium text-center'>{formatCurrencyVND(row.getValue('price'))}</div>
+        return <div className="font-medium text-center">{formatCurrencyVND(row.getValue('totalAmount'))}</div>
       }
     },
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Hành động</div>,
+      header: () => <div className="flex justify-center">Hành động</div>,
       cell: ({ row }) => {
         return (
-          <div className='flex space-x-2'>
-            <Button variant='ghost' className='w-8 h-8 '>
+          <div className="flex space-x-2">
+            <Button variant="ghost" className="w-8 h-8 ">
               <Link to={`/admin/tours/${row.original.id}`}>
                 <IconEdit />
               </Link>
             </Button>
-            <Button variant='ghost' className='w-8 h-8 p-0 ' onClick={() => handelete(row.getValue('id'))}>
+            <Button variant="ghost" className="w-8 h-8 p-0 " onClick={() => handelete(row.getValue('id'))}>
               <IconDelete />
             </Button>
           </div>
@@ -372,34 +372,34 @@ function TourAdmin() {
   }
 
   return (
-    <div className='w-full px-4'>
-      <div className='flex items-center justify-between mb-6'>
-        <p className='text-2xl font-bold'>Tour - Admin</p>
-        <Button onClick={handleDownloadExcelTour} className='flex items-center gap-2'>
+    <div className="w-full px-4">
+      <div className="flex items-center justify-between mb-6">
+        <p className="text-2xl font-bold">Tour - Admin</p>
+        <Button onClick={handleDownloadExcelTour} className="flex items-center gap-2">
           <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke='currentColor'
-            className='w-6 h-6'
+            stroke="currentColor"
+            className="w-6 h-6"
           >
             <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25"
             />
           </svg>
           <p>Export to Excel</p>
         </Button>
       </div>
-      <div className='p-4 bg-white rounded-md'>
-        <div className='flex items-center justify-between py-4'>
-          <div className='flex items-center'>
-            <div className='flex items-center mr-4 space-x-2'>
+      <div className="p-4 bg-white rounded-md">
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center">
+            <div className="flex items-center mr-4 space-x-2">
               <span>Show</span>
               <select
-                className='p-2 border border-gray-300 rounded-lg'
+                className="p-2 border border-gray-300 rounded-lg"
                 value={entriesPerPage}
                 onChange={(e) => {
                   setEntriesPerPage(Number(e.target.value))
@@ -413,37 +413,37 @@ function TourAdmin() {
                 ))}
               </select>
             </div>
-            <div className='relative'>
-              <div className='absolute z-10 flex text-gray-500 top-2 left-3'>
+            <div className="relative">
+              <div className="absolute z-10 flex text-gray-500 top-2 left-3">
                 <IconSearch />
               </div>
               <Input
-                placeholder='Filter tour name...'
+                placeholder="Filter tour name..."
                 // value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
                 // onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
                 onChange={(e) => setSearchTourAdmin(e.target.value)}
-                className='max-w-sm pl-10 rounded-xl'
+                className="max-w-sm pl-10 rounded-xl"
               />
             </div>
           </div>
-          <div className='flex items-center gap-4'>
-            <Link to='/admin/tours/create'>
-              <Button className='text-white'>+ Add Tour</Button>
+          <div className="flex items-center gap-4">
+            <Link to="/admin/tours/create">
+              <Button className="text-white">+ Add Tour</Button>
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='outline' className='ml-auto'>
-                  Columns <ChevronDown className='w-4 h-4 ml-2' />
+                <Button variant="outline" className="ml-auto">
+                  Columns <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align='end'>
+              <DropdownMenuContent align="end">
                 {table
                   .getAllColumns()
                   .filter((column) => column.getCanHide())
                   .map((column) => (
                     <DropdownMenuCheckboxItem
                       key={column.id}
-                      className='capitalize'
+                      className="capitalize"
                       checked={column.getIsVisible()}
                       onCheckedChange={(value) => column.toggleVisibility(!!value)}
                     >
@@ -455,13 +455,13 @@ function TourAdmin() {
           </div>
         </div>
 
-        <div className='h-[calc(100vh-260px)] px-4 overflow-y-auto border rounded-md'>
+        <div className="h-[calc(100vh-260px)] px-4 overflow-y-auto border rounded-md">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className='text-black'>
+                    <TableHead key={header.id} className="text-black">
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   ))}
@@ -490,9 +490,9 @@ function TourAdmin() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length} className='h-24 text-center'>
-                    <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
-                      <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                    <div className="flex items-center justify-center h-[30rem] mr-[40%]">
+                      <div className="w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin"></div>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -500,25 +500,25 @@ function TourAdmin() {
             </TableBody>
           </Table>
         </div>
-        <div className='flex items-center justify-end py-4 space-x-2'>
-          <div className='flex-1 text-sm text-muted-foreground'>
+        <div className="flex items-center justify-end py-4 space-x-2">
+          <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
             selected.
           </div>
-          <span className='pr-2'>Total Tours: {totalTour}</span>
+          <span className="pr-2">Total Tours: {totalTour}</span>
 
-          <div className='space-x-2'>
+          <div className="space-x-2">
             <Button
               onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
               disabled={pageIndex === 0}
-              className='text-white'
+              className="text-white"
             >
               Previous
             </Button>
             <Button
               onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
               disabled={pageIndex + 1 >= table.getPageCount()}
-              className='text-white'
+              className="text-white"
             >
               Next
             </Button>

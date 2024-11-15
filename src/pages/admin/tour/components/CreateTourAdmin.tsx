@@ -4,18 +4,10 @@ import { hotelApi } from '@/apis/hotel.api'
 import { tourApi } from '@/apis/tour.api'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/shared/lib/utils'
 import { CoachResponseType, FlightResponseType, HotelResponseType } from '@/shared/ts/interface/data.interface'
@@ -23,7 +15,7 @@ import { CreateTourSchema } from '@/shared/utils/tour.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import { CalendarIcon, ChevronLeft } from 'lucide-react'
+import { CalendarIcon, Check, ChevronLeft, ChevronsUpDown } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -42,6 +34,7 @@ export default function CreateTourAdmin() {
   const [pageRoadVehicle, setPageRoadVehicle] = useState(1)
   const [hotels, setHotels] = useState<HotelResponseType[]>([])
   const [flights, setFlights] = useState<FlightResponseType[]>([])
+  console.log('flights:', flights)
   const [roadVehicles, setRoadVehicles] = useState<CoachResponseType[]>([])
 
   const form = useForm<z.infer<typeof CreateTourSchema>>({
@@ -130,7 +123,7 @@ export default function CreateTourAdmin() {
 
   const { data: getRoadVehicle } = useQuery({
     queryKey: ['getRoadVehicleAdmin', pageRoadVehicle],
-    queryFn: () => coachApi.getAll(pageRoadVehicle, 20)
+    queryFn: () => coachApi.getAll(pageRoadVehicle, 100)
   })
 
   useEffect(() => {
@@ -168,25 +161,25 @@ export default function CreateTourAdmin() {
   }
 
   return (
-    <div className='w-full h-full'>
-      <div className='flex items-center gap-2'>
-        <Link to='/admin/tours' className='flex items-center gap-4 px-4 py-2 bg-gray-200 rounded-md'>
+    <div className="w-full h-full">
+      <div className="flex items-center gap-2">
+        <Link to="/admin/tours" className="flex items-center gap-4 px-4 py-2 bg-gray-200 rounded-md">
           <ChevronLeft />
           <span>Quay lại</span>
         </Link>
-        <h1 className='ml-6 text-3xl font-bold'>Tạo tour</h1>
+        <h1 className="ml-6 text-3xl font-bold">Tạo tour</h1>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='w-full p-2 mb-10 space-y-6'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full p-2 mb-10 space-y-6">
           <FormField
             control={form.control}
-            name='name'
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tên tour</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập tên tour' {...field} />
+                  <Input placeholder="Nhập tên tour" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -194,12 +187,12 @@ export default function CreateTourAdmin() {
           />
           <FormField
             control={form.control}
-            name='description'
+            name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Mô tả tour</FormLabel>
                 <FormControl>
-                  <Textarea placeholder='Nhập mô tả tour' {...field} className='h-72' />
+                  <Textarea placeholder="Nhập mô tả tour" {...field} className="h-72" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -207,12 +200,12 @@ export default function CreateTourAdmin() {
           />
           <FormField
             control={form.control}
-            name='image'
+            name="image"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Ảnh tour</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhập image' {...field} />
+                  <Input placeholder="Nhập image" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -220,12 +213,12 @@ export default function CreateTourAdmin() {
           />
           <FormField
             control={form.control}
-            name='price'
+            name="price"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nhập số tiền</FormLabel>
                 <FormControl>
-                  <Input placeholder='Nhâp số tiền' {...field} />
+                  <Input placeholder="Nhâp số tiền" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -233,123 +226,227 @@ export default function CreateTourAdmin() {
           />
           <FormField
             control={form.control}
-            name='hotelId'
+            name="hotelId"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>ID của hotel</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className='w-full'>
-                      <SelectValue placeholder='Select a hotel' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Hotel</SelectLabel>
-                        <InfiniteScroll
-                          dataLength={hotels.length}
-                          next={loadMore}
-                          hasMore={!isFetching && getAllHotelAdmin?.data?.length === 20}
-                          loader={<h4>Loading more hotels...</h4>}
-                          height={200}
-                          endMessage={<p>You have seen all hotels</p>}
-                        >
-                          {hotels.map((hotel) => (
-                            <SelectItem key={hotel.id} value={hotel.id || ''}>
-                              {hotel?.hotel_names} - {hotel?.place}
-                            </SelectItem>
-                          ))}
-                        </InfiniteScroll>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
+              <FormItem className="flex flex-col">
+                <FormLabel>Chọn hotel</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
+                      >
+                        {field.value
+                          ? (() => {
+                              const selectedHotel = hotels.find((hotel) => hotel.id === field.value)
+                              return selectedHotel ? (
+                                <>
+                                  <div className="flex gap-4 text-left">
+                                    <div className="font-bold">{selectedHotel.hotel_names}</div>
+                                    <div className="text-sm text-muted-foreground">{selectedHotel.location}</div>
+                                  </div>
+                                </>
+                              ) : (
+                                'Select hotel'
+                              )
+                            })()
+                          : 'Select hotel'}
+                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder="Search hotel..." />
+                      <CommandList>
+                        <CommandEmpty>No hotel found.</CommandEmpty>
+                        <CommandGroup>
+                          <InfiniteScroll
+                            dataLength={hotels.length}
+                            next={loadMore}
+                            hasMore={!isFetching && getAllHotelAdmin?.data?.length === 20}
+                            loader={<h4>Loading more hotels...</h4>}
+                            height={200}
+                          >
+                            {hotels.map((hotel) => (
+                              <CommandItem
+                                value={`${hotel.id}-${hotel.hotel_names}`}
+                                key={hotel.id}
+                                onSelect={() => {
+                                  form.setValue('hotelId', hotel.id)
+                                }}
+                              >
+                                {hotel.hotel_names} - {hotel.location}
+                                <Check
+                                  className={cn('ml-auto', hotel.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                />
+                              </CommandItem>
+                            ))}
+                          </InfiniteScroll>
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name='flightId'
+            name="flightId"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>ID của flight</FormLabel>
-                <FormControl>
-                  <Select onValueChange={(value) => handleFlightSelect(value)} value={field.value}>
-                    <SelectTrigger className='w-full'>
-                      <SelectValue placeholder='Select a flight' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Flight</SelectLabel>
-                        <InfiniteScroll
-                          dataLength={flights.length}
-                          next={loadMoreFlight}
-                          hasMore={!isFetching && getAllFlight?.data?.length === 20}
-                          loader={<h4>Loading more flight...</h4>}
-                          height={200}
-                          endMessage={<p>You have seen all flights</p>}
-                        >
-                          {flights.map((flight) => (
-                            <SelectItem key={flight.id} value={flight.id || ''}>
-                              {dayjs(flight.start_day).format('DD/MM/YYYY')} -{' '}
-                              {dayjs(flight.end_day).format('DD/MM/YYYY')} - {flight.trip_to}
-                            </SelectItem>
-                          ))}
-                        </InfiniteScroll>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
+              <FormItem className="flex flex-col">
+                <FormLabel>Chọn flight</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
+                        disabled={Boolean(selectedRoadVehicleId)}
+                      >
+                        {field.value
+                          ? (() => {
+                              const selectedFlight = flights.find((flight) => flight.id === field.value)
+                              return selectedFlight ? (
+                                <>
+                                  <div className="flex gap-4 text-left">
+                                    <div className="font-bold">{selectedFlight.brand}</div>
+                                    <div className="text-sm text-muted-foreground">
+                                      {selectedFlight.take_place} → {selectedFlight.destination}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                'Select flight'
+                              )
+                            })()
+                          : 'Select flight'}
+                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command onValueChange={(value) => handleFlightSelect(value)}>
+                      <CommandInput placeholder="Search flight..." />
+                      <CommandList>
+                        <CommandEmpty>No flight found.</CommandEmpty>
+                        <CommandGroup>
+                          <InfiniteScroll
+                            dataLength={flights.length}
+                            next={loadMoreFlight}
+                            hasMore={getAllFlight?.data?.length === 20}
+                            loader={<h4>Loading more flights...</h4>}
+                            height={200}
+                            endMessage={<p>You have seen all flights</p>}
+                          >
+                            {flights.map((flight, index) => (
+                              <CommandItem
+                                value={`${flight.id}-${flight.brand}-${index}`}
+                                key={flight.id}
+                                onSelect={() => {
+                                  form.setValue('flightId', flight.id)
+                                }}
+                              >
+                                {flight.brand} - {flight.take_place} - {flight.destination}
+                                <Check
+                                  className={cn('ml-auto', flight.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                />
+                              </CommandItem>
+                            ))}
+                          </InfiniteScroll>
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </FormItem>
             )}
           />
 
           <FormField
             control={form.control}
-            name='roadVehicleId'
+            name="roadVehicleId"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>ID của road vehicle</FormLabel>
-                <FormControl>
-                  <Select onValueChange={(value) => handleRoadVehicleSelect(value)} value={field.value}>
-                    <SelectTrigger className='w-full'>
-                      <SelectValue placeholder='Select a road vehicle' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Road Vehicle</SelectLabel>
-                        <InfiniteScroll
-                          dataLength={roadVehicles.length}
-                          next={loadMoreRoadVehicle}
-                          hasMore={!isFetching && getRoadVehicle?.data?.length === 20}
-                          loader={<h4>Loading more coaches...</h4>}
-                          height={200}
-                          endMessage={<p>You have seen all coaches</p>}
-                        >
-                          {roadVehicles.map((coach) => (
-                            <SelectItem key={coach.id} value={coach.id || ''}>
-                              {dayjs(coach.start_day).format('DD/MM/YYYY')} -{' '}
-                              {dayjs(coach.end_day).format('DD/MM/YYYY')} - {coach.brand} - {coach.take_place} -{' '}
-                              {coach.destination}
-                            </SelectItem>
-                          ))}
-                        </InfiniteScroll>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
+              <FormItem className="flex flex-col">
+                <FormLabel>Chọn coach</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
+                        disabled={Boolean(selectedFlightId)}
+                      >
+                        {field.value
+                          ? (() => {
+                              const selectedCoach = roadVehicles.find((coach) => coach.id === field.value)
+                              return selectedCoach ? (
+                                <>
+                                  <div className="flex gap-4 text-left">
+                                    <div className="font-bold">{selectedCoach.brand}</div>
+                                    <div className="text-sm text-muted-foreground">
+                                      {selectedCoach.take_place} → {selectedCoach.destination}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                'Select coach'
+                              )
+                            })()
+                          : 'Select coach'}
+                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command onValueChange={(value) => handleRoadVehicleSelect(value)}>
+                      <CommandInput placeholder="Search coach..." />
+                      <CommandList>
+                        <CommandEmpty>No coach found.</CommandEmpty>
+                        <CommandGroup>
+                          <InfiniteScroll
+                            dataLength={roadVehicles.length}
+                            next={loadMoreRoadVehicle}
+                            hasMore={!isFetching && getRoadVehicle?.data?.length === 100}
+                            loader={<h4>Loading more coaches...</h4>}
+                            height={200}
+                            endMessage={<p>You have seen all coaches</p>}
+                          >
+                            {roadVehicles.map((coach) => (
+                              <CommandItem
+                                value={`${coach.id}-${coach.brand}`}
+                                key={coach.id}
+                                onSelect={() => {
+                                  form.setValue('roadVehicleId', coach.id)
+                                }}
+                              >
+                                {coach.brand} - {coach.take_place} - {coach.destination}
+                                <Check
+                                  className={cn('ml-auto', coach.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                />
+                              </CommandItem>
+                            ))}
+                          </InfiniteScroll>
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </FormItem>
             )}
           />
 
-          <div className='flex items-center gap-2'>
+          <div className="flex items-center gap-2">
             <FormField
               control={form.control}
-              name='start_date'
+              name="start_date"
               render={() => (
-                <FormItem className='flex flex-col w-full'>
+                <FormItem className="flex flex-col w-full">
                   <FormLabel>Ngày bắt đầu</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -358,12 +455,12 @@ export default function CreateTourAdmin() {
                         className={cn('w-[240px] pl-3 text-left font-normal', !startDate && 'text-muted-foreground')}
                       >
                         {startDate ? dayjs(startDate).format('DD/MM/YYYY') : <span>Pick a date</span>}
-                        <CalendarIcon className='w-4 h-4 ml-auto opacity-50' />
+                        <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0'>
+                    <PopoverContent className="w-auto p-0">
                       <Calendar
-                        mode='single'
+                        mode="single"
                         selected={startDate?.toDate()}
                         onSelect={(date) => {
                           setStartDate(dayjs(date).startOf('day'))
@@ -377,9 +474,9 @@ export default function CreateTourAdmin() {
             />
             <FormField
               control={form.control}
-              name='end_date'
+              name="end_date"
               render={() => (
-                <FormItem className='flex flex-col w-full'>
+                <FormItem className="flex flex-col w-full">
                   <FormLabel>Ngày kết thúc</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -388,12 +485,12 @@ export default function CreateTourAdmin() {
                         className={cn('w-[240px] pl-3 text-left font-normal', !endDate && 'text-muted-foreground')}
                       >
                         {endDate ? dayjs(endDate).format('DD/MM/YYYY') : <span>Pick a date</span>}
-                        <CalendarIcon className='w-4 h-4 ml-auto opacity-50' />
+                        <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0'>
+                    <PopoverContent className="w-auto p-0">
                       <Calendar
-                        mode='single'
+                        mode="single"
                         selected={endDate?.toDate()}
                         onSelect={(date) => setEndDate(dayjs(date).startOf('day'))}
                       />
@@ -404,7 +501,7 @@ export default function CreateTourAdmin() {
               )}
             />
           </div>
-          <Button type='submit' loading={loading} className='flex ml-auto'>
+          <Button type="submit" loading={loading} className="flex ml-auto">
             Submit
           </Button>
         </form>

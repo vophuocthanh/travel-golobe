@@ -1,22 +1,34 @@
-import { authApi } from '@/apis/auth.api'
-import { banner_login, banner_login2, banner_login3, logo } from '@/assets/images'
-import { IconEye, IconNonEye } from '@/common/icons'
-import CarouselPlugin from '@/components/common/carousel/CarouselPlugin'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/utils/storage'
-import { LoginSchema } from '@/zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { z } from 'zod'
+import { authApi } from '@/apis/auth.api';
+import {
+  banner_login,
+  banner_login2,
+  banner_login3,
+  logo
+} from '@/assets/images';
+import { IconEye, IconNonEye } from '@/common/icons';
+import CarouselPlugin from '@/components/common/carousel/CarouselPlugin';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/utils/storage';
+import { LoginSchema } from '@/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { z } from 'zod';
 
 export default function Login() {
   const reCPATCHAKey = import.meta.env.VITE_RECAPTCHA_KEY
