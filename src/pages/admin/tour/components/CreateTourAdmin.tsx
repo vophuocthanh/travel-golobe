@@ -107,7 +107,7 @@ export default function CreateTourAdmin() {
 
   const { data: getAllFlight } = useQuery({
     queryKey: ['getAllFlightAdmin', pageFlight],
-    queryFn: () => flightApi.getAll(pageFlight, 20)
+    queryFn: () => flightApi.getAll(pageFlight, 70)
   })
 
   const {
@@ -116,7 +116,7 @@ export default function CreateTourAdmin() {
     isError
   } = useQuery({
     queryKey: ['getAllHotelAdmin', pageHotel],
-    queryFn: () => hotelApi.getAll(pageHotel, 20),
+    queryFn: () => hotelApi.getAll(pageHotel, 70),
     refetchOnWindowFocus: true // true thì ví dụ qua route, xong vào lại thì nó load lại data, còn mà false là khi vào route thì nó ko load lại data, nó chỉ load từ cái data mà hồi nãy đã fetch truớc khi ra khỏi route khác. lưu ý là trường hợp là dùng staleTime thi true nó vẫn như false.
     // staleTime: 5 * 60 * 1000 //Là khoảng thời gian mà dữ liệu được coi là mới và sẽ không bị refetch từ server. Ở đây, nó được đặt là 5 phút (5 * 60 * 1000), nghĩa là trong vòng 5 phút kể từ lần fetch gần nhất, dữ liệu sẽ không được fetch lại, thay vào đó nó lấy từ cache.
   })
@@ -266,7 +266,7 @@ export default function CreateTourAdmin() {
                           <InfiniteScroll
                             dataLength={hotels.length}
                             next={loadMore}
-                            hasMore={!isFetching && getAllHotelAdmin?.data?.length === 20}
+                            hasMore={!isFetching && getAllHotelAdmin?.data?.length === 70}
                             loader={<h4>Loading more hotels...</h4>}
                             height={200}
                           >
@@ -338,7 +338,7 @@ export default function CreateTourAdmin() {
                           <InfiniteScroll
                             dataLength={flights.length}
                             next={loadMoreFlight}
-                            hasMore={getAllFlight?.data?.length === 20}
+                            hasMore={getAllFlight?.data?.length === 70}
                             loader={<h4>Loading more flights...</h4>}
                             height={200}
                             endMessage={<p>You have seen all flights</p>}
