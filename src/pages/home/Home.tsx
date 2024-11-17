@@ -5,7 +5,9 @@ import '@/components/common/i18n/i18n'
 import { getAccessTokenFromLS } from '@/shared/utils/storage'
 import { useLocation } from 'react-router-dom'
 
+
 export default function Home() {
+
   const location = useLocation()
   const token = getAccessTokenFromLS()
 

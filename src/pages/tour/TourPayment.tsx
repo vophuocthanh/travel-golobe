@@ -10,8 +10,9 @@ import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-
+import { useTranslation } from 'react-i18next'
 export default function TourPayment() {
+  const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
   const [loading, setLoading] = useState<boolean>(false)
   const [paymentOption, setPaymentOption] = useState('full')
@@ -68,7 +69,7 @@ export default function TourPayment() {
       <SectionInViewRight>
         <main className='pt-20 px-[5rem]'>
           <section>
-            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>Tour Payment</h1>
+            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('TourPayment')}</h1>
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>

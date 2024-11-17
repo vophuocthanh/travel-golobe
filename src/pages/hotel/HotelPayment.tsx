@@ -11,8 +11,9 @@ import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-
+import { useTranslation } from 'react-i18next'
 export default function HotelPayment() {
+  const { t } = useTranslation()
   const { id } = useParams()
   const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
@@ -67,7 +68,7 @@ export default function HotelPayment() {
       <SectionInViewRight>
         <main className='pt-20 px-[5rem]'>
           <section>
-            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>Hotel Payment</h1>
+            <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('HotelPayment')}</h1>
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>

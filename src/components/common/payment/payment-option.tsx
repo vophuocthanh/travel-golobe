@@ -1,14 +1,15 @@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radiobutton'
-
+import { useTranslation } from 'react-i18next'
 interface PaymentOptionsProps {
   paymentOption: string
   handleClickValueOption: (value: string) => void
 }
 
 const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleClickValueOption }) => {
+  const { t } = useTranslation()
   return (
     <RadioGroup value={paymentOption} onValueChange={(value) => handleClickValueOption(value)}>
-      <h1 className='mb-4 text-xl font-semibold'>Chọn phương thức thanh toán</h1>
+      <h1 className='mb-4 text-xl font-semibold'>{t('Selectpayment')}</h1>
       <div className='space-y-4'>
         <div
           className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
@@ -17,10 +18,9 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
           onClick={() => handleClickValueOption('full')}
         >
           <div>
-            <h4 className='font-semibold'>Thanh toán tiền mặt</h4>
+            <h4 className='font-semibold'>{t('CashPayment')}</h4>
             <p className='text-sm text-gray-500'>
-              Với phương thức thanh toán tiền mặt, bạn sẽ trả toàn bộ chi phí của tour ngay lập tức tại điểm bán hoặc
-              văn phòng.
+            {t('Withpayment')}
             </p>
           </div>
           <RadioGroupItem className='flex items-center justify-center' value='full' id='option-one' />
@@ -33,10 +33,9 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
           onClick={() => handleClickValueOption('part')}
         >
           <div className='w-[32rem]'>
-            <h4 className='font-semibold'>Thanh toán qua MOMO</h4>
+            <h4 className='font-semibold'>{t('paymentMOMO')}</h4>
             <p className='text-sm text-gray-500'>
-              Với phương thức thanh toán qua ví điện tử MOMO, bạn có thể thanh toán một phần ngay bây giờ và phần còn
-              lại sẽ tự động được trừ từ tài khoản của bạn vào một ngày cụ thể, mà không mất thêm phí phát sinh.
+            {t('WithMOMO')}
             </p>
           </div>
           <RadioGroupItem className='flex items-center justify-center' value='part' id='option-two' />
