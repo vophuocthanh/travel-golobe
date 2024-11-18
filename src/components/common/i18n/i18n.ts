@@ -190,6 +190,12 @@ const resources = {
       Transportations: 'Transportation',
       HotelPrice:'Hotel Price',
       TourPrice:'Tour Price',
+
+      travelwhishlist:'Make your travel whishlist , we will do the rest',
+      Special:'Special offers to suit your plan',
+      Backpacking:'Backpacking Sri Lanka',
+      textBackpacking:'Traveling is a unique experience as it is the best way to unplug from the pushes and pulls of daily life. It helps us to forget about our problems, frustrations, and fears at home. During our journey, we experience life in different ways. We explore new places, cultures, cuisines, traditions, and ways of living.',
+      CreateCoach:'Create your travel wishlist, and let our bus service take you there!',
     }
   },
   vi: {
@@ -374,6 +380,12 @@ const resources = {
       Transportations: 'Phương tiện',
       HotelPrice: 'Giá khách sạn',
       TourPrice: 'Giá tour',
+
+      travelwhishlist: 'Lập danh sách điểm đến mơ ước của bạn, chúng tôi sẽ lo phần còn lại',
+      Special: 'Ưu đãi đặc biệt phù hợp với kế hoạch của bạn',
+      Backpacking: 'Du lịch Sri Lanka',
+      textBackpacking: 'Du lịch là một trải nghiệm độc đáo vì đó là cách tốt nhất để tạm rời xa những áp lực và căng thẳng của cuộc sống hàng ngày. Nó giúp chúng ta quên đi những vấn đề, sự bực bội và nỗi lo lắng ở nhà. Trong hành trình của mình, chúng ta trải nghiệm cuộc sống theo nhiều cách khác nhau. Chúng ta khám phá những địa điểm mới, nền văn hóa, ẩm thực, truyền thống và lối sống đa dạng.',
+      CreateCoach:'Hãy tạo danh sách điểm đến mơ ước của bạn, và để dịch vụ xe buýt của chúng tôi đưa bạn đến đó!',
     }
   }
 }
