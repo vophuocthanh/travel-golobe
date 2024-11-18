@@ -20,7 +20,7 @@ export default function CoachReview2() {
           <div className='flex flex-col  h-[31rem] w-[50rem] bg-primary justify-between border border-primary rounded-2xl '>
             <div className='flex justify-between mx-10 mt-5'>
               {' '}
-              <p className='h-20 text-5xl w-[20rem]'>Backpacking Sri Lanka</p>
+              <p className='h-20 text-5xl w-[20rem]'>{t('Backpacking')}</p>
               <div className='flex flex-col items-center justify-center w-16 h-16 text-xl bg-white border rounded-lg border-primary'>
                 <p> From</p>
                 <p className='font-bold'>$700</p>
@@ -28,10 +28,7 @@ export default function CoachReview2() {
             </div>
 
             <p className='mx-10 mb-3 text-md'>
-              Traveling is a unique experience as it's the best way to unplug from the pushes and pulls of daily life.
-              It helps us to forget about our problems, frustrations, and fears at home. During our journey, we
-              experience life in different ways. We explore new places, cultures, cuisines, traditions, and ways of
-              living.
+            {t('textBackpacking')}
             </p>
 
             <Button className='mt-20 mb-4 text-black bg-white mx-11 hover:bg-slate-300'>{t('BookCoach')}</Button>

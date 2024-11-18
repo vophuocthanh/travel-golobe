@@ -30,6 +30,9 @@ const resources = {
       Reviews: 'Reviews',
       textReviews: 'What people says about Golobe facilities',
       Showtour: 'Show tour',
+      Coachs:'Coach',
+      textcoach: 'Search coach & Places Hire to our most popular',
+      Showcoach: 'Show coach',
       //tour
       whereTour: 'Where are you tour ?',
       travel: 'Fall into travel',
@@ -95,9 +98,9 @@ const resources = {
       Promo: 'Add Promo Code',
       places: 'Show places',
       searches: 'Your recent searches',
-      travelHotel: 'Fall intro travel',
+      travelHotel: 'Discover Your Perfect Stay',
       textTravelHotel:
-        ' Going somewhere to celebrate this season? Whether you’re gng home or somewhere to roam, we’ve got the travel tools to get you to your destination.',
+        'Where are you heading this season? Whether you are planning a retreat or an adventure, we offer hotel booking tools to help you find your ideal accommodation.',
       BookHotel: 'Book Hotel',
 
       Availab: 'Available',
@@ -124,9 +127,9 @@ const resources = {
       flying: 'Where are you flying?',
       together: `Let's go places together`,
       texttogether: 'Discover the latest offers and news and start planning your next trip with us.',
-      travelFlight: 'Fall intro travel',
-      textTravelFlight:
-        'Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the travel tools to get you to your destination.',
+      travelFlight: 'Take Flight on Your Journey',
+      textTravelFlight: 
+        'Where will you fly to celebrate this season? Whether you are heading home or exploring new destinations, we offer flight booking tools to help you reach your desired place with ease.',
       BookFlight: 'Book Flight',
 
       Airlines: 'Airlines',
@@ -152,9 +155,9 @@ const resources = {
       WhereCoach: 'Where are you coach?',
       togetherCoach: `Let's go places together`,
       textTogetherCoach: 'Discover the latest offers and news and start planning your next trip with us.',
-      travelCoach: 'Fall intro travel',
+      travelCoach: 'Start Your Journey',
       textTravelCoach:
-        'Going somewhere to celebrate this season? Whether you’re going home or somewhere to roam, we’ve got the travel tools to get you to your destination.',
+        'Where will you go to celebrate this season? Whether you are heading home or exploring new destinations, we offer bus booking tools to help you reach your desired place with ease.',
       BookCoach: 'Book Coach',
       Coach: 'Coach',
       Seat: 'Seat',
@@ -165,7 +168,34 @@ const resources = {
       fitted:
         'Air Filtration: Coaches are fitted with HEPA filters to purify the air, removing up to 99.97% of particles.',
       complete:
-        'Health Screening: Passengers must complete a short health questionnaire before boarding to ensure safe travel for all.'
+        'Health Screening: Passengers must complete a short health questionnaire before boarding to ensure safe travel for all.',
+      //Flight Payment
+      flightpayment: 'Flight Payment',
+      CashPayment: 'Cash Payment',
+      Withpayment: 'With the cash payment method, you will pay the full cost of the tour immediately at the sales point or office.',
+      booking:'Your booking is protected by',
+      PriceDetails:'Price Details',
+      Prices:'Price',
+      Discount:'Discount',
+      Taxes:'Taxes',
+      ServiceFee:'Service Fee',
+      Total:'Total',
+      Payment:'Payment',
+      Selectpayment: 'Select payment method',
+      paymentMOMO: 'Payment via MOMO',
+      WithMOMO: 'With the MOMO e-wallet payment method, you can pay part of the amount now, and the remaining balance will be automatically deducted from your account on a specific date without any additional fees.',
+      CoachPayment:'Coach Payment',
+      HotelPayment:'Hotel Payment',
+      TourPayment:'Tour Payment',
+      Transportations: 'Transportation',
+      HotelPrice:'Hotel Price',
+      TourPrice:'Tour Price',
+
+      travelwhishlist:'Make your travel whishlist , we will do the rest',
+      Special:'Special offers to suit your plan',
+      Backpacking:'Backpacking Sri Lanka',
+      textBackpacking:'Traveling is a unique experience as it is the best way to unplug from the pushes and pulls of daily life. It helps us to forget about our problems, frustrations, and fears at home. During our journey, we experience life in different ways. We explore new places, cultures, cuisines, traditions, and ways of living.',
+      CreateCoach:'Create your travel wishlist, and let our bus service take you there!',
     }
   },
   vi: {
@@ -192,6 +222,9 @@ const resources = {
       Showtour: 'Hiển thị tour',
       ShowFlights: 'Hiển thị Chuyến bay',
       ShowHotels: 'Hiển thị Khách sạn',
+      Coachs: 'Xe khách',
+      textcoach: 'Tìm kiếm xe khách & địa điểm thuê tại những nơi phổ biến nhất của chúng tôi',
+      Showcoach: 'Hiển thị xe khách',
       //tour
       whereTour: 'Bạn đang ở tour nào?',
       travel: 'Đắm mình trong hành trình',
@@ -255,9 +288,9 @@ const resources = {
       Promo: 'Thêm mã khuyến mãi',
       places: 'Hiển thị địa điểm',
       searches: 'Tìm kiếm gần đây của bạn',
-      travelHotel: 'Đắm mình vào hành trình',
+      travelHotel: 'Khám Phá Điểm Đến Hoàn Hảo',
       textTravelHotel:
-        'Bạn đang đi đâu để kỷ niệm mùa này? Dù bạn về nhà hay đi khám phá, chúng tôi có các công cụ du lịch để đưa bạn đến điểm đến của mình.',
+        'Bạn đang tìm nơi nghỉ dưỡng cho mùa này? Dù bạn đang lên kế hoạch nghỉ ngơi hay khám phá, chúng tôi cung cấp các công cụ đặt phòng khách sạn giúp bạn tìm được chỗ ở lý tưởng.',
       BookHotel: 'Đặt khách sạn',
 
       Availab: 'Còn',
@@ -285,9 +318,9 @@ const resources = {
       together: 'Hãy cùng nhau đi khắp nơi',
       texttogether:
         'Khám phá những ưu đãi và tin tức mới nhất và bắt đầu lên kế hoạch cho chuyến đi tiếp theo của bạn cùng chúng tôi.',
-      travelFlight: 'Đắm mình vào hành trình',
+      travelFlight: 'Chắp Cánh Hành Trình Của Bạn',
       textTravelFlight:
-        'Bạn đang đi đâu để kỷ niệm mùa này? Dù bạn về nhà hay đi khám phá, chúng tôi có các công cụ du lịch để đưa bạn đến điểm đến của mình.',
+        'Bạn sẽ bay đến đâu để kỷ niệm mùa này? Dù bạn trở về nhà hay khám phá những miền đất mới, chúng tôi có các công cụ đặt vé máy bay giúp bạn dễ dàng đến nơi mình mong muốn.',
       BookFlight: 'Đặt chuyến bay',
 
       Airlines: 'Hãng hàng không',
@@ -314,9 +347,9 @@ const resources = {
       togetherCoach: 'Hãy cùng nhau đi khắp nơi',
       textTogetherCoach:
         'Khám phá những ưu đãi và tin tức mới nhất và bắt đầu lên kế hoạch cho chuyến đi tiếp theo của bạn cùng chúng tôi.',
-      travelCoach: 'Đắm mình vào hành trình',
+      travelCoach: 'Khởi Hành Hành Trình Của Bạn',
       textTravelCoach:
-        'Bạn đang đi đâu để kỷ niệm mùa này? Dù bạn về nhà hay đi khám phá, chúng tôi có các công cụ du lịch để đưa bạn đến điểm đến của mình.',
+        'Bạn sẽ đi đâu để kỷ niệm mùa này? Dù bạn trở về nhà hay khám phá những điểm đến mới, chúng tôi có các công cụ đặt xe khách giúp bạn dễ dàng đến nơi mình mong muốn.',
       BookCoach: 'Đặt xe',
       Coach: 'Xe khách',
 
@@ -325,7 +358,34 @@ const resources = {
         'Vệ sinh trước chuyến đi: Xe khách được vệ sinh kỹ lưỡng trước mỗi chuyến đi, đặc biệt chú ý đến các bề mặt thường xuyên tiếp xúc.',
       fitted: 'Lọc không khí: Xe khách được lắp đặt bộ lọc HEPA để làm sạch không khí, loại bỏ tới 99.97% các hạt bụi.',
       complete:
-        'Kiểm tra sức khỏe: Hành khách phải hoàn thành một bảng câu hỏi sức khỏe ngắn trước khi lên xe để đảm bảo an toàn cho tất cả mọi người.'
+        'Kiểm tra sức khỏe: Hành khách phải hoàn thành một bảng câu hỏi sức khỏe ngắn trước khi lên xe để đảm bảo an toàn cho tất cả mọi người.',
+      //Flight Payment
+      flightpayment: 'Thanh Toán Chuyến Bay',
+      CashPayment:'Thanh toán tiền mặt',
+      Withpayment:'Với phương thức thanh toán tiền mặt, bạn sẽ trả toàn bộ chi phí của tour ngay lập tức tại điểm bán hoặc văn phòng.',
+      booking: 'Đặt chỗ của bạn được bảo vệ bởi',
+      PriceDetails: 'Chi tiết giá',
+      Prices: 'Giá',
+      Discount: 'Giảm giá',
+      Taxes: 'Thuế',
+      ServiceFee: 'Phí dịch vụ',
+      Total: 'Tổng cộng',
+      Payment:'Thanh toán',
+      Selectpayment:'Chọn phương thức thanh toán',
+      paymentMOMO:'Thanh toán qua MOMO',
+      WithMOMO:' Với phương thức thanh toán qua ví điện tử MOMO, bạn có thể thanh toán một phần ngay bây giờ và phần còn lại sẽ tự động được trừ từ tài khoản của bạn vào một ngày cụ thể, mà không mất thêm phí phát sinh.',
+      CoachPayment:'Thanh toán xe khách',
+      HotelPayment:'Thanh toán khách sạn',
+      TourPayment: 'Thanh toán tour',
+      Transportations: 'Phương tiện',
+      HotelPrice: 'Giá khách sạn',
+      TourPrice: 'Giá tour',
+
+      travelwhishlist: 'Lập danh sách điểm đến mơ ước của bạn, chúng tôi sẽ lo phần còn lại',
+      Special: 'Ưu đãi đặc biệt phù hợp với kế hoạch của bạn',
+      Backpacking: 'Du lịch Sri Lanka',
+      textBackpacking: 'Du lịch là một trải nghiệm độc đáo vì đó là cách tốt nhất để tạm rời xa những áp lực và căng thẳng của cuộc sống hàng ngày. Nó giúp chúng ta quên đi những vấn đề, sự bực bội và nỗi lo lắng ở nhà. Trong hành trình của mình, chúng ta trải nghiệm cuộc sống theo nhiều cách khác nhau. Chúng ta khám phá những địa điểm mới, nền văn hóa, ẩm thực, truyền thống và lối sống đa dạng.',
+      CreateCoach:'Hãy tạo danh sách điểm đến mơ ước của bạn, và để dịch vụ xe buýt của chúng tôi đưa bạn đến đó!',
     }
   }
 }

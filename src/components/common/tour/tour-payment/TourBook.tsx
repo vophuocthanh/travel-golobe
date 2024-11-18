@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { TourBookingDetail } from '@/shared/ts/interface/booking-tour.interface'
-
+import { useTranslation } from 'react-i18next'
 interface ITourBook {
   onClick?: () => void
   data?: TourBookingDetail
@@ -9,6 +9,7 @@ interface ITourBook {
 }
 
 export default function TourBook({ onClick, data, loading }: ITourBook) {
+  const { t } = useTranslation()
   return (
     <div>
       <div>
@@ -33,30 +34,30 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
       </div>
       <div className='my-4 border-t'></div>
       <p className='text-lg text-gray-600'>
-        Your booking is protected by <span className='font-bold text-black'>golobe</span>
+        {t('booking')} <span className='font-bold text-black'>golobe</span>
       </p>
       <div className='my-4 border-t'></div>
       <div className='mt-4'>
-        <h3 className='text-lg font-semibold'>Price Details</h3>
+        <h3 className='text-lg font-semibold'>{t('PriceDetails')}</h3>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>Phương tiện</p>
+          <p className='text-lg text-gray-500'>{t('Transportations')}</p>
           <p className='text-lg font-semibold'>{formatCurrencyVND(data?.road_vehicle?.details?.price)}</p>
         </div>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>Giá khách sạn</p>
+          <p className='text-lg text-gray-500'>{t('HotelPrice')}</p>
           <p className='text-lg font-semibold'>{formatCurrencyVND(data?.hotelDetails?.price)}</p>
         </div>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>Giá tour</p>
+          <p className='text-lg text-gray-500'>{t('TourPrice')}</p>
           <p className='text-lg font-semibold'>{formatCurrencyVND(data?.originalTourPrice)}</p>
         </div>
         <div className='mt-4 border-t'></div>
         <div className='flex justify-between mt-4'>
-          <p className='text-lg font-semibold'>Tổng cộng</p>
+          <p className='text-lg font-semibold'>{t('Total')}</p>
           <p className='text-lg font-bold'>{formatCurrencyVND(data?.totalAmount)}</p>
         </div>
         <Button onClick={onClick} loading={loading} className='w-full mt-4'>
-          Thanh toán
+          {t('Payment')}
         </Button>
       </div>
     </div>

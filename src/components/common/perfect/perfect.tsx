@@ -5,53 +5,56 @@ import { dataPerfect } from '@/shared/lib/data-type'
 import { Link } from 'react-router-dom'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useTranslation } from 'react-i18next'
 
-const dataSlide = [
-  {
-    id: 1,
-    name: 'Flights',
-    title: 'Search Flights & Places Hire to our most popular',
-    image: flight,
-    button: 'Show flight',
-    path: '/vehicle/flight'
-  },
-  {
-    id: 2,
-    name: 'Hotels',
-    title: 'Search hotels & Places Hire to our most popular',
-    image: hotel,
-    button: 'Show hotel',
-    path: '/hotel'
-  },
-  {
-    id: 3,
-    name: 'Tours',
-    title: 'Search Tours & Places Hire to our most popular',
-    image: tour,
-    button: 'Show tour',
-    path: '/tour'
-  },
-  {
-    id: 4,
-    name: 'Coach',
-    title: 'Search Vehicles & Places Hire to our most popular',
-    image: 'https://thacoauto.vn/storage/xe-bus-giuong-nam-thaco-su-dung-dong-co-volvo-resize.jpg',
-    button: 'Show coach',
-    path: '/vehicle/coach'
-  }
-]
+
 
 export default function Perfect() {
+  const { t } = useTranslation()
+  const dataSlide = [
+    {
+      id: 1,
+      name: t('Flights'),
+      title: t('textFlights'),
+      image: flight,
+      button: t('ShowFlights'),
+      path: '/vehicle/flight'
+    },
+    {
+      id: 2,
+      name: t('Hotels'),
+      title: t('textHotels'),
+      image: hotel,
+      button: t('ShowHotels'),
+      path: '/hotel'
+    },
+    {
+      id: 3,
+      name: t('Tours'),
+      title: t('textTour'),
+      image: tour,
+      button: t('Showtour'),
+      path: '/tour'
+    },
+    {
+      id: 4,
+      name: t('Coachs'),
+      title: t('textcoach'),
+      image: 'https://thacoauto.vn/storage/xe-bus-giuong-nam-thaco-su-dung-dong-co-volvo-resize.jpg',
+      button: t('Showcoach'),
+      path: '/vehicle/coach'
+    }
+  ]
   return (
     <SectionInViewRight>
       <div className='mx-auto mb-40 max-w-7xl'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col space-y-2'>
-            <h1 className='text-3xl font-medium'>Plan your perfect trip</h1>
-            <p className='text-[#112211]'>Search Flights & Places Hire to our most popular destinations</p>
+            <h1 className='text-3xl font-medium'> {t('trip')}</h1>
+            <p className='text-[#112211]'>{t('textTrip')}</p>
           </div>
           <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all'>
-            See more places
+            {t('see')}
           </Button>
         </div>
         <div className='flex flex-wrap justify-center w-full gap-8 mt-10 mb-20'>
@@ -92,7 +95,7 @@ export default function Perfect() {
                   <img src={slide.image} alt='hotel' className='w-[28rem] h-[36rem] rounded-2xl object-cover' />
                   <div className='absolute flex flex-col space-y-4 items-center justify-center bottom-5 w-[28rem]'>
                     <h1 className='text-3xl font-medium text-white'>{slide.name}</h1>
-                    <p className='text-center text-white'>{slide.title}</p>
+                    <p className='text-center text-white w-[90%]'>{slide.title}</p>
                     <Link to={slide.path}>
                       <Button className='w-32 text-white'>{slide.button}</Button>
                     </Link>

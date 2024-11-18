@@ -20,8 +20,8 @@ export default function Flight() {
             <div className='top-0 w-full h-full'>
               <img src={banner_flight} alt='flight' className='object-cover max-w-full h-[40.5rem]' />
               <div className='absolute p-5 text-white top-1/4 left-[10rem] w-[25rem]'>
-                <h1 className='text-4xl font-bold'>Make your Travel whishlist, we'll do the rest</h1>
-                <p className='mt-2 text-lg'>Special offers to suit your plan</p>
+                <h1 className='text-4xl font-bold'>{t('travelwhishlist')}</h1>
+                <p className='mt-2 text-lg'>{t('Special')}</p>
               </div>
             </div>
             {/* banner-search */}

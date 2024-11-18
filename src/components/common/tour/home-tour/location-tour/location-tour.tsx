@@ -20,16 +20,13 @@ export default function LocationTour() {
             <div className='p-4 mr-4 bg-primary w-[50%] rounded-lg'>
               <div>
                 <div className='flex justify-between mb-8'>
-                  <h1 className='text-5xl w-[40%] font-medium'>Backpacking Sri Lanka</h1>
+                  <h1 className='text-5xl w-[40%] font-medium'>{t('Backpacking')}</h1>
                   <p className='h-16 px-2 py-1 text-center bg-white rounded-lg '>
                     From <h2 className='text-xl font-medium'>$700</h2>
                   </p>
                 </div>
                 <p className='w-[90%]'>
-                  Traveling is a unique experience as it's the best way to unplug from the pushes and pulls of daily
-                  life. It helps us to forget about our problems, frustrations, and fears at home. During our journey,
-                  we experience life in different ways. We explore new places, cultures, cuisines, traditions, and ways
-                  of living.
+                {t('textBackpacking')}
                 </p>
               </div>
               <Button className='w-full mt-32 text-black bg-white hover:bg-slate-100'>{t('Booktour')}</Button>

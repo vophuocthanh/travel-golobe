@@ -62,9 +62,9 @@ export default function Coach() {
               <img src={banner_coach} alt='coach' className='object-cover w-full h-[40.5rem]' />
               <div className='absolute p-5 text-gray top-1/4 left-[10rem] w-[27rem] bg-slate-100 rounded-lg'>
                 <h1 className='text-4xl font-bold'>
-                  Create your travel wishlist, and let our bus service take you there!
+                {t('CreateCoach')}
                 </h1>
-                <p className='mt-2 text-lg'>Special offers to suit your plan</p>
+                <p className='mt-2 text-lg'>{t('Special')}</p>
               </div>
             </div>
             <div className='absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem]'>
