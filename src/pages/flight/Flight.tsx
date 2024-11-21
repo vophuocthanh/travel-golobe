@@ -1,31 +1,28 @@
 import { banner_flight } from '@/assets/images'
-import { IconVector, IconVectorDown, IconVectorFlight } from '@/common/icons'
 import { Footer, Header } from '@/components/common'
 import FlightReview1 from '@/components/common/flight/flight-review-1/flight-review-1'
 import FlightReview2 from '@/components/common/flight/flight-review-2/flight-review-2'
 import PlacesTogether from '@/components/common/flight/places-together/places-together'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 export default function Flight() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <Header />
-      <main className='pt-20'>
+      <main className="pt-20">
         <section>
-          <div className='flex items-center justify-center w-full h-[50rem] overflow-hidden relative'>
+          <div className="flex items-center justify-center w-full h-[50rem] overflow-hidden relative">
             {/* banner */}
-            <div className='top-0 w-full h-full'>
-              <img src={banner_flight} alt='flight' className='object-cover max-w-full h-[40.5rem]' />
-              <div className='absolute p-5 text-white top-1/4 left-[10rem] w-[25rem]'>
-                <h1 className='text-4xl font-bold'>{t('travelwhishlist')}</h1>
-                <p className='mt-2 text-lg'>{t('Special')}</p>
+            <div className="top-0 w-full h-full">
+              <img src={banner_flight} alt="flight" className="object-cover max-w-full h-[40.5rem]" />
+              <div className="absolute p-5 text-white top-1/4 left-[10rem] w-[25rem]">
+                <h1 className="text-4xl font-bold">{t('travelwhishlist')}</h1>
+                <p className="mt-2 text-lg">{t('Special')}</p>
               </div>
             </div>
             {/* banner-search */}
-            <div className='absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem]'>
+            {/* <div className='absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem]'>
               <p className='mt-4 ml-5 text-lg font-semibold'>{t('flying')}</p>
               <div className='grid grid-cols-7 gap-4 mt-[2rem] mr-[2.8rem]'>
                 <div className='relative w-full col-span-2 ml-5 '>
@@ -85,7 +82,7 @@ export default function Flight() {
                   </Button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         <div>
@@ -94,7 +91,7 @@ export default function Flight() {
           <FlightReview2 />
         </div>
 
-        <div className='mt-auto'>
+        <div className="mt-auto">
           <Footer />
         </div>
       </main>

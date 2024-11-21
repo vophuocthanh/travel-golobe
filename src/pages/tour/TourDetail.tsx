@@ -91,36 +91,36 @@ export default function TourDetail() {
   }
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <Header />
-      <div className='flex items-center justify-center pt-5 '>
-        <div className='flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl'>
-          <div className='flex flex-wrap justify-between p-4 space-x-2'>
-            <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
+      <div className="flex items-center justify-center pt-5 ">
+        <div className="flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl">
+          <div className="flex flex-wrap justify-between p-4 space-x-2">
+            <div className="relative w-[20rem] col-span-2 ml-5 h-[4rem]">
               <Label
-                htmlFor=''
-                className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'
+                htmlFor=""
+                className="absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4"
               >
                 Enter Destination
               </Label>
               <Input
-                className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
-                placeholder='Istanbul, Turkey'
+                className="max-w-md w-[24rem] border border-[#E2E8F0] p-2 h-[4rem] pt-4 pl-12"
+                placeholder="Istanbul, Turkey"
                 onChange={(e) => setSearchTour(e.target.value)}
               />
-              <Sofa className='absolute left-3 top-[1rem] z-20 ' />
+              <Sofa className="absolute left-3 top-[1rem] z-20 " />
               {isLoading ? (
-                <div className='absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md'>
+                <div className="absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md">
                   Loading...
                 </div>
               ) : (
                 getAllTour &&
                 debouncedSearchTour && (
-                  <div className='absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-32 overflow-y-auto'>
+                  <div className="absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-32 overflow-y-auto">
                     {getAllTour?.data
                       ?.filter((tour) => tour.name?.toLowerCase().includes(debouncedSearchTour.toLowerCase()))
                       .map((tour) => (
-                        <div key={tour.id} className='p-2 cursor-pointer hover:bg-gray-100'>
+                        <div key={tour.id} className="p-2 cursor-pointer hover:bg-gray-100">
                           <Link to={`/tour/${tour.id}`}>{tour.name} </Link>
                         </div>
                       ))}
@@ -128,22 +128,42 @@ export default function TourDetail() {
                 )
               )}
             </div>
-            <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+            <div className="relative w-[14rem] col-span-2 ml-5 h-[4rem]">
               <TourDate date={departDate} setDate={setDepartDate} />
+              {departDate && (
+                <button
+                  className="absolute text-red-500 transform -translate-y-1/2 top-1/2 right-2 hover:text-red-700"
+                  onClick={() => {
+                    setDepartDate(undefined)
+                  }}
+                >
+                  ✕
+                </button>
+              )}
             </div>
-            <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+            <div className="relative w-[14rem] col-span-2 ml-5 h-[4rem]">
               <TourDate date={returnDate} setDate={setReturnDate} />
+              {returnDate && (
+                <button
+                  className="absolute text-red-500 transform -translate-y-1/2 top-1/2 right-2 hover:text-red-700"
+                  onClick={() => {
+                    setReturnDate(undefined)
+                  }}
+                >
+                  ✕
+                </button>
+              )}
             </div>
           </div>
           <Button
-            className='px-6 py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md '
+            className="px-6 py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md "
             onClick={handleSearch}
           >
             <Search />
           </Button>
         </div>
       </div>
-      <div className='flex justify-between gap-4 mx-[6rem] min-h-[56rem] mt-8'>
+      <div className="flex justify-between gap-4 mx-[6rem] min-h-[56rem] mt-8">
         <FilterTour
           setMinPrice={setMinPrice}
           setMaxPrice={setMaxPrice}
