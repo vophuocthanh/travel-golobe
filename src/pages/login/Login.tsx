@@ -1,40 +1,32 @@
-import { authApi } from '@/apis/auth.api';
-import {
-  banner_login,
-  banner_login2,
-  banner_login3,
-  logo
-} from '@/assets/images';
-import { IconEye, IconNonEye } from '@/common/icons';
-import CarouselPlugin from '@/components/common/carousel/CarouselPlugin';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/utils/storage';
-import { LoginSchema } from '@/zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { z } from 'zod';
+import { authApi } from '@/apis/auth.api'
+import { banner_login, banner_login2, banner_login3, logo } from '@/assets/images'
+import { IconEye, IconNonEye } from '@/common/icons'
+import CarouselPlugin from '@/components/common/carousel/CarouselPlugin'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/utils/storage'
+import { LoginSchema } from '@/zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { useRef, useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { z } from 'zod'
 
 export default function Login() {
+  const reCPATCHAKey = import.meta.env.VITE_RECAPTCHA_KEY
 
+  const reCAPTCHAref = useRef<ReCAPTCHA>(null)
   const navigate = useNavigate()
   const images = [banner_login, banner_login2, banner_login3]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -50,8 +42,12 @@ export default function Login() {
   })
 
   function onSubmit() {
+    if (!captchaToken) {
+      toast.error('Please complete the CAPTCHA!')
+      return
+    }
     setIsLoading(true)
-    mutationLogin.mutate({ ...form.getValues() } as z.infer<typeof LoginSchema>, {
+    mutationLogin.mutate({ ...form.getValues(), captchaToken } as z.infer<typeof LoginSchema>, {
       onSuccess: (data) => {
         setAccessTokenToLS(data.access_token)
         setRefreshTokenToLS(data.refresh_token)
@@ -77,24 +73,24 @@ export default function Login() {
   }
 
   return (
-    <div className='flex items-center justify-center w-full h-screen'>
-      <div className='flex items-center justify-between w-full mx-auto my-auto max-w-[90rem]'>
-        <div className='flex flex-col w-full space-y-2'>
-          <Link to='/' className='w-40'>
-            <img src={logo} alt='logo' className='w-40 h-12 mb-10' />
+    <div className="flex items-center justify-center w-full h-screen">
+      <div className="flex items-center justify-between w-full mx-auto my-auto max-w-[90rem]">
+        <div className="flex flex-col w-full space-y-2">
+          <Link to="/" className="w-40">
+            <img src={logo} alt="logo" className="w-40 h-12 mb-10" />
           </Link>
-          <h1 className='text-5xl font-semibold'>Login</h1>
-          <p className='text-sm text-[#112211]'>Login to access your Golobe account</p>
+          <h1 className="text-5xl font-semibold">Login</h1>
+          <p className="text-sm text-[#112211]">Login to access your Golobe account</p>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
               <FormField
                 control={form.control}
-                name='email'
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder='Nhập email' type='email' {...field} />
+                      <Input placeholder="Nhập email" type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -102,14 +98,14 @@ export default function Login() {
               />
               <FormField
                 control={form.control}
-                name='password'
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập password'
-                        className='w-full'
+                        placeholder="Nhập password"
+                        className="w-full"
                         type={isPasswordVisible ? 'text' : 'password'}
                         {...field}
                         icon={isPasswordVisible ? <IconNonEye /> : <IconEye />}
@@ -120,32 +116,33 @@ export default function Login() {
                   </FormItem>
                 )}
               />
-              <div className='flex justify-between'>
-                <div className='flex items-center justify-center space-x-2'>
-                  <Checkbox id='terms' className='w-4 h-4' />
-                  <Label htmlFor='terms' className='text-base font-normal text-gray-500 cursor-pointer'>
+              <div className="flex justify-between">
+                <div className="flex items-center justify-center space-x-2">
+                  <Checkbox id="terms" className="w-4 h-4" />
+                  <Label htmlFor="terms" className="text-base font-normal text-gray-500 cursor-pointer">
                     Remember me
                   </Label>
                 </div>
-                <Link to='/forgot-password' className='text-redCustom hover:underline'>
+                <Link to="/forgot-password" className="text-redCustom hover:underline">
                   Forgot Password
                 </Link>
               </div>
-              <div className='flex items-center justify-center'>
+              <div className="flex items-center justify-center">
+                <ReCAPTCHA sitekey={reCPATCHAKey} onChange={(token) => setCaptchaToken(token)} ref={reCAPTCHAref} />
               </div>
-              <Button loading={isLoading} className='w-full text-white' type='submit'>
+              <Button loading={isLoading} className="w-full text-white" type="submit">
                 Login
               </Button>
-              <p className='flex items-center justify-center'>
+              <p className="flex items-center justify-center">
                 Don’t have an account?&nbsp;{' '}
-                <Link to='/register' className='cursor-pointer text-redCustom hover:underline'>
+                <Link to="/register" className="cursor-pointer text-redCustom hover:underline">
                   Sign up
                 </Link>
               </p>
             </form>
           </Form>
         </div>
-        <div className='w-full'>
+        <div className="w-full">
           <CarouselPlugin images={images} interval={2000}></CarouselPlugin>
         </div>
       </div>

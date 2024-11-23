@@ -105,71 +105,71 @@ export default function CoachDetail() {
   return (
     <>
       <Header />
-      <div className='container mx-auto pt-28 pb-72'>
+      <div className="container mx-auto pt-28 pb-72">
         <section>
-          <div className='flex items-center space-x-2 text-sm text-gray-600'>
-            <Link to='/vehicle/coach' className='text-red-400'>
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <Link to="/vehicle/coach" className="text-red-400">
               Coach
             </Link>
-            <ChevronRight className='w-4 h-4' />
-            <Link to='/vehicle/coach/all-coach' className='text-red-400'>
+            <ChevronRight className="w-4 h-4" />
+            <Link to="/vehicle/coach/all-coach" className="text-red-400">
               Coach All
             </Link>
-            <ChevronRight className='w-4 h-4' />
+            <ChevronRight className="w-4 h-4" />
             <p>{getbyId?.brand}</p>
           </div>
-          <div className='flex justify-between p-4'>
+          <div className="flex justify-between p-4">
             <div>
-              <p className='text-2xl font-bold'>{getbyId?.brand}</p>
-              <div className='flex items-center mt-1 space-x-2 text-sm'>
-                <MapPin className='w-4 h-4' />
+              <p className="text-2xl font-bold">{getbyId?.brand}</p>
+              <div className="flex items-center mt-1 space-x-2 text-sm">
+                <MapPin className="w-4 h-4" />
                 <p>{getbyId?.destination}</p>
               </div>
-              <div className='flex items-center mt-2 space-x-2'>
-                <p className='flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary'>
+              <div className="flex items-center mt-2 space-x-2">
+                <p className="flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary">
                   4.2
                 </p>
-                <p className='text-xs font-normal'>
-                  <span className='font-bold'>Very Good </span>
+                <p className="text-xs font-normal">
+                  <span className="font-bold">Very Good </span>
                   54 reviews
                 </p>
               </div>
             </div>
-            <div className='space-y-2'>
-              <p className='text-[32px] text-right font-bold text-[#FF8682]'>{formattedPrice}</p>
-              <div className='flex space-x-2'>
-                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>
+            <div className="space-y-2">
+              <p className="text-[32px] text-right font-bold text-[#FF8682]">{formattedPrice}</p>
+              <div className="flex space-x-2">
+                <p className="flex items-center px-2 py-1 text-lg text-black border rounded border-primary ">
                   {t('Availab')} {getbyId?.number_of_seats_remaining} {t('Seat')}
                 </p>
-                <div className='flex items-center space-x-4 bg-white border rounded border-primary '>
+                <div className="flex items-center space-x-4 bg-white border rounded border-primary ">
                   <Button
                     onClick={handleDecreaseQuantity}
                     disabled={getbyId?.number_of_seats_remaining === 0}
-                    className='w-10 px-2 py-1 text-lg border rounded'
+                    className="w-10 px-2 py-1 text-lg border rounded"
                   >
                     -
                   </Button>
-                  <p className='w-5 text-lg font-semibold text-center'>{roadVehicleQuantity}</p>
+                  <p className="w-5 text-lg font-semibold text-center">{roadVehicleQuantity}</p>
                   <Button
                     onClick={handleIncreaseQuantity}
                     disabled={
                       getbyId?.number_of_seats_remaining === 0 ||
                       getbyId?.number_of_seats_remaining === roadVehicleQuantity
                     }
-                    className='w-10 px-2 py-1 text-lg border rounded'
+                    className="w-10 px-2 py-1 text-lg border rounded"
                   >
                     +
                   </Button>
                 </div>
                 <p
-                  className='flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary'
+                  className="flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary"
                   onClick={handleClick}
                 >
                   <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
                 </p>
                 <ShareButtons url={coachUrl} title={coachTitle} />
                 <Button
-                  className='flex w-[8rem]'
+                  className="flex w-[8rem]"
                   loading={loadingBooking}
                   onClick={handleBookingCoach}
                   disabled={getbyId?.number_of_seats_remaining === 0}
@@ -181,12 +181,12 @@ export default function CoachDetail() {
           </div>
         </section>
 
-        <section className='mb-8'>
-          <img src={getbyId?.image} alt='Coach Banner' className='object-cover w-full h-full rounded-xl' />
+        <section className="mb-8">
+          <img src={getbyId?.image} alt="Coach Banner" className="object-cover w-full h-full rounded-xl" />
         </section>
 
-        <section className='mb-8'>
-          <div className='mb-10'>
+        <section className="mb-8">
+          <div className="mb-10">
             <Swiper
               modules={[Navigation, Pagination, A11y, Autoplay]}
               spaceBetween={10}
@@ -205,86 +205,86 @@ export default function CoachDetail() {
               loop={true}
             >
               {slides.map((slide, index) => (
-                <SwiperSlide key={index} className='flex justify-center'>
+                <SwiperSlide key={index} className="flex justify-center">
                   <img
                     src={slide.content}
                     alt={`Slide ${index + 1}`}
-                    className='rounded-lg shadow-md w-[120px] h-[90px] object-fill'
+                    className="rounded-lg shadow-md w-[120px] h-[90px] object-fill"
                   />
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
 
-          <div className='h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary'>
-            <p className='text-2xl font-bold '>{t('Safety')}</p>
-            <div className='flex flex-col space-y-4'>
-              <div className='flex items-center space-x-3'>
-                <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>{t('cleaned')}</p>
+          <div className="h-auto p-6 mb-10 space-y-4 rounded-lg bg-primary">
+            <p className="text-2xl font-bold ">{t('Safety')}</p>
+            <div className="flex flex-col space-y-4">
+              <div className="flex items-center space-x-3">
+                <Timer className="w-5 h-5 text-white" />
+                <p className="text-sm text-gray-200">{t('cleaned')}</p>
               </div>
-              <div className='flex items-center space-x-3'>
-                <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>{t('fitted')}</p>
+              <div className="flex items-center space-x-3">
+                <Timer className="w-5 h-5 text-white" />
+                <p className="text-sm text-gray-200">{t('fitted')}</p>
               </div>
-              <div className='flex items-center space-x-3'>
-                <Timer className='w-5 h-5 text-white' />
-                <p className='text-sm text-gray-200'>{t('complete')}</p>
+              <div className="flex items-center space-x-3">
+                <Timer className="w-5 h-5 text-white" />
+                <p className="text-sm text-gray-200">{t('complete')}</p>
               </div>
             </div>
           </div>
 
-          <div className='p-6 mb-10 bg-white border shadow-md rounded-xl'>
-            <div className='flex justify-between'>
-              <p className='text-xl font-bold'>
+          <div className="p-6 mb-10 bg-white border shadow-md rounded-xl">
+            <div className="flex justify-between">
+              <p className="text-xl font-bold">
                 {getbyId?.start_time}{' '}
                 {getbyId?.start_day ? new Date(getbyId.start_day).toLocaleDateString('vi-VN') : 'N/A'}
               </p>
-              <p className='text-lg font-medium'>{getbyId?.brand}</p>
+              <p className="text-lg font-medium">{getbyId?.brand}</p>
             </div>
 
-            <div className='gap-4'>
-              <div className='flex justify-between mt-5'>
-                <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
-                  <img src={getbyId?.image} alt='' className='w-16' />
+            <div className="gap-4">
+              <div className="flex justify-between mt-5">
+                <div className="flex items-center px-8 py-4 space-x-6 border rounded-lg">
+                  <img src={getbyId?.image} alt="" className="w-16" />
                   <div>
-                    <p className='text-2xl font-bold'>{getbyId?.brand}</p>
-                    <p className='text-sm font-medium'>{getbyId?.number_of_seat}</p>
+                    <p className="text-2xl font-bold">{getbyId?.brand}</p>
+                    <p className="text-sm font-medium">{getbyId?.number_of_seat}</p>
                   </div>
                 </div>
-                <div className='flex items-center p-6'>
-                  <div className='flex items-center space-x-6'>
-                    <BusFront className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <Wifi className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <Timer className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <UtensilsCrossed className='w-6 h-6' />
-                    <span className='h-6 border-l border-gray-400'></span>
-                    <RockingChair className='w-6 h-6' />
+                <div className="flex items-center p-6">
+                  <div className="flex items-center space-x-6">
+                    <BusFront className="w-6 h-6" />
+                    <span className="h-6 border-l border-gray-400"></span>
+                    <Wifi className="w-6 h-6" />
+                    <span className="h-6 border-l border-gray-400"></span>
+                    <Timer className="w-6 h-6" />
+                    <span className="h-6 border-l border-gray-400"></span>
+                    <UtensilsCrossed className="w-6 h-6" />
+                    <span className="h-6 border-l border-gray-400"></span>
+                    <RockingChair className="w-6 h-6" />
                   </div>
                 </div>
               </div>
-              <div className='flex items-center justify-center mt-5 space-x-20'>
-                <div className='flex flex-col'>
-                  <div className='flex items-center space-x-4'>
-                    <p className='text-2xl font-semibold'>{getbyId?.start_time}</p>
-                    <p className='text-base font-medium'>Newark(EWR)</p>
+              <div className="flex items-center justify-center mt-5 space-x-20">
+                <div className="flex flex-col">
+                  <div className="flex items-center space-x-4">
+                    <p className="text-2xl font-semibold">{getbyId?.start_time}</p>
+                    <p className="text-base font-medium">Newark(EWR)</p>
                   </div>
                   <p>{getbyId?.take_place}</p>
                 </div>
 
-                <div className='flex items-center space-x-4'>
-                  <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-                  <Bus className='w-6 h-6' />
-                  <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+                <div className="flex items-center space-x-4">
+                  <MoveLeft className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
+                  <Bus className="w-6 h-6" />
+                  <MoveRight className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
                 </div>
 
-                <div className='flex flex-col'>
-                  <div className='flex items-center space-x-4'>
-                    <p className='text-2xl font-semibold'>{getbyId?.end_time}</p>
-                    <p className='text-base font-medium'>Newark(EWR)</p>
+                <div className="flex flex-col">
+                  <div className="flex items-center space-x-4">
+                    <p className="text-2xl font-semibold">{getbyId?.end_time}</p>
+                    <p className="text-base font-medium">Newark(EWR)</p>
                   </div>
                   <p>{getbyId?.destination}</p>
                 </div>
