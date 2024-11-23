@@ -196,6 +196,31 @@ const resources = {
       Backpacking:'Backpacking Sri Lanka',
       textBackpacking:'Traveling is a unique experience as it is the best way to unplug from the pushes and pulls of daily life. It helps us to forget about our problems, frustrations, and fears at home. During our journey, we experience life in different ways. We explore new places, cultures, cuisines, traditions, and ways of living.',
       CreateCoach:'Create your travel wishlist, and let our bus service take you there!',
+
+      //footer
+      Subscribe:'Subscribe',
+      Newsletter:'Newsletter',
+      TheTravel:'The Travel',
+      Receivetravel:'Get inspired! Receive travel discounts, tips and behind the scenes stories.',
+      Destinations:'Our Destinations',
+
+      Activities:'Our Activities',
+      Northern:'Northern Lights',
+      Cruising:'Cruising & sailing',
+      Multi:'Multi-activities',
+      Kayaing:'Kayaing',
+
+      TravelBlogs:'Travel Blogs',
+      Tips:'Travel Tips',
+      Guide:'Travel Guide',
+      TravelDestination:'Travel Destination',
+
+      AboutUs:'About Us',
+      OurStory:'Our Story',
+      Workwith:'Work with us',
+
+      ContactUs:'Contact Us',
+      Copyright:'Copyright',
     }
   },
   vi: {
@@ -386,6 +411,31 @@ const resources = {
       Backpacking: 'Du lịch Sri Lanka',
       textBackpacking: 'Du lịch là một trải nghiệm độc đáo vì đó là cách tốt nhất để tạm rời xa những áp lực và căng thẳng của cuộc sống hàng ngày. Nó giúp chúng ta quên đi những vấn đề, sự bực bội và nỗi lo lắng ở nhà. Trong hành trình của mình, chúng ta trải nghiệm cuộc sống theo nhiều cách khác nhau. Chúng ta khám phá những địa điểm mới, nền văn hóa, ẩm thực, truyền thống và lối sống đa dạng.',
       CreateCoach:'Hãy tạo danh sách điểm đến mơ ước của bạn, và để dịch vụ xe buýt của chúng tôi đưa bạn đến đó!',
+    
+      //footer
+      Subscribe: 'Đăng ký',
+      Newsletter: 'Bản tin',
+      TheTravel: 'Chuyến đi',
+      Receivetravel: 'Hãy lấy cảm hứng! Nhận ưu đãi du lịch, mẹo và những câu chuyện hậu trường.',
+      Destinations: 'Điểm đến của chúng tôi',
+
+      Activities: 'Hoạt động của chúng tôi',
+      Northern: 'Cực quang phương Bắc',
+      Cruising: 'Du thuyền & chèo thuyền',
+      Multi: 'Nhiều hoạt động',
+      Kayaing: 'Chèo thuyền kayak',
+
+      TravelBlogs: 'Blog du lịch',
+      Tips: 'Mẹo du lịch',
+      Guide: 'Hướng dẫn du lịch',
+      TravelDestination: 'Điểm đến du lịch',
+
+      AboutUs: 'Giới thiệu về chúng tôi',
+      OurStory: 'Câu chuyện của chúng tôi',
+      Workwith: 'Hợp tác với chúng tôi',
+
+      ContactUs: 'Liên hệ với chúng tôi',
+      Copyright:'Bản quyền',
     }
   }
 }
