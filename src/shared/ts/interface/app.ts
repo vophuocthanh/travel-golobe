@@ -27,6 +27,7 @@ export interface ListResponse<T> {
   end_day?: string
   branch: string
 }
+
 export interface ListResponseFlight<F> {
   data: F[]
   total: number

@@ -42,16 +42,33 @@ export default function HotelDetail() {
 
   const [checkInDate, setCheckInDate] = useState<string | null>(null)
   const [checkOutDate, setCheckOutDate] = useState<string | null>(null)
+  const isLoggedIn = Boolean(localStorage.getItem('authToken'))
 
   const mutationHotelBooking = useMutation({
-    mutationFn: () => bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId, checkInDate, checkOutDate),
-    onSuccess: (data) => {
+    mutationFn: () => {
+      if (!isLoggedIn) {
+        navigate('/login')
+        return Promise.reject(new Error('User not logged in'))
+      }
+      return bookingHotelApi.addBookingHotel(
+        id || '',
+        hotelQuantity,
+        roomId,
+        checkInDate,
+        checkOutDate
+      )
+    }
+    , onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
       navigate(`/hotel/home-stay/hotel-payment/${bookingId}`)
     },
     onError: () => {
-      toast.error('Failed to book Hotel')
+      if (isLoggedIn) {
+        toast.error('Failed to book Hotel')
+      } else {
+        toast.error('Please you must login to book ')
+      }
     }
   })
 
