@@ -129,28 +129,28 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
   const ratingStatus = getRatingStatus(Number(averageRating))
 
   return (
-    <div className='flex w-full mt-5'>
-      <div className='w-full '>
+    <div className="flex w-full mt-5">
+      <div className="w-full ">
         <div>
-          <hr className='my-8 border-2 border-gray ' />
+          <hr className="my-8 border-2 border-gray " />
         </div>
-        <div className='items-center '>
-          <h1 className='mb-2 text-2xl font-semibold'>{t('Reviews')}</h1>
+        <div className="items-center ">
+          <h1 className="mb-2 text-2xl font-semibold">{t('Reviews')}</h1>
           {isAuthenticated ? (
-            <form onSubmit={handleSubmit} className='flex items-center space-x-4 '>
-              <div className='w-full p-2 border border-gray-300 rounded-md'>
+            <form onSubmit={handleSubmit} className="flex items-center space-x-4 ">
+              <div className="w-full p-2 border border-gray-300 rounded-md">
                 <textarea
-                  className='w-full p-2 border border-gray-300 rounded-md'
+                  className="w-full p-2 border border-gray-300 rounded-md"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder='Type your message here.'
+                  placeholder="Type your message here."
                 />
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center space-x-5'>
-                    <label htmlFor=''>Satisfaction Level.</label>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-5">
+                    <label htmlFor="">Satisfaction Level.</label>
                     <BasicRating setRating={setRating} />
                   </div>
-                  <Button className='px-4 py-1 text-white rounded-md w-[10rem]' loading={loading}>
+                  <Button className="px-4 py-1 text-white rounded-md w-[10rem]" loading={loading}>
                     {t('Reviews')}
                   </Button>
                 </div>
@@ -158,56 +158,56 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
             </form>
           ) : null}
         </div>
-        <div className='relative flex text-black w-[14rem] pt-5'>
-          <p className='absolute left-0 text-5xl font-semibold'>{averageRating}</p>
-          <div className='absolute right-0'>
+        <div className="relative flex text-black w-[14rem] pt-5">
+          <p className="absolute left-0 text-5xl font-semibold">{averageRating}</p>
+          <div className="absolute right-0">
             <p>{ratingStatus}</p>
             <p>{total} verified reviews</p>
           </div>
         </div>
-        <div className='w-full py-2'>
-          <ul className='py-6 mx-auto mt-10 space-y-4 '>
+        <div className="w-full py-2">
+          <ul className="py-6 mx-auto mt-10 space-y-4 ">
             {data?.map((item, index) => (
-              <li className='p-4 bg-white rounded shadow ' key={index}>
-                <div className='relative flex items-center space-x-4'>
-                  <img src={item.user.avatar} alt='avatar' className='w-12 h-12 mr-2 rounded-full' />
+              <li className="p-4 bg-white rounded shadow " key={index}>
+                <div className="relative flex items-center space-x-4">
+                  <img src={item.user.avatar} alt="avatar" className="w-12 h-12 mr-2 rounded-full" />
                   <div>
-                    <p className='font-bold'>
+                    <p className="font-bold">
                       {item.user.name} - {formatDateTime(item.createdAt)}
                     </p>
                     <p>{item.content}</p>
                     <ReadOnlyRating rating={item.rating} />
                   </div>
-                  <div className='absolute top-2 right-2'>
+                  <div className="absolute top-2 right-2">
                     <Popover>
                       <PopoverTrigger asChild>
-                        <TableOfContents className='w-6 h-6 cursor-pointer' />
+                        <TableOfContents className="w-6 h-6 cursor-pointer" />
                       </PopoverTrigger>
-                      <PopoverContent className='w-24'>
+                      <PopoverContent className="w-24">
                         <Button onClick={() => handleDeleteComment(item.id)}>{t('Delete')}</Button>
                       </PopoverContent>
                     </Popover>
                   </div>
-                  <div className='absolute bottom-1 right-16'>
-                    <CornerRightDown className='w-6 h-6' onClick={() => handleReplyIconClick(item.id)} />
+                  <div className="absolute bottom-1 right-16">
+                    <CornerRightDown className="w-6 h-6" onClick={() => handleReplyIconClick(item.id)} />
                   </div>
 
-                  <div className='absolute bottom-1 right-2'>
-                    <p onClick={() => handleReplyClick(item.id)} className='text-blue-500 cursor-pointer'>
+                  <div className="absolute bottom-1 right-2">
+                    <p onClick={() => handleReplyClick(item.id)} className="text-blue-500 cursor-pointer">
                       {t('Reply')}
                     </p>
                   </div>
                 </div>
                 {isReplyVisible[item.id] && (
-                  <form onSubmit={(e) => handleReplySubmit(e, item.id)} className='mt-2'>
+                  <form onSubmit={(e) => handleReplySubmit(e, item.id)} className="mt-2">
                     <Input
-                      type='text'
-                      className='w-full p-2 border border-gray-300 rounded-md'
+                      type="text"
+                      className="w-full p-2 border border-gray-300 rounded-md"
                       value={reply[item.id] || ''}
                       onChange={(e) => setReply((prev) => ({ ...prev, [item.id]: e.target.value }))}
-                      placeholder='Type your reply here...'
+                      placeholder="Type your reply here..."
                     />
-                    <Button type='submit' className='flex px-4 py-2 mt-2 ml-auto text-white rounded-md'>
+                    <Button type="submit" className="flex px-4 py-2 mt-2 ml-auto text-white rounded-md">
                       {t('Send')}
                     </Button>
                   </form>
@@ -215,9 +215,9 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
               </li>
             ))}
           </ul>
-          <div className='flex items-center justify-center mt-6 gap-x-[4rem]'>
+          <div className="flex items-center justify-center mt-6 gap-x-[4rem]">
             <Button
-              className='px-3 py-1 bg-gray-300 rounded'
+              className="px-3 py-1 bg-gray-300 rounded"
               disabled={currentPage === 1}
               onClick={() => handleClick(currentPage - 1)}
             >
@@ -227,7 +227,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
               Page {currentPage} of {totalPages}
             </p>
             <Button
-              className='px-3 py-1 bg-gray-300 rounded'
+              className="px-3 py-1 bg-gray-300 rounded"
               disabled={currentPage === totalPages}
               onClick={() => handleClick(currentPage + 1)}
             >
