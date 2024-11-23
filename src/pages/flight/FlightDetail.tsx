@@ -69,16 +69,30 @@ export default function FlightDetail() {
   const [loadingBooking, setLoadingBooking] = useState(false)
   const price = getbyId?.price
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
+  const isLoggedIn = Boolean(localStorage.getItem('authToken'))
+
 
   const mutationFlightBooking = useMutation({
-    mutationFn: () => bookingFlightApi.addBookingFlight(id || '', flightQuantity, selectedTicket),
+    mutationFn: () => {
+      if (!isLoggedIn) {
+        navigate('/login')
+        return Promise.reject(new Error('User not logged in'))
+      }
+      return bookingFlightApi.addBookingFlight(
+        id || '', flightQuantity, selectedTicket
+      )
+    },
     onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
       navigate(`/vehicle/flight/all-flight/flight-payment/${bookingId}`)
     },
     onError: () => {
-      toast.error('Failed to book flight')
+      if (isLoggedIn) {
+        toast.error('Failed to book Hotel')
+      } else {
+        toast.error('Please you must login to book ')
+      }
     }
   })
 

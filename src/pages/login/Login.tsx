@@ -23,22 +23,18 @@ import { setAccessTokenToLS, setRefreshTokenToLS, setUserToLS } from '@/shared/u
 import { LoginSchema } from '@/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 
 export default function Login() {
-  const reCPATCHAKey = import.meta.env.VITE_RECAPTCHA_KEY
 
-  const reCAPTCHAref = useRef<ReCAPTCHA>(null)
   const navigate = useNavigate()
   const images = [banner_login, banner_login2, banner_login3]
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -54,12 +50,8 @@ export default function Login() {
   })
 
   function onSubmit() {
-    if (!captchaToken) {
-      toast.error('Please complete the CAPTCHA!')
-      return
-    }
     setIsLoading(true)
-    mutationLogin.mutate({ ...form.getValues(), captchaToken } as z.infer<typeof LoginSchema>, {
+    mutationLogin.mutate({ ...form.getValues() } as z.infer<typeof LoginSchema>, {
       onSuccess: (data) => {
         setAccessTokenToLS(data.access_token)
         setRefreshTokenToLS(data.refresh_token)
@@ -140,7 +132,6 @@ export default function Login() {
                 </Link>
               </div>
               <div className='flex items-center justify-center'>
-                <ReCAPTCHA sitekey={reCPATCHAKey} onChange={(token) => setCaptchaToken(token)} ref={reCAPTCHAref} />
               </div>
               <Button loading={isLoading} className='w-full text-white' type='submit'>
                 Login
