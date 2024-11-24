@@ -2,9 +2,10 @@ import { logo_footer, mailbox } from '@/assets/images'
 import SectionInViewUp from '@/components/common/animation/SectionInViewUp'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { dataActivities, dataDestinations, dataTravel } from '@/shared/lib/data-type'
+import {  dataDestinations } from '@/shared/lib/data-type'
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const dataIcon = [
   {
@@ -29,7 +30,46 @@ const dataIcon = [
   }
 ]
 
+
 export default function Footer() {
+  const { t } = useTranslation()
+  const dataTravel = [
+    {
+      id: 1,
+      name: t('Tips')
+    },
+    {
+      id: 2,
+      name:  t('Guide')
+    },
+    {
+      id: 3,
+      name:  t('TravelDestination')
+    },
+    {
+      id: 4,
+      name:  t('Guide')
+    }
+  ]
+  
+  const dataActivities = [
+    {
+      id: '1',
+      name:  t('Northern')
+    },
+    {
+      id: '2',
+      name:  t('Cruising')
+    },
+    {
+      id: '3',
+      name:  t('Multi')
+    },
+    {
+      id: '4',
+      name:  t('Kayaing')
+    }
+  ]
   return (
     <>
       <SectionInViewUp>
@@ -42,16 +82,16 @@ export default function Footer() {
                   <div className='flex justify-between w-full p-0'>
                     <div className='p-6 space-y-4'>
                       <h1 className='text-3xl font-bold'>
-                        Subscribe <br /> Newsletter
+                        {t('Subscribe')} <br /> {t('Newsletter')}
                       </h1>
                       <div className='flex flex-col'>
-                        <span>The Travel</span>
-                        <p>Get inspired! Receive travel discounts, tips and behind the scenes stories.</p>
+                        <span>{t('TheTravel')}</span>
+                        <p>{t('Receivetravel')}</p>
                       </div>
                       <div className='flex gap-4'>
                         <Input placeholder='Your email address' />
                         <Button className='text-white bg-black hover:bg-white hover:text-black hover:transition-all hover:shadow-md'>
-                          Subscribe
+                        {t('Subscribe')}
                         </Button>
                       </div>
                     </div>
@@ -83,7 +123,7 @@ export default function Footer() {
                   </div>
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Our Destinations</h1>
+                  <h1 className='text-xl font-medium'>{t('Destinations')}</h1>
                   {dataDestinations.map((destination) => (
                     <div key={destination.id} className='flex flex-col gap-2 text-[#112211]'>
                       <p className='cursor-pointer hover:underline'>{destination.name}</p>
@@ -91,7 +131,7 @@ export default function Footer() {
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Our Activities</h1>
+                  <h1 className='text-xl font-medium'>{t('Activities')}</h1>
                   {dataActivities.map((activity) => (
                     <div key={activity.id} className='flex flex-col gap-2 text-[#112211]'>
                       <p className='cursor-pointer hover:underline'>{activity.name}</p>
@@ -99,7 +139,7 @@ export default function Footer() {
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Travel Blogs</h1>
+                  <h1 className='text-xl font-medium'>{t('TravelBlogs')}</h1>
                   {dataTravel.map((travel) => (
                     <div key={travel.id} className='flex flex-col gap-2 text-[#112211]'>
                       <p className='cursor-pointer hover:underline'>{travel.name}</p>
@@ -107,17 +147,17 @@ export default function Footer() {
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>About Us</h1>
+                  <h1 className='text-xl font-medium'>{t('AboutUs')}</h1>
                   <div className='flex flex-col gap-2 text-[#112211]'>
-                    <p>Our Story</p>
-                    <p>Work with us</p>
+                    <p>{t('OurStory')}</p>
+                    <p>{t('Workwith')}</p>
                   </div>
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>Contact Us</h1>
+                  <h1 className='text-xl font-medium'>{t('ContactUs')}</h1>
                   <div className='flex flex-col gap-2 text-[#112211]'>
-                    <p>Our Story</p>
-                    <p>Work with us</p>
+                    <p>{t('OurStory')}</p>
+                    <p>{t('Workwith')}</p>
                   </div>
                 </div>
               </div>
@@ -126,7 +166,7 @@ export default function Footer() {
         </div>
       </SectionInViewUp>
       <div className='bg-[#a1f4d9] w-full h-20'>
-        <p className='text-center pt-7'>Bản quyền © 2024 Travel Globe.</p>
+        <p className='text-center pt-7'>{t('Copyright')} © 2024 Travel Globe.</p>
       </div>
     </>
   )
