@@ -46,14 +46,20 @@ export default function CoachReview1() {
             <Swiper
               className='flex flex-wrap justify-between '
               modules={[Navigation, Pagination, A11y, Autoplay]}
-              spaceBetween={30}
-              slidesPerView={3}
+              spaceBetween={20}
+              slidesPerView={1}
               pagination={{ clickable: true }}
               navigation
               autoplay={{
                 delay: 3000
               }}
               loop={true}
+              breakpoints={{
+                768: {
+                  slidesPerView: 3, 
+                  spaceBetween: 20, 
+                },
+              }}
             >
               {getAll?.data.slice(0, 6).map((coach: CoachResponseType) => (
                 <SwiperSlide
