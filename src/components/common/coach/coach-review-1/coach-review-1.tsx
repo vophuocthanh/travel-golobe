@@ -33,11 +33,11 @@ export default function CoachReview1() {
 
   return (
     <SectionInViewRight>
-      <div className='mt-[5rem]'>
-        <div className='relative mx-36'>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'>{t('travelCoach')} </h1>
+      <div className='lg:mt-[5rem] mt-8'>
+        <div className='relative mx-8 lg:mx-36'>
+          <h1 className='flex items-start justify-start pt-0 mb-4 font-medium lg:text-3xl text-md'>{t('travelCoach')} </h1>
           <div className='flex flex-wrap justify-between '>
-            <p className='w-[970px] text-xl mb-8 font-light'>{t('textTravelCoach')}</p>
+            <p className='lg:w-[970px] lg:text-xl mb-8 font-light text-sm w-[70%]'>{t('textTravelCoach')}</p>
             <Link to='/vehicle/coach/all-coach' className=''>
               <Button className='absolute right-0 text-black bg-white border border-primary top-8'>{t('see')}</Button>
             </Link>
@@ -65,7 +65,7 @@ export default function CoachReview1() {
                 >
                   <Link to={`/vehicle/coach/${coach.id}`} key={coach.id}>
                     <div className='absolute inset-x-0 bottom-0 rounded-b-lg h-1/3 bg-gradient-to-t from-gray-900 to-transparent '></div>
-                    <div className='flex text-xl font-semibold text-white'>
+                    <div className='flex font-semibold text-white lg:text-xl text-md'>
                       <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>{coach.take_place}</p>
                       <p className='w-full overflow-hidden whitespace-nowrap overflow-ellipsis'>
                         {' '}
@@ -75,7 +75,7 @@ export default function CoachReview1() {
                     <p className='w-full text-gray-300'>{coach.trip_time}</p>
                     <div className='relative flex justify-between w-full gap-4 mb-4'>
                       <div className='flex flex-row items-end w-[50%]'>
-                        <p className='w-full text-lg font-semibold text-white'>
+                        <p className='w-full font-semibold text-white lg:text-lg text-md'>
                           {coach.start_time}-{coach.end_time}
                         </p>
                       </div>
