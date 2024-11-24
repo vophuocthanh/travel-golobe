@@ -73,7 +73,7 @@ export default function Footer() {
   return (
     <>
       <SectionInViewUp>
-        <div className='w-full h-96 bg-primary'>
+        <div className='w-full h-full bg-primary'>
           <div className='mx-auto max-w-7xl'>
             {/* Absolute */}
             <div className='relative'>
@@ -105,8 +105,8 @@ export default function Footer() {
 
             {/* Absolute */}
 
-            <div className='flex pt-44'>
-              <div className='grid w-full grid-cols-6 gap-2 pl-2 lg:px-4 lg:gap-4 lg:pl-16'>
+            <div className='flex pt-40 lg:pt-44'>
+              <div className='grid w-full grid-cols-6 gap-2 pl-2 lg:px-4 lg:gap-4 lg:pl-16 '>
                 <div className='flex flex-col w-full gap-4'>
                   <img src={logo_footer} alt='logo' className='lg:ml-4 h-13 w-15 lg:h-10 lg:w-28' />
                   <div className='gap-4 lg:flex '>
@@ -165,8 +165,8 @@ export default function Footer() {
           </div>
         </div>
       </SectionInViewUp>
-      <div className='bg-[#a1f4d9] w-full h-20'>
-        <p className='text-center pt-7'>{t('Copyright')} © 2024 Travel Globe.</p>
+      <div className='bg-[#a1f4d9] w-full lg:h-20 h-15'>
+        <p className='py-2 text-center lg:pt-7'>{t('Copyright')} © 2024 Travel Globe.</p>
       </div>
     </>
   )
