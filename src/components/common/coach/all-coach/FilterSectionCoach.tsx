@@ -48,7 +48,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
   }
 
   return (
-    <div className='flex-none w-[22.5%] ml-12 mr-5'>
+    <div className='flex-none w-[80%] ml-12 mr-5'>
       <div className='flex flex-col items-center mt-8'>
         <div className='flex items-center justify-between w-full mb-6'>
           <p>{t('Price')}</p>
@@ -57,7 +57,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
           </Button>
         </div>
         {isVisible && (
-          <div className='w-full pb-12 border-b-2'>
+          <div className='w-full pb-12 text-sm border-b-2'>
             <div className='w-full p-4 bg-white rounded-lg shadow-md '>
               <div className='flex flex-row gap-4 '>
                 <div className='items-center w-full '>
@@ -131,7 +131,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
               pearling
               minDistance={1000}
             />
-            <div className='flex justify-between w-full mt-4 text-xl text-black'>
+            <div className='flex justify-between w-full mt-4 text-black text-md lg:text-xl'>
               <div>{formatTime(time[0])}</div>
               <div>{formatTime(time[1])}</div>
             </div>
@@ -149,7 +149,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
         {isAirlinesVisible && (
           <div className='flex flex-col gap-3 pb-12 border-b-2'>
             <div className='mt-4'>
-              <div className='flex flex-col'>
+              <div className='flex flex-col text-sm lg:text-[15px]'>
                 {data?.map((brand: string, index:number) => (
                   <label key={index} className='flex items-center'>
                     <input
@@ -157,7 +157,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
                       value={brand}
                       checked={brandCoach.includes(brand)}
                       onChange={(e) => handleSelectBrand(e.target.value)}
-                      className='w-5 h-5 mr-2 accent-primary '
+                      className='w-5 h-5 mr-2 accent-primary'
                     />
                     {brand}
                   </label>

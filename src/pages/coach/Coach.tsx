@@ -57,59 +57,59 @@ export default function Coach() {
       <Header />
       <main className="pt-20">
         <section>
-          <div className="flex items-center justify-center w-full h-[50rem] overflow-hidden relative">
+          <div className="flex items-center justify-center w-full lg:h-[50rem] overflow-hidden relative h-[35rem]">
             <div className="top-0 w-full h-full">
-              <img src={banner_coach} alt="coach" className="object-cover w-full h-[40.5rem]" />
-              <div className="absolute p-5 text-gray top-1/4 left-[10rem] w-[27rem] bg-slate-100 rounded-lg">
-                <h1 className="text-4xl font-bold">{t('CreateCoach')}</h1>
-                <p className="mt-2 text-lg">{t('Special')}</p>
+              <img src={banner_coach} alt="coach" className="object-cover sm:w-full lg:h-[40.5rem] h-[17rem]" />
+              <div className="absolute p-5 text-gray lg:top-1/4 lg:left-[10rem] lg:w-[27rem] bg-slate-100 rounded-lg top-[2rem] w-[10rem] left-[2rem]">
+                <h1 className="font-bold text-md lg:text-4xl">{t('CreateCoach')}</h1>
+                <p className="mt-2 text-[10px] lg:text-lg">{t('Special')}</p>
               </div>
             </div>
-            <div className="absolute bottom-1 items-center justify-center p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] h-[15rem]">
-              <p className="mt-4 ml-5 text-lg font-semibold">{t('WhereCoach')}</p>
-              <div className="grid grid-cols-8 gap-4 mt-[2rem] mr-[2.8rem]">
-                <div className="relative w-full col-span-2 ml-4">
-                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
+            <div className="absolute bottom-1 items-center justify-center p-1 lg:p-4 bg-white rounded-lg shadow-md shadow-slate-300 w-[84%] lg:h-[15rem] h-[16rem]">
+              <p className="mt-3 ml-5 font-semibold lg:text-lg">{t('WhereCoach')}</p>
+              <div className="grid grid-cols-8 gap-4 mt-[1rem] mr-[2.8rem]">
+                <div className="relative w-full col-span-4 ml-4 lg:col-span-2">
+                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
                     From
                   </label>
                   <Input
                     type="text"
-                    className="block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
+                    className="block text-sm lg:text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
                     onChange={(e) => setSearchFrom(e.target.value)}
                     placeholder="Nhập nơi đi..."
                   />
                 </div>
-                <div className="relative w-full col-span-2 ml-5">
-                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
+                <div className="relative w-full col-span-4 ml-5 lg:col-span-2">
+                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
                     To
                   </label>
                   <Input
                     type="text"
-                    className="block text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
+                    className="block text-sm lg:text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
                     onChange={(e) => setSearchTo(e.target.value)}
                     placeholder="Nhập nơi đến..."
                   />
                 </div>
-                <div className="relative z-10 w-full col-span-2 ml-5">
-                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm ">
+                <div className="relative z-10 w-full col-span-4 ml-5 lg:col-span-2">
+                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
                     Depart
                   </label>
-                  <div className="text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
+                  <div className="text-sm lg:text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
                     <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
                   </div>
                 </div>
-                <div className="relative z-10 w-full col-span-2 ml-5">
-                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
+                <div className="relative z-10 w-full col-span-4 ml-5 lg:col-span-2">
+                  <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md" >
                     Return
                   </label>
-                  <div className=" text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
+                  <div className=" text-sm lg:text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
                   </div>
                 </div>
               </div>
-              <div className="absolute flex p-4 jstify-end right-[1.6rem]">
-                <div className="flex gap-4 ">
-                  <Button className="px-4 py-2 text-black bg-white border rounded-lg border-primary hover:bg-white ">
+              <div className="flex p-4 jstify-end lg:right-[1.6rem]">
+                <div className="gap-4 ml-auto mr-[10px] flex ">
+                  <Button className="px-4 py-2 mb-4 text-black bg-white border rounded-lg border-primary hover:bg-white">
                     + {t('Promo')}
                   </Button>
                   <Button

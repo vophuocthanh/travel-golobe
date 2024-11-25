@@ -10,7 +10,7 @@ import { BookingCoachResponse } from '@/shared/ts/interface/booking-coach.interf
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 
@@ -68,25 +68,34 @@ export default function CoachPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
-          <section>
+        <main className='pt-20 lg:px-[5rem] p-2'>
+          <section className='w-full'>
             <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('CoachPayment')}</h1>
-            <div className='flex items-center space-x-2'>
+            <div className='flex items-center lg:space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
-                <div className='flex items-center space-x-2 text-gray-800 text-md'>
-                  <p className='text-red-400'>Turkey</p>
-                  <ChevronRight className='w-4 h-4' />
-                  <p className='text-red-400'>Istanbul</p>
+                <div className='flex items-center text-gray-800 lg:space-x-2 text-md'>
+                  <Link to="/vehicle/coach" className="text-red-400">
+                    Coach
+                  </Link>
+                  <ChevronRight className="w-4 h-4" />
+                  <Link to="/vehicle/coach/all-coach" className="text-red-400">
+                    Coach All
+                  </Link>
                   <ChevronRight className='w-4 h-4' />
                   <p>{getBookingCoachDeTails?.location}</p>
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                {getBookingCoachDeTails && <CoachInfo data={getBookingCoachDeTails as BookingCoachResponse} />}
+            <div className='grid gap-6 lg:grid-cols-3 '>
+              <div className='lg:col-span-2'>
+                <div className='w-full p-6 mt-6 bg-white rounded-lg shadow-md'>
+                  {getBookingCoachDeTails && <CoachInfo data={getBookingCoachDeTails as BookingCoachResponse} />}
+                </div>
+                <div className='w-full p-6 mt-6 bg-white rounded-lg shadow-md '>
+                  <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption}/>
+                </div>
               </div>
-              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='w-full h-[35rem] lg:col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md lg:sticky lg:top-6'>
                 {getBookingCoachDeTails && (
                   <CoachBook
                     loading={loading}
@@ -94,9 +103,6 @@ export default function CoachPayment() {
                     data={getBookingCoachDeTails as BookingCoachResponse}
                   />
                 )}
-              </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
-                <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption}/>
               </div>
             </div>
           </section>
