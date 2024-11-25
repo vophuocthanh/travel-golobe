@@ -117,9 +117,16 @@ const FlightCard: React.FC<FlightCardProps> = ({
 
       {(getAll?.data?.length ?? 0) > 0 ? (
         getAll?.data.map((flight: FlightResponseType) => (
-          <div key={flight.id} className="flex xl:w-full  xl:h-[23rem] rounded-xl overflow-hidden max-sm:h-[15rem] mb-2 ">
+          <div
+            key={flight.id}
+            className="flex xl:w-full  xl:h-[23rem] rounded-xl overflow-hidden max-sm:h-[15rem] mb-2 max-sm:w-[98%] "
+          >
             <div className="w-[40%] bg-white relative">
-              <img src={flight.image} alt="Flight" className="object-cover rounded-md w-[90%] xl:ml-8 mt-4 h-[90%] max-sm:w-full max-sm:ml-2" />
+              <img
+                src={flight.image}
+                alt="Flight"
+                className="object-cover rounded-md w-[90%] xl:ml-8 mt-4 h-[90%] max-sm:w-full max-sm:ml-2"
+              />
               <p className="h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2 max-sm:text-xs">
                 9 images
               </p>
@@ -153,7 +160,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                         </div>
                         <div></div>
                         <div className="flex xl:w-[30rem] max-sm:w-[10rem]">
-                          <p className="text-left text-gray-500 mr-[4rem] ml-9">
+                          <p className="text-left text-gray-500 mr-[4rem] xl:ml-9">
                             <div className="flex ">
                               <p className="flex mb-2 font-bold text-black max-sm:text-xs ">From- </p>
                               <p className="max-sm:text-xs max-sm:w-full">{flight.take_place}</p>
@@ -169,8 +176,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
                         </div>
                       </div>
                     </div>
-                    <div className="w-[30%] pt-4 text-right mr-5">
-                      <p className="xl:text-xl text-[#FF8682] font-bold">{formatCurrencyVND(flight.price)}</p>
+                    <div className="w-[30%] pt-4 text-right xl:mr-5 ">
+                      <p className="xl:text-xl text-[#FF8682] font-bold ">{formatCurrencyVND(flight.price)}</p>
                       <p className="mt-40 font-medium text-right text-black-500 max-sm:hidden">
                         Trip To: {flight.trip_to}
                       </p>
@@ -181,7 +188,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                   <div className="flex flex-row w-full gap-4 xl:items-center ">
                     <Favorite id={flight.id} />
                     <Link to={`/vehicle/flight/${flight.id}`} className="w-full pr-6 max-sm:text-right">
-                      <Button className="w-full mx-4 text-white max-sm:w-[6rem] max-sm:h-[2rem] max-sm:mt-2 max-sm:ml-[8.9rem]">
+                      <Button className="w-full mx-4 text-white max-sm:w-[6rem] max-sm:h-[2rem] max-sm:mt-2 max-sm:ml-[8rem]">
                         {t('ViewDeals')}
                       </Button>
                     </Link>
