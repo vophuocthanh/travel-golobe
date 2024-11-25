@@ -116,7 +116,7 @@ export default function FlightDetail() {
   return (
     <>
       <Header />
-      <div className='container mx-auto pt-28 pb-72'>
+      <div className='container xl:mx-auto pt-28 pb-72'>
         <section>
           <div className='flex items-center space-x-2 text-sm text-gray-600'>
             <Link to='/vehicle/flight' className='text-red-400'>
