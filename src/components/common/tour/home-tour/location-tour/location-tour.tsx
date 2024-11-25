@@ -17,7 +17,7 @@ export default function LocationTour() {
             <Button className='text-black bg-white border border-primary'>{t('see')}</Button>
           </div>
           <div className='flex justify-between '>
-            <div className='p-4 mr-4 bg-primary w-[50%] rounded-lg max-lg:w-[60%] max-md:w-[70%] max-sm:w-[150%]  '>
+            <div className='p-4 sm:mr-4 m bg-primary w-[50%] rounded-lg max-lg:w-[60%] max-md:w-[70%] max-sm:w-[150%]  '>
               <div className=''>
                 <div className='flex justify-between mb-8'>
                   <h1 className='text-5xl w-[40%] max-sm:text-lg font-medium  max-lg:text-2xl'>{t('Backpacking')}</h1>

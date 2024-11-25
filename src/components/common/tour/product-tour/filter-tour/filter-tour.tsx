@@ -44,7 +44,7 @@ export default function FilterTour(props: FlightCardProps) {
   const [tempMinPrice, setTempMinPrice] = useState<number | undefined>(minPrice)
   const [tempMaxPrice, setTempMaxPrice] = useState<number | undefined>(maxPrice)
   return (
-    <div>
+    <div className='w-[40%] max-lg:w-[25%] max-md:w-[100%]'>
       <div className='flex flex-col gap-6 pt-10'>
         <div className='pb-4 border-b-2 border-gray-300'>
           <h2 className='text-xl font-semibold text-gray-700'>{t('PriceRange')}</h2>
@@ -89,9 +89,9 @@ export default function FilterTour(props: FlightCardProps) {
           </div>
         </div>
         {isRatingVisible && (
-          <div>
+          <div className='w-[40%] max-md:w-[100%]'>
             <h2 className='text-xl font-semibold text-gray-700'>{t('Rating')}</h2>
-            <div className='flex gap-3 mt-4'>
+            <div className='flex gap-3 max-md:gap-4 max-lg:gap-1 w-[50%] max-lg:w-[25%] mt-4'>
               {[0, 1, 2, 3, 4, 5].map((item) => (
                 <Button
                   key={item}
@@ -99,7 +99,7 @@ export default function FilterTour(props: FlightCardProps) {
                     rating === item || (rating === undefined && item === 0) ? 'active' : ''
                   } ${
                     rating === item || (rating === undefined && item === 0) ? 'bg-primary' : 'bg-slate-400'
-                  }  justify-center w-12 h-8 text-sm font-medium text-white transition duration-200 rounded-md cursor-pointer  hover:bg-primary`}
+                  }  justify-center w-[50%]  h-8 text-sm font-medium text-white transition duration-200 rounded-md cursor-pointer  hover:bg-primary`}
                   onClick={() => {
                     if (item === 0) {
                       handleRating(undefined)
@@ -115,9 +115,9 @@ export default function FilterTour(props: FlightCardProps) {
           </div>
         )}
         <div className='flex flex-col space-y-4'>
-          <h1 className='text-xl font-semibold text-gray-700'>Chọn nơi xuất phát</h1>
+          <h1 className='text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm'>Chọn nơi xuất phát</h1>
           <Select onValueChange={handleSelectUniqueStartingGate}>
-            <SelectTrigger className='w-[29rem]'>
+            <SelectTrigger className='w-[full]'>
               <SelectValue placeholder='Select a nơi xuất phát' />
             </SelectTrigger>
             <SelectContent>
@@ -133,9 +133,9 @@ export default function FilterTour(props: FlightCardProps) {
           </Select>
         </div>
         <div className='flex flex-col space-y-4'>
-          <h1 className='text-xl font-semibold text-gray-700'>Chọn phương tiện</h1>
+          <h1 className='text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm'>Chọn phương tiện</h1>
           <Select onValueChange={handleSelectUniqueRoadVehicle}>
-            <SelectTrigger className='w-[29rem]'>
+            <SelectTrigger className='w-[full]'>
               <SelectValue placeholder='Select a phương tiện' />
             </SelectTrigger>
             <SelectContent>
