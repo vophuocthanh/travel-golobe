@@ -83,7 +83,7 @@ export default function ContentName({ title, content }: Props) {
                   <p className=''>Change Name</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-full'>
+              <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
                   <DialogTitle>Edit Name</DialogTitle>
                   <DialogDescription>Make changes to your name here. Click save when you're done.</DialogDescription>
