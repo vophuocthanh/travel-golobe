@@ -90,9 +90,9 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className='container pb-64 mx-auto pt-28'>
+        <div className='pb-64 mx-auto lg:container pt-28'>
           <Tabs value={activeTab} onValueChange={handleTabChange} className='mt-5'>
-            <TabsList className='flex justify-center py-5 mb-6 space-x-40 rounded-md shadow-md '>
+            <TabsList className='flex justify-center py-5 mb-6 space-x-6 rounded-md shadow-md lg:space-x-40 lg:w-full'>
               <TabsTrigger
                 value='account'
                 className={`px-4 py-2 font-semibold ${
@@ -105,7 +105,7 @@ export default function Profile() {
               </TabsTrigger>
               <TabsTrigger
                 value='Tickets-Booking'
-                className={`px-4 py-2 font-semibold ${
+                className={`px-4 py-2 font-semibold truncate ${
                   activeTab === 'Tickets-Booking'
                     ? 'text-primary border-b-2 border-primary-500'
                     : 'text-gray-700 border-b-2 border-transparent'
@@ -115,7 +115,7 @@ export default function Profile() {
               </TabsTrigger>
               <TabsTrigger
                 value='Payment-methods'
-                className={`px-4 py-2 font-semibold ${
+                className={`px-4 py-2 font-semibold truncate ${
                   activeTab === 'Payment-methods'
                     ? 'text-primary border-b-2 border-primary-500'
                     : 'text-gray-700 border-b-2 border-transparent'
@@ -125,8 +125,8 @@ export default function Profile() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value='account'>
-              <p className='mb-6 text-2xl font-bold'>Account</p>
-              <div className='space-y-3'>
+              <p className='mb-6 text-xl font-bold lg:text-2xl'>Account</p>
+              <div className='space-y-3 text-md lg:text-lg'>
                 <ContentName title='Name' content={getMeProfile?.name} />
                 <ContentEmail title='Email' content={getMeProfile?.email} />
                 <ContentPhone title='Phone Number' content={getMeProfile?.phone} />
@@ -137,14 +137,14 @@ export default function Profile() {
               </div>
             </TabsContent>
             <TabsContent value='Tickets-Booking'>
-              <p className='mb-4 text-xl font-semibold'>Tickets/Booking</p>
+              <p className='mb-2 text-xl font-semibold lg:mb-4 lg:text-2xl'>Tickets/Booking</p>
 
               <PaymentHistory />
             </TabsContent>
             <TabsContent value='Payment-methods'>
-              <p className='text-xl font-bold'>Payment methods</p>
-              <div className='relative flex items-center gap-6 px-4 py-6 my-5 bg-white border border-gray-300 rounded-lg shadow-md'>
-                <div className='grid grid-cols-2 gap-6 px-6 py-8 text-black shadow-lg bg-primary rounded-2xl w-80 h-44'>
+              <p className='text-xl font-bold lg:text-2xl'>Payment methods</p>
+              <div className='relative items-center gap-6 px-4 py-6 my-5 bg-white border border-gray-300 rounded-lg shadow-md lg:flex'>
+                <div className='grid grid-cols-2 gap-6 px-6 py-8 mb-4 text-black shadow-lg bg-primary rounded-2xl w-80 h-44'>
                   <p className='col-span-1 text-xl font-semibold'>*******</p>
                   <div className='flex items-center justify-end col-span-1'>
                     <Cpu className='w-8 h-8' />

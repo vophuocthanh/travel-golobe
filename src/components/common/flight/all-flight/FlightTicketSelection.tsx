@@ -30,7 +30,7 @@ const FlightTicketSelection: React.FC<FlightTicketSelectionProps> = ({ tickets, 
   return (
     <div className='flex flex-col items-center justify-between pb-10 md:flex-row'>
       <div className='flex-1'>
-        <Typography variant='h4' gutterBottom>
+        <Typography variant='h4' gutterBottom className='max-sm:text-center'>
           {t('FlightTicket')}
         </Typography>
         <div className='flex flex-col items-center justify-between gap-6 px-4 md:flex-row'>

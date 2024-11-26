@@ -78,7 +78,7 @@ export default function ContentAddress({ title, content }: Props) {
                   <p>Change Address</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-full'>
+              <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
                   <DialogTitle>Edit Address</DialogTitle>
                   <DialogDescription>Make changes to your address here. Click save when you're done.</DialogDescription>

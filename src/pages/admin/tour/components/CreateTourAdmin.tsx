@@ -8,6 +8,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/shared/lib/utils'
 import { CoachResponseType, FlightResponseType, HotelResponseType } from '@/shared/ts/interface/data.interface'
@@ -34,7 +35,6 @@ export default function CreateTourAdmin() {
   const [pageRoadVehicle, setPageRoadVehicle] = useState(1)
   const [hotels, setHotels] = useState<HotelResponseType[]>([])
   const [flights, setFlights] = useState<FlightResponseType[]>([])
-  console.log('flights:', flights)
   const [roadVehicles, setRoadVehicles] = useState<CoachResponseType[]>([])
 
   const form = useForm<z.infer<typeof CreateTourSchema>>({
@@ -48,7 +48,8 @@ export default function CreateTourAdmin() {
       flightId: '',
       start_date: '',
       end_date: '',
-      roadVehicleId: ''
+      roadVehicleId: '',
+      type: 'open'
     }
   })
 
@@ -84,20 +85,28 @@ export default function CreateTourAdmin() {
       end_date: endDate ? endDate.startOf('day').format('DD-MM-YYYY') : ''
     }
 
-    if (data.roadVehicleId) {
+    if (data.type === 'open') {
+      delete formattedData.hotelId
       delete formattedData.flightId
-    } else if (data.flightId) {
       delete formattedData.roadVehicleId
+    }
+
+    if (data.type === 'closed') {
+      if (data.roadVehicleId) {
+        delete formattedData.flightId
+      } else if (data.flightId) {
+        delete formattedData.roadVehicleId
+      }
     }
 
     mutationCreateTour.mutate(formattedData as z.infer<typeof CreateTourSchema>, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['getTourAll'] })
-        toast.success('Create tour success')
+        toast.success('Tạo tour thành công')
         navigate('/admin/tours')
       },
       onError: () => {
-        toast.error('Create tour failed')
+        toast.error('Tạo tour thất bại')
       },
       onSettled: () => {
         setLoading(false)
@@ -226,219 +235,275 @@ export default function CreateTourAdmin() {
           />
           <FormField
             control={form.control}
-            name="hotelId"
+            name="type"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Chọn hotel</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
-                      >
-                        {field.value
-                          ? (() => {
-                              const selectedHotel = hotels.find((hotel) => hotel.id === field.value)
-                              return selectedHotel ? (
-                                <>
-                                  <div className="flex gap-4 text-left">
-                                    <div className="font-bold">{selectedHotel.hotel_names}</div>
-                                    <div className="text-sm text-muted-foreground">{selectedHotel.location}</div>
-                                  </div>
-                                </>
-                              ) : (
-                                'Select hotel'
-                              )
-                            })()
-                          : 'Select hotel'}
-                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-full p-0">
-                    <Command>
-                      <CommandInput placeholder="Search hotel..." />
-                      <CommandList>
-                        <CommandEmpty>No hotel found.</CommandEmpty>
-                        <CommandGroup>
-                          <InfiniteScroll
-                            dataLength={hotels.length}
-                            next={loadMore}
-                            hasMore={!isFetching && getAllHotelAdmin?.data?.length === 70}
-                            loader={<h4>Loading more hotels...</h4>}
-                            height={200}
-                          >
-                            {hotels.map((hotel) => (
-                              <CommandItem
-                                value={`${hotel.id}-${hotel.hotel_names}`}
-                                key={hotel.id}
-                                onSelect={() => {
-                                  form.setValue('hotelId', hotel.id)
-                                }}
-                              >
-                                {hotel.hotel_names} - {hotel.location}
-                                <Check
-                                  className={cn('ml-auto', hotel.id === field.value ? 'opacity-100' : 'opacity-0')}
-                                />
-                              </CommandItem>
-                            ))}
-                          </InfiniteScroll>
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
+              <FormItem>
+                <FormLabel>Chọn loại tour</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Chọn loại tour" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="open">Mở</SelectItem>
+                        <SelectItem value="closed">Đóng</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="flightId"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Chọn flight</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
-                        disabled={Boolean(selectedRoadVehicleId)}
-                      >
-                        {field.value
-                          ? (() => {
-                              const selectedFlight = flights.find((flight) => flight.id === field.value)
-                              return selectedFlight ? (
-                                <>
-                                  <div className="flex gap-4 text-left">
-                                    <div className="font-bold">{selectedFlight.brand}</div>
-                                    <div className="text-sm text-muted-foreground">
-                                      {selectedFlight.take_place} → {selectedFlight.destination}
+            name="hotelId"
+            render={({ field }) => {
+              const type = watch('type')
+              const isDisabled = type === 'open'
+
+              return (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Chọn hotel</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            'w-full justify-between',
+                            !field.value && 'text-muted-foreground',
+                            isDisabled && 'cursor-not-allowed opacity-50'
+                          )}
+                          disabled={isDisabled}
+                        >
+                          {field.value
+                            ? (() => {
+                                const selectedHotel = hotels.find((hotel) => hotel.id === field.value)
+                                return selectedHotel ? (
+                                  <>
+                                    <div className="flex gap-4 text-left">
+                                      <div className="font-bold">{selectedHotel.hotel_names}</div>
+                                      <div className="text-sm text-muted-foreground">{selectedHotel.location}</div>
                                     </div>
-                                  </div>
-                                </>
-                              ) : (
-                                'Select flight'
-                              )
-                            })()
-                          : 'Select flight'}
-                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-full p-0">
-                    <Command onValueChange={(value) => handleFlightSelect(value)}>
-                      <CommandInput placeholder="Search flight..." />
-                      <CommandList>
-                        <CommandEmpty>No flight found.</CommandEmpty>
-                        <CommandGroup>
-                          <InfiniteScroll
-                            dataLength={flights.length}
-                            next={loadMoreFlight}
-                            hasMore={getAllFlight?.data?.length === 70}
-                            loader={<h4>Loading more flights...</h4>}
-                            height={200}
-                            endMessage={<p>You have seen all flights</p>}
-                          >
-                            {flights.map((flight, index) => (
-                              <CommandItem
-                                value={`${flight.id}-${flight.brand}-${index}`}
-                                key={flight.id}
-                                onSelect={() => {
-                                  form.setValue('flightId', flight.id)
-                                }}
+                                  </>
+                                ) : (
+                                  'Select hotel'
+                                )
+                              })()
+                            : 'Select hotel'}
+                          <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    {!isDisabled && (
+                      <PopoverContent className="w-full p-0">
+                        <Command>
+                          <CommandInput placeholder="Search hotel..." />
+                          <CommandList>
+                            <CommandEmpty>No hotel found.</CommandEmpty>
+                            <CommandGroup>
+                              <InfiniteScroll
+                                dataLength={hotels.length}
+                                next={loadMore}
+                                hasMore={!isFetching && getAllHotelAdmin?.data?.length === 70}
+                                loader={<h4>Loading more hotels...</h4>}
+                                height={200}
                               >
-                                {flight.brand} - {flight.take_place} - {flight.destination}
-                                <Check
-                                  className={cn('ml-auto', flight.id === field.value ? 'opacity-100' : 'opacity-0')}
-                                />
-                              </CommandItem>
-                            ))}
-                          </InfiniteScroll>
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </FormItem>
-            )}
+                                {hotels.map((hotel) => (
+                                  <CommandItem
+                                    value={`${hotel.id}-${hotel.hotel_names}`}
+                                    key={hotel.id}
+                                    onSelect={() => {
+                                      form.setValue('hotelId', hotel.id)
+                                    }}
+                                  >
+                                    {hotel.hotel_names} - {hotel.location}
+                                    <Check
+                                      className={cn('ml-auto', hotel.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </InfiniteScroll>
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    )}
+                  </Popover>
+                </FormItem>
+              )
+            }}
+          />
+
+          <FormField
+            control={form.control}
+            name="flightId"
+            render={({ field }) => {
+              const type = watch('type')
+              const isDisabled = type === 'open' || Boolean(selectedRoadVehicleId)
+              return (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Chọn flight</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            'w-full justify-between',
+                            !field.value && 'text-muted-foreground',
+                            isDisabled && 'cursor-not-allowed opacity-50'
+                          )}
+                          disabled={isDisabled}
+                        >
+                          {field.value
+                            ? (() => {
+                                const selectedFlight = flights.find((flight) => flight.id === field.value)
+                                return selectedFlight ? (
+                                  <>
+                                    <div className="flex gap-4 text-left">
+                                      <div className="font-bold">{selectedFlight.brand}</div>
+                                      <div className="text-sm text-muted-foreground">
+                                        {selectedFlight.take_place} → {selectedFlight.destination}
+                                      </div>
+                                    </div>
+                                  </>
+                                ) : (
+                                  'Select flight'
+                                )
+                              })()
+                            : 'Select flight'}
+                          <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    {!isDisabled && (
+                      <PopoverContent className="w-full p-0">
+                        <Command onValueChange={(value) => handleFlightSelect(value)}>
+                          <CommandInput placeholder="Search flight..." />
+                          <CommandList>
+                            <CommandEmpty>No flight found.</CommandEmpty>
+                            <CommandGroup>
+                              <InfiniteScroll
+                                dataLength={flights.length}
+                                next={loadMoreFlight}
+                                hasMore={getAllFlight?.data?.length === 70}
+                                loader={<h4>Loading more flights...</h4>}
+                                height={200}
+                                endMessage={<p>You have seen all flights</p>}
+                              >
+                                {flights.map((flight, index) => (
+                                  <CommandItem
+                                    value={`${flight.id}-${flight.brand}-${index}`}
+                                    key={flight.id}
+                                    onSelect={() => {
+                                      form.setValue('flightId', flight.id)
+                                    }}
+                                  >
+                                    {flight.brand} - {flight.take_place} - {flight.destination}
+                                    <Check
+                                      className={cn('ml-auto', flight.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </InfiniteScroll>
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    )}
+                  </Popover>
+                </FormItem>
+              )
+            }}
           />
 
           <FormField
             control={form.control}
             name="roadVehicleId"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Chọn coach</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn('w-full justify-between', !field.value && 'text-muted-foreground')}
-                        disabled={Boolean(selectedFlightId)}
-                      >
-                        {field.value
-                          ? (() => {
-                              const selectedCoach = roadVehicles.find((coach) => coach.id === field.value)
-                              return selectedCoach ? (
-                                <>
-                                  <div className="flex gap-4 text-left">
-                                    <div className="font-bold">{selectedCoach.brand}</div>
-                                    <div className="text-sm text-muted-foreground">
-                                      {selectedCoach.take_place} → {selectedCoach.destination}
+            render={({ field }) => {
+              const type = watch('type')
+              const isDisabled = type === 'open' || Boolean(selectedFlightId)
+              return (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Chọn coach</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            'w-full justify-between',
+                            !field.value && 'text-muted-foreground',
+                            isDisabled && 'cursor-not-allowed opacity-50'
+                          )}
+                          disabled={isDisabled}
+                        >
+                          {field.value
+                            ? (() => {
+                                const selectedCoach = roadVehicles.find((coach) => coach.id === field.value)
+                                return selectedCoach ? (
+                                  <>
+                                    <div className="flex gap-4 text-left">
+                                      <div className="font-bold">{selectedCoach.brand}</div>
+                                      <div className="text-sm text-muted-foreground">
+                                        {selectedCoach.take_place} → {selectedCoach.destination}
+                                      </div>
                                     </div>
-                                  </div>
-                                </>
-                              ) : (
-                                'Select coach'
-                              )
-                            })()
-                          : 'Select coach'}
-                        <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-full p-0">
-                    <Command onValueChange={(value) => handleRoadVehicleSelect(value)}>
-                      <CommandInput placeholder="Search coach..." />
-                      <CommandList>
-                        <CommandEmpty>No coach found.</CommandEmpty>
-                        <CommandGroup>
-                          <InfiniteScroll
-                            dataLength={roadVehicles.length}
-                            next={loadMoreRoadVehicle}
-                            hasMore={!isFetching && getRoadVehicle?.data?.length === 100}
-                            loader={<h4>Loading more coaches...</h4>}
-                            height={200}
-                            endMessage={<p>You have seen all coaches</p>}
-                          >
-                            {roadVehicles.map((coach) => (
-                              <CommandItem
-                                value={`${coach.id}-${coach.brand}`}
-                                key={coach.id}
-                                onSelect={() => {
-                                  form.setValue('roadVehicleId', coach.id)
-                                }}
+                                  </>
+                                ) : (
+                                  'Select coach'
+                                )
+                              })()
+                            : 'Select coach'}
+                          <ChevronsUpDown className="w-4 h-4 ml-2 opacity-50 shrink-0" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    {!isDisabled && (
+                      <PopoverContent className="w-full p-0">
+                        <Command onValueChange={(value) => handleRoadVehicleSelect(value)}>
+                          <CommandInput placeholder="Search coach..." />
+                          <CommandList>
+                            <CommandEmpty>No coach found.</CommandEmpty>
+                            <CommandGroup>
+                              <InfiniteScroll
+                                dataLength={roadVehicles.length}
+                                next={loadMoreRoadVehicle}
+                                hasMore={!isFetching && getRoadVehicle?.data?.length === 100}
+                                loader={<h4>Loading more coaches...</h4>}
+                                height={200}
+                                endMessage={<p>You have seen all coaches</p>}
                               >
-                                {coach.brand} - {coach.take_place} - {coach.destination}
-                                <Check
-                                  className={cn('ml-auto', coach.id === field.value ? 'opacity-100' : 'opacity-0')}
-                                />
-                              </CommandItem>
-                            ))}
-                          </InfiniteScroll>
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </FormItem>
-            )}
+                                {roadVehicles.map((coach) => (
+                                  <CommandItem
+                                    value={`${coach.id}-${coach.brand}`}
+                                    key={coach.id}
+                                    onSelect={() => {
+                                      form.setValue('roadVehicleId', coach.id)
+                                    }}
+                                  >
+                                    {coach.brand} - {coach.take_place} - {coach.destination}
+                                    <Check
+                                      className={cn('ml-auto', coach.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </InfiniteScroll>
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    )}
+                  </Popover>
+                </FormItem>
+              )
+            }}
           />
 
           <div className="flex items-center gap-2">

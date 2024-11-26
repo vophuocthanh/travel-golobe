@@ -10,9 +10,9 @@ interface CoachInfo {
 
 export default function CoachInfo({ data }: CoachInfo) {
   return (
-    <div className='gap-6'>
+    <div className='lg:gap-6 '>
       <div className='mb-[2rem]'>
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between w-full'>
           <div>
             <h2 className='mb-3 text-2xl font-semibold'>{data?.brand}</h2>
             <p className='font-medium text-gray-500 text-md'>{formatDateStandard(data?.start_day)}</p>
@@ -22,8 +22,8 @@ export default function CoachInfo({ data }: CoachInfo) {
           </div>
         </div>
 
-        <div className='flex items-center justify-between my-4'>
-          <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
+        <div className='items-center justify-between my-4 lg:flex'>
+          <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg w-[20rem]'>
             {/* <img src={data.image ?? ''} alt='' className='w-20 rounded-md' /> */}
             <img src={imgcoach} alt='' className='object-fill w-20 h-20 rounded-md' />
             <div>
@@ -47,13 +47,13 @@ export default function CoachInfo({ data }: CoachInfo) {
           </div>
         </div>
 
-        <div className='flex items-center justify-center space-x-20'>
-          <div className='flex flex-col items-center space-x-4'>
+        <div className='items-center justify-center lg:space-x-20 lg:flex'>
+          <div className='flex flex-col items-center lg:space-x-4'>
             <p className='text-2xl font-semibold'>{data?.start_time}</p>
             <p className='text-base font-medium'>{data?.take_place}</p>
           </div>
 
-          <div className='flex items-center space-x-4 '>
+          <div className='flex items-center justify-center space-x-4'>
             <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
             <div className='flex justify-center w-10'>
               <Bus />
@@ -61,7 +61,7 @@ export default function CoachInfo({ data }: CoachInfo) {
             <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
           </div>
 
-          <div className='flex flex-col items-center space-x-4'>
+          <div className='flex flex-col items-center justify-center space-x-4'>
             <p className='text-2xl font-semibold'>{data?.end_time}</p>
             <p className='text-base font-medium'>{data?.destination}</p>
           </div>

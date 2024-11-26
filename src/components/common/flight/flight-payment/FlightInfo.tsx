@@ -25,20 +25,20 @@ export default function FlightInfo({ data }: FlightInfo) {
       <div className='mb-[2rem]'>
         <div className='flex items-center justify-between'>
           <div>
-            <h2 className='mb-3 text-2xl font-semibold'>{getBookingFlightDetails?.flightCrawls.brand}</h2>
-            <p className='font-medium text-gray-500 text-md'>{getBookingFlightDetails?.flightCrawls.type_ticket}</p>
+            <h2 className='mb-3 font-semibold xl:text-2xl'>{getBookingFlightDetails?.flightCrawls.brand}</h2>
+            <p className='font-medium text-gray-500 xl:text-md max-sm:text-xs'>{getBookingFlightDetails?.flightCrawls.type_ticket}</p>
           </div>
           <div>
-            <h2 className='mb-3 text-3xl font-bold text-red-500'>
+            <h2 className='mb-3 font-bold text-red-500 xl:text-3xl'>
               {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
                 getBookingFlightDetails?.flightCrawls.price || 0
               )}
             </h2>
-            <p className='flex font-medium text-md'>{getBookingFlightDetails?.flightCrawls.destination}</p>
+            <p className='flex font-medium text-md max-sm:text-sm'>{getBookingFlightDetails?.flightCrawls.destination}</p>
           </div>
         </div>
 
-        <div className='flex items-center justify-between my-4'>
+        <div className='flex items-center justify-between my-4 max-sm:flex-col'>
           <div className='flex items-center px-8 py-4 space-x-6 border rounded-lg'>
             <img src={getBookingFlightDetails?.flightCrawls.image} alt='' className='w-full rounded-md' />
             <div>
@@ -46,8 +46,8 @@ export default function FlightInfo({ data }: FlightInfo) {
             </div>
           </div>
 
-          <div className='flex items-center p-6'>
-            <div className='flex items-center space-x-6'>
+          <div className='flex items-center p-6 '>
+            <div className='flex items-center xl:space-x-6 max-sm:space-x-3'>
               <Plane className='w-6 h-6' />
               <span className='h-6 border-l border-gray-400'></span>
               <Wifi className='w-6 h-6' />
@@ -68,17 +68,17 @@ export default function FlightInfo({ data }: FlightInfo) {
           </div>
 
           <div className='flex items-center space-x-4'>
-            <p className='pr-10'>{formattedStartDate}</p>
-            <MoveLeft className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
+            <p className='pr-10 max-sm:text-xs'>{formattedStartDate}</p>
+            <MoveLeft className='w-11 h-11 max-sm:hidden' style={{ strokeWidth: 0.5 }} />
             <div className='flex justify-center w-10'>
               <IconFlight />
             </div>
-            <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
-            <p className='pl-10'>{formattedEndDate}</p>
+            <MoveRight className='w-11 h-11 max-sm:hidden' style={{ strokeWidth: 0.5 }} />
+            <p className='pl-10 max-sm:text-xs'>{formattedEndDate}</p>
           </div>
 
           <div className='flex items-center space-x-4'>
-            <p className='text-2xl font-semibold'>{data.end_time}</p>
+            <p className='font-semibold xl:text-2xl'>{data.end_time}</p>
             <p className='text-base font-medium'>{data.brand}</p>
           </div>
         </div>

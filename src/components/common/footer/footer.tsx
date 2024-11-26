@@ -73,7 +73,7 @@ export default function Footer() {
   return (
     <>
       <SectionInViewUp>
-        <div className='w-full h-96 bg-primary'>
+        <div className='w-full h-full bg-primary'>
           <div className='mx-auto max-w-7xl'>
             {/* Absolute */}
             <div className='relative'>
@@ -81,14 +81,14 @@ export default function Footer() {
                 <div className='w-[1000px] flex justify-center h-64 rounded-xl bg-[#CDEAE1]'>
                   <div className='flex justify-between w-full p-0'>
                     <div className='p-6 space-y-4'>
-                      <h1 className='text-3xl font-bold'>
+                      <h1 className='text-lg font-bold lg:text-3xl'>
                         {t('Subscribe')} <br /> {t('Newsletter')}
                       </h1>
-                      <div className='flex flex-col'>
+                      <div className='flex flex-col text-sm lg:text-md'>
                         <span>{t('TheTravel')}</span>
                         <p>{t('Receivetravel')}</p>
                       </div>
-                      <div className='flex gap-4'>
+                      <div className='flex w-[15rem] gap-4 lg:w-[30rem]'>
                         <Input placeholder='Your email address' />
                         <Button className='text-white bg-black hover:bg-white hover:text-black hover:transition-all hover:shadow-md'>
                         {t('Subscribe')}
@@ -96,7 +96,7 @@ export default function Footer() {
                       </div>
                     </div>
                     <div className=''>
-                      <img src={mailbox} alt='mail' className='w-full h-64 pr-10' />
+                      <img src={mailbox} alt='mail' className='w-full h-64 lg:pr-10' />
                     </div>
                   </div>
                 </div>
@@ -105,17 +105,17 @@ export default function Footer() {
 
             {/* Absolute */}
 
-            <div className='flex pt-44'>
-              <div className='grid w-full grid-cols-6 gap-4 pl-16'>
+            <div className='flex pt-40 lg:pt-44'>
+              <div className='grid w-full grid-cols-6 gap-2 pl-2 lg:px-4 lg:gap-4 lg:pl-16 '>
                 <div className='flex flex-col w-full gap-4'>
-                  <img src={logo_footer} alt='logo' className='h-10 ml-4 w-28' />
-                  <div className='flex gap-4'>
+                  <img src={logo_footer} alt='logo' className='lg:ml-4 h-13 w-15 lg:h-10 lg:w-28' />
+                  <div className='gap-4 lg:flex '>
                     {dataIcon.map((icon) => (
                       <Link
                         key={icon.id}
                         to={icon.link}
                         target='_blank'
-                        className='hover:scale-105 hover:transition-all'
+                        className='items-center hover:scale-105 hover:transition-all'
                       >
                         {icon.icon}
                       </Link>
@@ -123,7 +123,7 @@ export default function Footer() {
                   </div>
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>{t('Destinations')}</h1>
+                  <h1 className='text-sm font-medium lg:text-xl'>{t('Destinations')}</h1>
                   {dataDestinations.map((destination) => (
                     <div key={destination.id} className='flex flex-col gap-2 text-[#112211]'>
                       <p className='cursor-pointer hover:underline'>{destination.name}</p>
@@ -131,7 +131,7 @@ export default function Footer() {
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>{t('Activities')}</h1>
+                  <h1 className='text-sm font-medium lg:text-xl'>{t('Activities')}</h1>
                   {dataActivities.map((activity) => (
                     <div key={activity.id} className='flex flex-col gap-2 text-[#112211]'>
                       <p className='cursor-pointer hover:underline'>{activity.name}</p>
@@ -139,7 +139,7 @@ export default function Footer() {
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>{t('TravelBlogs')}</h1>
+                  <h1 className='text-sm font-medium lg:text-xl'>{t('TravelBlogs')}</h1>
                   {dataTravel.map((travel) => (
                     <div key={travel.id} className='flex flex-col gap-2 text-[#112211]'>
                       <p className='cursor-pointer hover:underline'>{travel.name}</p>
@@ -147,14 +147,14 @@ export default function Footer() {
                   ))}
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>{t('AboutUs')}</h1>
+                  <h1 className='text-sm font-medium lg:text-xl'>{t('AboutUs')}</h1>
                   <div className='flex flex-col gap-2 text-[#112211]'>
                     <p>{t('OurStory')}</p>
                     <p>{t('Workwith')}</p>
                   </div>
                 </div>
                 <div>
-                  <h1 className='text-xl font-medium'>{t('ContactUs')}</h1>
+                  <h1 className='text-sm font-medium lg:text-xl'>{t('ContactUs')}</h1>
                   <div className='flex flex-col gap-2 text-[#112211]'>
                     <p>{t('OurStory')}</p>
                     <p>{t('Workwith')}</p>
@@ -165,8 +165,8 @@ export default function Footer() {
           </div>
         </div>
       </SectionInViewUp>
-      <div className='bg-[#a1f4d9] w-full h-20'>
-        <p className='text-center pt-7'>{t('Copyright')} © 2024 Travel Globe.</p>
+      <div className='bg-[#a1f4d9] w-full lg:h-20 h-15'>
+        <p className='py-2 text-center lg:pt-7'>{t('Copyright')} © 2024 Travel Globe.</p>
       </div>
     </>
   )

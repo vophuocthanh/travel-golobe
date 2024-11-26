@@ -117,9 +117,9 @@ const CoachCard: React.FC<CoachCardProps> = ({
 
       {(getAll?.data?.length ?? 0) > 0 ? (
         getAll?.data.map((coach: CoachResponseType) => (
-          <div key={coach.id} className='flex w-full h-[23rem] rounded-xl overflow-hidden'>
-            <div className='w-[40%] bg-white relative'>
-              <img src={coach.image} alt='coach' className='object-fill w-full h-full rounded-l-xl' />
+          <div key={coach.id} className='flex w-full lg:h-[22rem] h-[24rem] rounded-xl overflow-hidden'>
+            <div className='w-[35%] bg-white relative'>
+              <img src={coach.image} alt='coach' className='object-fill w-full lg:h-full h-[12rem] rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
                 9 images
               </p>
@@ -131,51 +131,49 @@ const CoachCard: React.FC<CoachCardProps> = ({
                     <div className='w-[70%] flex flex-col gap-4 '>
                       <div className='flex items-center gap-2 mt-2'>
                         <Button className='text-black bg-white border border-primary'>4.2</Button>
-                        <p className='font-bold'>Very good</p>
-                        <p>54 reviews</p>
+                        <p className='text-sm font-bold lg:text-md'>Very good</p>
+                        <p className='text-sm lg:text-md'>54 reviews</p>
                       </div>
 
                       <div className='mb-4'>
                         <div className='flex items-center mb-2'>
                           <div className='flex-grow'>
                             <div className='flex-col items-center gap-4 text-black'>
-                              <div className='flex gap-2 text-lg'>
-                                <p>Time Start: </p>
-                                {coach.start_time} - <p>Time End:</p>
-                                {coach.end_time}
-                              </div>
-                              <div className='flex gap-2 text-lg'>
-                                <p>Day Start: </p>
-                                {formatDateStandard(coach.start_day)} - <p>Day End:</p>
-                                {formatDateStandard(coach.end_day)}
+                              {/* <div className='gap-2 lg:flex text-md lg:lg:text-lg'>
+                                <p>Time Start: {coach.start_time}</p>
+                                <p>Time End: {coach.end_time}</p>
+                              </div> */}
+                              <div className='gap-2 lg:flex lg:lg:text-lg text-md'>
+                                <p>Day Start: {formatDateStandard(coach.start_day)}</p>
+                                <p>Day End: {formatDateStandard(coach.end_day)}</p>
                               </div>
                               <div></div>
                             </div>
                           </div>
                         </div>
-                        <div className='text-lg'>Trip Time: {coach.trip_time}</div>
-                        <div className='w-[30rem] py-2 '>
+                        <div className='text-md lg:text-lg w-[30rem]'>Trip Time: {coach.trip_time}</div>
+                        <div className='w-[30rem] mt-2 '>
                           <div className='flex flex-col w-full text-left text-gray-800'>
                             <div className='flex gap-2'>
                               <p className='mb-2 font-bold text-black'>From:</p>
-                              <p className='w-[70%] truncate '>{coach.take_place}</p>
+                              <p className='lg:w-[70%] w-[11rem] truncate '>{coach.take_place}</p>
                             </div>
                             <div className='flex gap-7'>
                               <p className='mb-2 font-bold text-black'>To:</p>
-                              <p className='w-[70%] truncate '>{coach.destination}</p>
+                              <p className='lg:w-[70%] w-[11rem] truncate '>{coach.destination}</p>
                             </div>
                           </div>
                         </div>
-                        <div className='flex items-center mt-2 ml-6 text-xl'>
-                          <p className='mr-2 font-bold text-black '>Brand: </p> {coach.brand}
+                        <div className='items-center lg:ml-6 lg:text-lg'>
+                          <div className='flex'><p className='mr-2 font-bold text-black '>Brand: </p> {coach.brand}</div>
+                          <p className='font-medium text-black-500 w-[11rem] truncate lg:w-[80%]'>Trip To: {coach.destination}
+                      </p>
                         </div>
+
                       </div>
                     </div>
                     <div className='relative w-[30%] pt-4 text-right mr-5'>
-                      <p className='text-xl text-[#FF8682] font-bold'> {formatCurrencyVND(coach.price)}</p>
-                      <p className='absolute bottom-0 font-medium text-right text-black-500 line-clamp-2'>
-                        Trip To: {coach.destination}
-                      </p>
+                      <p className='lg:text-xl text-md text-[#FF8682] font-bold'> {formatCurrencyVND(coach.price)}</p>
                     </div>
                   </div>
                 </div>

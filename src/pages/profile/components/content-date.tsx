@@ -77,7 +77,7 @@ export default function ContentDate({ title, content }: Props) {
                   <p>Change Date of Birth</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-full'>
+              <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
                   <DialogTitle>Edit Date of Birth</DialogTitle>
                   <DialogDescription>

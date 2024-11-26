@@ -118,9 +118,10 @@ export default function CoachDetail() {
             <ChevronRight className="w-4 h-4" />
             <p>{getbyId?.brand}</p>
           </div>
-          <div className="flex justify-between p-4">
+          <div className="p-4 lg:flex-col">
+            <div className='flex justify-between w-full'>
             <div>
-              <p className="text-2xl font-bold">{getbyId?.brand}</p>
+              <p className="text-lg font-bold lg:text-2xl">{getbyId?.brand}</p>
               <div className="flex items-center mt-1 space-x-2 text-sm">
                 <MapPin className="w-4 h-4" />
                 <p>{getbyId?.destination}</p>
@@ -135,10 +136,12 @@ export default function CoachDetail() {
                 </p>
               </div>
             </div>
-            <div className="space-y-2">
-              <p className="text-[32px] text-right font-bold text-[#FF8682]">{formattedPrice}</p>
-              <div className="flex space-x-2">
-                <p className="flex items-center px-2 py-1 text-lg text-black border rounded border-primary ">
+            <p className="text-lg lg:text-[32px] text-right font-bold text-[#FF8682]">{formattedPrice}</p>
+            </div>
+            <div className="flex w-full space-y-2">
+              <div className="lg:space-x-2 lg:ml-auto lg:flex ">
+                <div className='flex w-full mt-2 mb-2'>
+                <p className="flex items-center px-2 py-1 mr-2 text-black border rounded text-md lg:text-lg border-primary w-[10rem]">
                   {t('Availab')} {getbyId?.number_of_seats_remaining} {t('Seat')}
                 </p>
                 <div className="flex items-center space-x-4 bg-white border rounded border-primary ">
@@ -161,6 +164,8 @@ export default function CoachDetail() {
                     +
                   </Button>
                 </div>
+                </div>
+                <div className='flex items-center justify-center w-full gap-2 ml-auto'>
                 <p
                   className="flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary"
                   onClick={handleClick}
@@ -176,6 +181,7 @@ export default function CoachDetail() {
                 >
                   {t('BookCoach')}
                 </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -236,23 +242,23 @@ export default function CoachDetail() {
 
           <div className="p-6 mb-10 bg-white border shadow-md rounded-xl">
             <div className="flex justify-between">
-              <p className="text-xl font-bold">
+              <p className="font-bold text-md lg:text-xl">
                 {getbyId?.start_time}{' '}
                 {getbyId?.start_day ? new Date(getbyId.start_day).toLocaleDateString('vi-VN') : 'N/A'}
               </p>
-              <p className="text-lg font-medium">{getbyId?.brand}</p>
+              <p className="font-medium text-md lg:text-lg">{getbyId?.brand}</p>
             </div>
 
-            <div className="gap-4">
-              <div className="flex justify-between mt-5">
-                <div className="flex items-center px-8 py-4 space-x-6 border rounded-lg">
+            <div className="gap-4 ">
+              <div className="justify-between mt-5 lg:flex">
+                <div className="flex items-center px-8 py-4 space-x-6 border rounded-lg w-[20rem]">
                   <img src={getbyId?.image} alt="" className="w-16" />
                   <div>
-                    <p className="text-2xl font-bold">{getbyId?.brand}</p>
+                    <p className="font-bold text-md lg:text-2xl">{getbyId?.brand}</p>
                     <p className="text-sm font-medium">{getbyId?.number_of_seat}</p>
                   </div>
                 </div>
-                <div className="flex items-center p-6">
+                <div className="flex items-center mt-2 lg:p-6">
                   <div className="flex items-center space-x-6">
                     <BusFront className="w-6 h-6" />
                     <span className="h-6 border-l border-gray-400"></span>
@@ -266,8 +272,8 @@ export default function CoachDetail() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-center mt-5 space-x-20">
-                <div className="flex flex-col">
+              <div className="items-center justify-center mt-5 lg:space-x-20 lg:flex">
+                <div className="flex flex-col items-center lg:block">
                   <div className="flex items-center space-x-4">
                     <p className="text-2xl font-semibold">{getbyId?.start_time}</p>
                     <p className="text-base font-medium">Newark(EWR)</p>
@@ -275,13 +281,13 @@ export default function CoachDetail() {
                   <p>{getbyId?.take_place}</p>
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center justify-center space-x-4">
                   <MoveLeft className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
                   <Bus className="w-6 h-6" />
                   <MoveRight className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center lg:block">
                   <div className="flex items-center space-x-4">
                     <p className="text-2xl font-semibold">{getbyId?.end_time}</p>
                     <p className="text-base font-medium">Newark(EWR)</p>

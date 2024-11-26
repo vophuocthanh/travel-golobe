@@ -5,11 +5,12 @@ export const CreateTourSchema = z.object({
   description: z.string().nonempty('Description is required'),
   image: z.string().nonempty('Image is required'),
   price: z.preprocess((val) => Number(val), z.number().positive()),
-  hotelId: z.string().nonempty('Hotel ID is required'),
+  hotelId: z.string().optional(),
   flightId: z.string().optional(),
   roadVehicleId: z.string().optional(),
   start_date: z.string(),
-  end_date: z.string()
+  end_date: z.string(),
+  type: z.enum(['open', 'closed'], { message: 'Type must be either "open" or "closed"' })
 })
 export const UpdateTourSchema = z.object({
   name: z.string().nonempty('Name is required'),
