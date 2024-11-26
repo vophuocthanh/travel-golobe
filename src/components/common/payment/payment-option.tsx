@@ -9,8 +9,8 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
   const { t } = useTranslation()
   return (
     <RadioGroup value={paymentOption} onValueChange={(value) => handleClickValueOption(value)}>
-      <h1 className='mb-4 text-xl font-semibold'>{t('Selectpayment')}</h1>
-      <div className='space-y-4 w-[23rem]'>
+      <h1 className="mb-4 font-semibold xl:text-xl">{t('Selectpayment')}</h1>
+      <div className="w-full space-y-4 max-sm:w-[35%]">
         <div
           className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
             paymentOption === 'full' ? 'bg-primary border-primary' : 'border-gray-500'
@@ -18,12 +18,10 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
           onClick={() => handleClickValueOption('full')}
         >
           <div>
-            <h4 className='font-semibold'>{t('CashPayment')}</h4>
-            <p className='text-sm text-gray-500'>
-            {t('Withpayment')}
-            </p>
+            <h4 className="font-semibold">{t('CashPayment')}</h4>
+            <p className="text-sm text-gray-500">{t('Withpayment')}</p>
           </div>
-          <RadioGroupItem className='flex items-center justify-center' value='full' id='option-one' />
+          <RadioGroupItem className="flex items-center justify-center" value="full" id="option-one" />
         </div>
 
         <div
@@ -32,13 +30,11 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
           }`}
           onClick={() => handleClickValueOption('part')}
         >
-          <div className='xl:w-[32rem]'>
-            <h4 className='font-semibold'>{t('paymentMOMO')}</h4>
-            <p className='text-sm text-gray-500'>
-            {t('WithMOMO')}
-            </p>
+          <div className="w-[32rem]">
+            <h4 className="w-full font-semibold">{t('paymentMOMO')}</h4>
+            <p className="text-sm text-gray-500">{t('WithMOMO')}</p>
           </div>
-          <RadioGroupItem className='flex items-center justify-center' value='part' id='option-two' />
+          <RadioGroupItem className="flex items-center justify-center" value="part" id="option-two" />
         </div>
       </div>
     </RadioGroup>
