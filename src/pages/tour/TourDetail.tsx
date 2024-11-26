@@ -96,7 +96,7 @@ export default function TourDetail() {
       <div className="flex items-center justify-center pt-5 max-sm:px-10 ">
         <div className="flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl">
           <div className="flex flex-wrap justify-between gap-4 py-4">
-            <div className="relative max-sm:w-full max-sm:mb-32  col-span-2 h-[4rem]">
+            <div className="relative max-sm:w-full  col-span-2 h-[4rem]">
               <Label
                 htmlFor=""
                 className="absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4"
@@ -116,7 +116,7 @@ export default function TourDetail() {
               ) : (
                 getAllTour &&
                 debouncedSearchTour && (
-                  <div className="absolute top-[4rem] mb-32 left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-32 overflow-y-auto">
+                  <div className="absolute max-sm:z-10 top-[4rem] mb-32 left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-32 overflow-y-auto">
                     {getAllTour?.data
                       ?.filter((tour) => tour.name?.toLowerCase().includes(debouncedSearchTour.toLowerCase()))
                       .map((tour) => (
@@ -141,7 +141,7 @@ export default function TourDetail() {
                 </button>
               )}
             </div>
-            <div className="relative lg:w-[14rem] max-sm:w-full col-span-2 sm:ml-5 h-[4rem]">
+            <div className="relative max-sm:z-1 lg:w-[14rem] max-sm:w-full col-span-2 sm:ml-5 h-[4rem]">
               <TourDate date={returnDate} setDate={setReturnDate} />
               {returnDate && (
                 <button

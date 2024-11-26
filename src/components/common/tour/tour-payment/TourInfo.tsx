@@ -16,8 +16,8 @@ export default function TourInfo({ data }: ITourPaymentDetail) {
     <div className='gap-6'>
       <div className='mb-6'>
         <div className='flex items-center justify-between mb-4'>
-          <h2 className='text-3xl font-semibold'>{data?.name}</h2>
-          <h2 className='text-2xl font-bold text-red-500'>{formatCurrencyVND(data?.price)}</h2>
+          <h2 className='text-3xl font-semibold max-lg:text-xl'>{data?.name}</h2>
+          <h2 className='text-2xl font-bold text-red-500 max-lg:text-xl'>{formatCurrencyVND(data?.price)}</h2>
         </div>
 
         <div className='p-4 border rounded-lg bg-gray-50'>
@@ -36,7 +36,7 @@ export default function TourInfo({ data }: ITourPaymentDetail) {
 
         <div className='flex items-center justify-between mt-4'>
           <div className='text-center'>
-            <p className='font-medium text-md'>{formattedStartDate}</p>
+            <p className='font-medium max-sm:text-sm text-md'>{formattedStartDate}</p>
             <p className='text-sm text-gray-500'>Ngày đi</p>
           </div>
           <div className='flex items-center space-x-6'>
@@ -47,7 +47,7 @@ export default function TourInfo({ data }: ITourPaymentDetail) {
             <MoveRight className='w-11 h-11' style={{ strokeWidth: 0.5 }} />
           </div>
           <div className='text-center'>
-            <p className='font-medium text-md'>{formattedEndDate}</p>
+            <p className='font-medium max-sm:text-sm text-md'>{formattedEndDate}</p>
             <p className='text-sm text-gray-500'>Ngày về</p>
           </div>
         </div>
