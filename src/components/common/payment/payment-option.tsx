@@ -9,15 +9,15 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
   const { t } = useTranslation()
   return (
     <RadioGroup value={paymentOption} onValueChange={(value) => handleClickValueOption(value)}>
-      <h1 className="mb-4 font-semibold xl:text-xl">{t('Selectpayment')}</h1>
-      <div className="w-full space-y-4 max-sm:w-[35%]">
+      <h1 className="mb-4 font-semibold xl:text-xl ">{t('Selectpayment')}</h1>
+      <div className="w-full space-y-4 max-sm:w-[50%]">
         <div
           className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
-            paymentOption === 'full' ? 'bg-primary border-primary' : 'border-gray-500'
+            paymentOption === 'full' ? 'bg-primary border-primary' : 'border-gray-500 '
           }`}
           onClick={() => handleClickValueOption('full')}
         >
-          <div>
+          <div className=''>
             <h4 className="font-semibold">{t('CashPayment')}</h4>
             <p className="text-sm text-gray-500">{t('Withpayment')}</p>
           </div>
