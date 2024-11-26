@@ -30,7 +30,7 @@ export default function FlightOptions() {
 
         <div
           className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
-            paymentOption === "part" ? "bg-primary border-primary" : "border-gray-500"
+            paymentOption === "part" ? "bg-primary border-primary" : "border-gray-500 "
           }`}
           onClick={() => setPaymentOption("part")}
         >

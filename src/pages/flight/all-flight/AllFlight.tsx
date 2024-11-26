@@ -11,7 +11,7 @@ export default function AllFlight() {
             <ContentAllFlight />
           </div>
         </section>
-        <div className='mt-[15rem]'>
+        <div className='mt-[15rem] max-sm:mt-[45rem]'>
           <Footer />
         </div>
       </main>

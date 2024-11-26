@@ -24,10 +24,10 @@ export default function FlightBook({ onClick, data, loading }: FlightBookProps) 
         <div className='flex items-center mb-4'>
           <img src={getBookingFlightDetails?.flightCrawls.image} className='object-cover w-32 h-32 rounded-md' />
           <div className='ml-4'>
-            <p className='text-gray-500'>{getBookingFlightDetails?.brand}</p>
+            <p className='text-gray-500 '>{getBookingFlightDetails?.brand}</p>
             <h2 className='text-xl font-semibold'>{data.brand}</h2>
             <div className='flex flex-col mt-3'>
-              <span className='ml-1 text-lg text-gray-500'>{getBookingFlightDetails?.flightCrawls.destination}</span>
+              <span className='ml-1 text-lg text-gray-500 max-sm:text-sm'>{getBookingFlightDetails?.flightCrawls.destination}</span>
               <p className='flex items-center justify-center w-20 h-[2.5rem] text-xs font-medium border rounded px-6 border-primary'>
                 {getBookingFlightDetails?.flightCrawls.baggage_weight}
               </p>
@@ -36,7 +36,7 @@ export default function FlightBook({ onClick, data, loading }: FlightBookProps) 
         </div>
       </div>
       <div className='my-4 border-t'></div>
-      <p className='text-lg text-gray-600'>
+      <p className='text-gray-600 xl:text-lg max-sm:text-sm max-sm:text-center'>
         {t('booking')} <span className='font-bold text-black'>golobe</span>
       </p>
       <div className='my-4 border-t'></div>
