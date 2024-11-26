@@ -19,7 +19,7 @@ export default function Home() {
       <Header />
       <main className='pt-20'>
         <Banner />
-        <div className='items-center justify-center mx-auto max-w-7xl'>
+        <div className='items-center justify-center w-full p-2 mx-auto lg:max-w-7xl'>
           <Perfect />
           <Review />
           {showCrispProvider && <CrispProvider />}

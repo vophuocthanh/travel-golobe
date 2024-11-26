@@ -47,10 +47,10 @@ export default function Perfect() {
   ]
   return (
     <SectionInViewRight>
-      <div className='mx-auto mb-40 max-w-7xl'>
+      <div className='mx-auto mt-5 mb-20 lg:mt-0 lg:mb-30 max-w-7xl'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col space-y-2'>
-            <h1 className='text-3xl font-medium'> {t('trip')}</h1>
+            <h1 className='text-xl font-medium lg:text-3xl'> {t('trip')}</h1>
             <p className='text-[#112211]'>{t('textTrip')}</p>
           </div>
           <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all'>
