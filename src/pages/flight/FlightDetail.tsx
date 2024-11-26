@@ -342,9 +342,9 @@ export default function FlightDetail() {
                   <p className="font-semibold xl:text-2xl">{getbyId?.take_place}</p>
                 </div>
                 <div className="flex items-center px-4 space-x-6">
-                  <MoveLeft className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
+                  <MoveLeft className="w-11 h-11 max-sm:hidden" style={{ strokeWidth: 0.5 }} />
                   <IconFlight />
-                  <MoveRight className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
+                  <MoveRight className="w-11 h-11 max-sm:hidden" style={{ strokeWidth: 0.5 }} />
                 </div>
 
                 <div className="flex items-center space-x-4">

@@ -67,7 +67,7 @@ export default function FlightPayment() {
     <div className="w-full bg-gray-100">
       <Header />
       <SectionInViewRight>
-        <main className="pt-20 px-[5rem]">
+        <main className="pt-20 xl:px-[5rem] max-sm:px-8">
           <section>
             <h1 className="flex items-center justify-center p-5 text-3xl font-semibold">{t('flightpayment')}</h1>
             <div className="flex items-center space-x-2">
