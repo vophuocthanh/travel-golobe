@@ -136,6 +136,11 @@ export interface FlightRequest {
   destination: string
   // location: string
   image?: string
+  type?: string
+  return_start_time?: string
+  return_start_day?: string
+  return_end_day?: string
+  return_end_time?: string
   // number_of_seats_remaining: number;
 }
 export interface CoachRespone {
