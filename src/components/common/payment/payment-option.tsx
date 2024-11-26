@@ -10,7 +10,7 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
   return (
     <RadioGroup value={paymentOption} onValueChange={(value) => handleClickValueOption(value)}>
       <h1 className="mb-4 font-semibold xl:text-xl ">{t('Selectpayment')}</h1>
-      <div className="w-full space-y-4 max-sm:w-[50%]">
+      <div className="w-full space-y-4 max-sm:w-[50n%]">
         <div
           className={`border p-4 rounded-lg flex justify-between cursor-pointer items-center ${
             paymentOption === 'full' ? 'bg-primary border-primary' : 'border-gray-500 '
