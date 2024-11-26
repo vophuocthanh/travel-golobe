@@ -56,7 +56,7 @@ export default function Review() {
       <div className='mb-64 max-w-7xl'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col space-y-2'>
-            <h1 className='text-3xl font-medium'>{t('Reviews')}</h1>
+            <h1 className='text-xl font-medium lg:text-3xl'>{t('Reviews')}</h1>
             <p className='text-[#112211]'>{t('textReviews')}</p>
           </div>
           <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all'>
@@ -67,18 +67,24 @@ export default function Review() {
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={10}
-            slidesPerView={3}
+            slidesPerView={1}
             pagination={{ clickable: true }}
             navigation
             autoplay={{
               delay: 3000
             }}
             loop={true}
+            breakpoints={{
+              768: {
+                slidesPerView: 3, 
+                spaceBetween: 20, 
+              },
+            }}
           >
             {slide.map((slide, index) => (
               <SwiperSlide key={index} className='flex w-full mt-20'>
                 <div className='p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300'>
-                  <h1 className='text-3xl'>{slide.title}</h1>
+                  <h1 className='text-lg lg:text-3xl'>{slide.title}</h1>
                   <p className='text-gray-400 textContainer'>{slide.content}</p>
                   <span className='flex ml-auto text-sm font-medium'>View more</span>
 

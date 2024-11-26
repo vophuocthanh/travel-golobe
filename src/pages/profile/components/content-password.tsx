@@ -89,7 +89,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                   <p>Change</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-full'>
+              <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
                   <DialogTitle>Edit profile</DialogTitle>
                   <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
