@@ -78,6 +78,8 @@ export default function CreateFlightAdmin() {
     }
   })
 
+  const { watch } = form
+
   const mutationCreateTour = useMutation({
     mutationFn: (data: z.infer<typeof CreateFlightSchema>) => flightApi.addFlight(data)
   })
@@ -241,37 +243,39 @@ export default function CreateFlightAdmin() {
             <FormField
               control={form.control}
               name="start_day"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mr-6">Nhập ngày bắt đầu</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-54 justify-start text-left font-normal',
-                            !startDay && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className="w-4 h-4 mr-2" />
-                          {startDay ? dayjs(startDay).format('DD/MM/YYYY') : <span>Pick a startDay</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={startDay?.toDate()}
-                          onSelect={(date) => setStartDay(dayjs(date))}
-                          initialFocus
-                          {...field}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className="mr-6">Nhập ngày bắt đầu</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-54 justify-start text-left font-normal',
+                              !startDay && 'text-muted-foreground'
+                            )}
+                          >
+                            <CalendarIcon className="w-4 h-4 mr-2" />
+                            {startDay ? dayjs(startDay).format('DD/MM/YYYY') : <span>Pick a startDay</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={startDay?.toDate()}
+                            onSelect={(date) => setStartDay(dayjs(date))}
+                            initialFocus
+                            {...field}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}
@@ -368,132 +372,156 @@ export default function CreateFlightAdmin() {
             <FormField
               control={form.control}
               name="return_start_day"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mr-6">Nhập ngày bắt đầu</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-54 justify-start text-left font-normal',
-                            !returnStartDay && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className="w-4 h-4 mr-2" />
-                          {returnStartDay ? (
-                            dayjs(returnStartDay).format('DD/MM/YYYY')
-                          ) : (
-                            <span>Pick a returnStartDay</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={returnStartDay?.toDate()}
-                          onSelect={(date) => setReturnStartDay(dayjs(date))}
-                          {...field}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                const type = watch('type')
+                const isDitable = type === 'ONE_WAY'
+                return (
+                  <FormItem>
+                    <FormLabel className="mr-6">Nhập ngày về bắt đầu</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-54 justify-start text-left font-normal',
+                              !returnStartDay && 'text-muted-foreground',
+                              isDitable && 'cursor-not-allowed opacity-50'
+                            )}
+                            disabled={isDitable}
+                          >
+                            <CalendarIcon className="w-4 h-4 mr-2" />
+                            {returnStartDay ? (
+                              dayjs(returnStartDay).format('DD/MM/YYYY')
+                            ) : (
+                              <span>Pick a returnStartDay</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={returnStartDay?.toDate()}
+                            onSelect={(date) => setReturnStartDay(dayjs(date))}
+                            {...field}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}
               name="return_end_day"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="mr-6">Nhập ngày kết thúc</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-54 justify-start text-left font-normal',
-                            !returnEndDay && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className="w-4 h-4 mr-2" />
-                          {returnEndDay ? dayjs(returnEndDay).format('DD/MM/YYYY') : <span>Pick a returnEndDay</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={returnEndDay?.toDate()}
-                          onSelect={(date) => setReturnEndDay(dayjs(date))}
-                          {...field}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                const type = watch('type')
+                const isDitable = type === 'ONE_WAY'
+                return (
+                  <FormItem>
+                    <FormLabel className="mr-6">Nhập ngày về kết thúc</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-54 justify-start text-left font-normal',
+                              !returnEndDay && 'text-muted-foreground',
+                              isDitable && 'cursor-not-allowed opacity-50'
+                            )}
+                            disabled={isDitable}
+                          >
+                            <CalendarIcon className="w-4 h-4 mr-2" />
+                            {returnEndDay ? dayjs(returnEndDay).format('DD/MM/YYYY') : <span>Pick a returnEndDay</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={returnEndDay?.toDate()}
+                            onSelect={(date) => setReturnEndDay(dayjs(date))}
+                            {...field}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}
               name="return_start_time"
-              render={() => (
-                <FormItem>
-                  <FormLabel className="mr-6">Nhập thời gian bắt đầu</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-54 justify-start text-left font-normal',
-                            !returnStartTime && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className="w-4 h-4 mr-2" />
-                          {returnStartTime ? returnStartTime.format('HH:mm') : <span>Pick a return start time</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-0">
-                        <TimePicker onChange={handleReturnStartTimeChange} />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={() => {
+                const type = watch('type')
+                const isDitable = type === 'ONE_WAY'
+                return (
+                  <FormItem>
+                    <FormLabel className="mr-6">Nhập thời gian về bắt đầu</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-54 justify-start text-left font-normal',
+                              !returnStartTime && 'text-muted-foreground',
+                              isDitable && 'cursor-not-allowed opacity-50'
+                            )}
+                            disabled={isDitable}
+                          >
+                            <CalendarIcon className="w-4 h-4 mr-2" />
+                            {returnStartTime ? returnStartTime.format('HH:mm') : <span>Pick a return start time</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0">
+                          <TimePicker onChange={handleReturnStartTimeChange} />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}
               name="return_end_time"
-              render={() => (
-                <FormItem>
-                  <FormLabel className="mr-6">Nhập thời gian kết thúc</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-54 justify-start text-left font-normal',
-                            !returnEndTime && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className="w-4 h-4 mr-2" />
-                          {returnEndTime ? returnEndTime.format('HH:mm') : <span>Pick an end time</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-full p-0">
-                        <TimePicker onChange={handleReturnEndTimeChange} />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={() => {
+                const type = watch('type')
+                const isDitable = type === 'ONE_WAY'
+                return (
+                  <FormItem>
+                    <FormLabel className="mr-6">Nhập thời gian về kết thúc</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-54 justify-start text-left font-normal',
+                              !returnEndTime && 'text-muted-foreground',
+                              isDitable && 'cursor-not-allowed opacity-50'
+                            )}
+                            disabled={isDitable}
+                          >
+                            <CalendarIcon className="w-4 h-4 mr-2" />
+                            {returnEndTime ? returnEndTime.format('HH:mm') : <span>Pick an end time</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0">
+                          <TimePicker onChange={handleReturnEndTimeChange} />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
           </div>
           <Button type="submit" loading={loading} className="flex ml-auto">
