@@ -32,7 +32,7 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
           }`}
           onClick={() => handleClickValueOption('part')}
         >
-          <div className='w-[32rem]'>
+          <div className='xl:w-[32rem]'>
             <h4 className='font-semibold'>{t('paymentMOMO')}</h4>
             <p className='text-sm text-gray-500'>
             {t('WithMOMO')}
