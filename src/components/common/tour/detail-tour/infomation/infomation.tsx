@@ -53,7 +53,7 @@ export default function Information({ dataInfo }: IInformation) {
         {data.map((item) => (
           <div key={item.id}>
             <div className='iconTour'>{item.icon}</div>
-            <h3 className='py-3 text-xl font-medium'>{item.title}</h3>
+            <h3 className='py-3 text-xl font-medium max-sm:text-lg'>{item.title}</h3>
             <p className='text-xs'>{item.text}</p>
           </div>
         ))}
