@@ -108,7 +108,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
   }
 
   return (
-    <div className="w-[70%]">
+    <div className="w-[70%] max-lg:w-full">
       <div>
         <div className="flex justify-end my-6">
           <Dropdown menu={{ items }}>
@@ -125,7 +125,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
             getAll?.data?.map((item: TourResponseType) => (
               <Link to={`/tour/${item.id}`} className="w-full">
                 <div className="tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl" key={item.id}>
-                  <div className="relative bg-blue-300 w-[27%] flex-3">
+                  <div className="relative bg-blue-300 sm:w-[40%] max-sm:w-[32%] flex-3">
                     <img src={item.image} className="object-cover w-full h-full " alt="tour" />
                     <p className="h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2">
                       9 images
@@ -133,13 +133,13 @@ const ProductTour: React.FC<TourlCardProps> = ({
                   </div>
                   <div className="p-3  w-[73%] ">
                     <div className="flex justify-between ">
-                      <div className="mr-2  w-[85%]">
-                        <h2 className="mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line text-ellipsis line-clamp-2">
+                      <div className="mr-2 max-sm:w-[60%]  w-[85%]">
+                        <h2 className="mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line max-sm:text-base max-xl:text-xl text-ellipsis line-clamp-2">
                           {item.description}
                         </h2>
                         <div className="flex mb-3">
                           <IconAdress />
-                          <p className="ml-2 overflow-hidden whitespace-pre-line text-ellipsis line-clamp-2">
+                          <p className="ml-2 overflow-hidden whitespace-pre-line max-sm:text-base max-lg:text-base text-ellipsis line-clamp-2">
                             {item.name}
                           </p>
                         </div>
@@ -165,7 +165,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
                         </div>
                       </div>
                       <div>
-                        <h2 className="text-2xl font-medium text-red-500">{formatCurrencyVND(item.totalAmount)}</h2>
+                        <h2 className="text-2xl font-medium text-red-500 max-sm:text-base max-xl:text-xl">{formatCurrencyVND(item.totalAmount)}</h2>
                       </div>
                     </div>
                     <div className="border-b-2 border-zinc-400"></div>
