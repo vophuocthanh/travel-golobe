@@ -15,7 +15,8 @@ export const tourApi = {
     start_date?: string,
     end_date?: string,
     starting_gate?: string,
-    road_vehicle?: string
+    road_vehicle?: string,
+    type?: string
   ): Promise<ListResponse<TourResponseType>> {
     const url = '/tour'
 
@@ -48,6 +49,10 @@ export const tourApi = {
 
     if (road_vehicle) {
       params.road_vehicle = road_vehicle
+    }
+
+    if (type) {
+      params.type = type
     }
 
     return axiosClient.get(url, { params })

@@ -27,6 +27,7 @@ export default function TourDetail() {
   const debouncedSearchTour = useDebounce<string>(searchTour, 500)
   const [selectUniqueStartingGate, setSelectUniqueStartingGate] = useState<string[]>([])
   const [selectUniqueRoadVehicle, setSelectUniqueRoadVehicle] = useState<string[]>([])
+  const [selectUniqueTourType, setSelectUniqueTourType] = useState('')
 
   const handlePriceRangeChange = (min: number | undefined, max: number | undefined) => {
     setMinPrice(min)
@@ -88,6 +89,10 @@ export default function TourDetail() {
 
   const handleSelectUniqueRoadVehicle = (val: string) => {
     setSelectUniqueRoadVehicle([val])
+  }
+
+  const handleSelectUniqueTourType = (val: string) => {
+    setSelectUniqueTourType(val)
   }
 
   return (
@@ -176,6 +181,7 @@ export default function TourDetail() {
           handleSelectUniqueStartingGate={handleSelectUniqueStartingGate}
           handleSelectUniqueRoadVehicle={handleSelectUniqueRoadVehicle}
           dataRoadVehicle={getUniqueRoadVehicle?.data}
+          handleSelectUniqueTourType={handleSelectUniqueTourType}
         />
         <ProductTour
           departDate={filteredDepartDate}
@@ -186,6 +192,7 @@ export default function TourDetail() {
           debouncedSearchTour={debouncedSearchTour}
           selectUniqueStartingGate={selectUniqueStartingGate}
           selectUniqueRoadVehicle={selectUniqueRoadVehicle}
+          selectUniqueTourType={selectUniqueTourType}
         />
       </div>
       <Footer />
