@@ -13,9 +13,9 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
   return (
     <div>
       <div>
-        <div key={data?.id} className='flex items-center mb-4'>
-          <img src={data?.image} alt={data?.name} className='object-cover h-20 rounded-md w-25' />
-          <div className='ml-4'>
+        <div key={data?.id} className='flex items-center mb-4 max-md:flex-row max-lg:flex-col'>
+          <img src={data?.image} alt={data?.name} className='object-cover h-20 rounded-md max-lg:h-[8rem] max-md:w-[35%] max-lg:w-[100%] w-[35%]' />
+          <div className='lg:ml-4 max-md:ml-4 max-lg:mt-5'>
             <p className='overflow-hidden text-gray-500 whitespace-pre-line text-ellipsis line-clamp-2'>
               {data?.description}
             </p>
@@ -26,8 +26,8 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
               <p className='flex items-center justify-center h-[2.5rem] text-xs font-medium border rounded w-[3.5rem] border-primary'>
                 {data?.rating}
               </p>
-              <span className='ml-2 text-lg'>Very Good</span>
-              <span className='ml-1 text-lg text-gray-500'>(10 reviews)</span>
+              <span className='ml-2 text-lg max-xl:text-sm'>Very Good</span>
+              <span className='ml-1 text-lg text-gray-500 max-xl:text-sm'>(10 reviews)</span>
             </div>
           </div>
         </div>
@@ -38,18 +38,18 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
       </p>
       <div className='my-4 border-t'></div>
       <div className='mt-4'>
-        <h3 className='text-lg font-semibold'>{t('PriceDetails')}</h3>
+        <h3 className='text-lg font-semibold '>{t('PriceDetails')}</h3>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>{t('Transportations')}</p>
-          <p className='text-lg font-semibold'>{formatCurrencyVND(data?.road_vehicle?.details?.price)}</p>
+          <p className='text-lg text-gray-500 max-md:text-lg max-lg:text-base'>{t('Transportations')}</p>
+          <p className='text-lg font-semibold max-md:text-lg max-lg:text-base'>{formatCurrencyVND(data?.road_vehicle?.details?.price)}</p>
         </div>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>{t('HotelPrice')}</p>
-          <p className='text-lg font-semibold'>{formatCurrencyVND(data?.hotelDetails?.price)}</p>
+          <p className='text-lg text-gray-500 max-md:text-lg max-lg:text-base'>{t('HotelPrice')}</p>
+          <p className='text-lg font-semibold max-md:text-lg max-lg:text-base'>{formatCurrencyVND(data?.hotelDetails?.price)}</p>
         </div>
         <div className='flex justify-between mt-2'>
-          <p className='text-lg text-gray-500'>{t('TourPrice')}</p>
-          <p className='text-lg font-semibold'>{formatCurrencyVND(data?.originalTourPrice)}</p>
+          <p className='text-lg text-gray-500 max-md:text-lg max-lg:text-base'>{t('TourPrice')}</p>
+          <p className='text-lg font-semibold max-md:text-lg max-lg:text-base'>{formatCurrencyVND(data?.originalTourPrice)}</p>
         </div>
         <div className='mt-4 border-t'></div>
         <div className='flex justify-between mt-4'>

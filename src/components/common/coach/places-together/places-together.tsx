@@ -6,11 +6,11 @@ export default function PlacesTogether() {
   const { t } = useTranslation();
   return (
     <SectionInViewUp>
-      <div className='mt-[5rem] w-full h-full'>
-        <div className='relative mx-36'>
-          <h1 className='flex items-start justify-start pt-0 mb-4 text-3xl font-medium'>{t('togetherCoach')} </h1>
+      <div className='lg:mt-[5rem] w-full h-full mt-8'>
+        <div className='relative mx-8 lg:mx-36'>
+          <h1 className='flex items-start justify-start pt-0 mb-4 font-medium lg:text-3xl text-md'>{t('togetherCoach')} </h1>
           <div className='flex flex-wrap justify-between'>
-            <p className='w-[970px] text-xl mb-8 font-light'>
+            <p className='lg:w-[970px] lg:text-xl mb-8 font-light text-sm w-[70%]'>
             {t('textTogetherCoach')}
               
             </p>

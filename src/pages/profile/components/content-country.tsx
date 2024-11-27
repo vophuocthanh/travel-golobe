@@ -77,7 +77,7 @@ export default function ContentCountry({ title, content }: Props) {
                   <p>Change Country</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-full'>
+              <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
                   <DialogTitle>Edit Country</DialogTitle>
                   <DialogDescription>Make changes to your country here. Click save when you're done.</DialogDescription>

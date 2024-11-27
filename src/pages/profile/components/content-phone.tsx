@@ -75,7 +75,7 @@ export default function ContentPhone({ title, content }: Props) {
                   <p>Change Phone</p>
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-full'>
+              <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
                   <DialogTitle>Edit Phone</DialogTitle>
                   <DialogDescription>

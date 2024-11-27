@@ -121,7 +121,7 @@ export default function TourDetailView() {
               </div>
               <div className="flex flex-col p-6 bg-white rounded-lg shadow-md md:flex-row">
                 <div className="flex-1 mb-6 md:mb-0">
-                  <p className="overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line text-ellipsis line-clamp-2">
+                  <p className="overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line max-lg:text-xl text-ellipsis line-clamp-2">
                     {getbyId?.description}
                   </p>
                   <div className="flex items-center mt-2 space-x-2 text-sm text-gray-500">
@@ -167,8 +167,8 @@ export default function TourDetailView() {
             </section>
 
             {/* Image Gallery */}
-            <div className="flex justify-between">
-              <div className="w-[68%]">
+            <div className="flex justify-between max-md:relative max-md:flex-col">
+              <div className="md:w-[68%] max-md:mt-[480px] ">
                 <section className="mb-12">
                   {loading ? (
                     <div className="flex items-center justify-center w-full h-screen text-center">
@@ -180,10 +180,10 @@ export default function TourDetailView() {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col space-y-6 md:flex-row md:space-y-0 md:space-x-6 ">
+                    <div className="flex md:flex-row md:space-y-0 md:space-x-6 ">
                       <div className="w-full space-y-4 ">
                         <img
-                          src={getbyId?.image_5 ?? undefined}
+                          src={getbyId?.image_2 ?? undefined}
                           alt="Flight"
                           className="object-cover w-full h-[150px] rounded-lg shadow-lg "
                         />
@@ -206,7 +206,7 @@ export default function TourDetailView() {
                       <img
                         src={getbyId?.image}
                         alt="Tour"
-                        className="w-full md:w-[75%] h-auto object-cover rounded-lg shadow-lg"
+                        className="w-full md:w-[75%] max-md:ml-4 max-md:w-[65%] h-auto object-cover rounded-lg shadow-lg"
                       />
                     </div>
                   )}
@@ -241,8 +241,8 @@ export default function TourDetailView() {
                   <hr className="mb-12 border-t border-gray-300" />
                   <div>
                     <p className="text-xl font-bold">Amenities/Map</p>
-                    <div className="grid grid-cols-2 p-4 gap-y-2 gap-x-4">
-                      <div className="flex items-center space-x-80">
+                    <div className="grid p-4 gap-y-2 gap-x-4">
+                      <div className="flex items-center justify-between ">
                         <div className="flex space-x-2">
                           <MapPin className="w-5 h-5" />
                           <span>name</span>
@@ -251,8 +251,9 @@ export default function TourDetailView() {
                           <MapPin className="w-5 h-5" />
                           <span>name</span>
                         </div>
+                        <button className="text-blue-500">+24 more</button>
                       </div>
-                      <button className="text-blue-500">+24 more</button>
+                      
                     </div>
                   </div>
                   <hr className="mb-12 border-t border-gray-300" />
@@ -286,59 +287,69 @@ export default function TourDetailView() {
                   </div>
                 </section>
               </div>
-              <div className="w-[30%] shadow-2xl h-[420px] sticky top-[10rem] rounded-lg">
-                <div className="p-5">
+              <div className="lg:w-[300px] max-md:px-6 max-md:w-[100%] max-md:mt-4  max-lg:w-[250px] max-md:absolute shadow-2xl h-[420px] md:sticky md:top-[10rem] rounded-lg">
+                <div className="p-5 max-lg:p-3">
                   <div className="flex items-center justify-between ">
-                    <div className="text-2xl font-semibold">{t('Price')}:</div>
+                    <div className="text-2xl font-semibold max-lg:text-base max-xl:text-xl">{t('Price')}:</div>
                     <div>
-                      <span className="text-2xl font-semibold text-red-500">
+                      <span className="text-2xl font-semibold text-red-500 max-lg:text-base max-xl:text-xl">
                         {formatCurrencyVND(getbyId?.totalAmount)}{' '}
                       </span>
                       / {t('Guests')}
                     </div>
                   </div>
-                  <div className="flex py-4">
-                    <div className="mr-2">
-                      <IconTourCode />
+                  <div className="flex items-center justify-between py-4">
+                    <div className='flex'>
+                      <div className="mr-2">
+                        <IconTourCode />
+                      </div>
+                      <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Code')}:</div>
                     </div>
-                    <div className="mr-2 text-xl">{t('Code')}:</div>
-                    <div className="flex items-center justify-center font-medium text-center text-sky-500">
+                    <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.tour_code}
                     </div>
                   </div>
-                  <div className="flex py-4">
+                  <div className="flex items-center justify-between py-4">
+                    <div className='flex'>
                     <div className="mr-2">
                       <IconDeparture />
                     </div>
-                    <div className="mr-2 text-xl">{t('Departure')}:</div>
-                    <div className="flex items-center justify-center font-medium text-center text-sky-500">
+                    <div className="mr-2 text-xl max-xl:text-lg max-lg:text-base">{t('Departure')}:</div>
+                    </div>
+                    <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.starting_gate}
                     </div>
                   </div>
-                  <div className="flex py-4">
+                  <div className="flex items-center justify-between py-4">
+                    <div className='flex'>
                     <div className="mr-2">
                       <IconDepartureDate />
                     </div>
-                    <div className="mr-2 text-xl">{t('Date')}:</div>
-                    <div className="flex items-center justify-center font-medium text-center text-sky-500">
+                    <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Date')}:</div>
+                    </div>
+                    <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {formatDateTime}
                     </div>
                   </div>
-                  <div className="flex py-4">
+                  <div className="flex items-center justify-between py-4">
+                    <div className='flex'>
                     <div className="mr-2">
                       <IconTime />
                     </div>
-                    <div className="mr-2 text-xl">{t('Duration')}:</div>
-                    <div className="flex items-center justify-center font-medium text-center text-sky-500">
+                    <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Duration')}:</div>
+                    </div>
+                    <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.time_trip}
                     </div>
                   </div>
-                  <div className="flex py-4">
+                  <div className="flex items-center justify-between py-4">
+                    <div className='flex'>
                     <div className="mr-2">
                       <IconNumberSeats />
                     </div>
-                    <div className="mr-2 text-xl">{t('Available')}:</div>
-                    <div className="flex items-center justify-center font-medium text-center text-sky-500">
+                    <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Available')}:</div>
+                    </div>
+                    <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.number_of_seats_remaining} {t('seats')}
                     </div>
                   </div>

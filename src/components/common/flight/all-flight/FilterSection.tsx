@@ -49,7 +49,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
   }
 
   return (
-    <div className='flex-none w-[22.5%] ml-12 mr-5 mt-[6rem]'>
+    <div className='flex-none xl:w-[22.5%] ml-12 mr-5 mt-[6rem] max-sm:w-[80%]'>
       <p className='text-3xl text-black'>{t('Filter')}</p>
       <div className='flex flex-col items-center mt-8'>
         <div className='flex justify-between w-full mb-6'>

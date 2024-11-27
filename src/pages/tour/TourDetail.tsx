@@ -93,10 +93,10 @@ export default function TourDetail() {
   return (
     <div className="w-full">
       <Header />
-      <div className="flex items-center justify-center pt-5 ">
+      <div className="flex items-center justify-center pt-5 max-sm:px-10 ">
         <div className="flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl">
-          <div className="flex flex-wrap justify-between p-4 space-x-2">
-            <div className="relative w-[20rem] col-span-2 ml-5 h-[4rem]">
+          <div className="flex flex-wrap justify-between gap-4 py-4">
+            <div className="relative max-sm:w-full  col-span-2 h-[4rem]">
               <Label
                 htmlFor=""
                 className="absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4"
@@ -104,19 +104,19 @@ export default function TourDetail() {
                 Enter Destination
               </Label>
               <Input
-                className="max-w-md w-[24rem] border border-[#E2E8F0] p-2 h-[4rem] pt-4 pl-12"
+                className="max-w-md sm:w-[16rem] max-sm:w-full  border border-[#E2E8F0] p-2 h-[4rem] pt-4 pl-12"
                 placeholder="Istanbul, Turkey"
                 onChange={(e) => setSearchTour(e.target.value)}
               />
               <Sofa className="absolute left-3 top-[1rem] z-20 " />
               {isLoading ? (
-                <div className="absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md">
+                <div className="absolute top-[4rem]  left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md">
                   Loading...
                 </div>
               ) : (
                 getAllTour &&
                 debouncedSearchTour && (
-                  <div className="absolute top-[4rem] left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-32 overflow-y-auto">
+                  <div className="absolute max-sm:z-10 top-[4rem] mb-32 left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md h-32 overflow-y-auto">
                     {getAllTour?.data
                       ?.filter((tour) => tour.name?.toLowerCase().includes(debouncedSearchTour.toLowerCase()))
                       .map((tour) => (
@@ -128,7 +128,7 @@ export default function TourDetail() {
                 )
               )}
             </div>
-            <div className="relative w-[14rem] col-span-2 ml-5 h-[4rem]">
+            <div className="relative lg:w-[14rem] max-sm:w-full col-span-2  sm:ml-5 h-[4rem]">
               <TourDate date={departDate} setDate={setDepartDate} />
               {departDate && (
                 <button
@@ -141,7 +141,7 @@ export default function TourDetail() {
                 </button>
               )}
             </div>
-            <div className="relative w-[14rem] col-span-2 ml-5 h-[4rem]">
+            <div className="relative max-sm:z-1 lg:w-[14rem] max-sm:w-full col-span-2 sm:ml-5 h-[4rem]">
               <TourDate date={returnDate} setDate={setReturnDate} />
               {returnDate && (
                 <button
@@ -163,7 +163,7 @@ export default function TourDetail() {
           </Button>
         </div>
       </div>
-      <div className="flex justify-between gap-4 mx-[6rem] min-h-[56rem] mt-8">
+      <div className="flex justify-between max-sm:mx-[1rem]  gap-4 max-md:mx-[2rem] max-lg:mx-[3rem] max-md:flex-col max-xl:mx-[3rem] mx-[6rem] min-h-[56rem] mt-8">
         <FilterTour
           setMinPrice={setMinPrice}
           setMaxPrice={setMaxPrice}

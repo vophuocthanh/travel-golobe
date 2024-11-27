@@ -67,7 +67,7 @@ export default function TourPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
+        <main className='pt-20 px-[5rem] max-sm:px-[1rem] max-lg:px-[2rem]'>
           <section>
             <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('TourPayment')}</h1>
             <div className='flex items-center space-x-2'>
@@ -81,18 +81,18 @@ export default function TourPayment() {
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+            <div className='grid grid-cols-3 gap-6 max-md:flex max-md:flex-col'>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md max-sm:px-2'>
                 <TourInfo data={getBookingDetailTour} />
               </div>
-              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md max-lg:px-2'>
                 <TourBook
                   loading={loading}
                   onClick={paymentOption === 'full' ? handleAddBookingCashPayment : handleAddMomoBooking}
                   data={getBookingDetailTour}
                 />
               </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md max-lg:px-2 '>
                 <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption} />
               </div>
             </div>

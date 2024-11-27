@@ -10,7 +10,12 @@ export const CreateFlightSchema = z.object({
   take_place: z.string().nonempty('Take place is required'),
   destination: z.string().nonempty('Destination is required'),
   trip_to: z.string().nonempty('Trip to is required'),
-  image: z.string().nonempty('Image is required')
+  image: z.string().nonempty('Image is required'),
+  type: z.enum(['ONE_WAY', 'ROUND_TRIP'], { message: 'Type must be either "ONE_WAY" or "ROUND_TRIP"' }),
+  return_start_time: z.string().optional(),
+  return_start_day: z.string().optional(),
+  return_end_day: z.string().optional(),
+  return_end_time: z.string().optional()
 })
 export const UpdateFlightSchema = z.object({
   brand: z.string(),

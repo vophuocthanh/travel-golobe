@@ -23,20 +23,20 @@ export default function Header({ className }: HeaderProps) {
   return (
     <>
       <header
-        className={`${className} items-center w-full flex justify-between fixed bg-white z-50 py-4 px-10 shadow-lg`}
+        className={`${className} items-center w-full flex justify-between fixed bg-white z-50 py-4 px-10 shadow-lg `}
         style={{ height: '80px' }}
       >
-        <div className='hidden sm:flex sm:items-center sm:gap-6'>
-          <div className='relative items-center inline-block gap-2 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
-            <div className='flex items-center gap-2'>
+        <div className="hidden sm:flex sm:items-center sm:gap-6">
+          <div className="relative items-center inline-block gap-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+            <div className="flex items-center gap-2">
               <Compass />
               <span>{t('vehicle')}</span>
             </div>
             {isOpen && (
-              <div className='absolute left-0 w-[12rem] mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 border-2 border-primary'>
-                <div className='flex flex-col gap-4 p-2'>
+              <div className="absolute left-0 w-[12rem] mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 border-2 border-primary">
+                <div className="flex flex-col gap-4 p-2">
                   <Link
-                    to='/vehicle/flight'
+                    to="/vehicle/flight"
                     className={`flex items-center gap-2 rounded-md w-full justify-center h-[2rem] ${
                       selectedItem === 'flight' ? 'bg-green-200' : ''
                     }`}
@@ -46,7 +46,7 @@ export default function Header({ className }: HeaderProps) {
                     <span>{t('flight')}</span>
                   </Link>
                   <Link
-                    to='/vehicle/coach'
+                    to="/vehicle/coach"
                     className={`flex items-center gap-2 rounded-md w-full justify-center h-[2rem] ${
                       selectedItem === 'road' ? 'bg-green-200' : ''
                     }`}
@@ -59,33 +59,33 @@ export default function Header({ className }: HeaderProps) {
               </div>
             )}
           </div>
-          <Link to='/hotel' className='flex items-center gap-2'>
+          <Link to="/hotel" className="flex items-center gap-2">
             <IconHotel />
             <span>{t('hotel')}</span>
           </Link>
-          <Link to='/tour' className='flex items-center gap-2'>
+          <Link to="/tour" className="flex items-center gap-2">
             <IconMappin />
             <span>{t('tour')}</span>
           </Link>
         </div>
-        <Link to='/' className='hidden mr-40 sm:block'>
-          <img src={logo} alt='logo' className='w-24 h-10' />
+        <Link to="/" className="hidden mr-40 sm:block">
+          <img src={logo} alt="logo" className="w-24 h-10" />
         </Link>
-        <div className='sm:hidden'>
+        <div className="sm:hidden">
           <MobilePage />
         </div>
-        <div className='flex items-center gap-6'>
+        <div className="flex items-center gap-6">
           <Language />
           <ThemeToggle />
           {token ? (
             <DropdownHeader />
           ) : (
-            <div className='flex items-center gap-4'>
-              <Link to='/login' className='flex items-center gap-2'>
+            <div className="flex items-center gap-4">
+              <Link to="/login" className="flex items-center gap-2">
                 {t('login')}
               </Link>
-              <Link to='/register' className='flex items-center gap-2 px-4 py-2 bg-black rounded-md hover:shadow-xl'>
-                <span className='text-white'>{t('signup')}</span>
+              <Link to="/register" className="flex items-center gap-2 px-4 py-2 bg-black rounded-md hover:shadow-xl">
+                <span className="text-white">{t('signup')}</span>
               </Link>
             </div>
           )}
