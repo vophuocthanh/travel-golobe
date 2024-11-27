@@ -33,6 +33,7 @@ import { useTranslation } from 'react-i18next'
 import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import IconFlightI from '@/common/icons/IconFLightInverse'
 export default function FlightDetail() {
   const { t } = useTranslation()
   const slides = [
@@ -353,6 +354,25 @@ export default function FlightDetail() {
                   <p className="text-base font-medium max-sm:text-xs">Newark(EWR)</p>
                 </div>
               </div>
+              {getbyId?.type === 'ROUND_TRIP' && (
+                <div className="flex items-center justify-center xl:space-x-20 max-sm:space-x-10">
+                  <div className="flex items-center space-x-4 max-sm:flex-col">
+                    <p className="font-semibold xl:text-2xl ">{getbyId?.return_start_time}</p>
+                    <p className="text-base font-medium max-sm:text-xs">Newark(EWR)</p>
+                  </div>
+
+                  <div className="flex items-center xl:space-x-4 ">
+                    <MoveLeft className="w-11 h-11 max-sm:hidden" style={{ strokeWidth: 0.5 }} />
+                    <IconFlightI />
+                    <MoveRight className="w-11 h-11 max-sm:hidden" style={{ strokeWidth: 0.5 }} />
+                  </div>
+
+                  <div className="flex items-center space-x-4 max-sm:flex-col">
+                    <p className="font-semibold xl:text-2xl">{getbyId?.return_end_time}</p>
+                    <p className="text-base font-medium max-sm:text-xs">Newark(EWR)</p>
+                  </div>
+                </div>
+              )}
 
               <div className="flex flex-row items-center justify-center pt-5">
                 <div className="flex items-center space-x-4">

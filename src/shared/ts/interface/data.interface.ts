@@ -87,6 +87,8 @@ export interface FlightResponseType {
   images?: string
   start_time?: string
   start_day?: string
+  return_start_time?: string
+  return_end_time?: string
   end_day?: string
   end_time?: string
   trip_to?: string
