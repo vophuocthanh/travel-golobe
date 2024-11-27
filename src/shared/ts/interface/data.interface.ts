@@ -96,6 +96,7 @@ export interface FlightResponseType {
   Ticket?: []
   isFavorite?: boolean
   number_of_seats_remaining: number
+  type?: string
 }
 export interface CoachResponseType {
   id?: string

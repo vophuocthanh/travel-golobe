@@ -17,6 +17,8 @@ import {
   MoveLeft,
   MoveRight,
   Plane,
+  PlaneLanding,
+  PlaneTakeoff,
   RockingChair,
   Timer,
   UtensilsCrossed,
@@ -150,6 +152,22 @@ export default function FlightDetail() {
                   <span className="font-bold">Very Good </span>
                   54 reviews
                 </p>
+                <div className="flex items-center gap-4 p-4 bg-gray-100 rounded-lg shadow-md">
+                  {getbyId?.type === 'ONE_WAY' ? (
+                    <>
+                      <Plane className="w-6 h-6 text-blue-500" />
+                      <p className="text-lg font-semibold text-gray-700">{getbyId?.type}</p>
+                    </>
+                  ) : getbyId?.type === 'ROUND_TRIP' ? (
+                    <>
+                      <PlaneLanding className="w-6 h-6 text-red-500" />
+                      <p className="text-lg font-semibold text-gray-700">{getbyId?.type}</p>
+                      <PlaneTakeoff className="w-6 h-6 text-red-500" />
+                    </>
+                  ) : (
+                    <p className="text-lg font-semibold text-gray-500">Unknown type</p>
+                  )}
+                </div>
               </div>
             </div>
             <div className="space-y-2">
