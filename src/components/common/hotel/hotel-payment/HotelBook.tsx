@@ -13,20 +13,25 @@ export default function HotelBook({ hotel, loading, onClick }: hotelType) {
   return (
     <div>
       <div>
-        <div key={hotel.id} className='flex items-center mb-4'>
-          <img src={hotel.image} alt={hotel.hotel_names} className='object-cover h-20 rounded-md w-25' />
-          <div className='ml-4'>
-            <p className='text-gray-500'>{hotel.hotel_names}</p>
-            <h2 className='text-xl font-semibold'>{hotel.hotel_names}</h2>
-            <div className='flex items-center mt-3'>
-              <p className='flex items-center justify-center h-[2.5rem] text-xs font-medium border rounded w-[3.5rem] border-primary'>
+        <div key={hotel.id} className="items-center mb-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <img
+            src={hotel.image}
+            alt={hotel.hotel_names}
+            className="object-cover h-32 w-full lg:h-40 lg:w-48 rounded-md"
+          />
+          <div className="ml-4">
+            <p className="text-gray-500 text-sm">{hotel.hotel_names}</p>
+            <h2 className="text-xl font-semibold">{hotel.hotel_names}</h2>
+            <div className="flex items-center mt-3">
+              <p className="flex items-center justify-center h-[2.5rem] text-xs font-medium border rounded w-[3.5rem] border-primary">
                 {hotel.star_number}
               </p>
-              <span className='ml-2 text-lg'>Very Good</span>
-              <span className='ml-1 text-lg text-gray-500'>({hotel.number_rating} reviews)</span>
+              <span className="ml-2 text-lg">Very Good</span>
+              <span className="ml-1 text-lg text-gray-500">({hotel.number_rating} reviews)</span>
             </div>
           </div>
         </div>
+
       </div>
       <div className='my-4 border-t'></div>
       <p className='text-lg text-gray-600'>

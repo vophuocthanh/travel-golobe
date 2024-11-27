@@ -30,19 +30,22 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
         <h1 className='mb-4 text-2xl font-semibold'>{t('Rooms')}</h1>
         <div className='space-y-4'>
           {Room.map((item: RoomType) => (
-            <div key={item.id} className='flex items-center justify-between p-4 bg-white rounded-lg shadow-md'>
-              <div className='flex items-center'>
+            <div key={item.id} className='flex flex-col md:flex-row items-center justify-between p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300'>
+              <div className='flex items-center mb-4 md:mb-0'>
                 <img src={room1} alt='Superior room' className='object-cover w-20 h-20 rounded-md' />
                 <div className='ml-4'>
-                  <h1 className='text-lg'>Phòng {item.type}</h1>
+                  <h1 className='text-lg font-semibold text-gray-800'>{`Phòng ${item.type}`}</h1>
                 </div>
               </div>
-              <div className='flex items-center gap-[3rem] text-right'>
+
+              <div className='flex flex-col md:flex-row items-center gap-4 md:gap-[3rem] text-center lg:text-right'>
                 <div className='flex items-end'>
-                  <p className='text-3xl font-semibold'>{formatCurrencyVND(item.pricePerDay)} / 1 đêm</p>
+                  <p className='text-3xl font-semibold text-gray-900'>
+                    {formatCurrencyVND(item.pricePerDay)} / 1 đêm
+                  </p>
                 </div>
                 <Button
-                  className='px-4 py-2 mt-2 text-white rounded-md w-[7rem] h-[3rem]'
+                  className='px-6 py-3 mt-2 text-white rounded-md w-[7rem] h-[3rem] transition-transform transform hover:scale-105 focus:outline-none'
                   onClick={() => handleClick(item.id)}
                   disabled={idTypeRoom !== null && idTypeRoom !== item.id}
                 >
@@ -54,5 +57,6 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
         </div>
       </div>
     </div>
+
   )
 }

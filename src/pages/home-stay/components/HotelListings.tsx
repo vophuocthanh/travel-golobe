@@ -64,8 +64,9 @@ const HotelListings: React.FC = () => {
   return (
     <>
       <div className='container mx-auto mt-8'>
-        <div className='flex space-x-10'>
-          <div className='flex flex-col w-1/3 gap-6 pt-10'>
+        <div className='flex flex-col lg:flex-row space-x-10'>
+          {/* Filter Section */}
+          <div className='flex flex-col w-full lg:w-1/3 gap-6 pt-10'>
             <div className='pb-4 border-b-2 border-gray-300'>
               <h2 className='text-xl font-semibold text-gray-700'>{t('PriceRange')}</h2>
               <div className='p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md'>
@@ -93,9 +94,9 @@ const HotelListings: React.FC = () => {
                 <Button
                   className='w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
                   onClick={() => {
-                    setMaxPrice(undefined)
-                    setMinPrice(undefined)
-                    setPriceRange([undefined, undefined])
+                    setMaxPrice(undefined);
+                    setMinPrice(undefined);
+                    setPriceRange([undefined, undefined]);
                   }}
                 >
                   {t('CancelFilter')}
@@ -110,14 +111,15 @@ const HotelListings: React.FC = () => {
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <Button
                       key={rating}
-                      className={`flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md transition duration-200 ${
-                        starNumber === rating ? 'bg-primary' : 'opacity-50 hover:opacity-100 cursor-pointer'
-                      }`}
+                      className={`flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md transition duration-200 ${starNumber === rating
+                          ? 'bg-primary'
+                          : 'opacity-50 hover:opacity-100 cursor-pointer'
+                        }`}
                       onClick={() => {
                         if (starNumber === rating) {
-                          setStarNumber(undefined)
+                          setStarNumber(undefined);
                         } else {
-                          setStarNumber(rating)
+                          setStarNumber(rating);
                         }
                       }}
                     >
@@ -143,7 +145,9 @@ const HotelListings: React.FC = () => {
               </div>
             )}
           </div>
-          <div className='w-2/3'>
+
+          {/* Hotel List Section */}
+          <div className='w-full lg:w-2/3'>
             <div className='flex items-center justify-end w-full h-10 mb-2'>
               <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
@@ -166,6 +170,7 @@ const HotelListings: React.FC = () => {
           </div>
         </div>
       </div>
+
     </>
   )
 }

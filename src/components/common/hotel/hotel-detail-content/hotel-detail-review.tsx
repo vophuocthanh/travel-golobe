@@ -168,17 +168,20 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
         <div className="w-full py-2">
           <ul className="py-6 mx-auto mt-10 space-y-4 ">
             {data?.map((item, index) => (
-              <li className="p-4 bg-white rounded shadow " key={index}>
-                <div className="relative flex items-center space-x-4">
-                  <img src={item.user.avatar} alt="avatar" className="w-12 h-12 mr-2 rounded-full" />
-                  <div>
-                    <p className="font-bold">
-                      {item.user.name} - {formatDateTime(item.createdAt)}
-                    </p>
+              <li className="p-4 bg-white rounded shadow" key={index}>
+                <div className="relative flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-4">
+                  <img
+                    src={item.user.avatar}
+                    alt="avatar"
+                    className="w-12 h-12 mb-2 sm:mb-0 rounded-full sm:mr-4"
+                  />
+                  <div className="flex-1">
+                    <p className="font-bold text-lg">{item.user.name} - {formatDateTime(item.createdAt)}</p>
                     <p>{item.content}</p>
                     <ReadOnlyRating rating={item.rating} />
                   </div>
-                  <div className="absolute top-2 right-2">
+
+                  <div className="absolute top-2 right-2 sm:relative sm:top-0 sm:right-0">
                     <Popover>
                       <PopoverTrigger asChild>
                         <TableOfContents className="w-6 h-6 cursor-pointer" />
@@ -188,16 +191,17 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                       </PopoverContent>
                     </Popover>
                   </div>
-                  <div className="absolute bottom-1 right-16">
-                    <CornerRightDown className="w-6 h-6" onClick={() => handleReplyIconClick(item.id)} />
-                  </div>
 
-                  <div className="absolute bottom-1 right-2">
-                    <p onClick={() => handleReplyClick(item.id)} className="text-blue-500 cursor-pointer">
+
+
+                  <div onClick={() => handleReplyClick(item.id)} className="flex items-center justify-center space-x-2 absolute top-8 right-2 sm:relative sm:bottom-0 sm:right-10">
+                    <p className="text-blue-500 cursor-pointer">
                       {t('Reply')}
                     </p>
+                    <CornerRightDown className="w-6 h-6 cursor-pointer" onClick={() => handleReplyIconClick(item.id)} />
                   </div>
                 </div>
+
                 {isReplyVisible[item.id] && (
                   <form onSubmit={(e) => handleReplySubmit(e, item.id)} className="mt-2">
                     <Input
@@ -213,6 +217,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                   </form>
                 )}
               </li>
+
             ))}
           </ul>
           <div className="flex items-center justify-center mt-6 gap-x-[4rem]">

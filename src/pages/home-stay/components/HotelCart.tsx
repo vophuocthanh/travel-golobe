@@ -51,24 +51,27 @@ const HotelCard: React.FC<HotelCardProps> = ({
         getAll?.data.map((item: HotelResponseType) => (
           <div
             key={item.id}
-            className='flex w-full h-[20rem] rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
+            className='grid grid-cols-1 md:grid-cols-3 w-full h-auto rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
           >
-            <div className='w-[35%] bg-blue-300 flex-3 relative'>
+            {/* Left Section (Image) */}
+            <div className='relative col-span-1 md:col-span-1'>
               <img src={item.image} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
                 9 images
               </p>
             </div>
-            <div className='w-[65%] flex-7 h-full p-4 bg-white'>
+
+            {/* Right Section (Hotel Details) */}
+            <div className='col-span-1 md:col-span-2 p-4 bg-white'>
               <div className='flex flex-col w-full h-full'>
-                <div className='flex flex-row w-full h-[75%] border-b-2 border-gray-400 pb-4'>
-                  <div className='w-[70%] flex flex-col gap-4'>
-                    <p className='pt-2 overflow-hidden text-2xl font-bold whitespace-nowrap overflow-ellipsis'>
+                <div className='flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-6 border-b-2 border-gray-400 pb-4'>
+                  <div className='col-span-2 flex flex-col gap-4'>
+                    <p className='pt-2 text-2xl font-bold text-ellipsis overflow-hidden'>
                       {item.hotel_names}
                     </p>
-                    <div className='flex text-gray-500 text-md '>
-                      <MapPin className='mr-1 text-black ' />
-                      <span className='overflow-hidden whitespace-nowrap overflow-ellipsis'>{item.location}</span>
+                    <div className='flex text-gray-500 text-md'>
+                      <MapPin className='mr-1 text-black' />
+                      <span className='text-ellipsis overflow-hidden'>{item.location}</span>
                     </div>
                     <div className='flex gap-2'>
                       <ReadOnlyRating rating={Number(item.star_number)} />
@@ -84,11 +87,13 @@ const HotelCard: React.FC<HotelCardProps> = ({
                       <p>371 reviews</p>
                     </div>
                   </div>
-                  <div className='w-[30%] pt-4 text-right'>
+                  <div className='col-span-1 text-right'>
                     <p className='text-3xl text-[#FF8682] font-bold'>{formatCurrencyVND(item.price)}</p>
-                    <p className='mr-3 text-gray-400'>excl. tax</p>
+                    <p className='text-gray-400'>excl. tax</p>
                   </div>
                 </div>
+
+                {/* Button and Details Section */}
                 <div className='flex w-full mt-2'>
                   <div className='flex items-center justify-center w-full gap-4'>
                     <Link to={`/hotel/${item.id}`} className='w-full'>
@@ -99,6 +104,8 @@ const HotelCard: React.FC<HotelCardProps> = ({
               </div>
             </div>
           </div>
+
+
         ))
       ) : (
         <div className='flex items-center justify-center h-[30rem]'>
