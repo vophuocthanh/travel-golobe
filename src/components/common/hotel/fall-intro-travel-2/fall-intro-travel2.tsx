@@ -7,7 +7,7 @@ export default function FallIntroTravel2() {
   const { t } = useTranslation()
   return (
     <SectionInViewRight>
-      <div className="mt-16 sm:mt-20 lg:mt-32">
+      <div className="mt-16 mx-auto container">
         <div className="mx-4 sm:mx-8 lg:mx-32">
           <h1 className="flex items-start justify-start pt-0 mb-4 text-2xl sm:text-3xl lg:text-4xl">
             {t('travelHotel')}

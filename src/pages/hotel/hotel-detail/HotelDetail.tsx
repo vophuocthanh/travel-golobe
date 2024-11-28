@@ -117,7 +117,7 @@ export default function HotelDetail() {
     <div className='w-full'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
+        <main className='pt-20 container mx-auto'>
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
             <div className='w-full mt-8 mb-8'>
               <div className='flex items-center space-x-2 text-gray-800 text-md'>
@@ -147,58 +147,70 @@ export default function HotelDetail() {
             </div>
             <div className='text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
-              <div className='flex flex-col sm:flex-row items-center justify-end gap-2 sm:space-x-2'>
-                {/* Room availability info */}
-                <p className='flex items-center px-2 py-1 text-sm sm:text-lg text-black border rounded border-primary'>
-                  {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
-                </p>
+              <div className='mx-auto container'>
+                <div className='grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 items-center justify-end'>
+                  {/* Room availability info */}
+                  <div className='flex items-center justify-center p-4'>
+                    <p className='flex items-center px-2 py-1 text-sm sm:text-lg text-black border rounded border-primary'>
+                      {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
+                    </p>
+                  </div>
 
-                {/* Favorite and Share buttons */}
-                <Favorite idHotel={id} />
-                <ShareButtons url={hotelUrl} title={hotelTitle} />
+                  {/* Favorite and Share buttons */}
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                    <Favorite idHotel={id} />
+                    <ShareButtons url={hotelUrl} title={hotelTitle} />
+                  </div>
 
-                {/* Quantity control */}
-                <div className='flex border rounded border-primary'>
-                  <Button
-                    onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
-                    className='px-4 py-2 m-[1px] text-white'
-                  >
-                    -
-                  </Button>
-                  <input
-                    type='text'
-                    value={hotelQuantity}
-                    onChange={(e) =>
-                      setHotelQuantity(
-                        Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0)
-                      )
-                    }
-                    min='1'
-                    className='w-16 text-center focus:outline-none'
-                  />
-                  <Button
-                    onClick={() =>
-                      setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
-                    }
-                    className='px-4 py-1 m-[1px] text-white'
-                    disabled={
-                      getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0
-                    }
-                  >
-                    +
-                  </Button>
+                  {/* Quantity control */}
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                    <div className='flex border rounded border-primary'>
+                      <Button
+                        onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
+                        className='px-4 py-2 m-[1px] text-white'
+                      >
+                        -
+                      </Button>
+                      <input
+                        type='text'
+                        value={hotelQuantity}
+                        onChange={(e) =>
+                          setHotelQuantity(
+                            Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0)
+                          )
+                        }
+                        min='1'
+                        className='w-16 text-center focus:outline-none'
+                      />
+                      <Button
+                        onClick={() =>
+                          setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
+                        }
+                        className='px-4 py-1 m-[1px] text-white'
+                        disabled={
+                          getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0
+                        }
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Book Hotel Button */}
+                  <div className='flex items-center justify-center p-4'>
+                    <Button
+                      onClick={handleBookHotel}
+                      disabled={getbyId?.number_of_seats_remaining === 0}
+                      loading={loadingBooking}
+                      className='mt-2 sm:mt-0 sm:ml-2'
+                    >
+                      {t('BookHotel')}
+                    </Button>
+                  </div>
                 </div>
 
-                {/* Book Hotel Button */}
-                <Button
-                  onClick={handleBookHotel}
-                  disabled={getbyId?.number_of_seats_remaining === 0}
-                  loading={loadingBooking}
-                  className='mt-2 sm:mt-0 sm:ml-2'
-                >
-                  {t('BookHotel')}
-                </Button>
               </div>
+
 
             </div>
           </div>
@@ -221,7 +233,6 @@ export default function HotelDetail() {
               <Space direction='vertical' size={12}>
                 <RangePicker
                   id='date-range-picker'
-                  className='w-full p-2 border border-gray-300 rounded-lg custom-date-picker md:w-auto'
                   format='DD-MM-YYYY'
                   onChange={(dates) => {
                     if (dates && dates.length === 2) {

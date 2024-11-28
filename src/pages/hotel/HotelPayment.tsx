@@ -66,7 +66,7 @@ export default function HotelPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
+        <main className='pt-20 container mx-auto'>
           <section>
             <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('HotelPayment')}</h1>
             <div className='flex items-center space-x-2'>
