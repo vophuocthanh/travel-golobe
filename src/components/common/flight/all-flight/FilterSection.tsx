@@ -5,14 +5,24 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactSlider from 'react-slider'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
   brandFlight: string[]
   handleSelectBrand: (brand: string) => void
   data?: string[]
+  handleSelectUniqueType?: (val: string) => void
 }
 
-const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight, handleSelectBrand, data }) => {
+const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight, handleSelectBrand, data,handleSelectUniqueType }) => {
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
   const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState<boolean>(true)
@@ -49,40 +59,40 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
   }
 
   return (
-    <div className='flex-none xl:w-[22.5%] ml-12 mr-5 mt-[6rem] max-sm:w-[80%]'>
-      <p className='text-3xl text-black'>{t('Filter')}</p>
-      <div className='flex flex-col items-center mt-8'>
-        <div className='flex justify-between w-full mb-6'>
+    <div className="flex-none xl:w-[22.5%] ml-12 mr-5 mt-[6rem] max-sm:w-[80%]">
+      <p className="text-3xl text-black">{t('Filter')}</p>
+      <div className="flex flex-col items-center mt-8">
+        <div className="flex justify-between w-full mb-6">
           <p>{t('Price')}</p>
-          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleVisibility}>
+          <Button className="bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black" onClick={toggleVisibility}>
             {isVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
         {isVisible && (
-          <div className='w-full pb-12 border-b-2'>
-            <div className='w-full p-4 bg-white rounded-lg shadow-md '>
-              <div className='flex flex-row gap-4 '>
-                <div className='items-center w-full '>
+          <div className="w-full pb-12 border-b-2">
+            <div className="w-full p-4 bg-white rounded-lg shadow-md ">
+              <div className="flex flex-row gap-4 ">
+                <div className="items-center w-full ">
                   <input
-                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMinPrice || ''}
                     onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
-                    placeholder='Giá tối thiểu'
+                    placeholder="Giá tối thiểu"
                   />
                 </div>
-                <p className='flex items-center justify-center'>-</p>
-                <div className='items-center w-full '>
+                <p className="flex items-center justify-center">-</p>
+                <div className="items-center w-full ">
                   <input
-                    className='w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
+                    className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMaxPrice || ''}
                     onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
-                    placeholder='Giá tối đa'
+                    placeholder="Giá tối đa"
                   />
                 </div>
               </div>
-              <div className=''>
+              <div className="">
                 <Button
-                  className='w-full mt-4 text-white transition duration-200 rounded bg-primary hover:bg-green-300'
+                  className="w-full mt-4 text-white transition duration-200 rounded bg-primary hover:bg-green-300"
                   onClick={() => {
                     setMinPrice(tempMinPrice)
                     setMaxPrice(tempMaxPrice)
@@ -92,7 +102,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
                   {t('Filter')}
                 </Button>
                 <Button
-                  className='w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
+                  className="w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500"
                   onClick={() => {
                     setTempMinPrice(undefined)
                     setTempMaxPrice(undefined)
@@ -106,19 +116,19 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
           </div>
         )}
       </div>
-      <div className='flex flex-col items-center mt-8'>
-        <div className='flex justify-between w-full mb-6'>
+      <div className="flex flex-col items-center mt-8">
+        <div className="flex justify-between w-full mb-6">
           <p>{t('DepartureTime')}</p>
-          <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleTimeVisibility}>
+          <Button className="bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black" onClick={toggleTimeVisibility}>
             {isTimeVisible ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </div>
         {isTimeVisible && (
-          <div className='w-[95%] pb-12 border-b-2 mr-5'>
+          <div className="w-[95%] pb-12 border-b-2 mr-5">
             <ReactSlider
-              className='w-full h-1 bg-black rounded-lg'
-              thumbClassName='w-6 h-6 bg-black-800 rounded-full cursor-pointer'
-              trackClassName='bg-black-900 h-2 rounded-lg'
+              className="w-full h-1 bg-black rounded-lg"
+              thumbClassName="w-6 h-6 bg-black-800 rounded-full cursor-pointer"
+              trackClassName="bg-black-900 h-2 rounded-lg"
               value={time}
               onChange={handleTimeChange}
               min={0}
@@ -127,38 +137,38 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
               renderThumb={(props) => (
                 <div
                   {...props}
-                  className='flex items-center justify-center w-6 h-6 rounded-full cursor-pointer bg-primary top-[-10px]'
+                  className="flex items-center justify-center w-6 h-6 rounded-full cursor-pointer bg-primary top-[-10px]"
                 ></div>
               )}
               pearling
               minDistance={1000}
             />
-            <div className='flex justify-between w-full mt-4 text-xl text-black'>
+            <div className="flex justify-between w-full mt-4 text-xl text-black">
               <div>{formatTime(time[0])}</div>
               <div>{formatTime(time[1])}</div>
             </div>
           </div>
         )}
       </div>
-      <div className='flex justify-between w-full mt-10 mb-6'>
+      <div className="flex justify-between w-full mt-10 mb-6">
         <p>{t('Airlines')}</p>
-        <Button className='bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black' onClick={toggleAirlinesVisibility}>
+        <Button className="bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black" onClick={toggleAirlinesVisibility}>
           {isAirlinesVisible ? <ChevronUp /> : <ChevronDown />}
         </Button>
       </div>
 
       {isAirlinesVisible && (
-        <div className='flex flex-col gap-3 pb-12 border-b-2'>
-          <div className='mt-4'>
-            <div className='flex flex-col'>
+        <div className="flex flex-col gap-3 pb-12 border-b-2">
+          <div className="mt-4">
+            <div className="flex flex-col">
               {data?.map((brand: string, index: number) => (
-                <label key={index} className='flex items-center'>
+                <label key={index} className="flex items-center">
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     value={brand}
                     checked={brandFlight.includes(brand)}
                     onChange={(e) => handleSelectBrand(e.target.value)}
-                    className='w-5 h-5 mr-2 accent-primary '
+                    className="w-5 h-5 mr-2 accent-primary "
                   />
                   {brand}
                 </label>
@@ -167,6 +177,22 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
           </div>
         </div>
       )}
+
+      <div className="flex flex-col space-y-4">
+        <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn loại vé</h1>
+        <Select onValueChange={handleSelectUniqueType}>
+          <SelectTrigger className="w-[full]">
+            <SelectValue placeholder="Chọn loại vé" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Loại vé</SelectLabel>
+              <SelectItem value="ONE_WAY">One Way</SelectItem>
+              <SelectItem value="ROUND_TRIP">Round Trip</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   )
 }
