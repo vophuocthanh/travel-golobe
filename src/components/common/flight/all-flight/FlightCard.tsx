@@ -19,6 +19,7 @@ interface FlightCardProps {
   brandFlight?: string[]
   searchTo?: string
   searchFrom?: string
+  selectUniqueType?: string
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({
@@ -28,7 +29,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
   departDate,
   brandFlight,
   searchFrom,
-  searchTo
+  searchTo,
+  selectUniqueType
 }) => {
   const { t } = useTranslation()
   const [page, setPage] = useState(1)
@@ -71,7 +73,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
       departDate,
       returnDate,
       searchTo,
-      searchFrom
+      searchFrom,
+      selectUniqueType
     ],
     queryFn: () =>
       flightApi.getAll(
@@ -85,7 +88,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
         departDate,
         returnDate,
         searchFrom,
-        searchTo
+        searchTo,
+        selectUniqueType
       )
   })
 

@@ -28,6 +28,7 @@ export default function ContentAllFlight() {
   const [tempSearchTo, setTempSearchTo] = useState('')
   const [tempSearchFrom, setTempSearchFrom] = useState('')
   const [selectBrands, setSelectBrands] = useState<string[]>([])
+  const [selectUniqueType, setSelectUniqueType] = useState('')
 
   const { data: getFlightCountBrand } = useQuery({
     queryKey: ['getFlightCountBrand'],
@@ -36,6 +37,9 @@ export default function ContentAllFlight() {
 
   const handleCheckSelectBrand = (brand: string) => {
     setSelectBrands([brand])
+  }
+  const handleSelectUniqueType = (val: string) => {
+    setSelectUniqueType(val)
   }
 
   const handleSearch = () => {
@@ -106,6 +110,7 @@ export default function ContentAllFlight() {
             brandFlight={selectBrands}
             handleSelectBrand={handleCheckSelectBrand}
             data={getFlightCountBrand?.data}
+            handleSelectUniqueType={handleSelectUniqueType}
           />
           <div className="w-full h-full ">
             <FlightCard
@@ -116,6 +121,7 @@ export default function ContentAllFlight() {
               minPrice={minPrice}
               maxPrice={maxPrice}
               brandFlight={selectBrands}
+              selectUniqueType={selectUniqueType}
             />
           </div>
         </div>

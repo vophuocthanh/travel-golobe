@@ -44,6 +44,7 @@ VITE_API_URL=
 VITE_AVATAR=
 VITE_CRISP_APP_ID=
 VITE_RECAPTCHA_KEY=
+VITE_GEMINI_API_KEY=
 ```
 
 Then, you can run locally in development mode with live reload:

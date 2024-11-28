@@ -74,6 +74,7 @@ export interface TourResponseType {
   rating: number
   number_of_seats_remaining: number
   totalAmount: number
+  type: string
 }
 
 export interface FlightResponseType {

@@ -287,7 +287,7 @@ export default function TourDetailView() {
                   </div>
                 </section>
               </div>
-              <div className="lg:w-[300px] max-md:px-6 max-md:w-[100%] max-md:mt-4  max-lg:w-[250px] max-md:absolute shadow-2xl h-[420px] md:sticky md:top-[10rem] rounded-lg">
+              <div className="lg:w-[300px] max-md:px-6 max-md:w-[100%] max-md:mt-4  max-lg:w-[250px] max-md:absolute shadow-2xl xl:h-[450px] h-[420px] md:sticky md:top-[10rem] rounded-lg">
                 <div className="p-5 max-lg:p-3">
                   <div className="flex items-center justify-between ">
                     <div className="text-2xl font-semibold max-lg:text-base max-xl:text-xl">{t('Price')}:</div>

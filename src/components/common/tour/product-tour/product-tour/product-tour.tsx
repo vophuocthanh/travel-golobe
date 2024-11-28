@@ -24,6 +24,7 @@ interface TourlCardProps {
   debouncedSearchTour?: string
   selectUniqueStartingGate?: string[]
   selectUniqueRoadVehicle?: string[]
+  selectUniqueTourType?: string
 }
 const ProductTour: React.FC<TourlCardProps> = ({
   debouncedSearchTour,
@@ -33,7 +34,8 @@ const ProductTour: React.FC<TourlCardProps> = ({
   departDate,
   returnDate,
   selectUniqueStartingGate,
-  selectUniqueRoadVehicle
+  selectUniqueRoadVehicle,
+  selectUniqueTourType
 }) => {
   const [page, setPage] = useState(1)
   const [sortByPrice, setSortByPrice] = useState('')
@@ -75,7 +77,8 @@ const ProductTour: React.FC<TourlCardProps> = ({
       departDate ? departDate : undefined,
       returnDate ? returnDate : undefined,
       selectUniqueStartingGate,
-      selectUniqueRoadVehicle
+      selectUniqueRoadVehicle,
+      selectUniqueTourType
     ],
     queryFn: () =>
       tourApi.getAll(
@@ -89,7 +92,8 @@ const ProductTour: React.FC<TourlCardProps> = ({
         departDate ? departDate : undefined,
         returnDate ? returnDate : undefined,
         selectUniqueStartingGate?.join(','),
-        selectUniqueRoadVehicle?.join(',')
+        selectUniqueRoadVehicle?.join(','),
+        selectUniqueTourType
       ),
     enabled: !!debouncedSearchTour || !!sortByPrice || !!page
   })
@@ -165,7 +169,9 @@ const ProductTour: React.FC<TourlCardProps> = ({
                         </div>
                       </div>
                       <div>
-                        <h2 className="text-2xl font-medium text-red-500 max-sm:text-base max-xl:text-xl">{formatCurrencyVND(item.totalAmount)}</h2>
+                        <h2 className="text-2xl font-medium text-red-500 max-sm:text-base max-xl:text-xl">
+                          {formatCurrencyVND(item.totalAmount)}
+                        </h2>
                       </div>
                     </div>
                     <div className="border-b-2 border-zinc-400"></div>

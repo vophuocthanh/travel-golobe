@@ -63,4 +63,5 @@ export interface TourParams {
   end_date?: string
   starting_gate?: string
   road_vehicle?: string
+  type?: string
 }
