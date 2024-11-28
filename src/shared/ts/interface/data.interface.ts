@@ -88,6 +88,8 @@ export interface FlightResponseType {
   images?: string
   start_time?: string
   start_day?: string
+  return_start_time?: string
+  return_end_time?: string
   end_day?: string
   end_time?: string
   trip_to?: string
@@ -97,7 +99,7 @@ export interface FlightResponseType {
   Ticket?: []
   isFavorite?: boolean
   number_of_seats_remaining: number
-  type: string
+  type?: string
 }
 export interface CoachResponseType {
   id?: string
