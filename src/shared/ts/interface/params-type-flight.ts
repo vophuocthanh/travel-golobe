@@ -10,4 +10,5 @@ export interface ParamsType {
   brand?: string
   search_to?: string
   search_from?: string
+  type?: string
 }

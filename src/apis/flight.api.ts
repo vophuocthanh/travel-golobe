@@ -16,7 +16,8 @@ export const flightApi = {
     start_day?: string,
     end_day?: string,
     search_from?: string,
-    search_to?: string
+    search_to?: string,
+    type?: string
   ): Promise<ListResponse<FlightResponseType>> {
     const url = '/flight-crawl/crawl'
     const params: ParamsType = {
@@ -43,6 +44,9 @@ export const flightApi = {
     if (brand) {
       params.brand = String(brand)
     }
+    if (type) {
+      params.type = type
+    }
     if (start_day && end_day) {
       params.start_day = String(start_day)
       params.end_day = String(end_day)
@@ -60,6 +64,7 @@ export const flightApi = {
       params.end_day = end_day
     }
 
+    
     return axiosClient.get(url, { params })
   },
 
