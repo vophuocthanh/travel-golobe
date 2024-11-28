@@ -42,7 +42,7 @@ export default function HotelDetail() {
 
   const [checkInDate, setCheckInDate] = useState<string | null>(null)
   const [checkOutDate, setCheckOutDate] = useState<string | null>(null)
-  const isLoggedIn = Boolean(localStorage.getItem('authToken'))
+  const isLoggedIn = Boolean(localStorage.getItem('access_token'))
 
   const mutationHotelBooking = useMutation({
     mutationFn: () => {
@@ -117,9 +117,9 @@ export default function HotelDetail() {
     <div className='w-full'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
-          <div className='flex items-center space-x-4'>
-            <div className='items-start flex-1 w-full mt-8 mb-8'>
+        <main className='pt-20 container mx-auto'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+            <div className='w-full mt-8 mb-8'>
               <div className='flex items-center space-x-2 text-gray-800 text-md'>
                 <Link to='/hotel' className='text-red-400'>
                   Hotel
@@ -131,7 +131,7 @@ export default function HotelDetail() {
                 <ChevronRight className='w-4 h-4' />
                 <p>{getbyId?.hotel_names}</p>
               </div>
-              <div className='flex mt-8 '>
+              <div className='flex mt-8'>
                 <h1 className='mr-5 text-3xl font-bold'>{getbyId?.hotel_names}</h1>
                 <div className='flex items-center mt-2'>
                   <ReadOnlyRating rating={Number(getbyId?.star_number)} />
@@ -145,54 +145,76 @@ export default function HotelDetail() {
                 </p>
               </div>
             </div>
-            <div className='flex-1 text-right'>
+            <div className='text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
-              <div className='flex items-center justify-end gap-2 space-x-2'>
-                <p className='flex items-center px-2 py-1 text-lg text-black border rounded border-primary '>
-                  {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
-                </p>
-                <Favorite idHotel={id} />
-                <ShareButtons url={hotelUrl} title={hotelTitle} />
-                <div className='flex border rounded border-primary'>
-                  <Button
-                    onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
-                    className='px-4 py-2 m-[1px] text-white'
-                  >
-                    -
-                  </Button>
-                  <input
-                    type='text'
-                    value={hotelQuantity}
-                    onChange={(e) =>
-                      setHotelQuantity(
-                        Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0)
-                      )
-                    }
-                    min='1'
-                    className='w-16 text-center focus:outline-none'
-                  />
-                  <Button
-                    onClick={() =>
-                      setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
-                    }
-                    className='px-4 py-1 m-[1px] text-white'
-                    disabled={
-                      getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0
-                    }
-                  >
-                    +
-                  </Button>
+              <div className='mx-auto container'>
+                <div className='grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 items-center justify-end'>
+                  {/* Room availability info */}
+                  <div className='flex items-center justify-center p-4'>
+                    <p className='flex items-center px-2 py-1 text-sm sm:text-lg text-black border rounded border-primary'>
+                      {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
+                    </p>
+                  </div>
+
+                  {/* Favorite and Share buttons */}
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                    <Favorite idHotel={id} />
+                    <ShareButtons url={hotelUrl} title={hotelTitle} />
+                  </div>
+
+                  {/* Quantity control */}
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                    <div className='flex border rounded border-primary'>
+                      <Button
+                        onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
+                        className='px-4 py-2 m-[1px] text-white'
+                      >
+                        -
+                      </Button>
+                      <input
+                        type='text'
+                        value={hotelQuantity}
+                        onChange={(e) =>
+                          setHotelQuantity(
+                            Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0)
+                          )
+                        }
+                        min='1'
+                        className='w-16 text-center focus:outline-none'
+                      />
+                      <Button
+                        onClick={() =>
+                          setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
+                        }
+                        className='px-4 py-1 m-[1px] text-white'
+                        disabled={
+                          getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0
+                        }
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Book Hotel Button */}
+                  <div className='flex items-center justify-center p-4'>
+                    <Button
+                      onClick={handleBookHotel}
+                      disabled={getbyId?.number_of_seats_remaining === 0}
+                      loading={loadingBooking}
+                      className='mt-2 sm:mt-0 sm:ml-2'
+                    >
+                      {t('BookHotel')}
+                    </Button>
+                  </div>
                 </div>
-                <Button
-                  onClick={handleBookHotel}
-                  disabled={getbyId?.number_of_seats_remaining === 0}
-                  loading={loadingBooking}
-                >
-                  {t('BookHotel')}
-                </Button>
+
               </div>
+
+
             </div>
           </div>
+
           <div className='flex items-center justify-between w-full'>
             <div className='flex items-center gap-x-4'>
               <Button className='text-black bg-white border hover:bg-primary hover:text-white border-primary'>
@@ -211,7 +233,6 @@ export default function HotelDetail() {
               <Space direction='vertical' size={12}>
                 <RangePicker
                   id='date-range-picker'
-                  className='w-full p-2 border border-gray-300 rounded-lg custom-date-picker md:w-auto'
                   format='DD-MM-YYYY'
                   onChange={(dates) => {
                     if (dates && dates.length === 2) {
@@ -225,20 +246,24 @@ export default function HotelDetail() {
             </div>
           </div>
           <div className='items-start w-full mt-5 mb-8'>
-            <div className='grid w-full grid-cols-4 gap-4'>
-              <div className='grid w-full col-span-2'>
-                <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem]' />
+            <div className='grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+              {/* Large image on the left */}
+              <div className='w-full col-span-1 md:col-span-2'>
+                <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem] object-cover' />
+              </div>
+
+              {/* Smaller images on the right */}
+              <div className='grid col-span-1 gap-4'>
+                <img src={getbyId?.image_2} alt='hotel' className='w-full h-[20rem] object-cover' />
+                <img src={getbyId?.image_3} alt='hotel' className='w-full h-[20rem] object-cover' />
               </div>
               <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_2} alt='hotel' className='w-full h-[20rem]' />
-                <img src={getbyId?.image_3} alt='hotel' className='w-full h-[20rem]' />
-              </div>
-              <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_4} alt='hotel' className='w-full h-[20rem]' />
-                <img src={getbyId?.image_5} alt='hotel' className='w-full h-[20rem]' />
+                <img src={getbyId?.image_4} alt='hotel' className='w-full h-[20rem] object-cover' />
+                <img src={getbyId?.image_5} alt='hotel' className='w-full h-[20rem] object-cover' />
               </div>
             </div>
           </div>
+
           <HotelDetailOverview
             ratingStatus={ratingStatus}
             description={getbyId?.description || ''}

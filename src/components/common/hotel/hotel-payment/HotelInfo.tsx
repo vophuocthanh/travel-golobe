@@ -24,41 +24,45 @@ export default function HotelInfo({ hotel }: hotelBookingType) {
         </div>
 
         <div className="p-4 border rounded-lg bg-gray-50">
-          <div className="flex items-center space-x-4">
+          <div className="grid grid-cols-1 justify-center lg:grid-cols-3 gap-4 items-center">
             <img
               src={hoteldetail1}
               alt={hotel.hotel_names}
-              className="object-cover w-16 h-16 rounded-md"
+              className="object-cover h-32 w-full lg:h-40 lg:w-48 rounded-md mx-auto"
             />
-            <div>
-              <h3 className="text-lg font-semibold">{hotel.hotel_names}</h3>
-              <div className="flex">
-                <MapPin className='w-4 h-4 mr-2 text-black' />
+            <div className="col-span-2">
+              <h3 className="text-lg font-semibold text-center lg:text-left">{hotel.hotel_names}</h3>
+              <div className="flex items-center justify-center lg:justify-start">
+                <MapPin className="w-4 h-4 mr-2 text-black" />
                 <p className="text-sm text-gray-500">{hotel.location}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4">
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 items-center">
           <div className="text-center">
             <p className="font-medium text-md">{hotel.received_time}</p>
             <p className="text-sm text-gray-500">Check-In</p>
             <p className="font-medium text-md">{hotel.checkInDate}</p>
           </div>
-          <div className="flex items-center space-x-6">
+
+          <div className="flex items-center justify-center space-x-6">
             <MoveLeft className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
             <div className="flex justify-center w-10">
               <IconHotelpay />
             </div>
             <MoveRight className="w-11 h-11" style={{ strokeWidth: 0.5 }} />
           </div>
+
           <div className="text-center">
             <p className="font-medium text-md">{hotel.giveback_time}</p>
             <p className="text-sm text-gray-500">Check-Out</p>
             <p className="font-medium text-md">{hotel.checkOutDate}</p>
           </div>
         </div>
+
         <hr className="w-full mt-2 border-black border-1" />
       </div>
     </div>

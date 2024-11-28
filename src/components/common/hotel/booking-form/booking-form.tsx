@@ -41,8 +41,8 @@ export default function BookingForm() {
   }
 
   return (
-    <div className='flex flex-wrap justify-between p-4 space-x-2'>
-      <div className='relative w-[20rem] col-span-2 ml-5 h-[4rem]'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 w-full'>
+      <div className='relative w-full h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'
@@ -50,7 +50,7 @@ export default function BookingForm() {
           Enter Destination
         </Label>
         <Input
-          className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
+          className='w-full max-w-md border border-black p-2 h-[3.5rem] pt-4 pl-12'
           placeholder='Istanbul, Turkey'
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -87,27 +87,29 @@ export default function BookingForm() {
         )}
       </div>
 
-      <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+      <div className='relative w-full h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
         >
           Check In
         </Label>
-        <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 12/2' />
+        <Input className='w-full max-w-md border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 12/2' />
         <CalendarDays className='absolute right-3 top-3.5' />
       </div>
-      <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+
+      <div className='relative w-full h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
         >
           Check Out
         </Label>
-        <Input className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 20/2' />
+        <Input className='w-full max-w-md border border-black p-2 h-[3.5rem] pt-4' placeholder='Fri 20/2' />
         <CalendarDays className='absolute right-3 top-3.5' />
       </div>
-      <div className='relative w-[14rem] col-span-2 ml-5 h-[4rem]'>
+
+      <div className='relative w-full h-[4rem]'>
         <Label
           htmlFor=''
           className='absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm'
@@ -115,11 +117,12 @@ export default function BookingForm() {
           Rooms & Guests
         </Label>
         <Input
-          className='max-w-md w-[24rem] border border-black p-2 h-[3.5rem] pt-4 pl-12'
+          className='w-full max-w-md border border-black p-2 h-[3.5rem] pt-4 pl-12'
           placeholder='1 room ,2 guest'
         />
         <User className='absolute left-3 top-3.5 z-20' />
       </div>
     </div>
+
   )
 }

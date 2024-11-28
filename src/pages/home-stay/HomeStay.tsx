@@ -11,18 +11,22 @@ export default function HomeStay() {
       <div className='w-full bg-[#F5F5F5] pb-40'>
         <Header />
 
-        <div className='flex items-center justify-center pt-5 bg-gray-100'>
-          <div className='flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl'>
-            <BookingForm />
-            <Button className='px-6 py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md '>
-              <Search />
-            </Button>
+        <div className="mx-auto container lg:mx-[5rem]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5 bg-gray-100">
+            {/* Booking Form and Search Button */}
+            <div className="flex flex-col md:col-span-3 items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg rounded-xl">
+              <BookingForm />
+              <Button className="px-6 py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md bg-primary hover:bg-primary-dark">
+                <Search />
+              </Button>
+            </div>
+            {/* Hotel Listings */}
+            <div className="col-span-1 md:col-span-2">
+              <HotelListings />
+            </div>
           </div>
         </div>
 
-        <div className={`flex flex-row  mx-[6rem] mt-5 space-y-2`}>
-          <HotelListings />
-        </div>
       </div>
       <Footer />
     </>

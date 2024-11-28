@@ -30,29 +30,44 @@ export default function HotelDetailRoom({ Room, onValueChange }: Rom) {
         <h1 className='mb-4 text-2xl font-semibold'>{t('Rooms')}</h1>
         <div className='space-y-4'>
           {Room.map((item: RoomType) => (
-            <div key={item.id} className='flex items-center justify-between p-4 bg-white rounded-lg shadow-md'>
-              <div className='flex items-center'>
-                <img src={room1} alt='Superior room' className='object-cover w-20 h-20 rounded-md' />
-                <div className='ml-4'>
-                  <h1 className='text-lg'>Phòng {item.type}</h1>
-                </div>
+            <div
+              key={item.id}
+              className='grid grid-cols-2 lg:grid-cols-2 gap-6 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300'
+            >
+              {/* Hình ảnh và thông tin phòng */}
+              <div className='grid grid-cols-[auto_1fr] col-span-1 items-center gap-4'>
+                <img
+                  src={room1}
+                  alt='Superior room'
+                  className='object-cover w-20 h-20 rounded-md'
+                />
+                <h1 className='text-lg font-semibold text-gray-800'>{`Phòng ${item.type}`}</h1>
               </div>
-              <div className='flex items-center gap-[3rem] text-right'>
-                <div className='flex items-end'>
-                  <p className='text-3xl font-semibold'>{formatCurrencyVND(item.pricePerDay)} / 1 đêm</p>
+
+              {/* Giá và nút chọn */}
+              <div className='grid grid-cols-1 lg:grid-cols-4 col-span-1 items-center gap-4 lg:gap-12 text-center lg:text-right'>
+                {/* Giá tiền */}
+                <p className='lg:text-3xl text-2xl font-semibold col-span-3 text-gray-900 text-right'>
+                  {formatCurrencyVND(item.pricePerDay)} /night
+                </p>
+
+                {/* Nút chọn */}
+                <div className='w-full flex justify-end col-span-2 lg:col-span-1'>
+                  <Button
+                    className='px-6 py-3 text-white rounded-md w-[10rem] h-[3rem] transition-transform transform hover:scale-105 focus:outline-none'
+                    onClick={() => handleClick(item.id)}
+                    disabled={idTypeRoom !== null && idTypeRoom !== item.id}
+                  >
+                    {idTypeRoom === item.id ? t('Selected') : t('select')}
+                  </Button>
                 </div>
-                <Button
-                  className='px-4 py-2 mt-2 text-white rounded-md w-[7rem] h-[3rem]'
-                  onClick={() => handleClick(item.id)}
-                  disabled={idTypeRoom !== null && idTypeRoom !== item.id}
-                >
-                  {idTypeRoom === item.id ? t('Selected') : t('select')}
-                </Button>
               </div>
             </div>
+
           ))}
         </div>
       </div>
     </div>
+
   )
 }

@@ -66,7 +66,7 @@ export default function HotelPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 px-[5rem]'>
+        <main className='pt-20 container mx-auto'>
           <section>
             <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('HotelPayment')}</h1>
             <div className='flex items-center space-x-2'>
@@ -80,11 +80,11 @@ export default function HotelPayment() {
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+              <div className='col-span-3 lg:col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 {getBookingHotelDetails && <HotelInfo hotel={getBookingHotelDetails} />}
               </div>
-              <div className='col-span-1 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='lg:col-span-1 col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md w-full'>
                 {getBookingHotelDetails && (
                   <HotelBook
                     loading={loading}
@@ -93,10 +93,11 @@ export default function HotelPayment() {
                   />
                 )}
               </div>
-              <div className='col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md'>
                 <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption} />
               </div>
             </div>
+
           </section>
         </main>
       </SectionInViewRight>
