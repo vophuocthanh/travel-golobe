@@ -41,7 +41,7 @@ export default function RecentSearch() {
   return (
     <SectionInViewRight>
       <div className='mx-auto container pb-[25px]'>
-        <div className="mx-4 sm:mx-8 lg:mx-32">
+        <div className="">
           <h1 className="flex items-start justify-start pt-0 mb-4 text-4xl font-semibold">{t('searches')}</h1>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {getAll?.data.map((search: Search) => (
