@@ -147,23 +147,23 @@ export default function HotelDetail() {
             </div>
             <div className='text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
-              <div className='mx-auto container'>
-                <div className='grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 items-center justify-end'>
+              <div className=''>
+                <div className='grid grid-cols-1 gap-10 sm:grid-cols-2 lg:flex lg:gap-1 items-center justify-end'>
                   {/* Room availability info */}
-                  <div className='flex items-center justify-center p-4'>
-                    <p className='flex items-center px-2 py-1 text-sm sm:text-lg text-black border rounded border-primary'>
+                  <div className='flex items-center justify-center lg:justify-end lg:gap-2 lg:space-x-2'>
+                    <p className='flex text-sm justify-center items-center px-4 py-1 text-black border rounded border-primary lg:border-none'>
                       {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
                     </p>
                   </div>
 
                   {/* Favorite and Share buttons */}
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-1'>
                     <Favorite idHotel={id} />
                     <ShareButtons url={hotelUrl} title={hotelTitle} />
                   </div>
 
                   {/* Quantity control */}
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 p-4'>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
                     <div className='flex border rounded border-primary'>
                       <Button
                         onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
@@ -197,7 +197,7 @@ export default function HotelDetail() {
                   </div>
 
                   {/* Book Hotel Button */}
-                  <div className='flex items-center justify-center p-4'>
+                  <div className='flex items-center justify-center'>
                     <Button
                       onClick={handleBookHotel}
                       disabled={getbyId?.number_of_seats_remaining === 0}
@@ -226,7 +226,7 @@ export default function HotelDetail() {
               </div>
             </div>
 
-            <div className='mb-4'>
+            <div className='m-4'>
               <label htmlFor='date-range-picker' className='block mb-2 text-sm font-medium text-gray-700'>
                 {t('Select')}:
               </label>
