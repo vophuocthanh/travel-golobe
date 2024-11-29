@@ -87,7 +87,7 @@ export default function Header({ className }: HeaderProps) {
           {token ? (
             <>
               <div className="flex items-center gap-2">
-                <h1>Tổng xu: {getPointUser?.data.points}</h1>
+                <h1 className="font-medium">Tổng xu: {getPointUser?.data.points}</h1>
                 <img src={xu} alt="xu" className="w-10 h-10" />
               </div>
               <DropdownHeader />

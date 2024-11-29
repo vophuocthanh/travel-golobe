@@ -53,17 +53,17 @@ export default function Review() {
   const { t } = useTranslation()
   return (
     <SectionInViewRight>
-      <div className='mb-64 max-w-7xl'>
-        <div className='flex items-center justify-between'>
-          <div className='flex flex-col space-y-2'>
-            <h1 className='text-xl font-medium lg:text-3xl'>{t('Reviews')}</h1>
-            <p className='text-[#112211]'>{t('textReviews')}</p>
+      <div className="mb-20 max-w-7xl">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col space-y-2">
+            <h1 className="text-xl font-medium lg:text-3xl">{t('Reviews')}</h1>
+            <p className="text-[#112211]">{t('textReviews')}</p>
           </div>
-          <Button className='text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all'>
+          <Button className="text-black bg-white border border-emerald-300 hover:text-white hover:shadow-md hover:transition-all">
             {t('see')}
           </Button>
         </div>
-        <div className='z-[-10rem]'>
+        <div className="z-[-10rem]">
           <Swiper
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={10}
@@ -76,29 +76,29 @@ export default function Review() {
             loop={true}
             breakpoints={{
               768: {
-                slidesPerView: 3, 
-                spaceBetween: 20, 
-              },
+                slidesPerView: 3,
+                spaceBetween: 20
+              }
             }}
           >
             {slide.map((slide, index) => (
-              <SwiperSlide key={index} className='flex w-full mt-20'>
-                <div className='p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300'>
-                  <h1 className='text-lg lg:text-3xl'>{slide.title}</h1>
-                  <p className='text-gray-400 textContainer'>{slide.content}</p>
-                  <span className='flex ml-auto text-sm font-medium'>View more</span>
+              <SwiperSlide key={index} className="flex w-full mt-20">
+                <div className="p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300">
+                  <h1 className="text-lg lg:text-3xl">{slide.title}</h1>
+                  <p className="text-gray-400 textContainer">{slide.content}</p>
+                  <span className="flex ml-auto text-sm font-medium">View more</span>
 
-                  <div className='flex flex-col'>
+                  <div className="flex flex-col">
                     <span>{slide.span}</span>
-                    <p className='text-gray-400'>Weave Studios – Kai Tak</p>
+                    <p className="text-gray-400">Weave Studios – Kai Tak</p>
                   </div>
-                  <Link to='https://www.google.com.vn/?hl=vi' target='_blank'>
-                    <div className='flex items-center gap-2'>
-                      <img src={google} alt='google' />
-                      <span className='text-gray-400'>Google</span>
+                  <Link to="https://www.google.com.vn/?hl=vi" target="_blank">
+                    <div className="flex items-center gap-2">
+                      <img src={google} alt="google" />
+                      <span className="text-gray-400">Google</span>
                     </div>
                   </Link>
-                  <img src={slide.url} alt='' className='w-[30rem] h-[10rem] rounded-xl object-cover' />
+                  <img src={slide.url} alt="" className="w-[30rem] h-[10rem] rounded-xl object-cover" />
                 </div>
               </SwiperSlide>
             ))}
