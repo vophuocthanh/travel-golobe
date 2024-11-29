@@ -1,9 +1,11 @@
-import { logo } from '@/assets/images'
+import { meApi } from '@/apis/me'
+import { logo, xu } from '@/assets/images'
 import { IconFlight, IconHotel, IconMappin } from '@/common/icons'
 import DropdownHeader from '@/components/common/header/dropdown-header'
 import { MobilePage } from '@/components/common/mobile/mobile-sidebar'
 import { ThemeToggle } from '@/components/common/theme/theme-toogle'
 import { getAccessTokenFromLS } from '@/shared/utils/storage'
+import { useQuery } from '@tanstack/react-query'
 import { Compass, TramFront } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,6 +21,11 @@ export default function Header({ className }: HeaderProps) {
   const token = getAccessTokenFromLS()
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
+
+  const { data: getPointUser } = useQuery({
+    queryKey: ['getPointUser'],
+    queryFn: () => meApi.getPointUser()
+  })
 
   return (
     <>
@@ -78,7 +85,13 @@ export default function Header({ className }: HeaderProps) {
           <Language />
           <ThemeToggle />
           {token ? (
-            <DropdownHeader />
+            <>
+              <div className="flex items-center gap-2">
+                <h1>Tổng xu: {getPointUser?.data.points}</h1>
+                <img src={xu} alt="xu" className="w-10 h-10" />
+              </div>
+              <DropdownHeader />
+            </>
           ) : (
             <div className="flex items-center gap-4">
               <Link to="/login" className="flex items-center gap-2">

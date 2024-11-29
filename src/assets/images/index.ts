@@ -19,6 +19,13 @@ import banner_register from './banner-register.avif'
 import banner_tour from './banner-tour.avif'
 import banner from './banner.avif'
 import flight from './flight.avif'
+import flight_Dubai from './flight_Dubai.png'
+import flight_Emirates from './flight_Emirates.png'
+import flight_Etihad from './flight_Etihad.png'
+import flight_Qatar from './flight_Qatar.png'
+import flightdetail2 from './flightdetai2l.jpg'
+import flightdetail3 from './flightdetai3l.jpg'
+import flightdetail1 from './flightdetail1.jpg'
 import flightreview1 from './flightreview1.png'
 import flightreview2 from './flightreview2.png'
 import flightreview3 from './flightreview3.png'
@@ -36,56 +43,52 @@ import mailbox from './mailbox.png'
 import male_madvies from './male-madives.jpg'
 import places_together from './places-together.png'
 import sydney_australia from './sydney-australia.webp'
-import tour_into1 from './tour-into-1.png'
 import tour_1 from './tour-1.png'
+import tour_into1 from './tour-into-1.png'
 import tour_location1 from './tour-location-1.png'
 import tour_search1 from './tour-search-1.png'
 import tour from './tour.avif'
-import flightdetail1 from './flightdetail1.jpg'
-import flightdetail2 from './flightdetai2l.jpg'
-import flightdetail3 from './flightdetai3l.jpg'
-import flight_Emirates from './flight_Emirates.png'
-import flight_Dubai from './flight_Dubai.png'
-import flight_Qatar from './flight_Qatar.png'
-import flight_Etihad from './flight_Etihad.png'
 
 import hotel_istanbul from './hotel-istanbul.jpg'
 import hotel_istanbul_1 from './hotel_istanbul_1.webp'
 
-import hoteldetail1 from './hoteldetail1.png'
-import hoteldetail2 from './hoteldetail2.png'
-import hoteldetail3 from './hoteldetail3.png'
-import hoteldetail4 from './hoteldetail4.png'
-import hoteldetail5 from './hoteldetail5.png'
-import room1 from './room1.png'
-import room2 from './room2.png'
-import room3 from './room3.png'
-import room4 from './room4.png'
-import hoteldetailmap from './hoteldetailmap.png'
 import avatar1 from './avatar1.png'
 import avatar2 from './avatar2.png'
 import avatar3 from './avatar3.png'
 import avatar4 from './avatar4.png'
 import avatar5 from './avatar5.png'
-import flight_pay from './flight_pay.png'
 import banner_coach from './banner_coach.jpg'
-import ticket_economy from './ticketEconomy.webp'
-import imgcoach from './imgcoach.png'
 import bannercoach from './bannercoach.jpg'
 import coachdetail1 from './coachdetail1.jpg'
 import coachdetail2 from './coachdetail2.jpg'
 import coachdetail3 from './coachdetail3.jpg'
 import coachreview from './coachreview.jpg'
-
-
-
-
+import flight_pay from './flight_pay.png'
+import hoteldetail1 from './hoteldetail1.png'
+import hoteldetail2 from './hoteldetail2.png'
+import hoteldetail3 from './hoteldetail3.png'
+import hoteldetail4 from './hoteldetail4.png'
+import hoteldetail5 from './hoteldetail5.png'
+import hoteldetailmap from './hoteldetailmap.png'
+import imgcoach from './imgcoach.png'
+import room1 from './room1.png'
+import room2 from './room2.png'
+import room3 from './room3.png'
+import room4 from './room4.png'
+import ticket_economy from './ticketEconomy.webp'
+import xu from './xu.png'
 
 export {
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
   avatar_account,
   baku_azerbaijan,
   banner,
   banner_account,
+  banner_coach,
   banner_flight,
   banner_forgot,
   banner_forgot_1,
@@ -102,7 +105,20 @@ export {
   banner_register3,
   banner_register4,
   banner_tour,
+  bannercoach,
+  coachdetail1,
+  coachdetail2,
+  coachdetail3,
+  coachreview,
   flight,
+  flight_Dubai,
+  flight_Emirates,
+  flight_Etihad,
+  flight_Qatar,
+  flight_pay,
+  flightdetail1,
+  flightdetail2,
+  flightdetail3,
   flightreview1,
   flightreview2,
   flightreview3,
@@ -110,6 +126,15 @@ export {
   flightreview5,
   flightreview6,
   hotel,
+  hotel_istanbul,
+  hotel_istanbul_1,
+  hoteldetail1,
+  hoteldetail2,
+  hoteldetail3,
+  hoteldetail4,
+  hoteldetail5,
+  hoteldetailmap,
+  imgcoach,
   istanbul_turkey,
   logo,
   logo_flight,
@@ -119,43 +144,16 @@ export {
   mailbox,
   male_madvies,
   places_together,
-  sydney_australia,
-  tour,
-  tour_into1,
-  tour_location1,
-  tour_search1,
-  flightdetail1,
-  flightdetail2,
-  flightdetail3,
-  flight_Emirates,
-  flight_Qatar,
-  flight_Etihad,
-  flight_Dubai,
-  hotel_istanbul,
-  hotel_istanbul_1,
-  tour_1,
-  hoteldetail1,
-  hoteldetail2,
-  hoteldetail3,
-  hoteldetail4,
-  hoteldetail5,
   room1,
   room2,
   room3,
   room4,
-  hoteldetailmap,
-  avatar1,
-  avatar2,
-  avatar3,
-  avatar4,
-  avatar5,
-  flight_pay,
-  banner_coach,
+  sydney_australia,
   ticket_economy,
-  imgcoach,
-  bannercoach,
-  coachdetail1,
-  coachdetail2,
-  coachdetail3,
-  coachreview,
+  tour,
+  tour_1,
+  tour_into1,
+  tour_location1,
+  tour_search1,
+  xu
 }

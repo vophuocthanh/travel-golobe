@@ -46,5 +46,10 @@ export const meApi = {
   deleteUser(id: string) {
     const url = `/user/${id}`
     return axiosClient.delete(url)
+  },
+
+  getPointUser() {
+    const url = '/user/points-user'
+    return axiosClient.get(url)
   }
 }
