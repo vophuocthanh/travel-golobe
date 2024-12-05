@@ -18,6 +18,7 @@ import { SquarePen } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 import { z } from 'zod'
 
@@ -31,6 +32,7 @@ export default function ContentName({ title, content }: Props) {
   const [profileData, setProfileData] = useState<MeResponse>({
     name: content
   })
+  const { t } = useTranslation()
 
   const formName = useForm<{ name: string }>({
     resolver: zodResolver(NameSchema),
@@ -80,13 +82,13 @@ export default function ContentName({ title, content }: Props) {
               <DialogTrigger asChild>
                 <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
-                  <p className=''>Change Name</p>
+                  <p className=''>{t('ChangeName')}</p>
                 </Button>
               </DialogTrigger>
               <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
-                  <DialogTitle>Edit Name</DialogTitle>
-                  <DialogDescription>Make changes to your name here. Click save when you're done.</DialogDescription>
+                  <DialogTitle>{t('EditName')}</DialogTitle>
+                  <DialogDescription>{t('changesname')}</DialogDescription>
                 </DialogHeader>
                 <Form {...formName}>
                   <form onSubmit={onSubmitName} className='w-full space-y-6'>
@@ -104,7 +106,7 @@ export default function ContentName({ title, content }: Props) {
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      Save {title}
+                    {t('Save')} {title}
                     </Button>
                   </form>
                 </Form>

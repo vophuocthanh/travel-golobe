@@ -19,6 +19,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   title: string
@@ -31,6 +32,7 @@ export default function ContentPhone({ title, content }: Props) {
   const [profileData, setProfileData] = useState<MeResponse>({
     phone: content
   })
+  const { t } = useTranslation()
 
   const formPhone = useForm<{ phone: string }>({
     resolver: zodResolver(PhoneSchema),
@@ -72,14 +74,15 @@ export default function ContentPhone({ title, content }: Props) {
               <DialogTrigger asChild>
                 <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
-                  <p>Change Phone</p>
+                  <p>{t('ChangePhone')}</p>
                 </Button>
               </DialogTrigger>
               <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
-                  <DialogTitle>Edit Phone</DialogTitle>
+                  <DialogTitle>{t('EditPhone')}</DialogTitle>
                   <DialogDescription>
-                    Make changes to your phone number here. Click save when you're done.
+                  {t('changesphone')}
+                    
                   </DialogDescription>
                 </DialogHeader>
                 <Form {...formPhone}>
@@ -98,7 +101,7 @@ export default function ContentPhone({ title, content }: Props) {
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      saves {title}
+                    {t('Save')} {title}
                     </Button>
                   </form>
                 </Form>

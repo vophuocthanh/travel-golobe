@@ -24,6 +24,7 @@ import ContentDate from './components/content-date'
 import ContentEmail from './components/content-email'
 import ContentName from './components/content-name'
 import ContentPhone from './components/content-phone'
+import { useTranslation } from 'react-i18next'
 
 const colors = ['#D1E9F7', '#E9F7D1', '#F7D1E9', '#F7E9D1', '#D1F7E9', '#E9D1F7']
 
@@ -33,6 +34,7 @@ const getRandomColor = () => {
 }
 
 export default function Profile() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState('account')
   const handleTabChange = (value: string) => {
     setActiveTab(value)
@@ -101,7 +103,7 @@ export default function Profile() {
                     : 'text-gray-700 border-b-2 border-transparent'
                 } hover:border-primary`}
               >
-                Account
+                 {t('Account')}
               </TabsTrigger>
               <TabsTrigger
                 value='Tickets-Booking'
@@ -111,7 +113,7 @@ export default function Profile() {
                     : 'text-gray-700 border-b-2 border-transparent'
                 } hover:border-primary`}
               >
-                Tickets/Booking
+                {t('Tickets')}
               </TabsTrigger>
               <TabsTrigger
                 value='Payment-methods'
@@ -121,28 +123,28 @@ export default function Profile() {
                     : 'text-gray-700 border-b-2 border-transparent'
                 } hover:border-primary`}
               >
-                Payment methods
+                {t('Paymentmethods')}
               </TabsTrigger>
             </TabsList>
             <TabsContent value='account'>
-              <p className='mb-6 text-xl font-bold lg:text-2xl'>Account</p>
+              <p className='mb-6 text-xl font-bold lg:text-2xl'>{t('Account')} </p>
               <div className='space-y-3 text-md lg:text-lg'>
-                <ContentName title='Name' content={getMeProfile?.name} />
-                <ContentEmail title='Email' content={getMeProfile?.email} />
-                <ContentPhone title='Phone Number' content={getMeProfile?.phone} />
-                <ContentDate title='Date of Birth' content={getMeProfile?.date_of_birth} />
-                <ContentAddress title='Adresss' content={getMeProfile?.address} />
-                <ContentCountry title='Country' content={getMeProfile?.country} />
-                <ContentPassword title='Password' content='*************' />
+                <ContentName title={t('Name')} content={getMeProfile?.name} />
+                <ContentEmail title= {t('Email')} content={getMeProfile?.email} />
+                <ContentPhone title={t('PhoneNumber')} content={getMeProfile?.phone} />
+                <ContentDate title={t('DateBirth')} content={getMeProfile?.date_of_birth} />
+                <ContentAddress title={t('Adresss')} content={getMeProfile?.address} />
+                <ContentCountry title={t('Country')} content={getMeProfile?.country} />
+                <ContentPassword title={t('Password')} content='*************' />
               </div>
             </TabsContent>
             <TabsContent value='Tickets-Booking'>
-              <p className='mb-2 text-xl font-semibold lg:mb-4 lg:text-2xl'>Tickets/Booking</p>
+              <p className='mb-2 text-xl font-semibold lg:mb-4 lg:text-2xl'>{t('Tickets')} </p>
 
               <PaymentHistory />
             </TabsContent>
             <TabsContent value='Payment-methods'>
-              <p className='text-xl font-bold lg:text-2xl'>Payment methods</p>
+              <p className='text-xl font-bold lg:text-2xl'>{t('PaymentMethod')} </p>
               <div className='relative items-center gap-6 px-4 py-6 my-5 bg-white border border-gray-300 rounded-lg shadow-md lg:flex'>
                 <div className='grid grid-cols-2 gap-6 px-6 py-8 mb-4 text-black shadow-lg bg-primary rounded-2xl w-80 h-44'>
                   <p className='col-span-1 text-xl font-semibold'>*******</p>
@@ -150,7 +152,7 @@ export default function Profile() {
                     <Cpu className='w-8 h-8' />
                   </div>
                   <div className='col-span-1'>
-                    <p className='text-base'>Valid Thru</p>
+                    <p className='text-base'> {t('ValidThru')}</p>
                     <p className='text-xl font-semibold'>02/27</p>
                   </div>
                   <div className='flex items-center justify-end col-span-1'>
@@ -168,7 +170,7 @@ export default function Profile() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle className='mb-4 text-xl font-semibold text-center'>Add a new Card</DialogTitle>
+                      <DialogTitle className='mb-4 text-xl font-semibold text-center'>{t('AddCard')}</DialogTitle>
                       <DialogDescription>
                         <form>
                           <Input name='Card Number' icon={<CreditCard />} />
@@ -189,17 +191,15 @@ export default function Profile() {
                               className='w-5 h-5 text-blue-600 border-gray-300 rounded form-checkbox focus:ring-blue-500'
                             />
                             <label htmlFor='save-info-checkbox' className='text-sm text-gray-700'>
-                              Securely save my information for 1-click checkout
+                            {t('information')} 
                             </label>
                           </div>
                           <Button type='submit' className='w-full bg-primary'>
-                            Submit
+                            {t('Submit')}
                           </Button>
 
                           <p className='text-xs text-center text-gray-500'>
-                            By confirming your subscription, you allow The Outdoor Inn Crowd Limited to charge your card
-                            for this payment and future payments in accordance with their terms. You can always cancel
-                            your subscription.
+                          {t('confirming')}
                           </p>
                         </form>
                       </DialogDescription>

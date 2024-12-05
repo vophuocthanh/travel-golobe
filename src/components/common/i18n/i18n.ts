@@ -245,6 +245,67 @@ const resources = {
 
       ContactUs:'Contact Us',
       Copyright:'Copyright',
+
+      //profile
+      Account:'Account',
+      Name:'Name',
+      Email:'Email',
+      PhoneNumber:'Phone Number',
+      DateBirth:'Date of Birth',
+      Adresss:'Adresss',
+      Country:'Country',
+      Password:'Password',
+      Tickets:'Tickets/Booking',
+      Paymentmethods:'Payment methods',
+
+      ChangeAddress:'Change Address',
+      EditAddress:'Edit Address',
+      changes:'Make changes to your address here. Click save when you are done.',
+      Change:'Change',
+      Save:'Save',
+
+      ChangeCountry:'Change Country',
+      EditCountry:'Edit Country',
+      changescountry:'Make changes to your country here. Click save when you are done.',
+    
+      ChangeDateBirth:'Change Date of Birth',
+      EditDate:'Edit Date of Birth',
+      changesdate:'Make changes to your date of birth here. Click save when you are done.',
+
+      ChangeName:'Change Name',
+      EditName:'Edit Name',
+      changesname:'Make changes to your name here. Click save when you are done.',
+
+      Addemail:'Add another email',
+      Changeemail:'Change',
+      Editprofile:'Edit profile',
+      changesprofile:'Make changes to your profile here. Click save when you are done.',
+      CurrentPassword:'Current Password',
+      Passwordprofile:'Password',
+      ConfirmPassword:'Confirm Password',
+      Submit:'Submit',
+
+      ChangePhone:'Change Phone',
+      EditPhone:'Edit Phone',
+      changesphone:'Make changes to your phone number here. Click save when you are done.',
+
+      PaymentHistory:'Payment History',
+      Totalpayment:'Total',
+      PaymentMethod:'Payment Method:',
+
+      PaymentDate:'Payment Date:',
+      TotalAmount:'Total Amount:',
+      Status:'Status:',
+      orders:'No orders have been paid.',
+
+      confirming:'By confirming your subscription, you allow The Outdoor Inn Crowd Limited to charge your card for this payment and future payments in accordance with their terms. You can always cancel your subscription.',
+      information:'Securely save my information for 1-click checkout',
+      AddCard:'Add a new Card',
+      ValidThru:'Valid Thru',
+
+      EnterPasswordz:'Enter New Password',
+      EnterPassword:'Enter Old Password',
+      EnternewPassword:'Re-enter New Password',
     }
   },
   vi: {
@@ -484,6 +545,70 @@ const resources = {
 
       ContactUs: 'Liên hệ với chúng tôi',
       Copyright:'Bản quyền',
+
+
+      Account: 'Tài khoản',
+      Name: 'Tên',
+      Email: 'Email',
+      PhoneNumber: 'Số điện thoại',
+      DateBirth: 'Ngày sinh',
+      Adresss: 'Địa chỉ',
+      Country: 'Quốc gia',
+      Password: 'Mật khẩu',
+      Tickets: 'Vé/Đặt chỗ',
+      Paymentmethods: 'Phương thức thanh toán',
+
+
+      ChangeAddress: 'Thay đổi địa chỉ',
+      EditAddress: 'Chỉnh sửa địa chỉ',
+      changes: 'Thay đổi địa chỉ của bạn tại đây. Nhấn lưu sau khi hoàn tất.',
+      Change: 'Thay đổi',
+      Save: 'Lưu',
+
+
+      ChangeCountry: 'Thay đổi quốc gia',
+      EditCountry: 'Chỉnh sửa quốc gia',
+      changescountry: 'Thay đổi quốc gia của bạn tại đây. Nhấn lưu sau khi hoàn tất.',
+    
+
+      ChangeDateBirth: 'Thay đổi ngày sinh',
+      EditDate: 'Chỉnh sửa ngày sinh',
+      changesdate: 'Thay đổi ngày sinh của bạn tại đây. Nhấn lưu sau khi hoàn tất.',
+
+      ChangeName: 'Thay đổi tên',
+      EditName: 'Chỉnh sửa tên',
+      changesname: 'Thay đổi tên của bạn tại đây. Nhấn lưu sau khi hoàn tất.',
+
+      Addemail: 'Thêm email khác',
+      Changeemail: 'Thay đổi',
+      Editprofile: 'Chỉnh sửa hồ sơ',
+      changesprofile: 'Thay đổi hồ sơ của bạn tại đây. Nhấn lưu sau khi hoàn tất.',
+      CurrentPassword: 'Mật khẩu hiện tại',
+      Passwordprofile: 'Mật khẩu',
+      ConfirmPassword: 'Xác nhận mật khẩu',
+      Submit: 'Gửi',
+
+      ChangePhone: 'Thay đổi số điện thoại',
+      EditPhone: 'Chỉnh sửa số điện thoại',
+      changesphone: 'Thay đổi số điện thoại của bạn tại đây. Nhấn lưu sau khi hoàn tất.',
+
+      PaymentHistory: 'Lịch sử thanh toán',
+      Totalpayment: 'Tổng tiền',
+      PaymentMethod: 'Phương thức thanh toán:',
+
+      PaymentDate: 'Ngày thanh toán:',
+      TotalAmount: 'Tổng số tiền:',
+      Status: 'Trạng thái:',
+      orders: 'Chưa thanh toán đơn hàng nào.',
+      confirming: 'Bằng cách xác nhận đăng ký của bạn, bạn cho phép The Outdoor Inn Crowd Limited trừ tiền từ thẻ của bạn cho khoản thanh toán này và các khoản thanh toán trong tương lai theo điều khoản của họ. Bạn luôn có thể hủy đăng ký của mình.',
+      information: 'Lưu thông tin của tôi một cách an toàn để thanh toán 1 lần nhấp',
+      AddCard: 'Thêm thẻ mới',
+      ValidThru: 'Hiệu lực đến',
+
+      EnterPasswordz: 'Nhập mật khẩu mới',
+      EnterPassword: 'Nhập mật khẩu cũ',
+      EnternewPassword: 'Nhập lại mật khẩu mới',
+
     }
   }
 }
