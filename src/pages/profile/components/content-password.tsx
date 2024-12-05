@@ -22,6 +22,7 @@ import { ChangePasswordSchema } from '@/shared/utils/schema'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 export default function ContentPassword({ title, content, boolean }: PropProfile) {
   const [open, setOpen] = useState(false)
@@ -37,6 +38,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
       confirm_password: ''
     }
   })
+  const { t } = useTranslation()
 
   const mutationChangePassword = useMutation({
     mutationKey: ['change-password'],
@@ -79,20 +81,20 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
             {boolean ? (
               <Button className='flex items-center p-2 space-x-2 text-sm bg-white border rounded-md shadow-md border-primary'>
                 <Plus className='w-4 h-4' />
-                <p>Add another email</p>
+                <p> {t('Addemail')}</p>
               </Button>
             ) : null}
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
                 <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
-                  <p>Change</p>
+                  <p>{t('Changeemail')}</p>
                 </Button>
               </DialogTrigger>
               <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
-                  <DialogTitle>Edit profile</DialogTitle>
-                  <DialogDescription>Make changes to your profile here. Click save when you're done.</DialogDescription>
+                  <DialogTitle>{t('Editprofile')}</DialogTitle>
+                  <DialogDescription>{t('changesprofile')}</DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className='w-full space-y-6'>
@@ -101,7 +103,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                       name='current_password'
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Current Password</FormLabel>
+                          <FormLabel>{t('CurrentPassword')}</FormLabel>
                           <FormControl>
                             <Input
                               placeholder='Nhập mật khẩu cũ'
@@ -120,7 +122,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                       name='password'
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel>{t('Passwordprofile')}</FormLabel>
                           <FormControl>
                             <Input
                               placeholder='Nhập mật khẩu mới'
@@ -139,7 +141,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                       name='confirm_password'
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Confirm Password</FormLabel>
+                          <FormLabel>{t('ConfirmPassword')}</FormLabel>
                           <FormControl>
                             <Input
                               placeholder='Nhập lại mật khẩu mới'
@@ -154,7 +156,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      Submit
+                      {t('Submit')}
                     </Button>
                   </form>
                 </Form>
