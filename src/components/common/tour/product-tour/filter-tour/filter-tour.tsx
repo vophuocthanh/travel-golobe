@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -20,10 +21,16 @@ interface FlightCardProps {
   setMaxPrice: React.Dispatch<React.SetStateAction<number | undefined>>
   handleRating: (val: number | undefined) => void
   data?: string[]
-  handleSelectUniqueStartingGate?: (val: string) => void
+  handleSelectUniqueStartingGate?: (val: string | undefined) => void
   handleSelectUniqueRoadVehicle?: (val: string) => void
   dataRoadVehicle?: string[]
   handleSelectUniqueTourType?: (val: string) => void
+  handleClear?: () => void
+  selectedStartingGate?: string | undefined
+  selectRoadVehicle?: string | undefined
+  handleClearRoadVehicle?: () => void
+  selectTourType?: string | undefined
+  handleClearTourType?: () => void
 }
 
 export default function FilterTour(props: FlightCardProps) {
@@ -40,13 +47,19 @@ export default function FilterTour(props: FlightCardProps) {
     handleSelectUniqueStartingGate,
     handleSelectUniqueRoadVehicle,
     dataRoadVehicle,
-    handleSelectUniqueTourType
+    handleSelectUniqueTourType,
+    selectedStartingGate,
+    handleClear,
+    selectRoadVehicle,
+    handleClearRoadVehicle,
+    selectTourType,
+    handleClearTourType
   } = props
   const isRatingVisible = true
   const [tempMinPrice, setTempMinPrice] = useState<number | undefined>(minPrice)
   const [tempMaxPrice, setTempMaxPrice] = useState<number | undefined>(maxPrice)
   return (
-    <div className="w-[40%] max-lg:w-[25%] max-md:w-[100%]">
+    <div className="w-[30%] max-lg:w-[25%] max-md:w-[100%]">
       <div className="flex flex-col gap-6 pt-10">
         <div className="pb-4 border-b-2 border-gray-300">
           <h2 className="text-xl font-semibold text-gray-700">{t('PriceRange')}</h2>
@@ -91,7 +104,7 @@ export default function FilterTour(props: FlightCardProps) {
           </div>
         </div>
         {isRatingVisible && (
-          <div className="w-[40%] max-md:w-[100%]">
+          <div className="w-[30%] max-md:w-[100%]">
             <h2 className="text-xl font-semibold text-gray-700">{t('Rating')}</h2>
             <div className="flex gap-3 max-md:gap-4 max-lg:gap-1 w-[50%] max-lg:w-[25%] mt-4">
               {[0, 1, 2, 3, 4, 5].map((item) => (
@@ -116,47 +129,76 @@ export default function FilterTour(props: FlightCardProps) {
             </div>
           </div>
         )}
-        <div className="flex flex-col space-y-4">
+        <div className="relative flex flex-col space-y-4">
           <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn nơi xuất phát</h1>
-          <Select onValueChange={handleSelectUniqueStartingGate}>
-            <SelectTrigger className="w-[full]">
-              <SelectValue placeholder="Select a nơi xuất phát" />
+          <Select value={selectedStartingGate} onValueChange={handleSelectUniqueStartingGate}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Chọn nơi xuất phát">
+                {selectedStartingGate || <span>Chọn nơi xuất phát</span>}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Nơi xuất phát</SelectLabel>
-                {data?.map((item, index) => (
-                  <SelectItem key={index} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
+                {data?.length ? (
+                  data.map((item, index) => (
+                    <SelectItem key={index} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <div className="p-4 text-center text-gray-500">Không có nơi xuất phát</div>
+                )}
               </SelectGroup>
             </SelectContent>
           </Select>
+          {selectedStartingGate && (
+            <button
+              onClick={handleClear}
+              className="absolute p-1 text-gray-500 rounded top-[2.2rem] right-10 hover:text-gray-700 focus:outline-none"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
-        <div className="flex flex-col space-y-4">
+
+        <div className="relative flex flex-col space-y-4">
           <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn phương tiện</h1>
-          <Select onValueChange={handleSelectUniqueRoadVehicle}>
-            <SelectTrigger className="w-[full]">
-              <SelectValue placeholder="Select a phương tiện" />
+          <Select value={selectRoadVehicle} onValueChange={handleSelectUniqueRoadVehicle}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a phương tiện">
+                {selectRoadVehicle || <span>Chọn phương tiện</span>}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Phương tiện</SelectLabel>
-                {dataRoadVehicle?.map((item, index) => (
-                  <SelectItem key={index} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
+                {dataRoadVehicle?.length ? (
+                  dataRoadVehicle.map((item, index) => (
+                    <SelectItem key={index} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <div className="p-4 text-center text-gray-500">Không có phương tiện</div>
+                )}
               </SelectGroup>
             </SelectContent>
           </Select>
+          {selectRoadVehicle && (
+            <button
+              onClick={handleClearRoadVehicle}
+              className="absolute p-1 text-gray-500 rounded top-[2.2rem] right-10 hover:text-gray-700 focus:outline-none"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
-        <div className="flex flex-col space-y-4">
+        <div className="relative flex flex-col space-y-4">
           <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn loại tour</h1>
-          <Select onValueChange={handleSelectUniqueTourType}>
-            <SelectTrigger className="w-[full]">
-              <SelectValue placeholder="Chọn loại tour" />
+          <Select value={selectTourType} onValueChange={handleSelectUniqueTourType}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Chọn loại tour">{selectTourType || <span>Chọn loại tour</span>}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -166,6 +208,14 @@ export default function FilterTour(props: FlightCardProps) {
               </SelectGroup>
             </SelectContent>
           </Select>
+          {selectTourType && (
+            <button
+              onClick={handleClearTourType}
+              className="absolute p-1 text-gray-500 rounded top-[2.2rem] right-10 hover:text-gray-700 focus:outline-none"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     </div>

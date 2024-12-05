@@ -22,8 +22,8 @@ interface TourlCardProps {
   returnDate?: string
   departDate?: string
   debouncedSearchTour?: string
-  selectUniqueStartingGate?: string[]
-  selectUniqueRoadVehicle?: string[]
+  selectUniqueStartingGate?: string
+  selectUniqueRoadVehicle?: string | undefined
   selectUniqueTourType?: string
 }
 const ProductTour: React.FC<TourlCardProps> = ({
@@ -91,8 +91,8 @@ const ProductTour: React.FC<TourlCardProps> = ({
         rating,
         departDate ? departDate : undefined,
         returnDate ? returnDate : undefined,
-        selectUniqueStartingGate?.join(','),
-        selectUniqueRoadVehicle?.join(','),
+        selectUniqueStartingGate,
+        selectUniqueRoadVehicle,
         selectUniqueTourType
       ),
     enabled: !!debouncedSearchTour || !!sortByPrice || !!page
@@ -127,7 +127,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
         <div>
           {(getAll?.data?.length ?? 0) > 0 ? (
             getAll?.data?.map((item: TourResponseType) => (
-              <Link to={`/tour/${item.id}`} className="w-full">
+              <Link to={`/tour/${item.id}`} className="w-full" key={item.id}>
                 <div className="tour flex w-full h-[23rem] overflow-hidden mb-5 shadow-2xl rounded-2xl" key={item.id}>
                   <div className="relative bg-blue-300 sm:w-[40%] max-sm:w-[32%] flex-3">
                     <img src={item.image} className="object-cover w-full h-full " alt="tour" />

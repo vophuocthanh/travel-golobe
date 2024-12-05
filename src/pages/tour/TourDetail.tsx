@@ -3,10 +3,9 @@ import { FilterTour, Footer, Header, ProductTour } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useDebounce } from '@/hooks/useDebounce'
-import { Label } from '@radix-ui/react-label'
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { Search, Sofa } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -25,9 +24,9 @@ export default function TourDetail() {
   const [rating, setRating] = useState<number | undefined>(undefined)
   const [searchTour, setSearchTour] = useState<string>('')
   const debouncedSearchTour = useDebounce<string>(searchTour, 500)
-  const [selectUniqueStartingGate, setSelectUniqueStartingGate] = useState<string[]>([])
-  const [selectUniqueRoadVehicle, setSelectUniqueRoadVehicle] = useState<string[]>([])
-  const [selectUniqueTourType, setSelectUniqueTourType] = useState('')
+  const [selectUniqueStartingGate, setSelectUniqueStartingGate] = useState<string | undefined>(undefined)
+  const [selectUniqueRoadVehicle, setSelectUniqueRoadVehicle] = useState<string | undefined>(undefined)
+  const [selectUniqueTourType, setSelectUniqueTourType] = useState<string | undefined>(undefined)
 
   const handlePriceRangeChange = (min: number | undefined, max: number | undefined) => {
     setMinPrice(min)
@@ -83,16 +82,29 @@ export default function TourDetail() {
     queryFn: () => tourApi.getUniqueRoadVehicle()
   })
 
-  const handleSelectUniqueStartingGate = (val: string) => {
-    setSelectUniqueStartingGate([val])
+  const handleSelectUniqueStartingGate = (val: string | undefined) => {
+    if (val) {
+      setSelectUniqueStartingGate(val)
+    }
   }
 
   const handleSelectUniqueRoadVehicle = (val: string) => {
-    setSelectUniqueRoadVehicle([val])
+    setSelectUniqueRoadVehicle(val)
   }
 
   const handleSelectUniqueTourType = (val: string) => {
     setSelectUniqueTourType(val)
+  }
+
+  const handleClearStagingGate = () => {
+    setSelectUniqueStartingGate(undefined)
+  }
+
+  const handleClearRoadVehicle = () => {
+    setSelectUniqueRoadVehicle(undefined)
+  }
+  const handleClearTourType = () => {
+    setSelectUniqueTourType(undefined)
   }
 
   return (
@@ -101,19 +113,12 @@ export default function TourDetail() {
       <div className="flex items-center justify-center pt-5 max-sm:px-10 ">
         <div className="flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl">
           <div className="flex flex-wrap justify-between gap-4 py-4">
-            <div className="relative max-sm:w-full  col-span-2 h-[4rem]">
-              <Label
-                htmlFor=""
-                className="absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4"
-              >
-                Enter Destination
-              </Label>
+            <div className="relative col-span-2 max-sm:w-full">
               <Input
-                className="max-w-md sm:w-[16rem] max-sm:w-full  border border-[#E2E8F0] p-2 h-[4rem] pt-4 pl-12"
-                placeholder="Istanbul, Turkey"
+                className="max-w-md sm:w-[16rem] max-sm:w-full  border border-[#E2E8F0] p-2 h-[4rem] pl-6"
+                placeholder="Tìm kiếm"
                 onChange={(e) => setSearchTour(e.target.value)}
               />
-              <Sofa className="absolute left-3 top-[1rem] z-20 " />
               {isLoading ? (
                 <div className="absolute top-[4rem]  left-0 w-full p-2 bg-white border border-gray-300 rounded-md shadow-md">
                   Loading...
@@ -182,6 +187,12 @@ export default function TourDetail() {
           handleSelectUniqueRoadVehicle={handleSelectUniqueRoadVehicle}
           dataRoadVehicle={getUniqueRoadVehicle?.data}
           handleSelectUniqueTourType={handleSelectUniqueTourType}
+          handleClear={handleClearStagingGate}
+          selectedStartingGate={selectUniqueStartingGate}
+          handleClearRoadVehicle={handleClearRoadVehicle}
+          selectRoadVehicle={selectUniqueRoadVehicle}
+          handleClearTourType={handleClearTourType}
+          selectTourType={selectUniqueTourType}
         />
         <ProductTour
           departDate={filteredDepartDate}

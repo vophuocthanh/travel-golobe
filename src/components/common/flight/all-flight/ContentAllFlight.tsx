@@ -28,7 +28,7 @@ export default function ContentAllFlight() {
   const [tempSearchTo, setTempSearchTo] = useState('')
   const [tempSearchFrom, setTempSearchFrom] = useState('')
   const [selectBrands, setSelectBrands] = useState<string[]>([])
-  const [selectUniqueType, setSelectUniqueType] = useState('')
+  const [selectUniqueType, setSelectUniqueType] = useState<string | undefined>(undefined)
 
   const { data: getFlightCountBrand } = useQuery({
     queryKey: ['getFlightCountBrand'],
@@ -36,8 +36,13 @@ export default function ContentAllFlight() {
   })
 
   const handleCheckSelectBrand = (brand: string) => {
-    setSelectBrands([brand])
+    if (selectBrands.includes(brand)) {
+      setSelectBrands(selectBrands.filter((item) => item !== brand))
+    } else {
+      setSelectBrands([brand])
+    }
   }
+
   const handleSelectUniqueType = (val: string) => {
     setSelectUniqueType(val)
   }
@@ -47,6 +52,10 @@ export default function ContentAllFlight() {
     setSearchTo(tempSearchTo)
     setFilteredDepartDate(formattedDepartDate)
     setFilteredReturnDate(formattedReturnDate)
+  }
+
+  const handleClear = () => {
+    setSelectUniqueType(undefined)
   }
 
   return (
@@ -111,6 +120,8 @@ export default function ContentAllFlight() {
             handleSelectBrand={handleCheckSelectBrand}
             data={getFlightCountBrand?.data}
             handleSelectUniqueType={handleSelectUniqueType}
+            handleClear={handleClear}
+            selectedFlightType={selectUniqueType}
           />
           <div className="w-full h-full ">
             <FlightCard
