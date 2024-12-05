@@ -106,7 +106,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                           <FormLabel>{t('CurrentPassword')}</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder='Nhập mật khẩu cũ'
+                              placeholder={t('EnterPassword')}
                               type={isCurrentPassword ? 'text' : 'password'}
                               {...field}
                               icon={isCurrentPassword ? <IconNonEye /> : <IconEye />}
@@ -125,7 +125,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                           <FormLabel>{t('Passwordprofile')}</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder='Nhập mật khẩu mới'
+                              placeholder={t('EnterPasswordz')}
                               type={isPasswordVisible ? 'text' : 'password'}
                               {...field}
                               icon={isPasswordVisible ? <IconNonEye /> : <IconEye />}
@@ -144,7 +144,7 @@ export default function ContentPassword({ title, content, boolean }: PropProfile
                           <FormLabel>{t('ConfirmPassword')}</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder='Nhập lại mật khẩu mới'
+                              placeholder={t('EnternewPassword')}
                               type={isConfirmPassword ? 'text' : 'password'}
                               {...field}
                               icon={isConfirmPassword ? <IconNonEye /> : <IconEye />}

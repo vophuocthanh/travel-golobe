@@ -302,6 +302,10 @@ const resources = {
       information:'Securely save my information for 1-click checkout',
       AddCard:'Add a new Card',
       ValidThru:'Valid Thru',
+
+      EnterPasswordz:'Enter New Password',
+      EnterPassword:'Enter Old Password',
+      EnternewPassword:'Re-enter New Password',
     }
   },
   vi: {
@@ -600,6 +604,11 @@ const resources = {
       information: 'Lưu thông tin của tôi một cách an toàn để thanh toán 1 lần nhấp',
       AddCard: 'Thêm thẻ mới',
       ValidThru: 'Hiệu lực đến',
+
+      EnterPasswordz: 'Nhập mật khẩu mới',
+      EnterPassword: 'Nhập mật khẩu cũ',
+      EnternewPassword: 'Nhập lại mật khẩu mới',
+
     }
   }
 }
