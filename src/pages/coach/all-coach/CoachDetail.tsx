@@ -69,6 +69,13 @@ export default function CoachDetail() {
   const formattedPrice = price ? price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '0 VND'
 
   const handleBookingCoach = () => {
+    const isLoggedIn = !!localStorage.getItem('access_token')
+
+    if (!isLoggedIn) {
+      toast.error('Bạn cần đăng nhập để đặt vé')
+      navigate('/login')
+      return
+    }
     setLoadingBooking(true)
     mutationCoachBooking.mutate(undefined, {
       onSuccess: (data) => {
@@ -119,68 +126,68 @@ export default function CoachDetail() {
             <p>{getbyId?.brand}</p>
           </div>
           <div className="p-4 lg:flex-col">
-            <div className='flex justify-between w-full'>
-            <div>
-              <p className="text-lg font-bold lg:text-2xl">{getbyId?.brand}</p>
-              <div className="flex items-center mt-1 space-x-2 text-sm">
-                <MapPin className="w-4 h-4" />
-                <p>{getbyId?.destination}</p>
+            <div className="flex justify-between w-full">
+              <div>
+                <p className="text-lg font-bold lg:text-2xl">{getbyId?.brand}</p>
+                <div className="flex items-center mt-1 space-x-2 text-sm">
+                  <MapPin className="w-4 h-4" />
+                  <p>{getbyId?.destination}</p>
+                </div>
+                <div className="flex items-center mt-2 space-x-2">
+                  <p className="flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary">
+                    4.2
+                  </p>
+                  <p className="text-xs font-normal">
+                    <span className="font-bold">Very Good </span>
+                    54 reviews
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center mt-2 space-x-2">
-                <p className="flex items-center justify-center w-10 h-8 text-xs font-medium border rounded border-primary">
-                  4.2
-                </p>
-                <p className="text-xs font-normal">
-                  <span className="font-bold">Very Good </span>
-                  54 reviews
-                </p>
-              </div>
-            </div>
-            <p className="text-lg lg:text-[32px] text-right font-bold text-[#FF8682]">{formattedPrice}</p>
+              <p className="text-lg lg:text-[32px] text-right font-bold text-[#FF8682]">{formattedPrice}</p>
             </div>
             <div className="flex w-full space-y-2">
               <div className="lg:space-x-2 lg:ml-auto lg:flex ">
-                <div className='flex w-full mt-2 mb-2'>
-                <p className="flex items-center px-2 py-1 mr-2 text-black border rounded text-md lg:text-lg border-primary w-[10rem]">
-                  {t('Availab')} {getbyId?.number_of_seats_remaining} {t('Seat')}
-                </p>
-                <div className="flex items-center space-x-4 bg-white border rounded border-primary ">
+                <div className="flex w-full mt-2 mb-2">
+                  <p className="flex items-center px-2 py-1 mr-2 text-black border rounded text-md lg:text-lg border-primary w-[10rem]">
+                    {t('Availab')} {getbyId?.number_of_seats_remaining} {t('Seat')}
+                  </p>
+                  <div className="flex items-center space-x-4 bg-white border rounded border-primary ">
+                    <Button
+                      onClick={handleDecreaseQuantity}
+                      disabled={getbyId?.number_of_seats_remaining === 0}
+                      className="w-10 px-2 py-1 text-lg border rounded"
+                    >
+                      -
+                    </Button>
+                    <p className="w-5 text-lg font-semibold text-center">{roadVehicleQuantity}</p>
+                    <Button
+                      onClick={handleIncreaseQuantity}
+                      disabled={
+                        getbyId?.number_of_seats_remaining === 0 ||
+                        getbyId?.number_of_seats_remaining === roadVehicleQuantity
+                      }
+                      className="w-10 px-2 py-1 text-lg border rounded"
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center w-full gap-2 ml-auto">
+                  <p
+                    className="flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary"
+                    onClick={handleClick}
+                  >
+                    <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
+                  </p>
+                  <ShareButtons url={coachUrl} title={coachTitle} />
                   <Button
-                    onClick={handleDecreaseQuantity}
+                    className="flex w-[8rem]"
+                    loading={loadingBooking}
+                    onClick={handleBookingCoach}
                     disabled={getbyId?.number_of_seats_remaining === 0}
-                    className="w-10 px-2 py-1 text-lg border rounded"
                   >
-                    -
+                    {t('BookCoach')}
                   </Button>
-                  <p className="w-5 text-lg font-semibold text-center">{roadVehicleQuantity}</p>
-                  <Button
-                    onClick={handleIncreaseQuantity}
-                    disabled={
-                      getbyId?.number_of_seats_remaining === 0 ||
-                      getbyId?.number_of_seats_remaining === roadVehicleQuantity
-                    }
-                    className="w-10 px-2 py-1 text-lg border rounded"
-                  >
-                    +
-                  </Button>
-                </div>
-                </div>
-                <div className='flex items-center justify-center w-full gap-2 ml-auto'>
-                <p
-                  className="flex items-center justify-center w-10 h-10 text-xs font-medium transition-colors border rounded cursor-pointer border-primary"
-                  onClick={handleClick}
-                >
-                  <HeartIcon className={`w-4 h-4 ${liked ? 'text-red-600' : ''}`} />
-                </p>
-                <ShareButtons url={coachUrl} title={coachTitle} />
-                <Button
-                  className="flex w-[8rem]"
-                  loading={loadingBooking}
-                  onClick={handleBookingCoach}
-                  disabled={getbyId?.number_of_seats_remaining === 0}
-                >
-                  {t('BookCoach')}
-                </Button>
                 </div>
               </div>
             </div>
