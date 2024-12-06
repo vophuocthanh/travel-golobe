@@ -110,45 +110,45 @@ export default function HotelAdminEdit() {
   }
 
   return (
-    <div className='w-full p-2'>
-      <h1 className='mb-2 text-2xl font-bold'>Sửa thông tin khách sạn {id}</h1>
-      <Button className='flex mb-4 mr-auto text-white' onClick={handleBack}>
+    <div className="w-full p-2">
+      <h1 className="mb-2 text-2xl font-bold">Sửa thông tin khách sạn {id}</h1>
+      <Button className="flex mb-4 mr-auto text-white" onClick={handleBack}>
         <ArrowLeftToLine />
       </Button>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-          <div className='p-4 bg-white rounded-lg shadow'>
-            <h2 className='text-xl font-bold '>Hotel Image</h2>
-            <div className='grid grid-cols-4 gap-4 mb-4'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <div className="p-4 bg-white rounded-lg shadow">
+            <h2 className="text-xl font-bold ">Ảnh khách sạn</h2>
+            <div className="grid grid-cols-4 gap-4 mb-4">
               {/* Image Upload Sections */}
               {/* You can keep the structure for image uploads as it is */}
-              <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-                <img src={hoteldetail1} alt='hotel' className='w-full h-full' />
+              <div className="w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]">
+                <img src={hoteldetail1} alt="hotel" className="w-full h-full" />
               </div>
-              <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-                <img src={hoteldetail1} alt='hotel' className='w-full h-full' />
+              <div className="w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]">
+                <img src={hoteldetail1} alt="hotel" className="w-full h-full" />
               </div>
-              <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-                <div className='flex items-center justify-center h-full cursor-pointer'>
+              <div className="w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]">
+                <div className="flex items-center justify-center h-full cursor-pointer">
                   <div>
-                    <div className='flex justify-center mb-2'>
+                    <div className="flex justify-center mb-2">
                       <CirclePlus />
                     </div>
-                    <p className='text-blue-600'>
-                      Click to upload<span className='text-black'> or drag and drop</span>
+                    <p className="text-blue-600">
+                      Click to upload<span className="text-black"> or drag and drop</span>
                     </p>
                     <p>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
                 </div>
               </div>
-              <div className='w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]'>
-                <div className='flex items-center justify-center h-full cursor-pointer'>
+              <div className="w-full col-span-1 p-2 mt-6 bg-white rounded-lg shadow-md h-[20rem]">
+                <div className="flex items-center justify-center h-full cursor-pointer">
                   <div>
-                    <div className='flex justify-center mb-2'>
+                    <div className="flex justify-center mb-2">
                       <CirclePlus />
                     </div>
-                    <p className='text-blue-600'>
-                      Click to upload<span className='text-black'> or drag and drop</span>
+                    <p className="text-blue-600">
+                      Click to upload<span className="text-black"> or drag and drop</span>
                     </p>
                     <p>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
@@ -157,18 +157,18 @@ export default function HotelAdminEdit() {
             </div>
           </div>
 
-          <div className='p-4 bg-white rounded-lg shadow'>
-            <h2 className='mb-4 text-xl font-bold'>Hotel Information</h2>
-            <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
+          <div className="p-4 bg-white rounded-lg shadow">
+            <h2 className="mb-4 text-xl font-bold">Thông tin khách sạn</h2>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               {/** Form Fields */}
               <FormField
                 control={form.control}
-                name='hotel_names'
+                name="hotel_names"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Hotel Name</FormLabel>
+                    <FormLabel>Tên khách sạn</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Hotel Name' {...field} />
+                      <Input type="text" placeholder="Hotel Name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -176,12 +176,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='location'
+                name="location"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Location</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Location' {...field} />
+                      <Input type="text" placeholder="Location" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -189,12 +189,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='star_number'
+                name="star_number"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Star Rating</FormLabel>
+                    <FormLabel>Xếp hạng sao</FormLabel>
                     <FormControl>
-                      <Input type='number' placeholder='Star Rating' {...field} />
+                      <Input type="number" placeholder="Star Rating" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -202,12 +202,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='price'
+                name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Price</FormLabel>
+                    <FormLabel>Giá</FormLabel>
                     <FormControl>
-                      <Input type='number' placeholder='Price' {...field} />
+                      <Input type="number" placeholder="Price" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -215,12 +215,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='score_hotels'
+                name="score_hotels"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Hotel Score</FormLabel>
+                    <FormLabel>Điểm của khách sạn</FormLabel>
                     <FormControl>
-                      <Input type='number' placeholder='Hotel Score' {...field} />
+                      <Input type="number" placeholder="Hotel Score" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -228,12 +228,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='number_rating'
+                name="number_rating"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number of Ratings</FormLabel>
+                    <FormLabel>Số lượng đánh giá</FormLabel>
                     <FormControl>
-                      <Input type='number' placeholder='Number of Ratings' {...field} />
+                      <Input type="number" placeholder="Number of Ratings" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -241,12 +241,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='received_time'
+                name="received_time"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Received Time</FormLabel>
+                    <FormLabel>Thời gian nhận phòng</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Received Time' {...field} />
+                      <Input type="text" placeholder="Received Time" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -254,12 +254,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='giveback_time'
+                name="giveback_time"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Giveback Time</FormLabel>
+                    <FormLabel>Thời gian trả phòng</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Giveback Time' {...field} />
+                      <Input type="text" placeholder="Giveback Time" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -267,12 +267,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='description'
+                name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>Mô tả</FormLabel>
                     <FormControl>
-                      <Textarea placeholder='Description' {...field} />
+                      <Textarea placeholder="Description" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -280,12 +280,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='hotel_link'
+                name="hotel_link"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Hotel Link</FormLabel>
+                    <FormLabel>Đường dẫn khách sạn</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Hotel Link' {...field} />
+                      <Input type="text" placeholder="Hotel Link" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -293,12 +293,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='place'
+                name="place"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Place</FormLabel>
+                    <FormLabel>Địa điểm</FormLabel>
                     <FormControl>
-                      <Input type='text' placeholder='Place' {...field} />
+                      <Input type="text" placeholder="Place" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -306,12 +306,12 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
-                name='number_of_seats_remaining'
+                name="number_of_seats_remaining"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number of Seats Remaining</FormLabel>
+                    <FormLabel>Số chỗ còn lại</FormLabel>
                     <FormControl>
-                      <Input type='number' placeholder='Number of Seats Remaining' {...field} />
+                      <Input type="number" placeholder="Number of Seats Remaining" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -320,7 +320,7 @@ export default function HotelAdminEdit() {
             </div>
           </div>
 
-          <Button type='submit' className='w-full' disabled={loading}>
+          <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Loading...' : 'Update Hotel'}
           </Button>
         </form>

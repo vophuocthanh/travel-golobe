@@ -155,68 +155,104 @@ export default function RoadVehicleAdminEdit() {
         <div className='p-4 bg-white rounded-lg shadow'>
           <h2 className='mb-4 text-xl font-bold'>Thông tin chuyến xe</h2>
           <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
-            <Input
-              {...register('brand')}
-              placeholder='Tên nhà xe'
-              className='col-span-2 p-2 border rounded'
-            />
+            <div>
+              <p>Tên nhà xe</p>
+              <Input
+                {...register('brand')}
+                placeholder='Tên nhà xe'
+                className='col-span-2 p-2 border rounded'
+              />
+            </div>
+            <div>
+            <p>Số chổ ngồi</p>
             <Input
               {...register('number_of_seat')}
               placeholder='Số chổ ngồi'
               className='col-span-2 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Thời gian khởi hành</p>
             <Input
               {...register('start_time')}
               placeholder='Thời gian khởi hành'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Ngày khởi hành</p>
             <Input
               {...register('start_day')}
               placeholder='Ngày khởi hành'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Thời gian kết thúc</p>
             <Input
               {...register('end_time')}
               placeholder='Thời gian kết thúc'
               className='col-span-1 p-2 border rounded'
             />
-            <Input
-              {...register('end_day')}
-              placeholder='Ngày kết thúc'
-              className='col-span-1 p-2 border rounded'
-            />
+            </div>
+            <div>
+            <p>Ngày kết thúc</p>
+              <Input
+                {...register('end_day')}
+                placeholder='Ngày kết thúc'
+                className='col-span-1 p-2 border rounded'
+              />
+            </div>
+            <div>
+            <p>Thời gian chuyến đi</p>
             <Input
               {...register('trip_time')}
               placeholder='Thời gian chuyến xe'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Điểm đi</p>
             <Input
               {...register('take_place')}
               placeholder='Điểm đi'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Điểm đến</p>
             <Input
               {...register('destination')}
               placeholder='Điểm đến'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Vị trí</p>
             <Input
               {...register('location')}
               placeholder='Vị trí'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Số chổ còn lại</p>
             <Input
               {...register('number_of_seats_remaining')}
               type='number'
               placeholder='Số chổ còn lại'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
+            <div>
+            <p>Giá vé</p>
             <Input
               {...register('price')}
               type='number'
-              placeholder='Giá'
+              placeholder='Giá vé'
               className='col-span-1 p-2 border rounded'
             />
+            </div>
           </div>
         </div>
       </form>

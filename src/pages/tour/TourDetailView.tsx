@@ -253,7 +253,6 @@ export default function TourDetailView() {
                         </div>
                         <button className="text-blue-500">+24 more</button>
                       </div>
-                      
                     </div>
                   </div>
                   <hr className="mb-12 border-t border-gray-300" />
@@ -287,7 +286,7 @@ export default function TourDetailView() {
                   </div>
                 </section>
               </div>
-              <div className="lg:w-[300px] max-md:px-6 max-md:w-[100%] max-md:mt-4  max-lg:w-[250px] max-md:absolute shadow-2xl xl:h-[450px] h-[420px] md:sticky md:top-[10rem] rounded-lg">
+              <div className="lg:w-[380px] max-md:px-6 max-md:w-[100%] max-md:mt-4  max-lg:w-[250px] max-md:absolute shadow-2xl xl:h-[450px] h-[420px] md:sticky md:top-[10rem] rounded-lg">
                 <div className="p-5 max-lg:p-3">
                   <div className="flex items-center justify-between ">
                     <div className="text-2xl font-semibold max-lg:text-base max-xl:text-xl">{t('Price')}:</div>
@@ -299,7 +298,7 @@ export default function TourDetailView() {
                     </div>
                   </div>
                   <div className="flex items-center justify-between py-4">
-                    <div className='flex'>
+                    <div className="flex">
                       <div className="mr-2">
                         <IconTourCode />
                       </div>
@@ -310,44 +309,44 @@ export default function TourDetailView() {
                     </div>
                   </div>
                   <div className="flex items-center justify-between py-4">
-                    <div className='flex'>
-                    <div className="mr-2">
-                      <IconDeparture />
-                    </div>
-                    <div className="mr-2 text-xl max-xl:text-lg max-lg:text-base">{t('Departure')}:</div>
+                    <div className="flex">
+                      <div className="mr-2">
+                        <IconDeparture />
+                      </div>
+                      <div className="mr-2 text-xl max-xl:text-lg max-lg:text-base">{t('Departure')}:</div>
                     </div>
                     <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.starting_gate}
                     </div>
                   </div>
                   <div className="flex items-center justify-between py-4">
-                    <div className='flex'>
-                    <div className="mr-2">
-                      <IconDepartureDate />
-                    </div>
-                    <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Date')}:</div>
+                    <div className="flex">
+                      <div className="mr-2">
+                        <IconDepartureDate />
+                      </div>
+                      <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Date')}:</div>
                     </div>
                     <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {formatDateTime}
                     </div>
                   </div>
                   <div className="flex items-center justify-between py-4">
-                    <div className='flex'>
-                    <div className="mr-2">
-                      <IconTime />
-                    </div>
-                    <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Duration')}:</div>
+                    <div className="flex">
+                      <div className="mr-2">
+                        <IconTime />
+                      </div>
+                      <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Duration')}:</div>
                     </div>
                     <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.time_trip}
                     </div>
                   </div>
                   <div className="flex items-center justify-between py-4">
-                    <div className='flex'>
-                    <div className="mr-2">
-                      <IconNumberSeats />
-                    </div>
-                    <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Available')}:</div>
+                    <div className="flex">
+                      <div className="mr-2">
+                        <IconNumberSeats />
+                      </div>
+                      <div className="mr-2 text-xl max-lg:text-base max-xl:text-lg">{t('Available')}:</div>
                     </div>
                     <div className="flex items-center justify-center font-medium text-center max-lg:text-base text-sky-500">
                       {getbyId?.number_of_seats_remaining} {t('seats')}

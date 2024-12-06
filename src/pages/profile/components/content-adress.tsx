@@ -20,7 +20,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { SquarePen } from 'lucide-react'
 import { toast } from 'react-toastify'
-
+import { useTranslation } from 'react-i18next'
 type Props = {
   title: string
   content?: string | undefined
@@ -28,7 +28,7 @@ type Props = {
 
 export default function ContentAddress({ title, content }: Props) {
   const [openAddressDialog, setOpenAddressDialog] = useState(false)
-
+  const { t } = useTranslation()
   const [profileData, setProfileData] = useState<MeResponse>({
     address: content
   })
@@ -75,13 +75,13 @@ export default function ContentAddress({ title, content }: Props) {
               <DialogTrigger asChild>
                 <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
-                  <p>Change Address</p>
+                  <p>{t('ChangeAddress')}</p>
                 </Button>
               </DialogTrigger>
               <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
-                  <DialogTitle>Edit Address</DialogTitle>
-                  <DialogDescription>Make changes to your address here. Click save when you're done.</DialogDescription>
+                  <DialogTitle> {t('EditAddress')}</DialogTitle>
+                  <DialogDescription> {t('changes')}</DialogDescription>
                 </DialogHeader>
                 <Form {...formAddress}>
                   <form onSubmit={formAddress.handleSubmit(onSubmitAddress)} className='w-full space-y-6'>
@@ -90,7 +90,7 @@ export default function ContentAddress({ title, content }: Props) {
                       name='address'
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Change {title}</FormLabel>
+                          <FormLabel> {t('Change')} {title}</FormLabel>
                           <FormControl>
                             <Input placeholder='Enter address' {...field} />
                           </FormControl>
@@ -99,7 +99,7 @@ export default function ContentAddress({ title, content }: Props) {
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      Save {title}
+                      {t('Save')} {title}
                     </Button>
                   </form>
                 </Form>

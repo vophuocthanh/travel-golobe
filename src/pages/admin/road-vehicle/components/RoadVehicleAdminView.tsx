@@ -70,6 +70,8 @@ export default function RoadVehicleAdminView() {
         <div className='p-4 bg-white rounded-lg shadow'>
           <h2 className='mb-4 text-xl font-bold'>Thông tin chuyến xe</h2>
           <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
+            <div>
+            <p>ID nhà xe</p>
             <Input
               type='text'
               name='id'
@@ -78,6 +80,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-2 p-2 border rounded '
               readOnly
             />
+            </div>
+            <div>
+            <p>Tên nhà xe</p>
             <Input
               type='text'
               name='brandName'
@@ -86,6 +91,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-2 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Thời gian khởi hành</p>
             <Input
               type='text'
               name='startTime'
@@ -94,6 +102,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Ngày khởi hành</p>
             <Input
               type='text'
               name='startDay'
@@ -102,6 +113,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Thời gian kết thúc</p>
             <Input
               type='text'
               name='endTime'
@@ -110,6 +124,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Ngày kết thúc</p>
             <Input
               type='text'
               name='endDay'
@@ -118,6 +135,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Thời gian chuyến đi</p>
             <Input
               type='text'
               name='tripTime'
@@ -126,6 +146,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Điểm đi</p>
             <Input
               type='text'
               name='takePlace'
@@ -134,6 +157,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Điểm đến</p>
             <Input
               type='text'
               name='destination'
@@ -142,6 +168,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Vị trí</p>
             <Input
               type='text'
               name='Location'
@@ -150,6 +179,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
+            <div>
+            <p>Số chổ còn lại</p>
             <Input
               type='text'
               name='number_of_seats_remaining'
@@ -158,6 +190,9 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />     
+            </div>
+            <div>
+            <p>Giá vé</p>
             <Input
               type='number'
               name='price'
@@ -166,6 +201,7 @@ export default function RoadVehicleAdminView() {
               className='col-span-1 p-2 border rounded'
               readOnly
             />
+            </div>
           </div>
         </div>
       </form>

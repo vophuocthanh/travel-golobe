@@ -1,10 +1,6 @@
 import { Button } from '@/components/ui/button'
 // import { Checkbox } from '@/components/ui/checkbox'
 
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import ReactSlider from 'react-slider'
 import {
   Select,
   SelectContent,
@@ -14,15 +10,29 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { ChevronDown, ChevronUp, X } from 'lucide-react'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import ReactSlider from 'react-slider'
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
   brandFlight: string[]
   handleSelectBrand: (brand: string) => void
   data?: string[]
   handleSelectUniqueType?: (val: string) => void
+  handleClear?: () => void
+  selectedFlightType?: string | undefined
 }
 
-const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight, handleSelectBrand, data,handleSelectUniqueType }) => {
+const FilterSection: React.FC<FilterPriceProps> = ({
+  onApplyFilter,
+  brandFlight,
+  handleSelectBrand,
+  data,
+  handleSelectUniqueType,
+  handleClear,
+  selectedFlightType
+}) => {
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
   const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState<boolean>(true)
@@ -31,8 +41,8 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
 
   const [, setMinPrice] = useState<number | undefined>(undefined)
   const [, setMaxPrice] = useState<number | undefined>(undefined)
-  const [tempMinPrice, setTempMinPrice] = useState<number | undefined>(undefined)
-  const [tempMaxPrice, setTempMaxPrice] = useState<number | undefined>(undefined)
+  const [tempMinPrice, setTempMinPrice] = useState<string | undefined>(undefined)
+  const [tempMaxPrice, setTempMaxPrice] = useState<string | undefined>(undefined)
 
   const handleTimeChange = (time: number[]) => {
     setTime(time)
@@ -76,7 +86,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
                   <input
                     className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMinPrice || ''}
-                    onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
+                    onChange={(e) => setTempMinPrice(e.target.value)}
                     placeholder="Giá tối thiểu"
                   />
                 </div>
@@ -85,7 +95,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
                   <input
                     className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMaxPrice || ''}
-                    onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
+                    onChange={(e) => setTempMaxPrice(e.target.value)}
                     placeholder="Giá tối đa"
                   />
                 </div>
@@ -94,9 +104,11 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
                 <Button
                   className="w-full mt-4 text-white transition duration-200 rounded bg-primary hover:bg-green-300"
                   onClick={() => {
-                    setMinPrice(tempMinPrice)
-                    setMaxPrice(tempMaxPrice)
-                    onApplyFilter(tempMinPrice, tempMaxPrice)
+                    const minPrice = tempMinPrice ? parseFloat(tempMinPrice) : undefined
+                    const maxPrice = tempMaxPrice ? parseFloat(tempMaxPrice) : undefined
+                    setMinPrice(minPrice)
+                    setMaxPrice(maxPrice)
+                    onApplyFilter(minPrice, maxPrice)
                   }}
                 >
                   {t('Filter')}
@@ -178,11 +190,11 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
         </div>
       )}
 
-      <div className="flex flex-col space-y-4">
+      <div className="relative flex flex-col space-y-4">
         <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn loại vé</h1>
-        <Select onValueChange={handleSelectUniqueType}>
-          <SelectTrigger className="w-[full]">
-            <SelectValue placeholder="Chọn loại vé" />
+        <Select value={selectedFlightType} onValueChange={handleSelectUniqueType}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Chọn loại vé">{selectedFlightType || <span>Chọn loại vé</span>}</SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -192,6 +204,14 @@ const FilterSection: React.FC<FilterPriceProps> = ({ onApplyFilter, brandFlight,
             </SelectGroup>
           </SelectContent>
         </Select>
+        {selectedFlightType && (
+          <button
+            onClick={handleClear}
+            className="absolute p-1 text-gray-500 rounded top-[2.2rem] right-10 hover:text-gray-700 focus:outline-none"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
       </div>
     </div>
   )
