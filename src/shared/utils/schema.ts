@@ -1,5 +1,6 @@
-import { validator } from '@/shared/lib/validator'
 import { z } from 'zod'
+
+const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/
 
 export const FormSchemaLogin = z.object({
   email: z
@@ -13,7 +14,9 @@ export const FormSchemaLogin = z.object({
     .min(1, {
       message: 'Password is required'
     })
-    .regex(validator.password, 'Password must contain at least 6 characters')
+    .regex(passwordRegex, {
+      message: 'Password must be at least 6 characters long, contain at least one uppercase letter and one number'
+    })
 })
 
 export const FormSchemaRegister = z.object({
@@ -28,7 +31,9 @@ export const FormSchemaRegister = z.object({
     .min(1, {
       message: 'Password is required'
     })
-    .regex(validator.password, 'Password must contain at least 6 characters'),
+    .regex(passwordRegex, {
+      message: 'Password must be at least 6 characters long, contain at least one uppercase letter and one number'
+    }),
   name: z.string().min(1, { message: 'Name is required' }),
   role: z.number().min(1, { message: 'Role is required' })
 })

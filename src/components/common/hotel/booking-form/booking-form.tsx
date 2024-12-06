@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
-import { CalendarDays, Sofa, User } from 'lucide-react'
+import { Sofa } from 'lucide-react'
 
 import { hotelApi } from '@/apis/hotel.api'
 import { useDebounce } from '@/hooks/useDebounce'
@@ -87,7 +87,7 @@ export default function BookingForm() {
         )}
       </div>
 
-      <div className="relative w-full h-[4rem]">
+      {/* <div className="relative w-full h-[4rem]">
         <Label
           htmlFor=""
           className="absolute p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 z-10 text-sm"
@@ -121,7 +121,7 @@ export default function BookingForm() {
           placeholder="1 room ,2 guest"
         />
         <User className="absolute left-3 top-3.5 z-20" />
-      </div>
+      </div> */}
     </div>
   )
 }

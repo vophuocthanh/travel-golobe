@@ -23,7 +23,11 @@ const HotelListings: React.FC = () => {
   }
 
   const handlePlaceChange = (place: string) => {
-    setSelectedPlaces([place])
+    if (selectedPlaces.includes(place)) {
+      setSelectedPlaces(selectedPlaces.filter((item) => item !== place))
+    } else {
+      setSelectedPlaces([place])
+    }
   }
 
   const items: MenuProps['items'] = [
@@ -63,39 +67,39 @@ const HotelListings: React.FC = () => {
   const isRatingVisible = true
   return (
     <>
-      <div className='mt-8 w-full'>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+      <div className="w-full mt-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Filter Section */}
-          <div className='col-span-1 lg:col-span-1 pt-10'>
-            <div className='pb-4 border-b-2 border-gray-300 w-full'>
-              <h2 className='text-xl font-semibold text-gray-700'>{t('PriceRange')}</h2>
-              <div className='p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md'>
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+          <div className="col-span-1 pt-10 lg:col-span-1">
+            <div className="w-full pb-4 border-b-2 border-gray-300">
+              <h2 className="text-xl font-semibold text-gray-700">{t('PriceRange')}</h2>
+              <div className="p-4 mt-4 space-y-4 bg-white rounded-lg shadow-md">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                   <input
-                    className='w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
-                    placeholder='Min Price'
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Min Price"
                     value={minPrice !== undefined ? minPrice : ''}
                     onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                   />
                   <input
-                    className='w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary'
-                    placeholder='Max Price'
+                    className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Max Price"
                     value={maxPrice !== undefined ? maxPrice : ''}
                     onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
                   />
                 </div>
                 <Button
                   onClick={handlePriceRangeChange}
-                  className='w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark'
+                  className="w-full px-4 py-2 text-white transition duration-200 rounded-md bg-primary hover:bg-primary-dark"
                 >
                   {t('Filter')}
                 </Button>
                 <Button
-                  className='w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500'
+                  className="w-full mt-4 text-white transition duration-200 bg-gray-400 rounded hover:bg-gray-500"
                   onClick={() => {
-                    setMaxPrice(undefined);
-                    setMinPrice(undefined);
-                    setPriceRange([undefined, undefined]);
+                    setMaxPrice(undefined)
+                    setMinPrice(undefined)
+                    setPriceRange([undefined, undefined])
                   }}
                 >
                   {t('CancelFilter')}
@@ -104,21 +108,20 @@ const HotelListings: React.FC = () => {
             </div>
 
             {isRatingVisible && (
-              <div className='w-full'>
-                <h2 className='text-xl font-semibold text-gray-700'>{t('Rating')}</h2>
-                <div className='flex gap-3 mt-4'>
+              <div className="w-full">
+                <h2 className="text-xl font-semibold text-gray-700">{t('Rating')}</h2>
+                <div className="flex gap-3 mt-4">
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <Button
                       key={rating}
-                      className={`flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md transition duration-200 ${starNumber === rating
-                        ? 'bg-primary'
-                        : 'opacity-50 hover:opacity-100 cursor-pointer'
-                        }`}
+                      className={`flex items-center justify-center w-12 h-8 text-sm font-medium text-white rounded-md transition duration-200 ${
+                        starNumber === rating ? 'bg-primary' : 'opacity-50 hover:opacity-100 cursor-pointer'
+                      }`}
                       onClick={() => {
                         if (starNumber === rating) {
-                          setStarNumber(undefined);
+                          setStarNumber(undefined)
                         } else {
-                          setStarNumber(rating);
+                          setStarNumber(rating)
                         }
                       }}
                     >
@@ -126,16 +129,16 @@ const HotelListings: React.FC = () => {
                     </Button>
                   ))}
                 </div>
-                <div className='inline-block mt-6'>
-                  <h2 className='mb-4 text-xl font-semibold text-gray-700'>Địa điểm</h2>
+                <div className="inline-block mt-6">
+                  <h2 className="mb-4 text-xl font-semibold text-gray-700">Địa điểm</h2>
                   {getCountPlace?.data?.map((place: string, index: number) => (
-                    <label key={index} className='flex items-center'>
+                    <label key={index} className="flex items-center">
                       <input
-                        type='checkbox'
+                        type="checkbox"
                         value={place}
                         checked={selectedPlaces.includes(place)}
                         onChange={(e) => handlePlaceChange(e.target.value)}
-                        className='w-5 h-5 mr-2 accent-primary '
+                        className="w-5 h-5 mr-2 accent-primary "
                       />
                       {place}
                     </label>
@@ -146,8 +149,8 @@ const HotelListings: React.FC = () => {
           </div>
 
           {/* Hotel List Section */}
-          <div className='col-span-1 lg:col-span-2'>
-            <div className='flex items-center justify-end w-full h-10 mb-2'>
+          <div className="col-span-1 lg:col-span-2">
+            <div className="flex items-center justify-end w-full h-10 mb-2">
               <Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
@@ -157,7 +160,7 @@ const HotelListings: React.FC = () => {
                 </a>
               </Dropdown>
             </div>
-            <div className='flex flex-col flex-1 gap-8'>
+            <div className="flex flex-col flex-1 gap-8">
               <HotelCard
                 starNumber={starNumber}
                 sortByPrice={sortByPrice}
@@ -169,8 +172,6 @@ const HotelListings: React.FC = () => {
           </div>
         </div>
       </div>
-
-
     </>
   )
 }

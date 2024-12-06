@@ -8,13 +8,13 @@ import HotelListings from './components/HotelListings'
 export default function HomeStay() {
   return (
     <>
-      <div className='w-full bg-[#F5F5F5] pb-40'>
+      <div className="w-full bg-[#F5F5F5] pb-40">
         <Header />
 
         <div className="mx-auto container lg:mx-[5rem]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5 bg-gray-100">
+          <div className="grid grid-cols-1 gap-6 pt-5 bg-gray-100 md:grid-cols-2">
             {/* Booking Form and Search Button */}
-            <div className="flex flex-col md:col-span-3 items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg rounded-xl">
+            <div className="flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:col-span-3 rounded-xl">
               <BookingForm />
               <Button className="px-6 py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md bg-primary hover:bg-primary-dark">
                 <Search />
@@ -26,11 +26,8 @@ export default function HomeStay() {
             </div>
           </div>
         </div>
-
       </div>
       <Footer />
     </>
-
-
   )
 }
