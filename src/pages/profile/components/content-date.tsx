@@ -21,7 +21,7 @@ import { useMutation } from '@tanstack/react-query'
 import { SquarePen } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-
+import { useTranslation } from 'react-i18next'
 type Props = {
   title: string
   content?: string | undefined
@@ -29,7 +29,7 @@ type Props = {
 
 export default function ContentDate({ title, content }: Props) {
   const [openDateOfBirthDialog, setOpenDateOfBirthDialog] = useState(false)
-
+  const { t } = useTranslation()
   const [profileData, setProfileData] = useState<MeResponse>({
     date_of_birth: content
   })
@@ -74,14 +74,15 @@ export default function ContentDate({ title, content }: Props) {
               <DialogTrigger asChild>
                 <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
-                  <p>Change Date of Birth</p>
+                  <p>{t('ChangeDateBirth')}</p>
                 </Button>
               </DialogTrigger>
               <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
-                  <DialogTitle>Edit Date of Birth</DialogTitle>
+                  <DialogTitle> {t('EditDate')}</DialogTitle>
                   <DialogDescription>
-                    Make changes to your date of birth here. Click save when you're done.
+                  {t('changesdate')}
+                    
                   </DialogDescription>
                 </DialogHeader>
                 <Form {...formDateOfBirth}>
@@ -100,7 +101,7 @@ export default function ContentDate({ title, content }: Props) {
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      Saves {title}
+                    {t('Save')} {title}
                     </Button>
                   </form>
                 </Form>

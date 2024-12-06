@@ -4,8 +4,10 @@ import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function PaymentHistory() {
+  const { t } = useTranslation()
   const { data: getPaymentUser } = useQuery({
     queryKey: ['getPaymentUser'],
     queryFn: () => paymentApi.getPaymentUser()
@@ -13,8 +15,8 @@ export default function PaymentHistory() {
   return (
     <div className='w-full h-full'>
       <div className='flex items-center justify-between text-lg'>
-        <h1 className='mt-6 font-bold lg:text-3xl'>Lịch sử thanh toán</h1>
-        <h1 className='mt-6 font-bold lg:text-2xl'>Tổng: {getPaymentUser?.total}</h1>
+        <h1 className='mt-6 font-bold lg:text-3xl'>{t('PaymentHistory')}</h1>
+        <h1 className='mt-6 font-bold lg:text-2xl'> {t('Totalpayment')} {getPaymentUser?.total}</h1>
       </div>
       {getPaymentUser?.data?.length ?? 0 > 0 ? (
         getPaymentUser?.data?.map((item: any) => (
@@ -56,18 +58,18 @@ export default function PaymentHistory() {
                     </span>
                   </h1>
                   <h1>
-                    <span className='text-base font-medium'>Phương thức thanh toán:</span> {item?.paymentMethod}
+                    <span className='text-base font-medium'>{t('PaymentMethod')} </span> {item?.paymentMethod}
                   </h1>
                   <h1>
-                    <span className='font-medium lg:text-xl'>Ngày thanh toán:</span>{' '}
+                    <span className='font-medium lg:text-xl'>{t('PaymentDate')} </span>{' '}
                     {dayjs(item.createdAt).format('HH:mm:ss, DD-MM-YYYY')}
                   </h1>
                 </div>
               </div>
               <div className='flex flex-col gap-2'>
-                <h1 className='font-medium lg:text-xl'>Tổng tiền: {formatCurrencyVND(item.totalAmount)}</h1>
+                <h1 className='font-medium lg:text-xl'>{t('TotalAmount')}  {formatCurrencyVND(item.totalAmount)}</h1>
                 <span>
-                  <span className='font-medium lg:text-xl'>Trạng thái:</span>
+                  <span className='font-medium lg:text-xl'> {t('Status')}</span>
                   <span
                     className={`px-2 py-1 text-white rounded-md ${
                       item.status === 'COMPLETED' ? 'bg-green-300' : 'bg-yellow-300'
@@ -81,7 +83,7 @@ export default function PaymentHistory() {
           </Link>
         ))
       ) : (
-        <h1 className='flex items-center justify-center text-xl font-medium'>Chưa thanh toán đơn hàng nào</h1>
+        <h1 className='flex items-center justify-center text-xl font-medium'>{t('orders')}</h1>
       )}
     </div>
   )

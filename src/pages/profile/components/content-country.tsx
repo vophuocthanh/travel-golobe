@@ -19,6 +19,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   title: string
@@ -27,7 +28,7 @@ type Props = {
 
 export default function ContentCountry({ title, content }: Props) {
   const [openCountryDialog, setOpenCountryDialog] = useState(false)
-
+  const { t } = useTranslation()
   const [profileData, setProfileData] = useState<MeResponse>({
     country: content
   })
@@ -74,13 +75,13 @@ export default function ContentCountry({ title, content }: Props) {
               <DialogTrigger asChild>
                 <Button className='flex items-center p-2 space-x-2 text-sm text-black bg-white border rounded-md shadow-md hover:text-white border-primary'>
                   <SquarePen className='w-4 h-4' />
-                  <p>Change Country</p>
+                  <p> {t('ChangeCountry')}</p>
                 </Button>
               </DialogTrigger>
               <DialogContent className='w-[85%] lg:w-full rounded-3xl'>
                 <DialogHeader>
-                  <DialogTitle>Edit Country</DialogTitle>
-                  <DialogDescription>Make changes to your country here. Click save when you're done.</DialogDescription>
+                  <DialogTitle> {t('EditCountry')}</DialogTitle>
+                  <DialogDescription> {t('changescountry')} </DialogDescription>
                 </DialogHeader>
                 <Form {...formCountry}>
                   <form onSubmit={formCountry.handleSubmit(onSubmitCountry)} className='w-full space-y-6'>
@@ -89,7 +90,7 @@ export default function ContentCountry({ title, content }: Props) {
                       name='country'
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel> Saves {title}</FormLabel>
+                          <FormLabel> {t('Save')}  {title}</FormLabel>
                           <FormControl>
                             <Input placeholder='Enter country' {...field} />
                           </FormControl>
@@ -98,7 +99,7 @@ export default function ContentCountry({ title, content }: Props) {
                       )}
                     />
                     <Button type='submit' className='flex ml-auto text-white'>
-                      Saves {title}
+                      {t('Save')} {title}
                     </Button>
                   </form>
                 </Form>
