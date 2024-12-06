@@ -54,6 +54,13 @@ export default function TourDetailView() {
   }
 
   const handleBookingTour = () => {
+    const isLoggedIn = !!localStorage.getItem('access_token')
+
+    if (!isLoggedIn) {
+      toast.error('Bạn cần đăng nhập để đặt tour')
+      navigate('/login')
+      return
+    }
     setLoadingBooking(true)
     mutationAddBookingTour.mutate(undefined, {
       onSuccess: (data) => {
