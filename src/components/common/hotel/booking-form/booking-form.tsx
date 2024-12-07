@@ -41,7 +41,7 @@ export default function BookingForm() {
   }
 
   return (
-    <div className="grid w-full grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="w-full">
       <div className="relative w-full h-[4rem]">
         <Label
           htmlFor=""
@@ -50,7 +50,7 @@ export default function BookingForm() {
           Enter Destination
         </Label>
         <Input
-          className="w-full max-w-md border border-[#F3F4F6] p-2 h-[3.5rem] pt-4 pl-12"
+          className="w-full border border-[#F3F4F6] p-2 h-[3.5rem] pt-4 pl-12"
           placeholder="Istanbul, Turkey"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
