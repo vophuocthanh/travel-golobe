@@ -45,6 +45,7 @@ export default function Register() {
     mutationKey: ['register'],
     mutationFn: (data: z.infer<typeof RegisterSchema>) => authApi.register(data)
   })
+  console.log('ádsad')
 
   function onSubmit() {
     setIsLoading(true)
@@ -71,41 +72,41 @@ export default function Register() {
   }
 
   return (
-    <div className='flex items-center justify-center w-full h-screen'>
-      <div className='flex items-center justify-between w-full mx-auto my-auto max-w-[90rem]'>
-        <div className='w-full'>
+    <div className="flex items-center justify-center w-full h-screen">
+      <div className="flex items-center justify-between w-full mx-auto my-auto max-w-[90rem]">
+        <div className="w-full">
           <CarouselRegister images={images} interval={2000} />
         </div>
-        <div className='flex flex-col w-full space-y-2'>
-          <Link to='/' className='w-40'>
-            <img src={logo} alt='logo' className='w-40 h-12 mb-10' />
+        <div className="flex flex-col w-full space-y-2">
+          <Link to="/" className="w-40">
+            <img src={logo} alt="logo" className="w-40 h-12 mb-10" />
           </Link>
-          <h1 className='text-5xl font-semibold'>Register</h1>
-          <p className='text-sm text-[#112211]'>Let’s get you all st up so you can access your personal account.</p>
+          <h1 className="text-5xl font-semibold">Register</h1>
+          <p className="text-sm text-[#112211]">Let’s get you all st up so you can access your personal account.</p>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
               <FormField
                 control={form.control}
-                name='email'
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder='Nhập email' type='email' {...field} />
+                      <Input placeholder="Nhập email" type="email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <div className='flex w-full gap-6'>
+              <div className="flex w-full gap-6">
                 <FormField
                   control={form.control}
-                  name='name'
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder='Nhập name' {...field} className='w-full' />
+                        <Input placeholder="Nhập name" {...field} className="w-full" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -113,12 +114,12 @@ export default function Register() {
                 />
                 <FormField
                   control={form.control}
-                  name='phone'
+                  name="phone"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder='Nhập phone number' {...field} className='w-full' />
+                        <Input placeholder="Nhập phone number" {...field} className="w-full" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -127,14 +128,14 @@ export default function Register() {
               </div>
               <FormField
                 control={form.control}
-                name='password'
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập password'
-                        className='w-full'
+                        placeholder="Nhập password"
+                        className="w-full"
                         type={isPasswordVisible ? 'text' : 'password'}
                         {...field}
                         icon={isPasswordVisible ? <IconNonEye /> : <IconEye />}
@@ -147,14 +148,14 @@ export default function Register() {
               />
               <FormField
                 control={form.control}
-                name='confirmPassword'
+                name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Nhập confirm password'
-                        className='w-full'
+                        placeholder="Nhập confirm password"
+                        className="w-full"
                         type={isConfirmPasswordVisible ? 'text' : 'password'}
                         {...field}
                         icon={isConfirmPasswordVisible ? <IconNonEye /> : <IconEye />}
@@ -165,21 +166,21 @@ export default function Register() {
                   </FormItem>
                 )}
               />
-              <div className='flex justify-between'>
-                <div className='flex items-center justify-center space-x-2'>
-                  <Checkbox id='terms' className='w-4 h-4' />
-                  <Label htmlFor='terms' className='text-base font-normal text-gray-500 cursor-pointer'>
-                    I agree to all the <span className='text-redCustom'>Terms</span> and{' '}
-                    <span className='text-redCustom'>Privacy Policies</span>
+              <div className="flex justify-between">
+                <div className="flex items-center justify-center space-x-2">
+                  <Checkbox id="terms" className="w-4 h-4" />
+                  <Label htmlFor="terms" className="text-base font-normal text-gray-500 cursor-pointer">
+                    I agree to all the <span className="text-redCustom">Terms</span> and{' '}
+                    <span className="text-redCustom">Privacy Policies</span>
                   </Label>
                 </div>
               </div>
-              <Button loading={isLoading} className='w-full text-white' type='submit'>
+              <Button loading={isLoading} className="w-full text-white" type="submit">
                 Create Account
               </Button>
-              <p className='flex items-center justify-center'>
+              <p className="flex items-center justify-center">
                 Already have an account?&nbsp;{' '}
-                <Link to='/login' className='cursor-pointer hover:underline text-redCustom'>
+                <Link to="/login" className="cursor-pointer hover:underline text-redCustom">
                   Login
                 </Link>
               </p>
