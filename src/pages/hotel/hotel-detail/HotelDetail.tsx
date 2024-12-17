@@ -87,11 +87,10 @@ export default function HotelDetail() {
   })
 
   const totalComments = getCommentHotel?.total ?? 0
-  const averageRating =
+  const averageRating = 
     totalComments > 0
       ? (getCommentHotel?.data.reduce((acc, cur) => acc + cur.rating, 0) / totalComments).toFixed(1)
       : '0'
-
   const getRatingStatus = (rating: number) => {
     if (rating <= 2) {
       return 'Not Good'
@@ -109,7 +108,8 @@ export default function HotelDetail() {
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
 
-  const ratingStatus = getRatingStatus(Number(averageRating))
+  const ratingStatus = getRatingStatus(Number(averageRating)+Number(getbyId?.star_number))
+  const numberRating = (Number(getCommentHotel?.total)+Number(getbyId?.number_rating))
 
   const hotelUrl = `https://travel-golobe.vercel.app/hotel/${id}`
   const hotelTitle = getbyId?.description || 'Chia sẻ tour thú vị này!'
@@ -117,8 +117,8 @@ export default function HotelDetail() {
     <div className='w-full'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 container mx-auto'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+        <main className='container pt-20 mx-auto'>
+          <div className='grid grid-cols-1 gap-4 lg:grid-cols-2'>
             <div className='w-full mt-8 mb-8'>
               <div className='flex items-center space-x-2 text-gray-800 text-md'>
                 <Link to='/hotel' className='text-red-400'>
@@ -148,22 +148,22 @@ export default function HotelDetail() {
             <div className='text-right'>
               <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
               <div className=''>
-                <div className='grid grid-cols-1 gap-10 sm:grid-cols-2 lg:flex lg:gap-1 items-center justify-end'>
+                <div className='grid items-center justify-end grid-cols-1 gap-10 sm:grid-cols-2 lg:flex lg:gap-1'>
                   {/* Room availability info */}
                   <div className='flex items-center justify-center lg:justify-end lg:gap-2 lg:space-x-2'>
-                    <p className='flex text-sm justify-center items-center px-4 py-1 text-black border rounded border-primary lg:border-none'>
+                    <p className='flex items-center justify-center px-4 py-1 text-sm text-black border rounded border-primary lg:border-none'>
                       {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
                     </p>
                   </div>
 
                   {/* Favorite and Share buttons */}
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-1'>
+                  <div className='flex flex-col items-center justify-center gap-1 sm:flex-row'>
                     <Favorite idHotel={id} />
                     <ShareButtons url={hotelUrl} title={hotelTitle} />
                   </div>
 
                   {/* Quantity control */}
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+                  <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
                     <div className='flex border rounded border-primary'>
                       <Button
                         onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
@@ -222,7 +222,7 @@ export default function HotelDetail() {
               </Button>
               <div>
                 <p className='text-lg font-bold text-gray-700'>{ratingStatus}</p>
-                <p className='text-gray-500'>{getCommentHotel?.total} reviews</p>
+                <p className='text-gray-500'>{numberRating} reviews</p>
               </div>
             </div>
 
@@ -246,7 +246,7 @@ export default function HotelDetail() {
             </div>
           </div>
           <div className='items-start w-full mt-5 mb-8'>
-            <div className='grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+            <div className='grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
               {/* Large image on the left */}
               <div className='w-full col-span-1 md:col-span-2'>
                 <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem] object-cover' />
@@ -267,8 +267,8 @@ export default function HotelDetail() {
           <HotelDetailOverview
             ratingStatus={ratingStatus}
             description={getbyId?.description || ''}
-            averrange={Number(averageRating) ?? 0}
-            total={getCommentHotel?.total || 0}
+            averrange={Number(getbyId?.star_number)}
+            total={numberRating}
           />
           <div ref={roomSectionRef}>
             <HotelDetailRoom Room={getbyId?.rooms || []} onValueChange={handleValueChange} />

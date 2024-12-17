@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 export default function HotelDetailOverview({ description, averrange, ratingStatus, total }: HotelDetailOverviewProps) {
   const { t } = useTranslation();
   return (
-    <div className='w-full mt-5 mx-auto'>
+    <div className='w-full mx-auto mt-5'>
       <div>
         <hr className='w-full my-8 border-2 border-gray' />
       </div>
