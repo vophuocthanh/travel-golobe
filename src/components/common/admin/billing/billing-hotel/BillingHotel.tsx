@@ -24,7 +24,7 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export function BillingHotel() {
@@ -33,6 +33,7 @@ export function BillingHotel() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
+  const [entriesPerPage, setEntriesPerPage] = React.useState(10)
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
 
@@ -152,17 +153,35 @@ export function BillingHotel() {
   return (
     <div className='w-full'>
       <div className='flex items-center justify-between py-4'>
-        <Input
-          placeholder='Filter ID...'
-          value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
-          className='max-w-sm'
-        />
+        <div className='flex space-x-2 items-center'>
+          <span>Hiện</span>
+          <select
+            className='p-2 ml-4 border border-gray-300 rounded-lg'
+            value={entriesPerPage}
+            onChange={(e) => {
+              setEntriesPerPage(Number(e.target.value))
+              table.setPageIndex(0)
+            }}
+          >
+            {[10, 25, 50, 100].map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+          <Input
+            placeholder='Nhập id ...'
+            value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
+            onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
+            className='max-w-sm'
+          />
+        </div>
+
         <div className='flex items-center'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
+                Cột <ChevronDown className='w-4 h-4 ml-2' />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
@@ -230,23 +249,23 @@ export function BillingHotel() {
 
       <div className='flex items-center justify-end py-4 space-x-2'>
         <div className='flex-1 text-sm text-muted-foreground'>
-          Page {page} of {totalPages}
+          Trang {page} của {totalPages}
         </div>
-        <p className='px-5'>Total :{totalPage} </p>
+        <p className='px-5'>Tổng hoá đơn: {totalPage} </p>
         <div className='pr-4 space-x-2'>
           <Button
             className='px-4 py-2 text-white rounded min-w-[100px] text-center'
             disabled={page === 1}
             onClick={() => handleClick(page - 1)}
           >
-            Previous
+            Quay lại
           </Button>
           <Button
             className='px-4 text-white py-2 min-w-[100px]'
             onClick={() => handleClick(page + 1)}
             disabled={page === totalPages}
           >
-            Next
+            Tiếp
           </Button>
         </div>
       </div>

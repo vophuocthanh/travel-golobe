@@ -3,39 +3,39 @@ import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Cell, Pie, PieChart } from 'recharts'
 
 const dataInner = [
-  { name: 'User A', value: 1200000 },
-  { name: 'User B', value: 800000 },
-  { name: 'User C', value: 645000 },
-  { name: 'User D', value: 590000 },
-  { name: 'User E', value: 342000 }
+  { name: 'Người dùng A', value: 1200000 },
+  { name: 'Người dùng B', value: 800000 },
+  { name: 'Người dùng C', value: 645000 },
+  { name: 'Người dùng D', value: 590000 },
+  { name: 'Người dùng E', value: 342000 }
 ]
 
 const dataOuter = [
-  { name: 'User A', value: 600000 },
-  { name: 'User B', value: 400000 },
-  { name: 'User C', value: 322500 },
-  { name: 'User D', value: 295000 },
-  { name: 'User E', value: 171000 }
+  { name: 'Người dùng A', value: 600000 },
+  { name: 'Người dùng B', value: 400000 },
+  { name: 'Người dùng C', value: 322500 },
+  { name: 'Người dùng D', value: 295000 },
+  { name: 'Người dùng E', value: 171000 }
 ]
 
 const COLORS = ['#b34700', '#e65c00', '#ff751a', '#ff944d', '#ffb380']
 
 const countries = [
-  { name: 'United States', percentage: '27.5%', total: '4.5M', img: IconUs },
-  { name: 'Australia', percentage: '11.2%', total: '2.3M', img: IconUc },
-  { name: 'China', percentage: '9.4%', total: '2M', img: IconChina },
-  { name: 'Germany', percentage: '8%', total: '1.7M', img: IconGermany },
+  { name: 'Hoa Kỳ', percentage: '27.5%', total: '4.5M', img: IconUs },
+  { name: 'Úc', percentage: '11.2%', total: '2.3M', img: IconUc },
+  { name: 'Trung Quốc', percentage: '9.4%', total: '2M', img: IconChina },
+  { name: 'Đức', percentage: '8%', total: '1.7M', img: IconGermany },
   { name: 'Romania', percentage: '7.9%', total: '1.6M', img: IconRo },
-  { name: 'Japan', percentage: '6.1%', total: '1.2M', img: IconJp },
-  { name: 'Netherlands', percentage: '5.9%', total: '1M', img: IconNl }
+  { name: 'Nhật Bản', percentage: '6.1%', total: '1.2M', img: IconJp },
+  { name: 'Hà Lan', percentage: '5.9%', total: '1M', img: IconNl }
 ]
 
 const users = [
-  { name: 'User A', sales: '$1.2M', growth: '+8.2%', color: '#b34700', growthColor: 'text-green-600' },
-  { name: 'User B', sales: '$800K', growth: '+7%', color: '#e65c00', growthColor: 'text-green-600' },
-  { name: 'User C', sales: '$645K', growth: '+2.5%', color: '#ff751a', growthColor: 'text-green-600' },
-  { name: 'User D', sales: '$590K', growth: '-6.5%', color: '#ff944d', growthColor: 'text-red-600' },
-  { name: 'User E', sales: '$342K', growth: '+1.7%', color: '#ffb380', growthColor: 'text-green-600' }
+  { name: 'Người dùng A', sales: '$1.2M', growth: '+8.2%', color: '#b34700', growthColor: 'text-green-600' },
+  { name: 'Người dùng B', sales: '$800K', growth: '+7%', color: '#e65c00', growthColor: 'text-green-600' },
+  { name: 'Người dùng C', sales: '$645K', growth: '+2.5%', color: '#ff751a', growthColor: 'text-green-600' },
+  { name: 'Người dùng D', sales: '$590K', growth: '-6.5%', color: '#ff944d', growthColor: 'text-red-600' },
+  { name: 'Người dùng E', sales: '$342K', growth: '+1.7%', color: '#ffb380', growthColor: 'text-green-600' }
 ]
 
 export default function ContentDashboard2() {
@@ -44,7 +44,7 @@ export default function ContentDashboard2() {
       <Card className='flex flex-col col-span-1 '>
         <CardTitle>
           <div className='w-full p-4 px-6'>
-            <h2 className='text-2xl font-semibold '>Users by Country</h2>
+            <h2 className='text-2xl font-semibold '>Người dùng theo quốc gia</h2>
           </div>
         </CardTitle>
         <CardContent className='flex items-center'>
@@ -67,7 +67,7 @@ export default function ContentDashboard2() {
         </CardContent>
       </Card>
       <Card className='flex flex-col col-span-1'>
-        <h2 className='p-4 mb-4 text-2xl font-semibold'>Top 5 Best Selling Users</h2>
+        <h2 className='p-4 mb-4 text-2xl font-semibold'>Top 5 Người dùng bán hàng tốt nhất</h2>
         <div className='flex flex-row items-center w-full'>
           <div className='flex justify-center w-full mb-4'>
             <PieChart width={200} height={200}>

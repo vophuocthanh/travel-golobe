@@ -25,34 +25,34 @@ export default function BillingAdmin() {
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-4 text-2xl font-bold '>Billing - Admin</h1>
+      <h1 className='mb-4 text-2xl font-bold '>Hóa Đơn - Quản Trị</h1>
       <div>
         <Tabs value={selectedTab} onValueChange={handleTabChange} className='w-full'>
           <TabsList className='grid w-[35rem] h-[3rem] grid-cols-5 text-black border border-primary'>
             <TabsTrigger className='text-md' value='all'>
-              All
+              Tất Cả
             </TabsTrigger>
             <TabsTrigger className='text-md' value='tour'>
               Tour
             </TabsTrigger>
             <TabsTrigger className='text-md' value='hotel'>
-              Hotel
+              Khách Sạn
             </TabsTrigger>
             <TabsTrigger className='text-md' value='flight'>
-              Flight
+              Chuyến Bay
             </TabsTrigger>
             <TabsTrigger className='text-md' value='coach'>
-              Coach
+              Xe Coach
             </TabsTrigger>
           </TabsList>
           <TabsContent value='all'>
             <Card>
               <CardHeader>
                 <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
-                  <h1>All</h1>
-                  <Button>Download</Button>
+                  <h1>Tất Cả</h1>
+                  <Button>Tải Xuống</Button>
                 </CardTitle>
-                <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+                <CardDescription>Thực hiện thay đổi tài khoản của bạn tại đây. Nhấn lưu khi bạn hoàn thành.</CardDescription>
               </CardHeader>
               <CardContent>
                 <BillingAll />
@@ -64,9 +64,9 @@ export default function BillingAdmin() {
               <CardHeader>
                 <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
                   <h1>Tour</h1>
-                  <Button>Download</Button>
+                  <Button>Tải Xuống</Button>
                 </CardTitle>
-                <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+                <CardDescription>Thực hiện thay đổi tài khoản của bạn tại đây. Nhấn lưu khi bạn hoàn thành.</CardDescription>
               </CardHeader>
               <CardContent className='space-y-2'>
                 <BillingTour />
@@ -77,10 +77,10 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
-                  <h1>Hotel</h1>
-                  <Button>Download</Button>
+                  <h1>Khách Sạn</h1>
+                  <Button>Tải Xuống</Button>
                 </CardTitle>
-                <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+                <CardDescription>Thực hiện thay đổi tài khoản của bạn tại đây. Nhấn lưu khi bạn hoàn thành.</CardDescription>
               </CardHeader>
               <CardContent className='space-y-2'>
                 <BillingHotel />
@@ -91,10 +91,10 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
-                  <h1>Flight</h1>
-                  <Button>Download</Button>
+                  <h1>Chuyến Bay</h1>
+                  <Button>Tải Xuống</Button>
                 </CardTitle>
-                <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+                <CardDescription>Thực hiện thay đổi tài khoản của bạn tại đây. Nhấn lưu khi bạn hoàn thành.</CardDescription>
               </CardHeader>
               <CardContent className='space-y-2'>
                 <BillingFLight />
@@ -105,10 +105,10 @@ export default function BillingAdmin() {
             <Card>
               <CardHeader>
                 <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
-                  <h1>Coach</h1>
-                  <Button>Download</Button>
+                  <h1>Xe Coach</h1>
+                  <Button>Tải Xuống</Button>
                 </CardTitle>
-                <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+                <CardDescription>Thực hiện thay đổi tài khoản của bạn tại đây. Nhấn lưu khi bạn hoàn thành.</CardDescription>
               </CardHeader>
               <CardContent className='space-y-2'>
                 <BillingCoach />

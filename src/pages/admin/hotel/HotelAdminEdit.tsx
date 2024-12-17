@@ -135,7 +135,7 @@ export default function HotelAdminEdit() {
                       <CirclePlus />
                     </div>
                     <p className="text-blue-600">
-                      Click to upload<span className="text-black"> or drag and drop</span>
+                      Nhấn để tải lên <span className="text-black">hoặc kéo và thả</span>
                     </p>
                     <p>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
@@ -148,7 +148,7 @@ export default function HotelAdminEdit() {
                       <CirclePlus />
                     </div>
                     <p className="text-blue-600">
-                      Click to upload<span className="text-black"> or drag and drop</span>
+                      Nhấn để tải lên <span className="text-black">hoặc kéo và thả</span>
                     </p>
                     <p>SVG, PNG, or PDF 800 x 400 px</p>
                   </div>
@@ -179,7 +179,7 @@ export default function HotelAdminEdit() {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Location</FormLabel>
+                    <FormLabel>Địa chỉ</FormLabel>
                     <FormControl>
                       <Input type="text" placeholder="Location" {...field} />
                     </FormControl>
