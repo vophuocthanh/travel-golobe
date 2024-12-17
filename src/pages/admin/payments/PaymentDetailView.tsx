@@ -84,7 +84,7 @@ export default function PaymentDetailView() {
               />
             </div>
             <div className='col-span-1'>
-              <p>amount</p>
+              <p>Số tiền</p>
               <Input
                 type='text'
                 placeholder='Plan'
@@ -111,9 +111,9 @@ export default function PaymentDetailView() {
                 value={
                   PaymentData?.createdAt
                     ? new Intl.DateTimeFormat('vi-VN', {
-                        dateStyle: 'medium',
-                        timeStyle: 'short'
-                      }).format(new Date(PaymentData.createdAt))
+                      dateStyle: 'medium',
+                      timeStyle: 'short'
+                    }).format(new Date(PaymentData.createdAt))
                     : ''
                 }
                 className='p-2 border rounded'
@@ -128,9 +128,9 @@ export default function PaymentDetailView() {
                 value={
                   PaymentData?.updatedAt
                     ? new Intl.DateTimeFormat('vi-VN', {
-                        dateStyle: 'medium',
-                        timeStyle: 'short'
-                      }).format(new Date(PaymentData.updatedAt))
+                      dateStyle: 'medium',
+                      timeStyle: 'short'
+                    }).format(new Date(PaymentData.updatedAt))
                     : ''
                 }
                 className='p-2 border rounded'

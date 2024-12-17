@@ -291,7 +291,7 @@ export default function RoadVehicleAdmin() {
   return (
     <div className='w-full p-2'>
       <div className='flex items-center justify-between py-4'>
-        <h1 className='text-2xl font-bold '>Road Vehicle - Admin</h1>
+        <h1 className='text-2xl font-bold '>Quản lý - Xe</h1>
         <Button onClick={handleDownloadExcelRoadVehicle} className='flex items-center gap-2'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -307,7 +307,7 @@ export default function RoadVehicleAdmin() {
               d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
             />
           </svg>
-          <p>Export to Excel</p>
+          <p>Tải về</p>
         </Button>
       </div>
       <Card>
@@ -315,7 +315,7 @@ export default function RoadVehicleAdmin() {
           <div className='flex items-center justify-between py-4'>
             <div className='flex items-center'>
               <div className='flex items-center mr-4 space-x-2'>
-                <span>Show</span>
+                <span>Hiện</span>
                 <select
                   className='p-2 border border-gray-300 rounded-lg'
                   value={entriesPerPage}
@@ -336,7 +336,7 @@ export default function RoadVehicleAdmin() {
                   <IconSearch />
                 </div>
                 <Input
-                  placeholder='Filter coach brand...'
+                  placeholder='Nhập tìm xe'
                   // value={(table.getColumn('brand')?.getFilterValue() as string) ?? ''}
                   // onChange={(event) => table.getColumn('brand')?.setFilterValue(event.target.value)}
                   onChange={(e) => setSearchCoach(e.target.value)}
@@ -348,13 +348,13 @@ export default function RoadVehicleAdmin() {
               <Link to='/admin/road-vehicle/create'>
                 <Button className='flex items-center justify-center gap-2 ml-auto text-white'>
                   <IconMore />
-                  Add Road Vehicle
+                  Thêm xe
                 </Button>
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant='outline' className='ml-auto'>
-                    Columns <ChevronDown className='w-4 h-4 ml-2' />
+                    Cột <ChevronDown className='w-4 h-4 ml-2' />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
@@ -397,9 +397,8 @@ export default function RoadVehicleAdmin() {
                       {row.getVisibleCells().map((cell, cellIndex) => (
                         <TableCell
                           key={cell.id}
-                          className={`${cell.column.id === 'hotelId' ? 'sticky left-0 bg-white z-10' : ''} ${
-                            cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
-                          }`}
+                          className={`${cell.column.id === 'hotelId' ? 'sticky left-0 bg-white z-10' : ''} ${cell.column.id === 'actions' ? 'sticky right-0 bg-white z-10' : ''
+                            }`}
                           style={{
                             minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto',
                             maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '150px' : 'auto'
@@ -424,19 +423,19 @@ export default function RoadVehicleAdmin() {
           </div>
           <div className='flex items-center justify-between py-4'>
             <span className='text-sm text-gray-700'>
-              Showing page {pageIndex + 1} of {table.getPageCount()}
+              Trang {pageIndex + 1} của {table.getPageCount()}
             </span>
             <div className='flex items-center'>
-              <span className='pr-2'>Total Coachs: {totalDataCount}</span>
+              <span className='pr-2'>Tổng xe: {totalDataCount}</span>
               <div className='flex space-x-2 text-white'>
                 <Button onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))} disabled={pageIndex === 0}>
-                  Previous
+                  Quay lại
                 </Button>
                 <Button
                   onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
                   disabled={pageIndex + 1 >= table.getPageCount()}
                 >
-                  Next
+                  Tiếp
                 </Button>
               </div>
             </div>

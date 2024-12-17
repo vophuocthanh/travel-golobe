@@ -41,33 +41,33 @@ export default function Dashboard() {
     queryFn: () => dashboardApi.getCountBooking()
   })
 
-  const menuPresets: { label: string; value: [Dayjs, Dayjs] }[] = [
-    { label: 'Last 7 Days', value: [dayjs().subtract(7, 'd'), dayjs()] },
-    { label: 'Last 14 Days', value: [dayjs().subtract(14, 'd'), dayjs()] },
-    { label: 'Last 30 Days', value: [dayjs().subtract(30, 'd'), dayjs()] },
-    { label: 'Last 90 Days', value: [dayjs().subtract(90, 'd'), dayjs()] }
-  ]
-
-  const tabs = [{ name: 'Overview', label: 'Tổng quan', count: null }]
+  const tabs = [{ name: 'Tổng quan', label: 'Tổng quan', count: null }]
 
   const stats = [
-    { label: 'Users Total', value: getCountUser?.data?.total || 'N/A', change: '+2.5%', changeType: 'increase' },
-    { label: 'Payment Done', value: getCountPaymentDone?.data?.total, change: '-1.2%', changeType: 'decrease' },
-    { label: 'Booking System', value: getCountBooking?.data?.total, change: '+5.2%', changeType: 'increase' },
-    { label: 'Tour System', value: getCountTour?.data?.total, change: '+11%', changeType: 'increase' }
+    { label: 'Tổng số người dùng', value: getCountUser?.data?.total || 'N/A', change: '+2.5%', changeType: 'increase' },
+    { label: 'Thanh toán hoàn tất', value: getCountPaymentDone?.data?.total, change: '-1.2%', changeType: 'decrease' },
+    { label: 'Hệ thống đặt chỗ', value: getCountBooking?.data?.total, change: '+5.2%', changeType: 'increase' },
+    { label: 'Hệ thống tour', value: getCountTour?.data?.total, change: '+11%', changeType: 'increase' }
   ]
+
+  const menuPresets: { label: string; value: [Dayjs, Dayjs] }[] = [
+    { label: '7 ngày qua', value: [dayjs().subtract(7, 'd'), dayjs()] },
+    { label: '14 ngày qua', value: [dayjs().subtract(14, 'd'), dayjs()] },
+    { label: '30 ngày qua', value: [dayjs().subtract(30, 'd'), dayjs()] },
+    { label: '90 ngày qua', value: [dayjs().subtract(90, 'd'), dayjs()] }
+  ]
+
 
   return (
     <div className='w-full p-2'>
-      <h1 className='mb-4 text-2xl font-bold'>DASHBOARD</h1>
+      <h1 className='mb-4 text-2xl font-bold'>Tổng quan</h1>
       <div className='relative flex space-x-8 border-b h-[3rem]'>
         {tabs.map((tab) => (
           <a
             key={tab.name}
             onClick={() => setActiveTab(tab.name)}
-            className={`relative font-medium pb-2 transition-colors duration-300 cursor-pointer ${
-              activeTab === tab.name ? 'text-teal-600 border-b-2 border-primary' : 'text-gray-600 hover:text-teal-600'
-            }`}
+            className={`relative font-medium pb-2 transition-colors duration-300 cursor-pointer ${activeTab === tab.name ? 'text-teal-600 border-b-2 border-primary' : 'text-gray-600 hover:text-teal-600'
+              }`}
           >
             {tab.label}
             {tab.count !== null && <span className='ml-1 text-gray-400'>({tab.count})</span>}
@@ -91,9 +91,8 @@ export default function Dashboard() {
                 <span className='text-xl font-bold'>{stat.value}</span>
               </div>
               <span
-                className={`text-sm mt-2 absolute bottom-[1rem] right-[2rem] bg-gray-200 w-12 h-6 flex items-center justify-center rounded-lg ${
-                  stat.changeType === 'increase' ? 'text-green-500' : 'text-red-500'
-                }`}
+                className={`text-sm mt-2 absolute bottom-[1rem] right-[2rem] bg-gray-200 w-12 h-6 flex items-center justify-center rounded-lg ${stat.changeType === 'increase' ? 'text-green-500' : 'text-red-500'
+                  }`}
               >
                 {stat.change}
               </span>

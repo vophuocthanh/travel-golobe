@@ -302,7 +302,7 @@ export function BillingAll() {
   return (
     <div className='w-full'>
       <div className='flex items-center w-full gap-4 py-4'>
-        <span>Show</span>
+        <span>Hiện</span>
         <select
           className='p-2 border border-gray-300 rounded-lg'
           value={entriesPerPage}
@@ -318,7 +318,7 @@ export function BillingAll() {
           ))}
         </select>
         <Input
-          placeholder='Filter id...'
+          placeholder='Nhập id ...'
           value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
           className='max-w-sm'
@@ -327,7 +327,7 @@ export function BillingAll() {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
+                Cột <ChevronDown className='w-4 h-4 ml-2' />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end'>
@@ -386,23 +386,23 @@ export function BillingAll() {
       </div>
       <div className='flex items-center justify-end py-4 space-x-2'>
         <div className='flex-1 text-sm text-muted-foreground'>
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Trang {table.getState().pagination.pageIndex + 1} của {table.getPageCount()}
         </div>
-        <span className='pr-2'>Total Billing : {totalDataCount}</span>
+        <span className='pr-2'>Tổng hoá đơn: {totalDataCount}</span>
         <div className='pr-4 space-x-2'>
           <Button
             onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
             disabled={pageIndex === 0}
             className='text-white'
           >
-            Previous
+            Quay lại
           </Button>
           <Button
             onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
             disabled={pageIndex + 1 >= table.getPageCount()}
             className='text-white'
           >
-            Next
+            Tiếp
           </Button>
         </div>
       </div>
