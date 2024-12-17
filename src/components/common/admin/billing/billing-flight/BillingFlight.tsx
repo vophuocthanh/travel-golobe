@@ -57,13 +57,13 @@ export function BillingFLight() {
     {
       accessorKey: 'id',
       header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           ID
-          <CaretSortIcon className='w-4 h-4 ml-2' />
+          <CaretSortIcon className="w-4 h-4 ml-2" />
         </Button>
       ),
       cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className="w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate">
           {row.getValue('id')}
         </div>
       )
@@ -72,13 +72,13 @@ export function BillingFLight() {
     {
       accessorKey: 'flightCrawlId',
       header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Mã chuyến bay
-          <CaretSortIcon className='w-4 h-4 ml-2' />
+          <CaretSortIcon className="w-4 h-4 ml-2" />
         </Button>
       ),
       cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className="w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate">
           {row.getValue('flightCrawlId')}
         </div>
       )
@@ -87,24 +87,24 @@ export function BillingFLight() {
     {
       accessorKey: 'flightQuantity',
       header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Số lượng chuyến bay
-          <CaretSortIcon className='w-4 h-4 ml-2' />
+          <CaretSortIcon className="w-4 h-4 ml-2" />
         </Button>
       ),
-      cell: ({ row }) => <div className='text-center lowercase'>{row.getValue('flightQuantity')}</div>
+      cell: ({ row }) => <div className="text-center lowercase">{row.getValue('flightQuantity')}</div>
     },
 
     {
       accessorKey: 'ticketFlighttId',
       header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Số lượng chuyến bay
-          <CaretSortIcon className='w-4 h-4 ml-2' />
+          <CaretSortIcon className="w-4 h-4 ml-2" />
         </Button>
       ),
       cell: ({ row }) => (
-        <div className='w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate'>
+        <div className="w-[10rem] lowercase break-words overflow-hidden whitespace-nowrap truncate">
           {row.getValue('ticketFlighttId')}
         </div>
       )
@@ -112,9 +112,9 @@ export function BillingFLight() {
     {
       accessorKey: 'totalAmount',
       header: ({ column }) => (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Tổng số tiền
-          <CaretSortIcon className='w-4 h-4 ml-2' />
+          <CaretSortIcon className="w-4 h-4 ml-2" />
         </Button>
       ),
       cell: ({ row }) => {
@@ -124,42 +124,42 @@ export function BillingFLight() {
           style: 'currency',
           currency: 'VND'
         }).format(amount)
-        return <div className='font-medium text-center'>{formatted}</div>
+        return <div className="font-medium text-center">{formatted}</div>
       }
     },
     {
       accessorKey: 'createdAt',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Ngày tạo
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
       cell: ({ row }) => {
         const endDate = new Date(row.getValue('createdAt'))
-        return <div className='text-center '>{endDate.toLocaleDateString('vi-VN')}</div>
+        return <div className="text-center ">{endDate.toLocaleDateString('vi-VN')}</div>
       }
     },
     {
       accessorKey: 'confirmationTime',
       header: ({ column }) => {
         return (
-          <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
             Thời gian xác nhận
-            <CaretSortIcon className='w-4 h-4 ml-2' />
+            <CaretSortIcon className="w-4 h-4 ml-2" />
           </Button>
         )
       },
       cell: ({ row }) => {
         const endDate = new Date(row.getValue('confirmationTime'))
-        return <div className='text-center '>{endDate.toLocaleDateString('vi-VN')}</div>
+        return <div className="text-center ">{endDate.toLocaleDateString('vi-VN')}</div>
       }
     },
     {
       accessorKey: 'status',
-      header: () => <div className='flex justify-center'>Trạng thái</div>,
+      header: () => <div className="flex justify-center">Trạng thái</div>,
       cell: ({ row }) => {
         const status = row.getValue('status')
         let statusClass = 'bg-gray-200'
@@ -175,7 +175,7 @@ export function BillingFLight() {
         }
 
         return (
-          <div className='flex items-center justify-center h-10'>
+          <div className="flex items-center justify-center h-10">
             <div className={`w-[7rem] text-center py-1 rounded-md capitalize ${statusClass}`}>
               {row.getValue('status')}
             </div>
@@ -187,10 +187,10 @@ export function BillingFLight() {
 
     {
       id: 'actions',
-      header: () => <div className='flex justify-center'>Hành động</div>,
+      header: () => <div className="flex justify-center">Hành động</div>,
       cell: ({ row }) => (
-        <div className='flex justify-center space-x-6'>
-          <div className='cursor-pointer' onClick={() => handleView(row.original)}>
+        <div className="flex justify-center space-x-6">
+          <div className="cursor-pointer" onClick={() => handleView(row.original)}>
             {' '}
             <IconView />
           </div>
@@ -231,15 +231,15 @@ export function BillingFLight() {
   }, [pageIndex, table])
 
   const handleView = (flight: FlightBillingResponseType) => {
-    navigate(`/admin/billing/flight_view/${flight.id}`)
+    navigate(`/admin/billing/flight-view/${flight.id}`)
   }
 
   return (
-    <div className='w-full'>
-      <div className='flex items-center w-full py-4'>
+    <div className="w-full">
+      <div className="flex items-center w-full py-4">
         <span>Show</span>
         <select
-          className='p-2 ml-4 border border-gray-300 rounded-lg'
+          className="p-2 ml-4 border border-gray-300 rounded-lg"
           value={entriesPerPage}
           onChange={(e) => {
             setEntriesPerPage(Number(e.target.value))
@@ -253,26 +253,26 @@ export function BillingFLight() {
           ))}
         </select>
         <Input
-          placeholder='Filter id...'
+          placeholder="Filter id..."
           value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
-          className='max-w-sm ml-4'
+          className="max-w-sm ml-4"
         />
-        <div className='flex items-center gap-4 ml-auto'>
+        <div className="flex items-center gap-4 ml-auto">
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='w-4 h-4 ml-2' />
+              <Button variant="outline" className="ml-auto">
+                Columns <ChevronDown className="w-4 h-4 ml-2" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
+            <DropdownMenuContent align="end">
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
                 .map((column) => (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className='capitalize'
+                    className="capitalize"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) => column.toggleVisibility(!!value)}
                   >
@@ -283,7 +283,7 @@ export function BillingFLight() {
           </DropdownMenu>
         </div>
       </div>
-      <div className='h-[calc(100vh-430px)] px-4 overflow-y-auto border rounded-md'>
+      <div className="h-[calc(100vh-430px)] px-4 overflow-y-auto border rounded-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -309,9 +309,9 @@ export function BillingFLight() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  <div className='flex items-center justify-center h-[30rem] mr-[40%]'>
-                    <div className='w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin'></div>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <div className="flex items-center justify-center h-[30rem] mr-[40%]">
+                    <div className="w-8 h-8 border-4 border-[#a185f4] rounded-full border-t-transparent animate-spin"></div>
                   </div>
                 </TableCell>
               </TableRow>
@@ -319,23 +319,23 @@ export function BillingFLight() {
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-end py-4 space-x-2'>
-        <div className='flex-1 text-sm text-muted-foreground'>
+      <div className="flex items-center justify-end py-4 space-x-2">
+        <div className="flex-1 text-sm text-muted-foreground">
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
-        <span className='pr-[2px]'>Total : {total}</span>
-        <div className='pr-4 space-x-2'>
+        <span className="pr-[2px]">Total : {total}</span>
+        <div className="pr-4 space-x-2">
           <Button
             onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
             disabled={pageIndex === 0}
-            className='text-white'
+            className="text-white"
           >
             Previous
           </Button>
           <Button
             onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
             disabled={pageIndex + 1 >= table.getPageCount()}
-            className='text-white'
+            className="text-white"
           >
             Next
           </Button>
