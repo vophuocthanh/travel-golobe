@@ -166,7 +166,7 @@ export default function TourDetail() {
             </div>
           </div>
           <Button
-            className="px-6 py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md "
+            className="h-full px-6 py-4 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md "
             onClick={handleSearch}
           >
             <Search />
