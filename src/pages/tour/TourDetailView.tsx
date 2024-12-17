@@ -132,11 +132,11 @@ export default function TourDetailView() {
               <div className="flex flex-col p-6 bg-white rounded-lg shadow-md md:flex-row">
                 <div className="flex-1 mb-6 md:mb-0">
                   <p className="overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line max-lg:text-xl text-ellipsis line-clamp-2">
-                    {getbyId?.description}
+                    {getbyId?.name}
                   </p>
                   <div className="flex items-center mt-2 space-x-2 text-sm text-gray-500">
                     <MapPin className="w-4 h-4" />
-                    <p>{getbyId?.name}</p>
+                    <p className='text-ellipsis line-clamp-2 '>{getbyId?.description}</p>
                   </div>
                   <div className="flex items-center mt-4 space-x-2">
                     <p className="flex items-center justify-center w-12 h-8 text-sm font-semibold border rounded-lg border-primary text-primary">

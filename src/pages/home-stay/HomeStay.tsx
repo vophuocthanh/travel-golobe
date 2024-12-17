@@ -10,7 +10,7 @@ export default function HomeStay() {
       <div className="w-full bg-[#F5F5F5] pb-40">
         <Header />
 
-        <div className="mx-auto container lg:mx-[5rem]">
+        <div className="mx-auto lg:mx-[5rem]">
           <div className="grid grid-cols-1 gap-6 pt-5 bg-gray-100 md:grid-cols-2">
             {/* Booking Form and Search Button */}
             <div className="flex items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:col-span-3 rounded-xl">

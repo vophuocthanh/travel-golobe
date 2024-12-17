@@ -1,4 +1,4 @@
-import { IconAdress, IconDrink } from '@/common/icons'
+import {  IconDrink } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 
 import { tourApi } from '@/apis/tour.api'
@@ -138,13 +138,12 @@ const ProductTour: React.FC<TourlCardProps> = ({
                   <div className="p-3  w-[73%] ">
                     <div className="flex justify-between ">
                       <div className="mr-2 max-sm:w-[60%]  w-[85%]">
-                        <h2 className="mb-3 overflow-hidden text-3xl font-medium whitespace-pre-line max-sm:text-base max-xl:text-xl text-ellipsis line-clamp-2">
-                          {item.description}
+                        <h2 className="mb-3 overflow-hidden text-2xl font-medium whitespace-pre-line max-sm:text-base max-xl:text-xl text-ellipsis line-clamp-2">
+                          {item.name}
                         </h2>
                         <div className="flex mb-3">
-                          <IconAdress />
                           <p className="ml-2 overflow-hidden whitespace-pre-line max-sm:text-base max-lg:text-base text-ellipsis line-clamp-2">
-                            {item.name}
+                            {item.description}
                           </p>
                         </div>
                         <div className="flex justify-between w-[75%] mb-3">

@@ -1,6 +1,4 @@
 import { Button } from '@/components/ui/button'
-// import { Checkbox } from '@/components/ui/checkbox'
-
 import {
   Select,
   SelectContent,
@@ -13,7 +11,6 @@ import {
 import { ChevronDown, ChevronUp, X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ReactSlider from 'react-slider'
 interface FilterPriceProps {
   onApplyFilter: (minPrice: number | undefined, maxPrice: number | undefined) => void
   brandFlight: string[]
@@ -36,36 +33,18 @@ const FilterSection: React.FC<FilterPriceProps> = ({
   const [isAirlinesVisible, setIsAirlinesVisible] = useState<boolean>(true)
   const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState<boolean>(true)
-  const [time, setTime] = useState<number[]>([0, 1440])
-  const [isTimeVisible, setIsTimeVisible] = useState<boolean>(true)
 
   const [, setMinPrice] = useState<number | undefined>(undefined)
   const [, setMaxPrice] = useState<number | undefined>(undefined)
   const [tempMinPrice, setTempMinPrice] = useState<string | undefined>(undefined)
   const [tempMaxPrice, setTempMaxPrice] = useState<string | undefined>(undefined)
 
-  const handleTimeChange = (time: number[]) => {
-    setTime(time)
-  }
-
   const toggleVisibility = () => {
     setIsVisible((prev) => !prev)
-  }
-  const toggleTimeVisibility = () => {
-    setIsTimeVisible((prev) => !prev)
   }
 
   const toggleAirlinesVisibility = () => {
     setIsAirlinesVisible((prev) => !prev)
-  }
-
-  const formatTime = (minutes: number) => {
-    const hours = Math.floor(minutes / 60)
-    const mins = minutes % 60
-    const ampm = hours >= 12 ? 'Pm' : 'Am'
-    const formattedHours = hours % 12 === 0 ? 12 : hours % 12
-    const formattedMinutes = mins < 10 ? `0${mins}` : mins
-    return `${formattedHours}:${formattedMinutes}${ampm}`
   }
 
   return (
@@ -128,40 +107,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({
           </div>
         )}
       </div>
-      <div className="flex flex-col items-center mt-8">
-        <div className="flex justify-between w-full mb-6">
-          <p>{t('DepartureTime')}</p>
-          <Button className="bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black" onClick={toggleTimeVisibility}>
-            {isTimeVisible ? <ChevronUp /> : <ChevronDown />}
-          </Button>
-        </div>
-        {isTimeVisible && (
-          <div className="w-[95%] pb-12 border-b-2 mr-5">
-            <ReactSlider
-              className="w-full h-1 bg-black rounded-lg"
-              thumbClassName="w-6 h-6 bg-black-800 rounded-full cursor-pointer"
-              trackClassName="bg-black-900 h-2 rounded-lg"
-              value={time}
-              onChange={handleTimeChange}
-              min={0}
-              max={1440}
-              ariaLabel={['Lower thumb', 'Upper thumb']}
-              renderThumb={(props) => (
-                <div
-                  {...props}
-                  className="flex items-center justify-center w-6 h-6 rounded-full cursor-pointer bg-primary top-[-10px]"
-                ></div>
-              )}
-              pearling
-              minDistance={1000}
-            />
-            <div className="flex justify-between w-full mt-4 text-xl text-black">
-              <div>{formatTime(time[0])}</div>
-              <div>{formatTime(time[1])}</div>
-            </div>
-          </div>
-        )}
-      </div>
+
       <div className="flex justify-between w-full mt-10 mb-6">
         <p>{t('Airlines')}</p>
         <Button className="bg-[#F5F5F5] hover:bg-[#F5F5F5] text-black" onClick={toggleAirlinesVisibility}>
