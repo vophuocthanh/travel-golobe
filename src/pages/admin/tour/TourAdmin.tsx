@@ -39,6 +39,15 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'react-toastify'
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+
 function TourAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -68,26 +77,24 @@ function TourAdmin() {
   })
 
   const handelete = (id: string | undefined) => {
-    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa tour này không?')
-    if (confirmDelete) {
-      mutationDeleteTour.mutate(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['getTour'] })
-          queryClient.setQueryData(['getTour'], (deleteTour: TourResponse[] | undefined) => {
-            if (!deleteTour) {
-              return []
-            }
-            const updatedTours = deleteTour.filter((item) => item.id !== id)
-            return updatedTours
-          })
-          toast.success('Delete tour success')
-        },
-        onError: () => {
-          toast.error('Delete tour failed')
-        }
-      })
-    }
+    mutationDeleteTour.mutate(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['getTour'] })
+        queryClient.setQueryData(['getTour'], (deleteTour: TourResponse[] | undefined) => {
+          if (!deleteTour) {
+            return []
+          }
+          const updatedTours = deleteTour.filter((item) => item.id !== id)
+          return updatedTours
+        })
+        toast.success('Delete tour success')
+      },
+      onError: () => {
+        toast.error('Delete tour failed')
+      }
+    })
   }
+  const totalDataCount = getTour?.total || 0
 
   const columns: ColumnDef<TourResponseType>[] = [
     {
@@ -325,9 +332,32 @@ function TourAdmin() {
                 <IconEdit />
               </Link>
             </Button>
-            <Button variant="ghost" className="w-8 h-8 p-0 " onClick={() => handelete(row.getValue('id'))}>
-              <IconDelete />
-            </Button>
+
+            <Dialog>
+              <DialogTrigger>
+                <div className='cursor-pointer'>
+                  <div className=''>
+                    <IconDelete />
+                  </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className='mb-4 text-xl font-semibold text-center'>Xác nhận xóa</DialogTitle>
+                  <DialogDescription className='flex justify-center space-x-4'>
+                    <p>Bạn có chắc chắn muốn xóa mục này không?</p> {/* Thêm mô tả cho hành động xóa */}
+                  </DialogDescription>
+                  <DialogDescription className='flex justify-center space-x-4'>
+                    <Button
+                      onClick={() => handelete(row.original.id)}
+                      className='text-white bg-red-600 hover:bg-red-700'
+                    >
+                      Xoá
+                    </Button>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+          </Dialog>
           </div>
         )
       }
@@ -516,7 +546,7 @@ function TourAdmin() {
             {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
             selected.
           </div>
-          <span className="pr-2">Total Tours: {totalTour}</span>
+          <span className="pr-2">Total Tours: {totalDataCount}</span>
 
           <div className="space-x-2">
             <Button

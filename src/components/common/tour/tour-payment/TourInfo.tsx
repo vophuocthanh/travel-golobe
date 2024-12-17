@@ -24,11 +24,11 @@ export default function TourInfo({ data }: ITourPaymentDetail) {
           <div className='flex items-center space-x-4'>
             <img src={data?.image} alt='asdsadsad' className='object-cover w-16 h-16 rounded-md' />
             <div>
-              <h3 className='text-lg font-semibold line-clamp-3'>{data?.description}</h3>
+              <h3 className='text-lg font-semibold line-clamp-3'>{data?.name}</h3>
 
               <div className='flex'>
                 <MapPin className='w-4 h-4 mr-2 text-black' />
-                <p className='text-sm text-gray-500'>{data?.name}</p>
+                <p className='text-sm text-gray-500 line-clamp-2'>{data?.description}</p>
               </div>
             </div>
           </div>
