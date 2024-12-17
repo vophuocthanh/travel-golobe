@@ -189,6 +189,71 @@ export default function HotelAdminEdit() {
               />
               <FormField
                 control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh 1</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Nhập ảnh 1" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image_2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh 2</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Nhập ảnh 2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image_3"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh 3</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Nhập ảnh 3" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image_4"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh 4</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Nhập ảnh 4" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image_5"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ảnh 5 </FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Nhập ảnh 5" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="star_number"
                 render={({ field }) => (
                   <FormItem>
@@ -272,7 +337,7 @@ export default function HotelAdminEdit() {
                   <FormItem>
                     <FormLabel>Mô tả</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Description" {...field} />
+                      <Textarea placeholder="Description" {...field} className="h-72" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
