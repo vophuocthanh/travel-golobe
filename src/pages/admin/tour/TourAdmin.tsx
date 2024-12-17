@@ -238,7 +238,18 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className="text-center">{row.getValue('baby_price')}</div>
+      cell: ({ row }) => {
+        {
+          const baby_price = parseFloat(row.getValue('baby_price'))
+
+          const formatted = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+          }).format(baby_price)
+
+          return <div className="font-medium text-center">{formatted}</div>
+        }
+      }
     },
     {
       accessorKey: 'child_price',
