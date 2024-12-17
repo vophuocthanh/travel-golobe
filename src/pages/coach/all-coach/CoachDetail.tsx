@@ -5,6 +5,7 @@ import { Footer, Header } from '@/components/common'
 import ShareButtons from '@/components/common/share/share-link'
 import { Button } from '@/components/ui/button'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import {
   Bus,
   BusFront,
@@ -83,8 +84,10 @@ export default function CoachDetail() {
         toast.success('Booking coach successfully')
         navigate(`/vehicle/coach/all-coach/coach-payment/${bookingId}`)
       },
-      onError: () => {
-        toast.error('Failed to book a coach')
+      onError: (error) => {
+        const axiosError = error as AxiosError
+        const errorMessage = (axiosError.response?.data as { message: string }).message
+        toast.error(errorMessage)
       },
       onSettled: () => {
         setLoadingBooking(false)

@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { formatDateStandard } from '@/shared/utils/date-utils'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { ChevronRight, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -68,8 +69,10 @@ export default function TourDetailView() {
         toast.success('Đặt tour thành công')
         navigate(`/tour/all-tour/tour-payment/${bookingId}`)
       },
-      onError: () => {
-        toast.error('Đặt tour thất bại')
+      onError: (error) => {
+        const axiosError = error as AxiosError
+        const errorMessage = (axiosError.response?.data as { message: string }).message
+        toast.error(errorMessage)
       },
       onSettled: () => {
         setLoadingBooking(false)
