@@ -50,15 +50,9 @@ export default function HotelDetail() {
         navigate('/login')
         return Promise.reject(new Error('User not logged in'))
       }
-      return bookingHotelApi.addBookingHotel(
-        id || '',
-        hotelQuantity,
-        roomId,
-        checkInDate,
-        checkOutDate
-      )
-    }
-    , onSuccess: (data) => {
+      return bookingHotelApi.addBookingHotel(id || '', hotelQuantity, roomId, checkInDate, checkOutDate)
+    },
+    onSuccess: (data) => {
       const bookingId = data.id
       toast.success(`Hotel booked successfully with Booking ID: ${bookingId}`)
       navigate(`/hotel/home-stay/hotel-payment/${bookingId}`)
@@ -73,7 +67,8 @@ export default function HotelDetail() {
   })
 
   const handleBookHotel = () => {
-    if (roomId === '') {
+    if (roomId === '' || !checkInDate || !checkOutDate) {
+      toast.error('Please select check-in and check-out date and select room')
       roomSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
       mutationHotelBooking.mutate()
@@ -114,81 +109,82 @@ export default function HotelDetail() {
   const hotelUrl = `https://travel-golobe.vercel.app/hotel/${id}`
   const hotelTitle = getbyId?.description || 'Chia sẻ tour thú vị này!'
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 container mx-auto'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-            <div className='w-full mt-8 mb-8'>
-              <div className='flex items-center space-x-2 text-gray-800 text-md'>
-                <Link to='/hotel' className='text-red-400'>
+        <main className="container pt-20 mx-auto">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="w-full mt-8 mb-8">
+              <div className="flex items-center space-x-2 text-gray-800 text-md">
+                <Link to="/hotel" className="text-red-400">
                   Hotel
                 </Link>
-                <ChevronRight className='w-4 h-4' />
-                <Link to='/hotel/home-stay' className='text-red-400'>
+                <ChevronRight className="w-4 h-4" />
+                <Link to="/hotel/home-stay" className="text-red-400">
                   Hotel All
                 </Link>
-                <ChevronRight className='w-4 h-4' />
+                <ChevronRight className="w-4 h-4" />
                 <p>{getbyId?.hotel_names}</p>
               </div>
-              <div className='flex mt-8'>
-                <h1 className='mr-5 text-3xl font-bold'>{getbyId?.hotel_names}</h1>
-                <div className='flex items-center mt-2'>
+              <div className="flex mt-8">
+                <h1 className="mr-5 text-3xl font-bold">{getbyId?.hotel_names}</h1>
+                <div className="flex items-center mt-2">
                   <ReadOnlyRating rating={Number(getbyId?.star_number)} />
-                  <span className='mt-1 ml-2'>{Number(getbyId?.star_number)} Star Hotel</span>
+                  <span className="mt-1 ml-2">{Number(getbyId?.star_number)} Star Hotel</span>
                 </div>
               </div>
-              <div className='mt-5'>
-                <p className='flex text-gray-500 text-md'>
-                  <MapPin className='w-4 h-4 mr-2 text-black' />
+              <div className="mt-5">
+                <p className="flex text-gray-500 text-md">
+                  <MapPin className="w-4 h-4 mr-2 text-black" />
                   {getbyId?.location}
                 </p>
               </div>
             </div>
-            <div className='text-right'>
-              <p className='text-[32px] font-bold text-[#FF8682]'>{formatCurrency(getbyId?.price?.toString())}</p>
-              <div className=''>
-                <div className='grid grid-cols-1 gap-10 sm:grid-cols-2 lg:flex lg:gap-1 items-center justify-end'>
+            <div className="text-right">
+              <p className="text-[32px] font-bold text-[#FF8682]">{formatCurrency(getbyId?.price?.toString())}</p>
+              <div className="">
+                <div className="grid items-center justify-end grid-cols-1 gap-10 sm:grid-cols-2 lg:flex lg:gap-1">
                   {/* Room availability info */}
-                  <div className='flex items-center justify-center lg:justify-end lg:gap-2 lg:space-x-2'>
-                    <p className='flex text-sm justify-center items-center px-4 py-1 text-black border rounded border-primary lg:border-none'>
+                  <div className="flex items-center justify-center lg:justify-end lg:gap-2 lg:space-x-2">
+                    <p className="flex items-center justify-center px-4 py-1 text-sm text-black border rounded border-primary lg:border-none">
                       {t('Availab')} {getbyId?.number_of_seats_remaining} {t('rooms')}
                     </p>
                   </div>
 
                   {/* Favorite and Share buttons */}
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-1'>
+                  <div className="flex flex-col items-center justify-center gap-1 sm:flex-row">
                     <Favorite idHotel={id} />
                     <ShareButtons url={hotelUrl} title={hotelTitle} />
                   </div>
 
                   {/* Quantity control */}
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
-                    <div className='flex border rounded border-primary'>
+                  <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                    <div className="flex border rounded border-primary">
                       <Button
                         onClick={() => setHotelQuantity(Math.max(1, hotelQuantity - 1))}
-                        className='px-4 py-2 m-[1px] text-white'
+                        className="px-4 py-2 m-[1px] text-white"
                       >
                         -
                       </Button>
                       <input
-                        type='text'
+                        type="text"
                         value={hotelQuantity}
                         onChange={(e) =>
                           setHotelQuantity(
                             Math.min(Math.max(1, Number(e.target.value)), getbyId?.number_of_seats_remaining ?? 0)
                           )
                         }
-                        min='1'
-                        className='w-16 text-center focus:outline-none'
+                        min="1"
+                        className="w-16 text-center focus:outline-none"
                       />
                       <Button
                         onClick={() =>
                           setHotelQuantity(Math.min(hotelQuantity + 1, getbyId?.number_of_seats_remaining ?? 0))
                         }
-                        className='px-4 py-1 m-[1px] text-white'
+                        className="px-4 py-1 m-[1px] text-white"
                         disabled={
-                          getbyId?.number_of_seats_remaining === hotelQuantity || getbyId?.number_of_seats_remaining === 0
+                          getbyId?.number_of_seats_remaining === hotelQuantity ||
+                          getbyId?.number_of_seats_remaining === 0
                         }
                       >
                         +
@@ -197,43 +193,40 @@ export default function HotelDetail() {
                   </div>
 
                   {/* Book Hotel Button */}
-                  <div className='flex items-center justify-center'>
+                  <div className="flex items-center justify-center">
                     <Button
                       onClick={handleBookHotel}
                       disabled={getbyId?.number_of_seats_remaining === 0}
                       loading={loadingBooking}
-                      className='mt-2 sm:mt-0 sm:ml-2'
+                      className="mt-2 sm:mt-0 sm:ml-2"
                     >
                       {t('BookHotel')}
                     </Button>
                   </div>
                 </div>
-
               </div>
-
-
             </div>
           </div>
 
-          <div className='flex items-center justify-between w-full'>
-            <div className='flex items-center gap-x-4'>
-              <Button className='text-black bg-white border hover:bg-primary hover:text-white border-primary'>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-x-4">
+              <Button className="text-black bg-white border hover:bg-primary hover:text-white border-primary">
                 {getbyId?.score_hotels}
               </Button>
               <div>
-                <p className='text-lg font-bold text-gray-700'>{ratingStatus}</p>
-                <p className='text-gray-500'>{getCommentHotel?.total} reviews</p>
+                <p className="text-lg font-bold text-gray-700">{ratingStatus}</p>
+                <p className="text-gray-500">{getCommentHotel?.total} reviews</p>
               </div>
             </div>
 
-            <div className='m-4'>
-              <label htmlFor='date-range-picker' className='block mb-2 text-sm font-medium text-gray-700'>
+            <div className="m-4">
+              <label htmlFor="date-range-picker" className="block mb-2 text-sm font-medium text-gray-700">
                 {t('Select')}:
               </label>
-              <Space direction='vertical' size={12}>
+              <Space direction="vertical" size={12}>
                 <RangePicker
-                  id='date-range-picker'
-                  format='DD-MM-YYYY'
+                  id="date-range-picker"
+                  format="DD-MM-YYYY"
                   onChange={(dates) => {
                     if (dates && dates.length === 2) {
                       setCheckInDate(dates[0]?.format('DD-MM-YYYY') || null)
@@ -245,21 +238,21 @@ export default function HotelDetail() {
               </Space>
             </div>
           </div>
-          <div className='items-start w-full mt-5 mb-8'>
-            <div className='grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+          <div className="items-start w-full mt-5 mb-8">
+            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
               {/* Large image on the left */}
-              <div className='w-full col-span-1 md:col-span-2'>
-                <img src={getbyId?.image} alt='hotel' className='w-full h-[41rem] object-cover' />
+              <div className="w-full col-span-1 md:col-span-2">
+                <img src={getbyId?.image} alt="hotel" className="w-full h-[41rem] object-cover" />
               </div>
 
               {/* Smaller images on the right */}
-              <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_2} alt='hotel' className='w-full h-[20rem] object-cover' />
-                <img src={getbyId?.image_3} alt='hotel' className='w-full h-[20rem] object-cover' />
+              <div className="grid col-span-1 gap-4">
+                <img src={getbyId?.image_2} alt="hotel" className="w-full h-[20rem] object-cover" />
+                <img src={getbyId?.image_3} alt="hotel" className="w-full h-[20rem] object-cover" />
               </div>
-              <div className='grid col-span-1 gap-4'>
-                <img src={getbyId?.image_4} alt='hotel' className='w-full h-[20rem] object-cover' />
-                <img src={getbyId?.image_5} alt='hotel' className='w-full h-[20rem] object-cover' />
+              <div className="grid col-span-1 gap-4">
+                <img src={getbyId?.image_4} alt="hotel" className="w-full h-[20rem] object-cover" />
+                <img src={getbyId?.image_5} alt="hotel" className="w-full h-[20rem] object-cover" />
               </div>
             </div>
           </div>
@@ -282,7 +275,7 @@ export default function HotelDetail() {
           />
         </main>
       </SectionInViewRight>
-      <div className='mt-[15rem] bottom-0'>
+      <div className="mt-[15rem] bottom-0">
         <Footer />
       </div>
     </div>

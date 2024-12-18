@@ -113,11 +113,11 @@ export default function CreateFlightAdmin() {
     mutationCreateTour.mutate(formattedData, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['getAllPageFlightAdmin'] })
-        toast.success('Create tour success')
+        toast.success('Create Flight success')
         navigate('/admin/flights')
       },
       onError: () => {
-        toast.error('Create tour failed')
+        toast.error('Create Flight failed')
       },
       onSettled: () => {
         setLoading(false)
