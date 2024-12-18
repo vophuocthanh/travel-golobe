@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { formatCurrencyVND } from '@/shared/lib/format-price'
 import { formatDateStandard } from '@/shared/utils/date-utils'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { ChevronRight, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -68,8 +69,10 @@ export default function TourDetailView() {
         toast.success('Đặt tour thành công')
         navigate(`/tour/all-tour/tour-payment/${bookingId}`)
       },
-      onError: () => {
-        toast.error('Đặt tour thất bại')
+      onError: (error) => {
+        const axiosError = error as AxiosError
+        const errorMessage = (axiosError.response?.data as { message: string }).message
+        toast.error(errorMessage)
       },
       onSettled: () => {
         setLoadingBooking(false)
@@ -129,11 +132,11 @@ export default function TourDetailView() {
               <div className="flex flex-col p-6 bg-white rounded-lg shadow-md md:flex-row">
                 <div className="flex-1 mb-6 md:mb-0">
                   <p className="overflow-hidden text-3xl font-bold text-gray-800 whitespace-pre-line max-lg:text-xl text-ellipsis line-clamp-2">
-                    {getbyId?.description}
+                    {getbyId?.name}
                   </p>
                   <div className="flex items-center mt-2 space-x-2 text-sm text-gray-500">
                     <MapPin className="w-4 h-4" />
-                    <p>{getbyId?.name}</p>
+                    <p className='text-ellipsis line-clamp-2 '>{getbyId?.description}</p>
                   </div>
                   <div className="flex items-center mt-4 space-x-2">
                     <p className="flex items-center justify-center w-12 h-8 text-sm font-semibold border rounded-lg border-primary text-primary">

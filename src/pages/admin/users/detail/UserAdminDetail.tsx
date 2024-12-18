@@ -97,21 +97,21 @@ export default function UserAdminDetail() {
               <p>{getUserById?.email}</p>
             </div>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-xl font-semibold'>Date of Birth</h1>
+              <h1 className='text-xl font-semibold'>Ngày năm sinh</h1>
               <p className='text-gray-700'>{formatDateStandard(getUserById?.date_of_birth ?? undefined)}</p>
             </div>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-xl font-semibold'>Country</h1>
+              <h1 className='text-xl font-semibold'>Quốc gia</h1>
               <p>{getUserById?.country}</p>
             </div>
           </div>
           <div className='flex flex-col space-y-4'>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-xl font-semibold'>Phone</h1>
+              <h1 className='text-xl font-semibold'>Số điện thoại</h1>
               <p>{getUserById?.phone}</p>
             </div>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-xl font-semibold'>Role</h1>
+              <h1 className='text-xl font-semibold'>Vai trò</h1>
               {getRoles ? (
                 <Select onValueChange={handleSelectRole} disabled={checkUserIs}>
                   <SelectTrigger className='w-[180px]'>
@@ -119,7 +119,7 @@ export default function UserAdminDetail() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectLabel>Roles</SelectLabel>
+                      <SelectLabel>Vai trò</SelectLabel>
                       {getRoles?.data.map((role: { id: string; name: string }) => (
                         <SelectItem key={role.id} value={role.id}>
                           {role.name}
@@ -133,7 +133,7 @@ export default function UserAdminDetail() {
               )}
             </div>
             <div className='flex flex-col gap-2'>
-              <h1 className='text-xl font-semibold'>Address</h1>
+              <h1 className='text-xl font-semibold'>Địa chỉ</h1>
               <p>{getUserById?.address}</p>
             </div>
           </div>

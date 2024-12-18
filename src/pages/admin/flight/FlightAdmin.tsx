@@ -295,7 +295,7 @@ const FlightAdmin: React.FC = () => {
   return (
     <div className='w-full p-2'>
       <div className='flex items-center justify-between'>
-        <p className='text-2xl font-bold'>Flight - Admin</p>
+        <p className='text-2xl font-bold'>Quản lý máy bay</p>
         <Button onClick={handleDownloadExcelFlight} className='flex items-center gap-2'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -311,14 +311,14 @@ const FlightAdmin: React.FC = () => {
               d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
             />
           </svg>
-          <p>Export to Excel</p>
+          <p>Tải về</p>
         </Button>
       </div>
       <Card className='p-4 mt-5'>
         <div className='flex items-center justify-between p-2 py-2'>
           <div className='flex items-center'>
             <div className='flex items-center mr-4 space-x-2'>
-              <span>Show</span>
+              <span>Hiện</span>
               <select
                 className='p-2 border border-gray-300 rounded-lg'
                 value={entriesPerPage}
@@ -339,7 +339,7 @@ const FlightAdmin: React.FC = () => {
                 <IconSearch />
               </div>
               <Input
-                placeholder='Filter flight brand...'
+                placeholder='Tìm máy bay ...'
                 // value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
                 // onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
                 onChange={(e) => setSearchFlightAdmin(e.target.value)}
@@ -349,12 +349,12 @@ const FlightAdmin: React.FC = () => {
           </div>
           <div className='flex items-center gap-4'>
             <Link to='/admin/flights/create'>
-              <Button className='text-white'>+ Add Flight</Button>
+              <Button className='text-white'>Thêm máy bay</Button>
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='outline' className='ml-auto'>
-                  Columns <ChevronDown className='w-4 h-4 ml-2' />
+                  Cột <ChevronDown className='w-4 h-4 ml-2' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
@@ -412,23 +412,23 @@ const FlightAdmin: React.FC = () => {
         </div>
         <div className='flex items-center justify-end py-4 space-x-2'>
           <div className='flex-1 text-sm text-muted-foreground'>
-            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            Trang {table.getState().pagination.pageIndex + 1} của {table.getPageCount()}
           </div>
-          <span className='pr-2'>Total Flights: {totalDataCount}</span>
+          <span className='pr-2'>Tổng máy bay: {totalDataCount}</span>
           <div className='pr-4 space-x-2'>
             <Button
               onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
               disabled={pageIndex === 0}
               className='text-white'
             >
-              Previous
+              Quay lại
             </Button>
             <Button
               onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
               disabled={pageIndex + 1 >= table.getPageCount()}
               className='text-white'
             >
-              Next
+              Tiếp
             </Button>
           </div>
         </div>

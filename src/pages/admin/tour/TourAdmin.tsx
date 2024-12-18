@@ -39,6 +39,15 @@ import { ColumnDef } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
 import { toast } from 'react-toastify'
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+
 function TourAdmin() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -68,26 +77,24 @@ function TourAdmin() {
   })
 
   const handelete = (id: string | undefined) => {
-    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa tour này không?')
-    if (confirmDelete) {
-      mutationDeleteTour.mutate(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['getTour'] })
-          queryClient.setQueryData(['getTour'], (deleteTour: TourResponse[] | undefined) => {
-            if (!deleteTour) {
-              return []
-            }
-            const updatedTours = deleteTour.filter((item) => item.id !== id)
-            return updatedTours
-          })
-          toast.success('Delete tour success')
-        },
-        onError: () => {
-          toast.error('Delete tour failed')
-        }
-      })
-    }
+    mutationDeleteTour.mutate(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['getTour'] })
+        queryClient.setQueryData(['getTour'], (deleteTour: TourResponse[] | undefined) => {
+          if (!deleteTour) {
+            return []
+          }
+          const updatedTours = deleteTour.filter((item) => item.id !== id)
+          return updatedTours
+        })
+        toast.success('Delete tour success')
+      },
+      onError: () => {
+        toast.error('Delete tour failed')
+      }
+    })
   }
+  const totalDataCount = getTour?.total || 0
 
   const columns: ColumnDef<TourResponseType>[] = [
     {
@@ -238,7 +245,18 @@ function TourAdmin() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className="text-center">{row.getValue('baby_price')}</div>
+      cell: ({ row }) => {
+        {
+          const baby_price = parseFloat(row.getValue('baby_price'))
+
+          const formatted = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+          }).format(baby_price)
+
+          return <div className="font-medium text-center">{formatted}</div>
+        }
+      }
     },
     {
       accessorKey: 'child_price',
@@ -314,9 +332,32 @@ function TourAdmin() {
                 <IconEdit />
               </Link>
             </Button>
-            <Button variant="ghost" className="w-8 h-8 p-0 " onClick={() => handelete(row.getValue('id'))}>
-              <IconDelete />
-            </Button>
+
+            <Dialog>
+              <DialogTrigger>
+                <div className='cursor-pointer'>
+                  <div className=''>
+                    <IconDelete />
+                  </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className='mb-4 text-xl font-semibold text-center'>Xác nhận xóa</DialogTitle>
+                  <DialogDescription className='flex justify-center space-x-4'>
+                    <p>Bạn có chắc chắn muốn xóa mục này không?</p> {/* Thêm mô tả cho hành động xóa */}
+                  </DialogDescription>
+                  <DialogDescription className='flex justify-center space-x-4'>
+                    <Button
+                      onClick={() => handelete(row.original.id)}
+                      className='text-white bg-red-600 hover:bg-red-700'
+                    >
+                      Xoá
+                    </Button>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
         )
       }
@@ -374,7 +415,7 @@ function TourAdmin() {
   return (
     <div className="w-full px-4">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-2xl font-bold">Tour - Admin</p>
+        <p className="text-2xl font-bold">Quản lý - Tour</p>
         <Button onClick={handleDownloadExcelTour} className="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -390,14 +431,14 @@ function TourAdmin() {
               d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25"
             />
           </svg>
-          <p>Export to Excel</p>
+          <p>Tải về</p>
         </Button>
       </div>
       <div className="p-4 bg-white rounded-md">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
             <div className="flex items-center mr-4 space-x-2">
-              <span>Show</span>
+              <span>Hiện</span>
               <select
                 className="p-2 border border-gray-300 rounded-lg"
                 value={entriesPerPage}
@@ -418,7 +459,7 @@ function TourAdmin() {
                 <IconSearch />
               </div>
               <Input
-                placeholder="Filter tour name..."
+                placeholder="Nhập tour cần tìm..."
                 // value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
                 // onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
                 onChange={(e) => setSearchTourAdmin(e.target.value)}
@@ -428,12 +469,12 @@ function TourAdmin() {
           </div>
           <div className="flex items-center gap-4">
             <Link to="/admin/tours/create">
-              <Button className="text-white">+ Add Tour</Button>
+              <Button className="text-white">Thêm tour</Button>
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="ml-auto">
-                  Columns <ChevronDown className="w-4 h-4 ml-2" />
+                  Cột <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -475,9 +516,8 @@ function TourAdmin() {
                     {row.getVisibleCells().map((cell, cellIndex) => (
                       <TableCell
                         key={cell.id}
-                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${
-                          cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
-                        }`}
+                        className={`${cell.column.id === 'id' ? 'sticky left-0 bg-[#F4F4F4] z-10' : ''} ${cell.column.id === 'actions' ? 'sticky right-0 bg-[#F4F4F4] z-10' : ''
+                          }`}
                         style={{
                           minWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto',
                           maxWidth: cellIndex === 0 || cell.column.id === 'actions' ? '100px' : 'auto'
@@ -502,10 +542,9 @@ function TourAdmin() {
         </div>
         <div className="flex items-center justify-end py-4 space-x-2">
           <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-            selected.
+            {table.getFilteredSelectedRowModel().rows.length} trên {table.getFilteredRowModel().rows.length} hàng đã được chọn.
           </div>
-          <span className="pr-2">Total Tours: {totalTour}</span>
+          <span className="pr-2">Tổng Tours: {totalDataCount}</span>
 
           <div className="space-x-2">
             <Button
@@ -513,19 +552,19 @@ function TourAdmin() {
               disabled={pageIndex === 0}
               className="text-white"
             >
-              Previous
+              Quay lại
             </Button>
             <Button
               onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
               disabled={pageIndex + 1 >= table.getPageCount()}
               className="text-white"
             >
-              Next
+              Tiếp
             </Button>
           </div>
-        </div>
-      </div>
-    </div>
+        </div >
+      </div >
+    </div >
   )
 }
 export default TourAdmin

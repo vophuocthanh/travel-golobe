@@ -86,7 +86,6 @@ export default function HotelDetail() {
     totalComments > 0
       ? (getCommentHotel?.data.reduce((acc, cur) => acc + cur.rating, 0) / totalComments).toFixed(1)
       : '0'
-
   const getRatingStatus = (rating: number) => {
     if (rating <= 2) {
       return 'Not Good'
@@ -104,7 +103,8 @@ export default function HotelDetail() {
       : new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numberValue)
   }
 
-  const ratingStatus = getRatingStatus(Number(averageRating))
+  const ratingStatus = getRatingStatus(Number(averageRating) + Number(getbyId?.star_number))
+  const numberRating = Number(getCommentHotel?.total) + Number(getbyId?.number_rating)
 
   const hotelUrl = `https://travel-golobe.vercel.app/hotel/${id}`
   const hotelTitle = getbyId?.description || 'Chia sẻ tour thú vị này!'
@@ -215,7 +215,7 @@ export default function HotelDetail() {
               </Button>
               <div>
                 <p className="text-lg font-bold text-gray-700">{ratingStatus}</p>
-                <p className="text-gray-500">{getCommentHotel?.total} reviews</p>
+                <p className="text-gray-500">{numberRating} reviews</p>
               </div>
             </div>
 
@@ -260,8 +260,8 @@ export default function HotelDetail() {
           <HotelDetailOverview
             ratingStatus={ratingStatus}
             description={getbyId?.description || ''}
-            averrange={Number(averageRating) ?? 0}
-            total={getCommentHotel?.total || 0}
+            averrange={Number(getbyId?.star_number)}
+            total={numberRating}
           />
           <div ref={roomSectionRef}>
             <HotelDetailRoom Room={getbyId?.rooms || []} onValueChange={handleValueChange} />

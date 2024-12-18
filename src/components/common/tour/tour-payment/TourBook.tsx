@@ -16,10 +16,10 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
         <div key={data?.id} className='flex items-center mb-4 max-md:flex-row max-lg:flex-col'>
           <img src={data?.image} alt={data?.name} className='object-cover h-20 rounded-md max-lg:h-[8rem] max-md:w-[35%] max-lg:w-[100%] w-[35%]' />
           <div className='lg:ml-4 max-md:ml-4 max-lg:mt-5'>
-            <p className='overflow-hidden text-gray-500 whitespace-pre-line text-ellipsis line-clamp-2'>
+            {/* <p className='overflow-hidden text-gray-500 whitespace-pre-line text-ellipsis line-clamp-2'>
               {data?.description}
-            </p>
-            <h2 className='overflow-hidden text-xl font-semibold whitespace-pre-line text-ellipsis line-clamp-1'>
+            </p> */}
+            <h2 className='overflow-hidden text-xl font-semibold whitespace-pre-line '>
               {data?.name}
             </h2>
             <div className='flex items-center mt-3'>

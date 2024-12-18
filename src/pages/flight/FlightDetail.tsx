@@ -34,6 +34,7 @@ import 'swiper/css'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import IconFlightI from '@/common/icons/IconFLightInverse'
+import { AxiosError } from 'axios'
 export default function FlightDetail() {
   const { t } = useTranslation()
   const slides = [
@@ -87,12 +88,10 @@ export default function FlightDetail() {
       toast.success(`Flight booked successfully with Booking ID: ${bookingId}`)
       navigate(`/vehicle/flight/all-flight/flight-payment/${bookingId}`)
     },
-    onError: () => {
-      if (isLoggedIn) {
-        toast.error('Failed to book Hotel')
-      } else {
-        toast.error('Please you must login to book ')
-      }
+    onError: (error) => {
+      const axiosError = error as AxiosError
+      const errorMessage = (axiosError.response?.data as { message: string }).message
+      toast.error(errorMessage)
     }
   })
 
