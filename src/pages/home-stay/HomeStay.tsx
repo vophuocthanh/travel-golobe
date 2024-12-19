@@ -15,7 +15,7 @@ export default function HomeStay() {
             {/* Booking Form and Search Button */}
             <div className="flex items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:col-span-3 rounded-xl">
               <BookingForm />
-              <Button className="px-6 h-[60px] py-2 font-semibold text-white transition-all duration-300 ease-in-out rounded-lg shadow-md bg-primary hover:bg-primary-dark">
+              <Button className="px-6 h-[60px] py-2 font-semibold text-white w-40 transition-all duration-300 ease-in-out rounded-lg shadow-md bg-primary hover:bg-primary-dark">
                 <Search />
               </Button>
             </div>

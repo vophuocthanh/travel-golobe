@@ -1,5 +1,4 @@
 import { hotelApi } from '@/apis/hotel.api'
-import { hoteldetail2 } from '@/assets/images'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
@@ -47,7 +46,7 @@ export default function RecentSearch() {
             {getAll?.data.map((search: Search) => (
               <Link to={`/hotel/${search.id}`} key={search.id}>
                 <div className="flex items-center p-4 overflow-hidden transition-shadow duration-300 border rounded-lg shadow-lg hover:shadow-xl">
-                  <img src={hoteldetail2} alt={search.place} className="object-cover w-24 h-24 mr-4 rounded-lg" />
+                  <img src={search.image} alt={search.place} className="object-cover w-24 h-24 mr-4 rounded-lg" />
                   <div className="flex flex-col">
                     <h2 className="text-xl font-bold">{search.hotel_names}</h2>
                     <span className="overflow-hidden text-gray-500 whitespace-nowrap overflow-ellipsis">
