@@ -1,5 +1,5 @@
 import { paymentApi } from '@/apis/payment.api'
-import { IconDelete, IconEdit, IconView } from '@/common/icons'
+import { IconView } from '@/common/icons'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -155,14 +155,7 @@ export default function PaymentAdmin() {
             {' '}
             <IconView />
           </div>
-          <div className='cursor-pointer' onClick={() => handleEdit(row.original)}>
-            {' '}
-            <IconEdit />
-          </div>
-          <div className='cursor-pointer' onClick={() => handleDelete(row.original)}>
-            {' '}
-            <IconDelete />
-          </div>
+
         </div>
       )
     }
@@ -187,13 +180,6 @@ export default function PaymentAdmin() {
     }
   })
 
-  function handleEdit(payment: Payment) {
-    console.log('Editing payment:', payment)
-  }
-
-  function handleDelete(payment: Payment) {
-    console.log('Deleting payment:', payment)
-  }
 
   const handleView = (paymenID: Payment) => {
     navigate(`/admin/payment/payment-view/${paymenID.id}`)
@@ -219,17 +205,17 @@ export default function PaymentAdmin() {
       <Card>
         <CardHeader>
           <CardTitle className='flex w-full h-[3rem] items-center justify-between'>
-            <h1 className='mb-4 text-2xl font-bold '>Payment - Admin</h1>
+            <h1 className='mb-4 text-2xl font-bold '>Quản lý thanh toán</h1>
             <Button className='text-white' onClick={handleExportExcelPayment}>
-              Download
+              Tải về
             </Button>
           </CardTitle>
-          <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+          <CardDescription>Thay đổi thông tin tài khoản của bạn tại đây. Nhấn Lưu khi hoàn tất.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className='flex items-center py-4'>
             <Input
-              placeholder='Filter id...'
+              placeholder='Tìm thanh toán...'
               value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('id')?.setFilterValue(event.target.value)}
               className='max-w-sm'
@@ -237,7 +223,7 @@ export default function PaymentAdmin() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='outline' className='ml-auto'>
-                  Columns <ChevronDown className='w-4 h-4 ml-2' />
+                  Cột <ChevronDown className='w-4 h-4 ml-2' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
@@ -299,14 +285,14 @@ export default function PaymentAdmin() {
           </div>
           <div className='flex items-center justify-end py-4 space-x-2'>
             <div className='flex-1 text-sm text-muted-foreground'>
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              Trang {table.getState().pagination.pageIndex + 1} của {table.getPageCount()}
             </div>
             <div className='space-x-2 '>
               <Button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                Previous
+                Quay lại
               </Button>
               <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                Next
+                Tiếp
               </Button>
             </div>
           </div>

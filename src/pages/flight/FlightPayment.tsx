@@ -9,7 +9,7 @@ import PaymentOptions from '@/components/common/payment/payment-option'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 export default function FlightPayment() {
@@ -73,11 +73,15 @@ export default function FlightPayment() {
             <div className="flex items-center space-x-2">
               <div className="items-start flex-1 w-full mt-2 mb-2">
                 <div className="flex items-center space-x-2 text-gray-800 text-md max-sm:justify-center">
-                  <p className="text-red-400">Turkey</p>
+                  <Link to="/vehicle/flight" className="text-red-400">
+                    Flight
+                  </Link>
                   <ChevronRight className="w-4 h-4" />
-                  <p className="text-red-400">Istanbul</p>
+                  <Link to="/vehicle/flight/all-flight" className="text-red-400">
+                    Flight All
+                  </Link>
                   <ChevronRight className="w-4 h-4" />
-                  <p>{getBookingFlightDetails?.brand}</p>
+                  <p>{getBookingFlightDetails?.flightCrawls.brand}</p>
                 </div>
               </div>
             </div>

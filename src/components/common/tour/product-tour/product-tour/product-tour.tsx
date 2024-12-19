@@ -168,7 +168,7 @@ const ProductTour: React.FC<TourlCardProps> = ({
                         </div>
                       </div>
                       <div>
-                        <h2 className="text-2xl font-medium text-red-500 max-sm:text-base max-xl:text-xl">
+                        <h2 className="mt-5 text-2xl font-medium text-red-500 max-sm:text-base max-xl:text-xl">
                           {formatCurrencyVND(item.totalAmount)}
                         </h2>
                       </div>

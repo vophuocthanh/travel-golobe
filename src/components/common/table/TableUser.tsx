@@ -143,8 +143,8 @@ export function TableUser() {
               row.original.role?.name === 'ADMIN'
                 ? 'text-white p-2 inline-block rounded-xl bg-green-400'
                 : row.original.role?.name === 'EMPLOYEE'
-                ? 'text-white p-2 inline-block rounded-xl bg-blue-400'
-                : ''
+                  ? 'text-white p-2 inline-block rounded-xl bg-blue-400'
+                  : ''
             }
           >
             {row.original.role?.name || 'N/A'}
@@ -245,7 +245,7 @@ export function TableUser() {
       <div className='flex items-center py-4'>
         <div className='flex items-center gap-2'>
           <Input
-            placeholder='Filter emails...'
+            placeholder='Nhập tìm emails...'
             value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
             className='max-w-sm'
@@ -265,13 +265,13 @@ export function TableUser() {
                 d='M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25'
               />
             </svg>
-            <p>Export to Excel</p>
+            <p>Tải về</p>
           </Button>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>
-              Columns <ChevronDown className='w-4 h-4 ml-2' />
+              Cột <ChevronDown className='w-4 h-4 ml-2' />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
@@ -331,8 +331,7 @@ export function TableUser() {
       </div>
       <div className='flex items-center justify-end py-4 space-x-2'>
         <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-          selected.
+          {table.getFilteredSelectedRowModel().rows.length} trên {table.getFilteredRowModel().rows.length} hàng đã được chọn.
         </div>
         <div className='space-x-2'>
           <Button
@@ -340,14 +339,14 @@ export function TableUser() {
             disabled={pageIndex === 0}
             className='text-white'
           >
-            Previous
+            Quay lại
           </Button>
           <Button
             onClick={() => setPageIndex((prev) => Math.min(prev + 1, table.getPageCount() - 1))}
             disabled={pageIndex + 1 >= table.getPageCount()}
             className='text-white'
           >
-            Next
+            Tiếp
           </Button>
         </div>
       </div>

@@ -10,9 +10,9 @@ export default function BillingAllView() {
   const { billingID } = useParams();
   const navigate = useNavigate();
   const [billingData, setBillingData] = useState({
-    id: "m5gr84i9",billingTime: "2003-05-21",plan: "Basic", amount: 316, status: "success",  
+    id: "m5gr84i9", billingTime: "2003-05-21", plan: "Basic", amount: 316, status: "success",
     customerName: "John Doe", customerEmail: "john.doe@example.com",
-    tour: "Vietnam Adventure", tourLocation: "Hanoi, Vietnam",  
+    tour: "Vietnam Adventure", tourLocation: "Hanoi, Vietnam",
     hotelName: "Sunrise Hotel", hotelLocation: "Hanoi, Vietnam", hotelRooms: 2, hotelCheckIn: "2024-10-01 14:00", hotelCheckOut: "2024-10-07 12:00",
     flightAirline: "Vietnam Airlines", flightPlane: "Airbus A350", flightSeat: "12A", flightDeparture: "2024-10-01 08:00", flightArrival: "2024-10-01 10:00"
   });
@@ -38,7 +38,7 @@ export default function BillingAllView() {
         return "";
     }
   };
-  
+
   return (
     <div className="w-full p-2 mb-5">
       <h1 className="mb-2 text-2xl font-bold">Xem thanh toán {billingID}</h1>
@@ -74,48 +74,48 @@ export default function BillingAllView() {
             </div>
           </div>
         </div>
-      
+
         <div className="p-4 bg-white rounded-lg shadow">
           <h2 className="mb-4 text-xl font-bold">Thông tin chuyến du lịch</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
-                <img src={tour_into1} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={tour_into1} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className="col-span-1">
-            <div className="col-span-1 mb-4">
-              <p>Chuyến du lịch</p>
-              <Input
-                type="text"
-                name="tour"
-                placeholder="Tour"
-                value={billingData.tour}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Địa điểm tham quan</p>
-              <Input
-                type="text"
-                name="tourLocation"
-                placeholder="Tour Location"
-                value={billingData.tourLocation}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
+              <div className="col-span-1 mb-4">
+                <p>Chuyến du lịch</p>
+                <Input
+                  type="text"
+                  name="tour"
+                  placeholder="Tour"
+                  value={billingData.tour}
+                  onChange={handleChange}
+                  className="p-2 border rounded"
+                  disabled
+                />
+              </div>
+              <div className="col-span-1">
+                <p>Địa điểm tham quan</p>
+                <Input
+                  type="text"
+                  name="tourLocation"
+                  placeholder="Tour Location"
+                  value={billingData.tourLocation}
+                  onChange={handleChange}
+                  className="p-2 border rounded"
+                  disabled
+                />
+              </div>
             </div>
           </div>
-          </div>
-          
+
         </div>
 
         <div className="p-4 bg-white rounded-lg shadow">
           <h2 className="mb-4 text-xl font-bold">Thông tin khách sạn</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
-                <img src={hoteldetail1} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={hoteldetail1} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -183,75 +183,75 @@ export default function BillingAllView() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-4 bg-white rounded-lg shadow">
           <h2 className="mb-4 text-xl font-bold">Thông tin chuyến bay</h2>
           <div className='grid grid-cols-3 gap-4 mb-4'>
             <div className='w-[10rem] p-2 h-[10rem] col-span-1 flex mx-auto my-auto'>
-                <img src={flightdetail1} alt='hotel' className='w-full h-full rounded-full' />
+              <img src={flightdetail1} alt='hotel' className='w-full h-full rounded-full' />
             </div>
             <div className="col-span-2">
               <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              <div className="col-span-1">
-              <p>Hãng hàng không</p>
-              <Input
-                type="text"
-                name="flightAirline"
-                placeholder="Airline"
-                value={billingData.flightAirline}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Máy bay</p>
-              <Input
-                type="text"
-                name="flightPlane"
-                placeholder="Plane"
-                value={billingData.flightPlane}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Số ghế</p>
-              <Input
-                type="text"
-                name="flightSeat"
-                placeholder="Seat Number"
-                value={billingData.flightSeat}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Thời gian khởi hành</p>
-              <Input
-                type="text"
-                name="flightDeparture"
-                placeholder="Departure Time"
-                value={billingData.flightDeparture}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
-            <div className="col-span-1">
-              <p>Thời gian đến</p>
-              <Input
-                type="text"
-                name="flightArrival"
-                placeholder="Arrival Time"
-                value={billingData.flightArrival}
-                onChange={handleChange}
-                className="p-2 border rounded"
-                disabled
-              />
-            </div>
+                <div className="col-span-1">
+                  <p>Hãng hàng không</p>
+                  <Input
+                    type="text"
+                    name="flightAirline"
+                    placeholder="Airline"
+                    value={billingData.flightAirline}
+                    onChange={handleChange}
+                    className="p-2 border rounded"
+                    disabled
+                  />
+                </div>
+                <div className="col-span-1">
+                  <p>Máy bay</p>
+                  <Input
+                    type="text"
+                    name="flightPlane"
+                    placeholder="Plane"
+                    value={billingData.flightPlane}
+                    onChange={handleChange}
+                    className="p-2 border rounded"
+                    disabled
+                  />
+                </div>
+                <div className="col-span-1">
+                  <p>Số ghế</p>
+                  <Input
+                    type="text"
+                    name="flightSeat"
+                    placeholder="Seat Number"
+                    value={billingData.flightSeat}
+                    onChange={handleChange}
+                    className="p-2 border rounded"
+                    disabled
+                  />
+                </div>
+                <div className="col-span-1">
+                  <p>Thời gian khởi hành</p>
+                  <Input
+                    type="text"
+                    name="flightDeparture"
+                    placeholder="Departure Time"
+                    value={billingData.flightDeparture}
+                    onChange={handleChange}
+                    className="p-2 border rounded"
+                    disabled
+                  />
+                </div>
+                <div className="col-span-1">
+                  <p>Thời gian đến</p>
+                  <Input
+                    type="text"
+                    name="flightArrival"
+                    placeholder="Arrival Time"
+                    value={billingData.flightArrival}
+                    onChange={handleChange}
+                    className="p-2 border rounded"
+                    disabled
+                  />
+                </div>
               </div>
             </div>
           </div>

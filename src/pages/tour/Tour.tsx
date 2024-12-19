@@ -16,7 +16,7 @@ export default function Tour() {
           </div>
         </div>
       </div>
-      <div className="w-full h-[280px] max-xl:h-[120px] max-md:h-[80px] "></div>
+      <div className="w-full h-[150px] max-xl:h-[120px] max-md:h-[80px] "></div>
 
       <SearchTour />
       <IntoTour />

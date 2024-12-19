@@ -9,7 +9,7 @@ import PaymentOptions from '@/components/common/payment/payment-option'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 export default function HotelPayment() {
@@ -66,25 +66,29 @@ export default function HotelPayment() {
     <div className='w-full bg-gray-100'>
       <Header />
       <SectionInViewRight>
-        <main className='pt-20 container mx-auto'>
+        <main className='container pt-20 mx-auto'>
           <section>
             <h1 className='flex items-center justify-center p-5 text-3xl font-semibold'>{t('HotelPayment')}</h1>
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>
-                  <p className='text-red-400'>Turkey</p>
-                  <ChevronRight className='w-4 h-4' />
-                  <p className='text-red-400'>Istanbul</p>
+                <Link to='/hotel' className='text-red-400'>
+                  Hotel
+                </Link>
+                <ChevronRight className='w-4 h-4' />
+                <Link to='/hotel/home-stay' className='text-red-400'>
+                  Hotel All
+                </Link>
                   <ChevronRight className='w-4 h-4' />
                   <p>{getBookingHotelDetails?.hotel_names}</p>
                 </div>
               </div>
             </div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-              <div className='col-span-3 lg:col-span-2 p-6 mt-6 bg-white rounded-lg shadow-md'>
+            <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3'>
+              <div className='col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md lg:col-span-2'>
                 {getBookingHotelDetails && <HotelInfo hotel={getBookingHotelDetails} />}
               </div>
-              <div className='lg:col-span-1 col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md w-full'>
+              <div className='w-full col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md lg:col-span-1'>
                 {getBookingHotelDetails && (
                   <HotelBook
                     loading={loading}
@@ -93,7 +97,7 @@ export default function HotelPayment() {
                   />
                 )}
               </div>
-              <div className='col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md'>
+              <div className='col-span-3 p-6 mt-6 bg-white rounded-lg shadow-md lg:col-span-2'>
                 <PaymentOptions paymentOption={paymentOption} handleClickValueOption={setPaymentOption} />
               </div>
             </div>
