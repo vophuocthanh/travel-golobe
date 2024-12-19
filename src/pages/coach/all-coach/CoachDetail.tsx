@@ -119,11 +119,11 @@ export default function CoachDetail() {
         <section>
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <Link to="/vehicle/coach" className="text-red-400">
-              Coach
+              {t('Coaches')}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <Link to="/vehicle/coach/all-coach" className="text-red-400">
-              Coach All
+              {t('CoachAll')}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <p>{getbyId?.brand}</p>
@@ -141,8 +141,8 @@ export default function CoachDetail() {
                     4.2
                   </p>
                   <p className="text-xs font-normal">
-                    <span className="font-bold">Very Good </span>
-                    54 reviews
+                    <span className="font-bold">{t('Verygood')} </span>
+                    54 {t('reviews')}
                   </p>
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function CoachDetail() {
             <div className="flex w-full space-y-2">
               <div className="lg:space-x-2 lg:ml-auto lg:flex ">
                 <div className="flex w-full mt-2 mb-2">
-                  <p className="flex items-center px-2 py-1 mr-2 text-black border rounded text-md lg:text-lg border-primary w-[10rem]">
+                  <p className="flex items-center px-2 py-1 mr-2 text-black border rounded text-md lg:text-lg border-primary w-[12rem]">
                     {t('Availab')} {getbyId?.number_of_seats_remaining} {t('Seat')}
                   </p>
                   <div className="flex items-center space-x-4 bg-white border rounded border-primary ">

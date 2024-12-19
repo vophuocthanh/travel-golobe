@@ -10,8 +10,10 @@ import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Link } from 'react-router-dom'
 import { DatePickerWithPresets } from '../../calendar/calendar-date'
+import { useTranslation } from 'react-i18next'
 
 export default function BookingForm() {
+  const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState<string>('')
   const debouncedSearchTerm = useDebounce<string>(searchTerm, 500)
   const [pageHotel, setPageHotel] = useState(1)
@@ -44,17 +46,17 @@ export default function BookingForm() {
   }
 
   return (
-    <div className="w-full flex flex-wrap gap-4">
+    <div className="flex flex-wrap w-full gap-4">
       {/* Destination */}
       <div className="relative w-full sm:w-[48%] lg:w-[23%] h-[4rem]">
         <Label
           htmlFor=""
           className="absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4"
         >
-          Enter Destination
+          {t('Search')}
         </Label>
         <Input
-          className="w-full border border-[#F3F4F6] p-2 h-16 pt-4 pl-12"
+          className="w-full border border-[#F3F4F6] p-2 h-[3.5rem] pt-4 pl-12"
           placeholder="Istanbul, Turkey"
           onChange={(e) => setSearchTerm(e.target.value)}
         />

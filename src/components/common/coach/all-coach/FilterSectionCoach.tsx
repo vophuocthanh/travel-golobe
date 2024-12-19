@@ -46,7 +46,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
                     className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMinPrice || ''}
                     onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
-                    placeholder="Giá tối thiểu"
+                    placeholder={t('Minimum')}
                   />
                 </div>
                 <p className="flex items-center justify-center">-</p>
@@ -55,7 +55,7 @@ const FilterSectionCoach: React.FC<FilterPriceProps> = ({ onApplyFilter, brandCo
                     className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMaxPrice || ''}
                     onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
-                    placeholder="Giá tối đa"
+                    placeholder={t('Maximum')}
                   />
                 </div>
               </div>

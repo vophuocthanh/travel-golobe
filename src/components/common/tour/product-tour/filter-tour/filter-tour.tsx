@@ -67,14 +67,14 @@ export default function FilterTour(props: FlightCardProps) {
             <div className="flex items-center w-full space-x-4">
               <input
                 className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Min Price"
+                placeholder= {t('Minimum')}
                 value={tempMinPrice !== undefined ? tempMinPrice : ''}
                 onChange={(e) => setTempMinPrice(e.target.value ? Number(e.target.value) : undefined)}
               />
               <span className="text-lg text-gray-600">-</span>
               <input
                 className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Max Price"
+                placeholder={t('Maximum')}
                 value={tempMaxPrice !== undefined ? tempMaxPrice : ''}
                 onChange={(e) => setTempMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
               />
@@ -133,13 +133,13 @@ export default function FilterTour(props: FlightCardProps) {
           <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn nơi xuất phát</h1>
           <Select value={selectedStartingGate} onValueChange={handleSelectUniqueStartingGate}>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Chọn nơi xuất phát">
-                {selectedStartingGate || <span>Chọn nơi xuất phát</span>}
+              <SelectValue placeholder={t('Selectdeparture')}>
+                {selectedStartingGate || <span>{t('Selectdeparture')}</span>}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Nơi xuất phát</SelectLabel>
+                <SelectLabel>{t('Departurelocation')}</SelectLabel>
                 {data?.length ? (
                   data.map((item, index) => (
                     <SelectItem key={index} value={item}>
@@ -147,7 +147,7 @@ export default function FilterTour(props: FlightCardProps) {
                     </SelectItem>
                   ))
                 ) : (
-                  <div className="p-4 text-center text-gray-500">Không có nơi xuất phát</div>
+                  <div className="p-4 text-center text-gray-500">{t('Nodeparture')}</div>
                 )}
               </SelectGroup>
             </SelectContent>
@@ -163,16 +163,16 @@ export default function FilterTour(props: FlightCardProps) {
         </div>
 
         <div className="relative flex flex-col space-y-4">
-          <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn phương tiện</h1>
+          <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">{t('Selecttransportation')}</h1>
           <Select value={selectRoadVehicle} onValueChange={handleSelectUniqueRoadVehicle}>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a phương tiện">
-                {selectRoadVehicle || <span>Chọn phương tiện</span>}
+              <SelectValue placeholder={t('Selecttransportation')}>
+                {selectRoadVehicle || <span>{t('Selecttransportation')}</span>}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Phương tiện</SelectLabel>
+                <SelectLabel>{t('Transportationss')}</SelectLabel>
                 {dataRoadVehicle?.length ? (
                   dataRoadVehicle.map((item, index) => (
                     <SelectItem key={index} value={item}>
@@ -180,7 +180,7 @@ export default function FilterTour(props: FlightCardProps) {
                     </SelectItem>
                   ))
                 ) : (
-                  <div className="p-4 text-center text-gray-500">Không có phương tiện</div>
+                  <div className="p-4 text-center text-gray-500">{t('Notransportation')}</div>
                 )}
               </SelectGroup>
             </SelectContent>
@@ -195,16 +195,16 @@ export default function FilterTour(props: FlightCardProps) {
           )}
         </div>
         <div className="relative flex flex-col space-y-4">
-          <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn loại tour</h1>
+          <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">{t('Selecttour')}</h1>
           <Select value={selectTourType} onValueChange={handleSelectUniqueTourType}>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Chọn loại tour">{selectTourType || <span>Chọn loại tour</span>}</SelectValue>
+              <SelectValue placeholder={t('Selecttour')}>{selectTourType || <span>{t('Selecttour')}</span>}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Loại tour</SelectLabel>
-                <SelectItem value="open">Mở</SelectItem>
-                <SelectItem value="closed">Đóng</SelectItem>
+                <SelectLabel>{t('Tourtype')}</SelectLabel>
+                <SelectItem value="open">{t('Open')}</SelectItem>
+                <SelectItem value="closed">{t('Close')}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

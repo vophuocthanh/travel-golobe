@@ -122,11 +122,11 @@ export default function HotelDetail() {
             <div className='w-full mt-8 mb-8'>
               <div className='flex items-center space-x-2 text-gray-800 text-md'>
                 <Link to='/hotel' className='text-red-400'>
-                  Hotel
+                  {t('Hotel')}
                 </Link>
                 <ChevronRight className='w-4 h-4' />
                 <Link to='/hotel/home-stay' className='text-red-400'>
-                  Hotel All
+                  {t('HotelAll')}
                 </Link>
                 <ChevronRight className='w-4 h-4' />
                 <p>{getbyId?.hotel_names}</p>
@@ -135,7 +135,7 @@ export default function HotelDetail() {
                 <h1 className='mr-5 text-3xl font-bold'>{getbyId?.hotel_names}</h1>
                 <div className='flex items-center mt-2'>
                   <ReadOnlyRating rating={Number(getbyId?.star_number)} />
-                  <span className='mt-1 ml-2'>{Number(getbyId?.star_number)} Star Hotel</span>
+                  <span className='mt-1 ml-2'>{Number(getbyId?.star_number)} {t('Star')} </span>
                 </div>
               </div>
               <div className='mt-5'>
@@ -222,7 +222,7 @@ export default function HotelDetail() {
               </Button>
               <div>
                 <p className='text-lg font-bold text-gray-700'>{ratingStatus}</p>
-                <p className='text-gray-500'>{numberRating} reviews</p>
+                <p className='text-gray-500'>{numberRating} {t('reviews')}</p>
               </div>
             </div>
 

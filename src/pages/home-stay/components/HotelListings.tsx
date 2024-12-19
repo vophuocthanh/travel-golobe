@@ -77,13 +77,13 @@ const HotelListings: React.FC = () => {
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                   <input
                     className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Min Price"
+                    placeholder={t('Minimum')}
                     value={minPrice !== undefined ? minPrice : ''}
                     onChange={(e) => setMinPrice(e.target.value ? Number(e.target.value) : undefined)}
                   />
                   <input
                     className="w-full h-10 p-4 transition duration-200 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Max Price"
+                    placeholder={t('Maximum')}
                     value={maxPrice !== undefined ? maxPrice : ''}
                     onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : undefined)}
                   />
@@ -130,7 +130,7 @@ const HotelListings: React.FC = () => {
                   ))}
                 </div>
                 <div className="inline-block mt-6">
-                  <h2 className="mb-4 text-xl font-semibold text-gray-700">Địa điểm</h2>
+                  <h2 className="mb-4 text-xl font-semibold text-gray-700">{t('Location')}</h2>
                   {getCountPlace?.data?.map((place: string, index: number) => (
                     <label key={index} className="flex items-center">
                       <input

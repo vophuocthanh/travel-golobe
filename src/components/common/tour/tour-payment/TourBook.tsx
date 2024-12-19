@@ -22,13 +22,13 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
             <h2 className='overflow-hidden text-xl font-semibold whitespace-pre-line '>
               {data?.name}
             </h2>
-            <div className='flex items-center mt-3'>
+            {/* <div className='flex items-center mt-3'>
               <p className='flex items-center justify-center h-[2.5rem] text-xs font-medium border rounded w-[3.5rem] border-primary'>
                 {data?.rating}
               </p>
               <span className='ml-2 text-lg max-xl:text-sm'>Very Good</span>
               <span className='ml-1 text-lg text-gray-500 max-xl:text-sm'>(10 reviews)</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

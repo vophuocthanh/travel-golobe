@@ -18,7 +18,7 @@ export default function HotelDetailOverview({ description, averrange, ratingStat
         <div className="relative col-span-1 p-4 text-center rounded-lg bg-emerald-300">
           <span className="absolute flex text-4xl font-bold top-3">{averrange}</span>
           <p className="absolute flex text-lg font-semibold bottom-9">{ratingStatus}</p>
-          <p className="absolute flex bottom-4">{total} reviews</p>
+          <p className="absolute flex bottom-4">{total} {t('reviews')}</p>
         </div>
       </div>
 

@@ -132,7 +132,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
                 className="object-cover rounded-md w-[90%] xl:ml-8 mt-4 h-[90%] max-sm:w-full max-sm:ml-2"
               />
               <p className="h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-6 right-2 max-sm:text-xs">
-                9 images
+                9 {t('images')}
               </p>
             </div>
             <div className="w-[65%] flex-7 h-full pl-4 bg-[#FFFFFF] pr-4">
@@ -144,46 +144,46 @@ const FlightCard: React.FC<FlightCardProps> = ({
                         <Button className="bg-primary border-primary hover:bg-green-300 max-sm:text-xs max-sm:ml-2">
                           4.2
                         </Button>
-                        <p className="font-bold max-sm:text-xs">Very good</p>
-                        <p className="max-sm:hidden">54 reviews</p>
+                        <p className="font-bold max-sm:text-xs">{t('Verygood')}</p>
+                        <p className="max-sm:hidden">54 {t('reviews')}</p>
                       </div>
 
                       <div className="mb-4">
                         <div className="flex items-center mb-2">
                           <div className="flex-grow">
                             <div className="flex items-center justify-center gap-4 text-black ">
-                              <div className="xl:text-2xl max-sm:text-xs max-sm:w-[100%] max-sm:ml-2">
+                              <div className="xl:text-xl max-sm:text-xs max-sm:w-[100%] max-sm:ml-2">
                                 {flight.start_time} - {flight.end_time}
                               </div>
                               <div></div>
-                              <div className="xl:text-2xl max-sm:text-xs max-sm:w-[90%] ">
-                                Trip Time: {flight.trip_time}
+                              <div className="xl:text-xl max-sm:text-xs max-sm:w-[90%] ">
+                                {t('TripTime')}: {flight.trip_time}
                               </div>
                             </div>
                           </div>
                         </div>
                         <div></div>
-                        <div className="flex xl:w-[30rem] max-sm:w-[10rem]">
+                        <div className="flex xl:w-[25rem] max-sm:w-[10rem]">
                           <p className="text-left text-gray-500 mr-[4rem] xl:ml-9">
                             <div className="flex ">
-                              <p className="flex mb-2 font-bold text-black max-sm:text-xs ">From- </p>
+                              <p className="flex mb-2 font-bold text-black max-sm:text-xs ">{t('From')}- </p>
                               <p className="max-sm:text-xs max-sm:w-full">{flight.take_place}</p>
                             </div>
                             <div className="flex max-sm:flex-row">
-                              <p className="font-bold text-black max-sm:text-xs ">To- </p>
+                              <p className="font-bold text-black max-sm:text-xs ">{t('To')}- </p>
                               <p className="max-sm:text-xs max-sm:w-[13rem]">{flight.destination}</p>
                             </div>
                           </p>
                         </div>
-                        <div className="flex mt-8 ml-6 xl:text-xl max-sm:hidden">
-                          <p className="mr-2 font-bold text-black ">Brand: </p> {flight.brand}
+                        <div className="flex mt-8 ml-5 xl:text-xl max-sm:hidden">
+                          <p className="mr-2 font-bold text-black ">{t('Brand')}: </p> {flight.brand}
                         </div>
                       </div>
                     </div>
                     <div className="w-[30%] pt-4 text-right xl:mr-5 ">
                       <p className="xl:text-xl text-[#FF8682] font-bold ">{formatCurrencyVND(flight.price)}</p>
                       <p className="mt-40 font-medium text-right text-black-500 max-sm:hidden">
-                        Trip To: {flight.trip_to}
+                        {t('TripTo')}: {flight.trip_to}
                       </p>
                     </div>
                   </div>

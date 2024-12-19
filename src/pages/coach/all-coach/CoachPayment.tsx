@@ -75,11 +75,11 @@ export default function CoachPayment() {
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center text-gray-800 lg:space-x-2 text-md'>
                   <Link to="/vehicle/coach" className="text-red-400">
-                    Coach
+                    {t('Coaches')}
                   </Link>
                   <ChevronRight className="w-4 h-4" />
                   <Link to="/vehicle/coach/all-coach" className="text-red-400">
-                    Coach All
+                    {t('CoachAll')}
                   </Link>
                   <ChevronRight className='w-4 h-4' />
                   <p>{getBookingCoachDeTails?.brand}</p>

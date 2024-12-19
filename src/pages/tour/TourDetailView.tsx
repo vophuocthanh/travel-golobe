@@ -118,11 +118,11 @@ export default function TourDetailView() {
             <section className="mb-12">
               <div className="flex items-center mb-4 space-x-2 text-sm text-gray-600">
                 <Link to="/tour" className="text-red-400">
-                  Tour
+                  {t('Tours')}
                 </Link>
                 <ChevronRight className="w-4 h-4 text-gray-500" />
                 <Link to="/tour/all-tour" className="text-red-400">
-                  Tour All
+                  {t('TourAll')}
                 </Link>
                 <ChevronRight className="w-4 h-4 text-gray-500" />
                 <p className="overflow-hidden whitespace-pre-line text-ellipsis line-clamp-1 w-[30%]">
@@ -143,7 +143,7 @@ export default function TourDetailView() {
                       4.2
                     </p>
                     <p className="text-sm text-gray-600">
-                      <span className="font-semibold">{ratingStatus}</span> {getCommentTour?.total} reviews
+                      <span className="font-semibold">{ratingStatus}</span> {getCommentTour?.total} {t('reviews')}
                     </p>
                   </div>
                 </div>
@@ -235,22 +235,22 @@ export default function TourDetailView() {
                   <div className="flex mb-8 space-x-6">
                     <div className="flex flex-col items-center p-6 text-center text-white rounded-lg shadow-md bg-primary">
                       <p className="text-4xl font-bold">4.2</p>
-                      <p className="text-base font-semibold">Very Good</p>
-                      <p className="text-sm">371 reviews</p>
+                      <p className="text-base font-semibold">{t('Verygood')}</p>
+                      <p className="text-sm">371 {t('reviews')}</p>
                     </div>
                     <div className="flex flex-col items-center p-6 text-center border rounded-lg shadow-md border-primary">
                       <p className="text-4xl font-bold">4.2</p>
-                      <p className="text-base font-semibold">Very Good</p>
-                      <p className="text-sm">371 reviews</p>
+                      <p className="text-base font-semibold">{t('Verygood')}</p>
+                      <p className="text-sm">371 {t('reviews')}</p>
                     </div>
                   </div>
                   <hr className="mb-12 border-t border-gray-300" />
-                  <div>
-                    <p className="mb-4 text-2xl font-bold">Available</p>
+                  {/* <div>
+                    <p className="mb-4 text-2xl font-bold">{t('Overview')}Available</p>
                   </div>
                   <hr className="mb-12 border-t border-gray-300" />
                   <div>
-                    <p className="text-xl font-bold">Amenities/Map</p>
+                    <p className="text-xl font-bold">{t('Overview')}Amenities/Map</p>
                     <div className="grid p-4 gap-y-2 gap-x-4">
                       <div className="flex items-center justify-between ">
                         <div className="flex space-x-2">
@@ -261,15 +261,15 @@ export default function TourDetailView() {
                           <MapPin className="w-5 h-5" />
                           <span>name</span>
                         </div>
-                        <button className="text-blue-500">+24 more</button>
+                        <button className="text-blue-500">+24 {t('more')}</button>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <hr className="mb-12 border-t border-gray-300" />
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <p className="text-2xl font-bold">Location/Map</p>
-                      <Button className="text-white bg-primary">View on Google Maps</Button>
+                      <p className="text-2xl font-bold">{t('LocationMap')}</p>
+                      <Button className="text-white bg-primary">{t('Viewon')}</Button>
                     </div>
                     <div>
                       <iframe
@@ -285,7 +285,7 @@ export default function TourDetailView() {
                   <hr className="mb-12 border-t border-gray-300" />
                   <hr className="mb-12 border-t border-gray-300" />
                   <div>
-                    <p className="mb-4 text-2xl font-bold">Reviews</p>
+                    <p className="mb-4 text-2xl font-bold">{t('reviews')}</p>
                     <div className="flex flex-col space-y-4">
                       <TourDetailReview
                         data={getCommentTour?.data ?? []}
