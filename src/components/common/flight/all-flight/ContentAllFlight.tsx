@@ -63,7 +63,7 @@ export default function ContentAllFlight() {
       <div className="flex-none w-full ml-2 mt-14 ">
         <div className="bg-[#FFFFFF] flex flex-row justify-between w-full h-[6rem] rounded-md  hover:cursor-pointer">
           <div className="flex items-center justify-center w-full h-[11rem] overflow-hidden relative bg-gray-100 max-sm:h-[28rem]">
-            <div className="flex items-center justify-center bg-white rounded-lg shadow-md shadow-slate-300 xl:w-full h-[8rem] max-sm:h-[28rem] max-sm:w-[80%]">
+            <div className="flex items-center justify-center bg-white rounded-lg shadow-md shadow-slate-300  h-[8rem] max-sm:h-[28rem] max-sm:w-[80%]">
               <div className="grid grid-cols-9 gap-4 xl:pl-8 max-sm:flex max-sm:flex-col max-sm:gap-6 max-sm:px-2">
                 <div className="relative w-full xl:ml-4 xl:col-span-2 max-sm:ml-0 ">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
