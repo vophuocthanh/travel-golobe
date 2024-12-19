@@ -8,8 +8,10 @@ import { useState } from 'react'
 import { DatePickerWithPresets } from '../../calendar/calendar-date'
 import FilterSection from './FilterSection'
 import FlightCard from './FlightCard'
+import { useTranslation } from 'react-i18next'
 
 export default function ContentAllFlight() {
+  const { t } = useTranslation()
   const [minPrice, setMinPrice] = useState<number | undefined>(undefined)
   const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined)
 
@@ -67,29 +69,29 @@ export default function ContentAllFlight() {
               <div className="grid grid-cols-9 gap-4 xl:pl-8 max-sm:flex max-sm:flex-col max-sm:gap-6 max-sm:px-2">
                 <div className="relative w-full xl:ml-4 xl:col-span-2 max-sm:ml-0 ">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
-                    From
+                    {t('From')}
                   </label>
                   <Input
                     type="text"
                     className="block text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
-                    placeholder="Search for city or airport"
+                    placeholder={t('Searchfor')}
                     onChange={(e) => setTempSearchFrom(e.target.value)}
                   />
                 </div>
                 <div className="relative w-full col-span-2 ml-5 max-sm:ml-0">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
-                    To
+                    {t('To')}
                   </label>
                   <Input
                     type="text"
                     className="block text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
-                    placeholder="Search for city or airport"
+                    placeholder={t('Searchfor')}
                     onChange={(e) => setTempSearchTo(e.target.value)}
                   />
                 </div>
                 <div className="relative z-10 w-full col-span-2 ml-5 max-sm:ml-0">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
-                    Depart
+                    {t('Depart')}
                   </label>
                   <div className="flex text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md">
                     <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
@@ -97,7 +99,7 @@ export default function ContentAllFlight() {
                 </div>
                 <div className="relative z-10 w-full col-span-2 ml-5 max-sm:ml-0">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 sm:text-sm">
-                    Return
+                    {t('Return')}
                   </label>
                   <div className="flex text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-primary focus:border-primary sm:text-md">
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />

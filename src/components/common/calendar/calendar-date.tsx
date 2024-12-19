@@ -8,13 +8,14 @@ import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/shared/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface DatePickerWithPresetsProps {
   date: Date | undefined
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>
 }
 export function DatePickerWithPresets({date, setDate}:DatePickerWithPresetsProps) {
-  
+  const { t } = useTranslation()
 
   return (
     <Popover>
@@ -27,7 +28,7 @@ export function DatePickerWithPresets({date, setDate}:DatePickerWithPresetsProps
           )}
         >
           <CalendarIcon className='w-4 h-4 mr-2' />
-          {date ? format(date, 'dd/MM/yyyy') : <span>Pick a date</span>}
+          {date ? format(date, 'dd/MM/yyyy') : <span>{t('Pickadate')}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent align='start' className='flex flex-col w-auto p-2 space-y-2'>

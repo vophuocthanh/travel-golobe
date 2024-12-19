@@ -51,40 +51,40 @@ const HotelCard: React.FC<HotelCardProps> = ({
         getAll?.data.map((item: HotelResponseType) => (
           <div
             key={item.id}
-            className='grid grid-cols-1 md:grid-cols-3 w-full h-auto rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:-translate-y-1'
+            className='grid w-full h-auto grid-cols-1 overflow-hidden transition-transform duration-300 shadow-lg md:grid-cols-3 rounded-xl hover:transform hover:-translate-y-1'
           >
             {/* Left Section (Image) */}
             <div className='relative col-span-1 md:col-span-1'>
               <img src={item.image} alt='Hotel' className='object-cover w-full h-full rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
-                9 images
+                9 {t('images')}
               </p>
             </div>
 
             {/* Right Section (Hotel Details) */}
-            <div className='col-span-1 md:col-span-2 p-4 bg-white'>
+            <div className='col-span-1 p-4 bg-white md:col-span-2'>
               <div className='flex flex-col w-full h-full'>
-                <div className='flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-6 border-b-2 border-gray-400 pb-4'>
-                  <div className='col-span-2 flex flex-col gap-4'>
-                    <p className='pt-2 text-2xl font-bold text-ellipsis overflow-hidden'>
+                <div className='flex flex-col gap-4 pb-4 border-b-2 border-gray-400 md:grid md:grid-cols-3 md:gap-6'>
+                  <div className='flex flex-col col-span-2 gap-4'>
+                    <p className='pt-2 overflow-hidden text-2xl font-bold text-ellipsis'>
                       {item.hotel_names}
                     </p>
                     <div className='flex text-gray-500 text-md'>
                       <MapPin className='mr-1 text-black' />
-                      <span className='text-ellipsis overflow-hidden'>{item.location}</span>
+                      <span className='overflow-hidden text-ellipsis'>{item.location}</span>
                     </div>
                     <div className='flex gap-2'>
                       <ReadOnlyRating rating={Number(item.star_number)} />
                       <div className='flex items-center gap-1'>
                         <p className='font-bold'>20+</p>
                         <Coffee className='font-bold text-black' />
-                        <p>Amenities</p>
+                        <p>{t('Amenities')}</p>
                       </div>
                     </div>
                     <div className='flex items-center gap-2'>
                       <Button className='text-white'>{item.score_hotels}</Button>
-                      <p className='font-bold'>Very good</p>
-                      <p>371 reviews</p>
+                      <p className='font-bold'>{t('Verygood')}</p>
+                      <p>371 {t('reviews')}</p>
                     </div>
                   </div>
                   <div className='col-span-1 text-right'>

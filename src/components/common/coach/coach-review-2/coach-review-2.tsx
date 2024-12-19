@@ -22,7 +22,7 @@ export default function CoachReview2() {
               {' '}
               <p className='h-20 lg:text-5xl w-[20rem] text-md'>{t('Backpacking')}</p>
               <div className='flex flex-col items-center justify-center w-16 h-16 text-xl bg-white border rounded-lg border-primary'>
-                <p> From</p>
+                <p> {t('From')}</p>
                 <p className='font-bold'>$700</p>
               </div>
             </div>

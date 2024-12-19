@@ -34,7 +34,7 @@ export default function Coach() {
 
   const handleSearch = () => {
     if ((!formattedDepartDate || !formattedReturnDate) && (!searchTo || !searchFrom)) {
-      toast.error('Vui lòng nhập đầy đủ điểm đi, điểm đến, ngày khởi hành và ngày trở về.')
+      toast.error(`${t('Pleaseenter')}`)
       return
     }
     refetch()
@@ -48,9 +48,9 @@ export default function Coach() {
   }
   useEffect(() => {
     if (getAll && getAll.data && getAll.data.length === 0) {
-      toast.error('Không có chuyến xe vào ngày và điểm đến này.')
+      toast.error(`Không có chuyến xe vào ngày và điểm đến này.`)
     }
-  }, [getAll])
+  },[getAll])
 
   return (
     <div className="w-full">
@@ -70,29 +70,29 @@ export default function Coach() {
               <div className="grid grid-cols-8 gap-4 mt-[1rem] mr-[2.8rem]">
                 <div className="relative w-full col-span-4 ml-4 lg:col-span-2">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
-                    From
+                    {t('From')}
                   </label>
                   <Input
                     type="text"
                     className="block text-sm lg:text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
                     onChange={(e) => setSearchFrom(e.target.value)}
-                    placeholder="Nhập nơi đi..."
+                    placeholder={t('Enterdeparture')}
                   />
                 </div>
                 <div className="relative w-full col-span-4 ml-5 lg:col-span-2">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
-                    To
+                    {t('To')}
                   </label>
                   <Input
                     type="text"
                     className="block text-sm lg:text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
                     onChange={(e) => setSearchTo(e.target.value)}
-                    placeholder="Nhập nơi đến..."
+                    placeholder={t('Enterdestination')}
                   />
                 </div>
                 <div className="relative z-10 w-full col-span-4 ml-5 lg:col-span-2">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
-                    Depart
+                    {t('Depart')}
                   </label>
                   <div className="text-sm lg:text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
                     <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
@@ -100,7 +100,7 @@ export default function Coach() {
                 </div>
                 <div className="relative z-10 w-full col-span-4 ml-5 lg:col-span-2">
                   <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md" >
-                    Return
+                    {t('Return')}
                   </label>
                   <div className=" text-sm lg:text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
                     <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />

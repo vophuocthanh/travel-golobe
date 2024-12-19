@@ -147,7 +147,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
                 />
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-5">
-                    <label htmlFor="">Satisfaction Level.</label>
+                    <label htmlFor="">{t('Satisfaction')}</label>
                     <BasicRating setRating={setRating} />
                   </div>
                   <Button className="px-4 py-1 text-white rounded-md w-[10rem]" loading={loading}>
@@ -162,21 +162,21 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
           <p className="absolute left-0 text-5xl font-semibold">{averageRating}</p>
           <div className="absolute right-0">
             <p>{ratingStatus}</p>
-            <p>{total} verified reviews</p>
+            <p>{total}  {t('reviews')}</p>
           </div>
         </div>
         <div className="w-full py-2">
           <ul className="py-6 mx-auto mt-10 space-y-4 ">
             {data?.map((item, index) => (
               <li className="p-4 bg-white rounded shadow" key={index}>
-                <div className="relative flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-4">
+                <div className="relative flex flex-col items-start space-x-0 sm:flex-row sm:items-center sm:space-x-4">
                   <img
                     src={item.user.avatar}
                     alt="avatar"
-                    className="w-12 h-12 mb-2 sm:mb-0 rounded-full sm:mr-4"
+                    className="w-12 h-12 mb-2 rounded-full sm:mb-0 sm:mr-4"
                   />
                   <div className="flex-1">
-                    <p className="font-bold text-lg">{item.user.name} - {formatDateTime(item.createdAt)}</p>
+                    <p className="text-lg font-bold">{item.user.name} - {formatDateTime(item.createdAt)}</p>
                     <p>{item.content}</p>
                     <ReadOnlyRating rating={item.rating} />
                   </div>
@@ -194,7 +194,7 @@ export default function HotelDetailReview({ data, hotelId, total }: HotelDetailR
 
 
 
-                  <div onClick={() => handleReplyClick(item.id)} className="flex items-center justify-center space-x-2 absolute top-8 right-2 sm:relative sm:bottom-0 sm:right-10">
+                  <div onClick={() => handleReplyClick(item.id)} className="absolute flex items-center justify-center space-x-2 top-8 right-2 sm:relative sm:bottom-0 sm:right-10">
                     <p className="text-blue-500 cursor-pointer">
                       {t('Reply')}
                     </p>

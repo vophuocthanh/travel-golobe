@@ -11,7 +11,10 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { TourDate } from './TourDate'
 
+import { useTranslation } from 'react-i18next'
+
 export default function TourDetail() {
+  const { t } = useTranslation()
   const [departDate, setDepartDate] = useState<Date | undefined>(undefined)
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined)
   const [filteredDepartDate, setFilteredDepartDate] = useState<string | undefined>(undefined)
@@ -114,9 +117,15 @@ export default function TourDetail() {
         <div className="flex flex-col items-center justify-center gap-10 p-6 mt-40 bg-white border border-gray-300 shadow-lg md:flex-row rounded-xl">
           <div className="flex flex-wrap justify-between gap-4 py-4">
             <div className="relative col-span-2 max-sm:w-full">
+              {/* <Label
+                htmlFor=''
+                className='absolute z-10 p-3 text-sm text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4'
+              >
+                Enter Destination{t('CancelFilter')}
+              </Label> */}
               <Input
                 className="max-w-md sm:w-[16rem] max-sm:w-full  border border-[#E2E8F0] p-2 h-[4rem] pl-6"
-                placeholder="Tìm kiếm"
+                placeholder={t('EnterDestination')}
                 onChange={(e) => setSearchTour(e.target.value)}
               />
               {isLoading ? (

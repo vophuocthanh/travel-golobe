@@ -117,22 +117,22 @@ const CoachCard: React.FC<CoachCardProps> = ({
 
       {(getAll?.data?.length ?? 0) > 0 ? (
         getAll?.data.map((coach: CoachResponseType) => (
-          <div key={coach.id} className='flex w-full lg:h-[22rem] h-[24rem] rounded-xl overflow-hidden'>
+          <div key={coach.id} className='flex w-full lg:h-[22rem] h-[26rem] rounded-xl overflow-hidden'>
             <div className='w-[35%] bg-white relative'>
               <img src={coach.image} alt='coach' className='object-fill w-full lg:h-full h-[12rem] rounded-l-xl' />
               <p className='h-9 w-[5rem] bg-gray-200 rounded-lg flex justify-center items-center absolute top-3 right-2'>
-                9 images
+                9 {t('images')}
               </p>
             </div>
-            <div className='w-[65%] flex-7 h-full p-4 bg-white'>
+            <div className='w-[65%] flex-7 h-full p-2 bg-white'>
               <div className='flex flex-col w-full h-full'>
                 <div className='flex flex-row w-full h-[85%] border-b-2 border-gray-400 pb-4'>
                   <div className='flex flex-row w-full h-full'>
                     <div className='w-[70%] flex flex-col gap-4 '>
                       <div className='flex items-center gap-2 mt-2'>
                         <Button className='text-black bg-white border border-primary'>4.2</Button>
-                        <p className='text-sm font-bold lg:text-md'>Very good</p>
-                        <p className='text-sm lg:text-md'>54 reviews</p>
+                        <p className='text-sm font-bold lg:text-md'>{t('Verygood')}</p>
+                        <p className='text-sm lg:text-md'>54 {t('reviews')}</p>
                       </div>
 
                       <div className='mb-4'>
@@ -144,29 +144,29 @@ const CoachCard: React.FC<CoachCardProps> = ({
                                 <p>Time End: {coach.end_time}</p>
                               </div> */}
                               <div className='gap-2 lg:flex lg:lg:text-lg text-md'>
-                                <p>Day Start: {formatDateStandard(coach.start_day)}</p>
-                                <p>Day End: {formatDateStandard(coach.end_day)}</p>
+                                <p>{t('DayStart')}: {formatDateStandard(coach.start_day)}</p>
+                                <p>{t('DayEnd')}: {formatDateStandard(coach.end_day)}</p>
                               </div>
                               <div></div>
                             </div>
                           </div>
                         </div>
-                        <div className='text-md lg:text-lg w-[30rem]'>Trip Time: {coach.trip_time}</div>
+                        <div className='text-md lg:text-lg w-[30rem]'>{t('TripTime')}: {coach.trip_time}</div>
                         <div className='w-[30rem] mt-2 '>
                           <div className='flex flex-col w-full text-left text-gray-800'>
                             <div className='flex gap-2'>
-                              <p className='mb-2 font-bold text-black'>From:</p>
+                              <p className='mb-2 font-bold text-black'>{t('From')}:</p>
                               <p className='lg:w-[70%] w-[11rem] truncate '>{coach.take_place}</p>
                             </div>
                             <div className='flex gap-7'>
-                              <p className='mb-2 font-bold text-black'>To:</p>
+                              <p className='mb-2 font-bold text-black'>{t('To')}:</p>
                               <p className='lg:w-[70%] w-[11rem] truncate '>{coach.destination}</p>
                             </div>
                           </div>
                         </div>
                         <div className='items-center lg:ml-6 lg:text-lg'>
-                          <div className='flex'><p className='mr-2 font-bold text-black '>Brand: </p> {coach.brand}</div>
-                          <p className='font-medium text-black-500 w-[11rem] truncate lg:w-[80%]'>Trip To: {coach.destination}
+                          <div className='flex'><p className='mr-2 font-bold text-black '>{t('Brand')}: </p> {coach.brand}</div>
+                          <p className='font-medium text-black-500 w-[11rem] truncate lg:w-[80%]'>{t('TripTo')}: {coach.destination}
                       </p>
                         </div>
 
@@ -182,7 +182,7 @@ const CoachCard: React.FC<CoachCardProps> = ({
                   <div className='flex flex-row items-center w-full gap-2 mr-4'>
                     <FavoriteCoach id={coach.id} />
                     <Link to={`/vehicle/coach/${coach.id}`} className='w-full'>
-                      <Button className='w-full mx-4 '>View Deals</Button>
+                      <Button className='w-full mx-4 '>{t('ViewDeals')}</Button>
                     </Link>
                   </div>
                 </div>

@@ -10,8 +10,10 @@ import { useLocation } from 'react-router-dom'
 import { coachApi } from '@/apis/coach.api'
 import { useQuery } from '@tanstack/react-query'
 import { Filter } from 'lucide-react'
+import { useTranslation } from 'react-i18next';
 
 export default function ContentAllCoach() {
+  const { t } = useTranslation();
   const location = useLocation()
   const query = new URLSearchParams(location.search)
   const searchToFromQuery = query.get('searchTo')
@@ -67,29 +69,29 @@ export default function ContentAllCoach() {
           <div className="grid items-center grid-cols-4 gap-4 mx-3 lg:grid-cols-9">
             <div className="relative w-full col-span-2 lg:ml-5">
               <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md ">
-                From
+                {t('From')}
               </label>
               <Input
                 type="text"
                 className="block text-sm lg:text-lg w-full p-2 pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
                 onChange={(e) => setTempSearchFrom(e.target.value)}
-                placeholder="Nhập nơi đi..."
+                placeholder={t('Enterdeparture')}
               />
             </div>
             <div className="relative w-full col-span-2 lg:ml-5">
               <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
-                To
+                {t('To')}
               </label>
               <Input
                 type="text"
                 className="block text-sm lg:text-lg w-full pl-5 mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md"
                 onChange={(e) => setTempSearchTo(e.target.value)}
-                placeholder="Nhập nơi đến..."
+                placeholder={t('Enterdestination')}
               />
             </div>
             <div className="relative z-10 w-full col-span-2 lg:ml-5">
               <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md ">
-                Depart
+                {t('Depart')}
               </label>
               <div className="text-sm lg:text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
                 <DatePickerWithPresets date={departDate} setDate={setDepartDate} />
@@ -97,7 +99,7 @@ export default function ContentAllCoach() {
             </div>
             <div className="relative z-10 w-full col-span-2 lg:ml-5">
               <label className="absolute z-10 p-1.5 text-gray-800 transform -translate-y-1/2 bg-white top-1 left-4 text-sm lg:text-md">
-                Return
+                {t('Return')}
               </label>
               <div className=" text-sm lg:text-lg w-full mt-1 border border-gray-300 rounded-md shadow-sm h-[3.1rem] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-md">
                 <DatePickerWithPresets date={returnDate} setDate={setReturnDate} />
@@ -110,7 +112,7 @@ export default function ContentAllCoach() {
             </div>
             <div className="mt-1 lg:hidden">
               <Button onClick={toggleFilter} className="flex items-center h-[3rem]">
-                <Filter className="mr-2" /> Lọc
+                <Filter className="mr-2" />
               </Button>
             </div>
           </div>

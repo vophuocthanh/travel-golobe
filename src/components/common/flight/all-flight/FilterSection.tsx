@@ -66,7 +66,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({
                     className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMinPrice || ''}
                     onChange={(e) => setTempMinPrice(e.target.value)}
-                    placeholder="Giá tối thiểu"
+                    placeholder={t('Minimum')}
                   />
                 </div>
                 <p className="flex items-center justify-center">-</p>
@@ -75,7 +75,7 @@ const FilterSection: React.FC<FilterPriceProps> = ({
                     className="w-full h-10 p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
                     value={tempMaxPrice || ''}
                     onChange={(e) => setTempMaxPrice(e.target.value)}
-                    placeholder="Giá tối đa"
+                    placeholder={t('Maximum')}
                   />
                 </div>
               </div>
@@ -140,11 +140,11 @@ const FilterSection: React.FC<FilterPriceProps> = ({
         <h1 className="text-xl font-semibold text-gray-700 max-md:text-xl max-lg:text-sm">Chọn loại vé</h1>
         <Select value={selectedFlightType} onValueChange={handleSelectUniqueType}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Chọn loại vé">{selectedFlightType || <span>Chọn loại vé</span>}</SelectValue>
+            <SelectValue placeholder={t('Selectticketype')}>{selectedFlightType || <span>Chọn loại vé</span>}</SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Loại vé</SelectLabel>
+              <SelectLabel>{t('Tickettype')}</SelectLabel>
               <SelectItem value="ONE_WAY">One Way</SelectItem>
               <SelectItem value="ROUND_TRIP">Round Trip</SelectItem>
             </SelectGroup>

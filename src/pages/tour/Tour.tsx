@@ -15,24 +15,6 @@ export default function Tour() {
             <p className="text-white ">{t('Special')}</p>
           </div>
         </div>
-        {/* <div className='absolute flex flex-col items-center justify-center w-full p-8 mx-auto space-y-4 max-w-7xl shadow-2xl bg-white rounded-xl left-1/2 top-[105%] -translate-x-1/2 -translate-y-1/2 h-[250px]'>
-          <div className='relative w-full '>
-            <p className='p-4 text-3xl'>{t('whereTour')}</p>
-            <BannerTour
-              returnDate={new Date()}
-              departDate={new Date()}
-              setReturnDate={() => {}}
-              setDepartDate={() => {}}
-            />
-            <div className='flex justify-end p-4'>
-              <div className='flex gap-4'>
-                <div className='flex items-center gap-2 px-4 py-2 text-white rounded-lg bg-primary hover:border hover:bg-white hover:border-spacing-3 hover:border-primary hover:text-black'>
-                  <IconPlaces /> {t('places')}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
       <div className="w-full h-[280px] max-xl:h-[120px] max-md:h-[80px] "></div>
 

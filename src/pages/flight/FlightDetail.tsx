@@ -97,7 +97,7 @@ export default function FlightDetail() {
 
   const handleBookFlight = () => {
     if (selectedTicket === '') {
-      toast.error('Vui lòng chọn vé trước khi đặt.')
+      toast.error(`${t('Pleaseselect')}`)
       SectionRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else {
       setLoadingBooking(true)
@@ -119,11 +119,11 @@ export default function FlightDetail() {
         <section>
           <div className="flex items-center space-x-2 text-sm text-gray-600">
             <Link to="/vehicle/flight" className="text-red-400">
-              Flight
+              {t('Flight')}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <Link to="/vehicle/flight/all-flight" className="text-red-400">
-              Flight All
+              {t('FlightAll')}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <p className="text-lg text-primary">{getbyId?.brand}</p>
@@ -149,8 +149,8 @@ export default function FlightDetail() {
                   4.2
                 </p>
                 <p className="font-2xl normal text-">
-                  <span className="font-bold">Very Good </span>
-                  54 reviews
+                  <span className="font-bold">{t('Verygood')} </span>
+                  54 {t('reviews')}
                 </p>
                 <div className="flex items-center gap-4 p-4 bg-gray-100 rounded-lg shadow-md">
                   {getbyId?.type === 'ONE_WAY' ? (
