@@ -25,7 +25,8 @@ export default function RecentSearch() {
   const { t } = useTranslation()
   const { data: getAll, isLoading } = useQuery({
     queryKey: ['getAllHotel'],
-    queryFn: () => hotelApi.getAll(1, 6)
+    queryFn: () => hotelApi.getAll(1, 6, undefined, undefined, undefined, undefined, 5),
+
   })
 
   if (isLoading)
