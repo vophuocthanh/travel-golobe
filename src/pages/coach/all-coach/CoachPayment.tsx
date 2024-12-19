@@ -82,7 +82,7 @@ export default function CoachPayment() {
                     Coach All
                   </Link>
                   <ChevronRight className='w-4 h-4' />
-                  <p>{getBookingCoachDeTails?.location}</p>
+                  <p>{getBookingCoachDeTails?.brand}</p>
                 </div>
               </div>
             </div>

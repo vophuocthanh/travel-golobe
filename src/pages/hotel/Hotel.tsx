@@ -15,12 +15,12 @@ export default function Hotel() {
             <h1 className="text-3xl md:text-5xl text-white w-full md:w-[28rem] text-center md:text-left">
               {t('travelwhishlist')}
             </h1>
-            <p className="text-white text-center md:text-left">{t('Special')}</p>
+            <p className="text-center text-white md:text-left">{t('Special')}</p>
           </div>
         </div>
       </div>
 
-      <div className="w-full h-[280px] "></div>
+      <div className="w-full h-[150px] "></div>
 
       <RecentSearch />
       <FallIntroTravel />
