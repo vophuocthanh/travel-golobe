@@ -9,45 +9,46 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 const slide = [
   {
-    title: 'A real sense of community',
+    title: 'Cảm giác cộng đồng thực sự',
     content:
-      'Really appreciate the help and support from the staff during these tough times. Shoutout to Katie for helping me always, even when I was out of the country. And always available when needed.',
-    span: 'Olga',
-    address: 'Weave Studios – Kai Tak',
+      'Thực sự đánh giá cao sự giúp đỡ và hỗ trợ từ nhân viên trong những thời điểm khó khăn này. Đặc biệt cảm ơn Katie vì luôn giúp đỡ tôi, ngay cả khi tôi ở nước ngoài. Và luôn có mặt khi cần.',
+    span: 'Phạm Văn Minh',
+    address: 'Hà Nội, Việt Nam',
     url: 'https://images.unsplash.com/photo-1696220833162-3c12027f7548?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
-    title: 'A real sense of community',
+    title: 'Cảm giác cộng đồng thực sự',
     content:
-      'A real sense of community, nurtured”Really appreciate the help and support from the staff during these tough times. Shoutout to Katie for helping me always, even when I was out of the country. And always available when needed.',
-    span: 'Thomas',
-    address: 'Weave Studios – Olympic',
+      'Cảm giác cộng đồng thực sự, được nuôi dưỡng. Thực sự đánh giá cao sự giúp đỡ và hỗ trợ từ nhân viên trong những thời điểm khó khăn này. Đặc biệt cảm ơn Katie vì luôn giúp đỡ tôi, ngay cả khi tôi ở nước ngoài. Và luôn có mặt khi cần.',
+    span: 'Lê Quang Đạt',
+    address: 'Đà Nẵng, Việt Nam',
     url: 'https://plus.unsplash.com/premium_photo-1666283181610-b95ee7e55465?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
-    title: '“Amazing Architecture',
+    title: 'Kiến trúc tuyệt vời',
     content:
-      'EDITION, luxury boutique hotel brand affiliated to MARRIOTT, entrusted Various Associates to upgrade the beach club of its first hotel opened in China, known as The Sanya',
-    span: 'Olga',
-    address: 'Weave Studios – Kai Tak',
+      'EDITION, thương hiệu khách sạn boutique sang trọng liên kết với MARRIOTT, đã giao phó cho Various Associates nâng cấp câu lạc bộ bãi biển của khách sạn đầu tiên tại Trung Quốc, được biết đến với tên gọi The Sanya.',
+    span: 'Trần Quốc Anh',
+    address: 'TP Hồ Chí Minh, Việt Nam',
     url: 'https://i.pinimg.com/564x/2e/9a/14/2e9a14f4b4e4b89f35622e490018fbd8.jpg'
   },
   {
-    title: 'Indianz',
+    title: 'Khách sạn Phú Quốc',
     content:
-      'The Pala Band of Mission Indians broke ground, literally, on a $170 million expansion and renovation of its casino in southern California.',
-    span: ' indianz.com',
-    address: 'Ho-Chunk Inc',
+      'Khu nghỉ dưỡng và khách sạn mới tại Phú Quốc đã khởi công một dự án mở rộng và nâng cấp quy mô lớn với chi phí đầu tư 170 triệu đô la, tạo ra một không gian nghỉ dưỡng hiện đại và đẳng cấp quốc tế.',
+    span: 'Vũ Thanh Hải',
+    address: 'Khu nghỉ dưỡng – Phú Quốc, Việt Nam',
     url: 'https://i.pinimg.com/564x/4f/43/14/4f43143662c54b48543d9273cfbdad1a.jpg'
   },
   {
-    title: 'The Hotel Trotter',
-    content: "Hotel Week London celebrates the re-opening of the city's hotels - The Hotel Trotter",
-    span: '30K Followers',
-    address: '1910 Posts - The Hotel Trotter',
+    title: 'Tuần lễ khách sạn Đà Nẵng',
+    content:
+      'Tuần lễ khách sạn Đà Nẵng kỷ niệm sự trở lại của các khách sạn và khu nghỉ dưỡng hàng đầu tại thành phố biển Đà Nẵng, tạo điểm nhấn cho ngành du lịch trong thời kỳ phục hồi.',
+    span: 'Nguyễn Huy Bảo',
+    address: 'Khách sạn biển – Đà Nẵng, Việt Nam',
     url: 'https://i.pinimg.com/736x/6f/08/09/6f08090c96960e9157c78f1f5e2dec5b.jpg'
   }
-]
+];
 
 export default function Review() {
   const { t } = useTranslation()
@@ -84,7 +85,7 @@ export default function Review() {
             {slide.map((slide, index) => (
               <SwiperSlide key={index} className="flex w-full mt-20">
                 <div className="p-6 bg-white space-y-4 flex flex-col w-[28rem] h-[31rem] rounded-xl border border-gray-300">
-                  <h1 className="text-lg lg:text-3xl">{slide.title}</h1>
+                  <h1 className="text-lg mb-7 lg:text-2xl">{slide.title}</h1>
                   <p className="text-gray-400 textContainer">{slide.content}</p>
                   <span className="flex ml-auto text-sm font-medium">View more</span>
 
