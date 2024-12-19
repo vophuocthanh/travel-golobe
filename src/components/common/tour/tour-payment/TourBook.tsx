@@ -62,7 +62,7 @@ export default function TourBook({ onClick, data, loading }: ITourBook) {
         <div className="mt-4 border-t"></div>
         <div className="flex justify-between mt-4">
           <p className="text-lg font-semibold">{t('Total')}</p>
-          <p className="text-lg font-bold">{formatCurrencyVND(data?.totalAmount)}</p>
+          <p className="text-lg font-bold">{formatCurrencyVND(data?.price)}</p>
         </div>
         <Button onClick={onClick} loading={loading} className="w-full mt-4">
           {t('Payment')}
