@@ -21,7 +21,7 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
             <h4 className="font-semibold">{t('CashPayment')}</h4>
             <p className="text-sm text-gray-500">{t('Withpayment')}</p>
           </div>
-          <RadioGroupItem className="flex items-center justify-center" value="part" id="option-two" />
+          <RadioGroupItem className="flex items-center justify-center" value="full" id="option-one" />
         </div>
 
         <div
@@ -34,7 +34,7 @@ const PaymentOptions: React.FC<PaymentOptionsProps> = ({ paymentOption, handleCl
             <h4 className="font-semibold">{t('paymentMOMO')}</h4>
             <p className="text-sm text-gray-500">{t('WithMOMO')}</p>
           </div>
-          <RadioGroupItem className="flex items-center justify-center" value="full" id="option-one" />
+          <RadioGroupItem className="flex items-center justify-center" value="part" id="option-two" />
         </div>
       </div>
     </RadioGroup>
