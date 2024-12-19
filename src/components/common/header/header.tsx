@@ -44,9 +44,8 @@ export default function Header({ className }: HeaderProps) {
                 <div className="flex flex-col gap-4 p-2">
                   <Link
                     to="/vehicle/flight"
-                    className={`flex items-center gap-2 rounded-md w-full justify-center h-[2rem] ${
-                      selectedItem === 'flight' ? 'bg-green-200' : ''
-                    }`}
+                    className={`flex items-center gap-2 rounded-md w-full justify-center h-[2rem] ${selectedItem === 'flight' ? 'bg-green-200' : ''
+                      }`}
                     onClick={() => setSelectedItem('flight')}
                   >
                     <IconFlight />
@@ -54,9 +53,8 @@ export default function Header({ className }: HeaderProps) {
                   </Link>
                   <Link
                     to="/vehicle/coach"
-                    className={`flex items-center gap-2 rounded-md w-full justify-center h-[2rem] ${
-                      selectedItem === 'road' ? 'bg-green-200' : ''
-                    }`}
+                    className={`flex items-center gap-2 rounded-md w-full justify-center h-[2rem] ${selectedItem === 'road' ? 'bg-green-200' : ''
+                      }`}
                     onClick={() => setSelectedItem('road')}
                   >
                     <TramFront />
@@ -75,7 +73,7 @@ export default function Header({ className }: HeaderProps) {
             <span>{t('tour')}</span>
           </Link>
         </div>
-        <Link to="/" className="hidden mr-40 sm:block">
+        <Link to="/" className="hidden mr-2 sm:block">
           <img src={logo} alt="logo" className="w-24 h-10" />
         </Link>
         <div className="sm:hidden">
