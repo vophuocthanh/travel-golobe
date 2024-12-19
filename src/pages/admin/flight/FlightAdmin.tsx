@@ -295,7 +295,7 @@ const FlightAdmin: React.FC = () => {
   return (
     <div className='w-full p-2'>
       <div className='flex items-center justify-between'>
-        <p className='text-2xl font-bold'>Quản lý máy bay</p>
+        <p className='text-2xl font-bold'>Quản lý - Máy bay</p>
         <Button onClick={handleDownloadExcelFlight} className='flex items-center gap-2'>
           <svg
             xmlns='http://www.w3.org/2000/svg'

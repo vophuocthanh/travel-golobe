@@ -8,7 +8,7 @@ import TourInfo from '@/components/common/tour/tour-payment/TourInfo'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 export default function TourPayment() {
@@ -73,10 +73,14 @@ export default function TourPayment() {
             <div className='flex items-center space-x-2'>
               <div className='items-start flex-1 w-full mt-2 mb-2'>
                 <div className='flex items-center space-x-2 text-gray-800 text-md'>
-                  <p className='text-red-400'>Turkey</p>
-                  <ChevronRight className='w-4 h-4' />
-                  <p className='text-red-400'>Istanbul</p>
-                  <ChevronRight className='w-4 h-4' />
+                  <Link to="/tour" className="text-red-400">
+                    Tour
+                  </Link>
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
+                  <Link to="/tour/all-tour" className="text-red-400">
+                    Tour All
+                  </Link>
+                  <ChevronRight className="w-4 h-4" />
                   <p>{getBookingDetailTour?.name}</p>
                 </div>
               </div>
