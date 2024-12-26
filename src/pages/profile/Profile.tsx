@@ -75,38 +75,38 @@ export default function Profile() {
   return (
     <div>
       <Header />
-      <section className='container mx-auto pt-28'>
-        <div className='relative banner'>
-          <div className='object-cover w-full h-80 rounded-xl' style={{ backgroundColor: randomColor }}></div>
-          <div className='absolute flex flex-col items-center transform -translate-x-1/2 -bottom-24 left-1/2'>
+      <section className="container mx-auto pt-28">
+        <div className="relative banner">
+          <div className="object-cover w-full h-80 rounded-xl" style={{ backgroundColor: randomColor }}></div>
+          <div className="absolute flex flex-col items-center transform -translate-x-1/2 -bottom-24 left-1/2">
             <img
               src={getMeProfile?.avatar}
-              alt='Avatar'
-              className='border-4 border-white rounded-full shadow-lg cursor-pointer w-36 h-36'
+              alt="Avatar"
+              className="border-4 border-white rounded-full shadow-lg cursor-pointer w-36 h-36"
               onClick={handleClickAvatar}
             />
-            <p className='mt-2 text-lg font-semibold'>{getMeProfile?.name}</p>
-            <p className='text-gray-500'>{getMeProfile?.email}</p>
+            <p className="mt-2 text-lg font-semibold">{getMeProfile?.name}</p>
+            <p className="text-gray-500">{getMeProfile?.email}</p>
 
-            <input type='file' accept='image/*' className='hidden' ref={inputFileRef} onChange={handleUploadAvatar} />
+            <input type="file" accept="image/*" className="hidden" ref={inputFileRef} onChange={handleUploadAvatar} />
           </div>
         </div>
 
-        <div className='pb-64 mx-auto lg:container pt-28'>
-          <Tabs value={activeTab} onValueChange={handleTabChange} className='mt-5'>
-            <TabsList className='flex justify-center py-5 mb-6 space-x-6 rounded-md shadow-md lg:space-x-40 lg:w-full'>
+        <div className="pb-64 mx-auto lg:container pt-28">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="mt-5">
+            <TabsList className="flex justify-center py-5 mb-6 space-x-6 rounded-md shadow-md lg:space-x-40 lg:w-full">
               <TabsTrigger
-                value='account'
+                value="account"
                 className={`px-4 py-2 font-semibold ${
                   activeTab === 'account'
                     ? 'text-primary border-b-2 border-primary-500'
                     : 'text-gray-700 border-b-2 border-transparent'
                 } hover:border-primary`}
               >
-                 {t('Account')}
+                {t('Account')}
               </TabsTrigger>
               <TabsTrigger
-                value='Tickets-Booking'
+                value="Tickets-Booking"
                 className={`px-4 py-2 font-semibold truncate ${
                   activeTab === 'Tickets-Booking'
                     ? 'text-primary border-b-2 border-primary-500'
@@ -116,7 +116,7 @@ export default function Profile() {
                 {t('Tickets')}
               </TabsTrigger>
               <TabsTrigger
-                value='Payment-methods'
+                value="Payment-methods"
                 className={`px-4 py-2 font-semibold truncate ${
                   activeTab === 'Payment-methods'
                     ? 'text-primary border-b-2 border-primary-500'
@@ -126,81 +126,79 @@ export default function Profile() {
                 {t('Paymentmethods')}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value='account'>
-              <p className='mb-6 text-xl font-bold lg:text-2xl'>{t('Account')} </p>
-              <div className='space-y-3 text-md lg:text-lg'>
+            <TabsContent value="account">
+              <p className="mb-6 text-xl font-bold lg:text-2xl">{t('Account')} </p>
+              <div className="space-y-3 text-md lg:text-lg">
                 <ContentName title={t('Name')} content={getMeProfile?.name} />
-                <ContentEmail title= {t('Email')} content={getMeProfile?.email} />
+                <ContentEmail title={t('Email')} content={getMeProfile?.email} />
                 <ContentPhone title={t('PhoneNumber')} content={getMeProfile?.phone} />
                 <ContentDate title={t('DateBirth')} content={getMeProfile?.date_of_birth} />
                 <ContentAddress title={t('Adresss')} content={getMeProfile?.address} />
                 <ContentCountry title={t('Country')} content={getMeProfile?.country} />
-                <ContentPassword title={t('Password')} content='*************' />
+                <ContentPassword title={t('Password')} content="*************" />
               </div>
             </TabsContent>
-            <TabsContent value='Tickets-Booking'>
-              <p className='mb-2 text-xl font-semibold lg:mb-4 lg:text-2xl'>{t('Tickets')} </p>
+            <TabsContent value="Tickets-Booking">
+              <p className="mb-2 text-xl font-semibold lg:mb-4 lg:text-2xl">{t('Tickets')} </p>
 
               <PaymentHistory />
             </TabsContent>
-            <TabsContent value='Payment-methods'>
-              <p className='text-xl font-bold lg:text-2xl'>{t('PaymentMethod')} </p>
-              <div className='relative items-center gap-6 px-4 py-6 my-5 bg-white border border-gray-300 rounded-lg shadow-md lg:flex'>
-                <div className='grid grid-cols-2 gap-6 px-6 py-8 mb-4 text-black shadow-lg bg-primary rounded-2xl w-80 h-44'>
-                  <p className='col-span-1 text-xl font-semibold'>*******</p>
-                  <div className='flex items-center justify-end col-span-1'>
-                    <Cpu className='w-8 h-8' />
+            <TabsContent value="Payment-methods">
+              <p className="text-xl font-bold lg:text-2xl">{t('PaymentMethod')} </p>
+              <div className="relative items-center gap-6 px-4 py-6 my-5 bg-white border border-gray-300 rounded-lg shadow-md lg:flex">
+                <div className="grid grid-cols-2 gap-6 px-6 py-8 mb-4 text-black shadow-lg bg-primary rounded-2xl w-80 h-44">
+                  <p className="col-span-1 text-xl font-semibold">*******</p>
+                  <div className="flex items-center justify-end col-span-1">
+                    <Cpu className="w-8 h-8" />
                   </div>
-                  <div className='col-span-1'>
-                    <p className='text-base'> {t('ValidThru')}</p>
-                    <p className='text-xl font-semibold'>02/27</p>
+                  <div className="col-span-1">
+                    <p className="text-base"> {t('ValidThru')}</p>
+                    <p className="text-xl font-semibold">02/27</p>
                   </div>
-                  <div className='flex items-center justify-end col-span-1'>
-                    <CreditCard className='w-8 h-8' />
+                  <div className="flex items-center justify-end col-span-1">
+                    <CreditCard className="w-8 h-8" />
                   </div>
                 </div>
 
                 <Dialog>
                   <DialogTrigger>
-                    <div className='bg-white border border-dashed shadow-lg text-primary border-primary rounded-2xl w-80 h-44'>
-                      <div className='flex items-center justify-center h-44'>
-                        <CirclePlus className='w-8 h-8 text-primary' />
+                    <div className="bg-white border border-dashed shadow-lg text-primary border-primary rounded-2xl w-80 h-44">
+                      <div className="flex items-center justify-center h-44">
+                        <CirclePlus className="w-8 h-8 text-primary" />
                       </div>
                     </div>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle className='mb-4 text-xl font-semibold text-center'>{t('AddCard')}</DialogTitle>
+                      <DialogTitle className="mb-4 text-xl font-semibold text-center">{t('AddCard')}</DialogTitle>
                       <DialogDescription>
                         <form>
-                          <Input name='Card Number' icon={<CreditCard />} />
-                          <div className='grid grid-cols-2 gap-2 mb-4'>
-                            <div className='col-span-1'>
-                              <Input name='Exp. Date' />
+                          <Input name="Card Number" icon={<CreditCard />} />
+                          <div className="grid grid-cols-2 gap-2 mb-4">
+                            <div className="col-span-1">
+                              <Input name="Exp. Date" />
                             </div>
-                            <div className='col-span-1'>
-                              <Input name='CVC' />
+                            <div className="col-span-1">
+                              <Input name="CVC" />
                             </div>
                           </div>
-                          <Input name='Name on Card' />
-                          <Input name='Country or Region' />
-                          <div className='flex items-center pb-3 space-x-3'>
+                          <Input name="Name on Card" />
+                          <Input name="Country or Region" />
+                          <div className="flex items-center pb-3 space-x-3">
                             <input
-                              id='save-info-checkbox'
-                              type='checkbox'
-                              className='w-5 h-5 text-blue-600 border-gray-300 rounded form-checkbox focus:ring-blue-500'
+                              id="save-info-checkbox"
+                              type="checkbox"
+                              className="w-5 h-5 text-blue-600 border-gray-300 rounded form-checkbox focus:ring-blue-500"
                             />
-                            <label htmlFor='save-info-checkbox' className='text-sm text-gray-700'>
-                            {t('information')} 
+                            <label htmlFor="save-info-checkbox" className="text-sm text-gray-700">
+                              {t('information')}
                             </label>
                           </div>
-                          <Button type='submit' className='w-full bg-primary'>
+                          <Button type="submit" className="w-full bg-primary">
                             {t('Submit')}
                           </Button>
 
-                          <p className='text-xs text-center text-gray-500'>
-                          {t('confirming')}
-                          </p>
+                          <p className="text-xs text-center text-gray-500">{t('confirming')}</p>
                         </form>
                       </DialogDescription>
                     </DialogHeader>

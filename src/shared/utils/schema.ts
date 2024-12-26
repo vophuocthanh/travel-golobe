@@ -35,7 +35,13 @@ export const FormSchemaRegister = z.object({
       message: 'Password must be at least 6 characters long, contain at least one uppercase letter and one number'
     }),
   name: z.string().min(1, { message: 'Name is required' }),
-  role: z.number().min(1, { message: 'Role is required' })
+  role: z.number().min(1, { message: 'Role is required' }),
+  phone: z
+    .string()
+    .length(10, { message: 'Phone number must be exactly 10 digits' })
+    .regex(/^\d{10}$/, {
+      message: 'Phone number must be exactly 10 digits'
+    })
 })
 
 export const ForgotPasswordSchema = z.object({

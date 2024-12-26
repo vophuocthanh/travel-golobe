@@ -119,7 +119,7 @@ export default function Register() {
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="Nhập phone number" {...field} className="w-full" />
+                        <Input placeholder="Nhập phone number" {...field} className="w-full" maxLength={10} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

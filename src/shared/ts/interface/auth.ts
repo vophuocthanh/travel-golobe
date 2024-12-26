@@ -17,5 +17,5 @@ export interface Account {
   password: string
   confirmPassword?: string
   name?: string
-  phone?: string
+  phone: string
 }
